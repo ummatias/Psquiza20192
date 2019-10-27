@@ -1,0 +1,90 @@
+#P1, P2 E P3 CRIADOS
+#O1, O2, O3, O4 e O5 CRIADOS 
+#P3 APAGADO
+#O5 APAGADO
+
+#CRIANDO PROBLEMAS
+
+cadastraProblema descricao="O problema do discurso homofobico em chats online de alunos de computacao de primeiro periodo" viabilidade=3
+cadastraProblema descricao="A problematica do aprendizado dos conceitos de programacao orientada a objeto" viabilidade=5
+cadastraProblema descricao="A dificuldade da predicao do sistema eleitoral brasileiro" viabilidade=1
+
+
+#ERRO NO CADASTRO DE NOVOS PROBLEMAS
+
+expectError "Campo descricao nao pode ser nulo ou vazio." cadastraProblema descricao="" viabilidade=2
+expectError "Valor invalido de viabilidade." cadastraProblema descricao="A dificuldade de gerar dados precisos em experimentos sobre dinamica em gravidade 0" viabilidade=-3
+expectError "Valor invalido de viabilidade." cadastraProblema descricao="A dificuldade de gerar dados precisos em experimentos sobre dinamica em gravidade 0" viabilidade=0
+expectError "Valor invalido de viabilidade." cadastraProblema descricao="A dificuldade de gerar dados precisos em experimentos sobre dinamica em gravidade 0" viabilidade=111
+
+#CRIANDO NOVOS OBJETIVOS
+
+cadastraObjetivo tipo="GERAL" descricao="Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao." aderencia=4 viabilidade=2
+cadastraObjetivo tipo="ESPECIFICO" descricao="Realizar rodas de conversa entre alunos do curso, incluindo especialmente aqueles que emitem mensagens homofobicas e alunos ou pessoas homoafetivas." aderencia=5 viabilidade=4
+cadastraObjetivo tipo="ESPECIFICO" descricao="Detectar, atraves de bot eletronico, a presenca de mensagens eletronicas com conteudo homofobico." aderencia=2 viabilidade=5
+cadastraObjetivo tipo="GERAL" descricao="Aumentar a porcentagem de pessoas que entregam os laboratorios na disciplina de LP2." aderencia=4 viabilidade=4
+cadastraObjetivo tipo="GERAL" descricao="Objetivo criado para ser deletado" aderencia=1 viabilidade=5
+
+
+#ERRO NO CADASTRO DE NOVOS OBJETIVOS
+
+expectError "Campo tipo nao pode ser nulo ou vazio." cadastraObjetivo tipo="" descricao="Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de todos os periodos de computacao" aderencia=4 viabilidade=2
+expectError "Campo descricao nao pode ser nulo ou vazio." cadastraObjetivo tipo="GERAL" descricao="" aderencia=4 viabilidade=2
+expectError "Valor invalido de tipo." cadastraObjetivo tipo="TREVOSO" descricao="Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de todos os periodos de computacao" aderencia=2 viabilidade=2
+expectError "Valor invalido de tipo." cadastraObjetivo tipo="0" descricao="Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de todos os periodos de computacao" aderencia=2 viabilidade=2
+expectError "Valor invalido de aderencia" cadastraObjetivo tipo="GERAL" descricao="Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de todos os periodos de computacao" aderencia=0 viabilidade=2
+expectError "Valor invalido de aderencia" cadastraObjetivo tipo="GERAL" descricao="Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de todos os periodos de computacao" aderencia=9 viabilidade=2
+expectError "Valor invalido de aderencia" cadastraObjetivo tipo="GERAL" descricao="Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de todos os periodos de computacao" aderencia=-1 viabilidade=2
+expectError "Valor invalido de viabilidade." cadastraObjetivo tipo="GERAL" descricao="Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de todos os periodos de computacao" aderencia=4 viabilidade=0
+expectError "Valor invalido de viabilidade." cadastraObjetivo tipo="GERAL" descricao="Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de todos os periodos de computacao" aderencia=4 viabilidade=22
+expectError "Valor invalido de viabilidade." cadastraObjetivo tipo="GERAL" descricao="Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de todos os periodos de computacao" aderencia=4 viabilidade=-2
+
+
+#APAGANDO PROBLEMAS
+
+apagarProblema codigo="P3"
+
+
+#ERRO NO APAGAMENTO DE PROBLEMAS
+
+expectError "Campo codigo nao pode ser nulo ou vazio." apagarProblema codigo=""
+expectError "Problema nao encontrado" apagarProblema codigo="P666"
+expectError "Problema nao encontrado" apagarProblema codigo="P3"
+
+
+#APAGANDO OBJETIVOS
+
+apagarObjetivo codigo="O5"
+
+
+#ERRO NO APAGAMENTO DE OBJETIVOS
+
+expectError "Campo codigo nao pode ser nulo ou vazio." apagarObjetivo codigo=""
+expectError "Objetivo nao encontrado" apagarObjetivo codigo="O47"
+expectError "Objetivo nao encontrado" apagarObjetivo codigo="O5"
+
+
+#EXIBINDO PROBLEMAS
+
+expect "P1 - O problema do discurso homofobico em chats online de alunos de computacao de primeiro periodo - 3" exibeProblema codigo="P1"
+expect "P2 - A problematica do aprendizado dos conceitos de programacao orientada a objeto - 5" exibeProblema codigo="P2"
+
+
+#ERRO NA EXIBICAO DE PROBLEMAS
+
+expectError "Problema nao encontrado" exibeProblema codigo="P3"
+expectError "Problema nao encontrado" exibeProblema codigo="P666"
+
+
+#EXIBINDO OBJETIVOS
+
+expect "O1 - GERAL - Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao. - 6" exibeObjetivo codigo="O1"
+expect "O2 - ESPECIFICO - Realizar rodas de conversa entre alunos do curso, incluindo especialmente aqueles que emitem mensagens homofobicas e alunos ou pessoas homoafetivas. - 9" exibeObjetivo codigo="O2"
+expect "O3 - ESPECIFICO - Detectar, atraves de bot eletronico, a presenca de mensagens eletronicas com conteudo homofobico. - 7" exibeObjetivo codigo="O3"
+expect "O4 - GERAL - Aumentar a porcentagem de pessoas que entregam os laboratorios na disciplina de LP2. - 8" exibeObjetivo codigo="O4"
+
+
+#ERRO NA EXIBICAO DE OBJETIVOS
+
+expectError "Objetivo nao encontrado" exibeObjetivo codigo="O5"
+expectError "Objetivo nao encontrado" exibeObjetivo codigo="O47"
