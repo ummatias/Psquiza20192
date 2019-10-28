@@ -10,7 +10,7 @@ class PesquisadorControllerTest {
 	private PesquisadorController controller;
 	
 	@BeforeEach
-	public CriaController() {
+	public void CriaController() {
 		this.controller = new PesquisadorController();
 		this.controller.cadastraPesquisador("Maria", "estudante", "tem interesse em inteligencia artificial","maria@gmail.com","http://www.minhafoto.com");
 	}
@@ -86,7 +86,7 @@ class PesquisadorControllerTest {
 	@Test
 	void testCadastraPesquisadorFotoVazia() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			this.controller.cadastraPesquisador("Pedro", "estudante", "pesquisa eficiencia de algoritmos", "");
+			this.controller.cadastraPesquisador("Pedro", "estudante", "pesquisa eficiencia de algoritmos", "pedro@gmail.com", "");
 		});
 	}
 

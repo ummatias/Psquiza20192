@@ -78,4 +78,28 @@ public class ValidadorEntradas {
 		
 	}
 
+	/**Método que valida o email do pesquisador.
+	 * Para ser valido deve ter um @, e uma letra ou numero antes e depois do @
+	 * @param email - email do pesquisador a ser validado.
+	 * @param msg - mensagem de erro a ser exibidada caso seja invalido
+	 */
+	public static void validaEmail(String email, String msg) {
+		String[] parts = email.split("@");
+		if (parts.length !=2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+			throw new IllegalArgumentException(msg);
+		}
+	}
+
+	/** Método que valida a URL da foto.
+	 * Para ser valida, deve começar com http:// ou https://
+	 * @param fotoURL - URL da foto a ser validada
+	 * @param msg - mensagem de erro a ser exibidada caso seja invalido
+	 */
+	public static void validaFoto(String fotoURL, String msg) {
+		String[] parts = fotoURL.split("//");
+		if (parts.length != 2 || !(parts[0].equals("http:")) || !(parts[0].equals("https:") || parts[1].trim().isEmpty())) {
+			throw new IllegalArgumentException(msg);
+		}
+	}
+
 }
