@@ -52,16 +52,16 @@ public class Pesquisa {
 		
 		this.campoDeInteresse = campoDeInteresse;
 	}
-	
 	public void ativaPesquisa() {
 		this.status = true;
-	}
-	public void desativaPesquisa() {
-		this.status = false;
 	}
 	public boolean getStatus() {
 		return this.status;
 	}
+	public void desativaPesquisa() {
+		this.status = false;
+	}
+
 	
 
 }
