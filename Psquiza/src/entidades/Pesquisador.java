@@ -92,42 +92,69 @@ public class Pesquisador {
 		return nome + " ( " + funcao + " ) - " + biografia + " - " + email + " - " + fotoURL;
 	}
 
+	/** Método para alterar o nome do pesquisador
+	 * @param novoValor - novo nome do pesquisador
+	 */
 	public void setNome(String novoValor) {
 		ValidadorEntradas.validarString(novoValor, "Campo nome nao pode ser nulo ou vazio.");
 		this.nome = novoValor;
 		
 	}
 
+	/** Método para alterar a função do pesquisador(estudante, professor, externo)
+	 * @param novoValor - a nova função do pesquisador
+	 */
 	public void setFuncao(String novoValor) {
 		ValidadorEntradas.validarString(novoValor, "Campo funcao nao pode ser nulo ou vazio.");
 		this.funcao = novoValor;
 		
 	}
 
+	/** Método para alterar a biografia do pesquisador
+	 * @param novoValor - nova biografia
+	 */
 	public void setBiografia(String novoValor) {
 		ValidadorEntradas.validarString(novoValor, "Campo biografia nao pode ser nulo ou vazio.");
 		this.biografia = novoValor;
 	}
 
+	/** Método para alterar o email
+	 * @param novoValor - novo endereço de email do pesquisador
+	 */
 	public void setEmail(String novoValor) {
 		ValidadorEntradas.validaEmail(email, "Formato de email invalido.");
 		this.email = novoValor;
 	}
 
+	/**Método para alterar a url da foto do pesquisador
+	 * @param novoValor - nova url
+	 */
 	public void setFoto(String novoValor) {
 		ValidadorEntradas.validarString(novoValor, "Campo fotoURL nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validaFoto(fotoURL, "Formato de foto invalido.");
 		this.fotoURL = novoValor;
 	}
 
+	/** Método para poder acessar o status do pesquisador, sem poder altera-lo
+	 * @return o status (true ou false)
+	 */
 	public boolean getStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
-		this.status = status;
+	/**
+	 * Método que desativa um pesquisador, o Objeto
+	 * não poderá ser exibido ou alterado.
+	 */
+	public void desativa() {
+		status = false;
 	}
 	
-	
-
+	/**
+	 * Método que ativa ou reativa um pesquisador,
+	 * alterando seu status para true.
+	 */
+	public void ativa() {
+		status = true;
+	}
 }

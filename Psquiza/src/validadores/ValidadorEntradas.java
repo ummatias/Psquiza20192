@@ -102,4 +102,10 @@ public class ValidadorEntradas {
 		}
 	}
 
+	public static void validaAtributosPesquisador(String atributo, String msg) {
+		if(!atributo.equals("NOME") || !atributo.equals("EMAIL") || !atributo.equals("FOTO") || !atributo.equals("BIOGRAFIA") || !atributo.equals("FUNCAO")) {
+			throw new IllegalArgumentException(msg);
+		}
+	}
+
 }
