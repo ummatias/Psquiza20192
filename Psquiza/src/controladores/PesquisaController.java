@@ -45,4 +45,10 @@ public class PesquisaController {
         if(this.pesquisasCadastradas.containsKey(codigo)){
             this.pesquisasCadastradas.get(codigo).encerraPesquisa(motivo);
         }
+    }
+        public void ativaPesquisa(String codigo){
+            if(this.pesquisasCadastradas.containsKey(codigo)){
+                this.pesquisasCadastradas.get(codigo).ativaPesquisa();
+            }throw new IllegalArgumentException("Pesquisa nao encontrada");
+        }
 }
