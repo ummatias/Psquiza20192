@@ -51,4 +51,9 @@ public class PesquisaController {
                 this.pesquisasCadastradas.get(codigo).ativaPesquisa();
             }throw new IllegalArgumentException("Pesquisa nao encontrada");
         }
+        public String exibePesquisa(String codigo){
+            if(this.pesquisasCadastradas.containsKey(codigo)){
+                return this.pesquisasCadastradas.get(codigo).toString();
+            }throw new IllegalArgumentException("Pesquisa nao encontrada");
+        }
 }
