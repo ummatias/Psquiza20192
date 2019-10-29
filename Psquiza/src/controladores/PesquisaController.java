@@ -36,4 +36,13 @@ public class PesquisaController {
         this.chavesGeradas.put(codigo,chavesGeradas.get(codigo) + 1);
         return codigoGerado;
     }
+    public void alteraPesquisa(String codigo, String conteudoASerAlterado, String novoConteudo){
+        if(this.pesquisasCadastradas.containsKey(codigo)){
+            this.pesquisasCadastradas.get(codigo).alteraPesquisa(conteudoASerAlterado,novoConteudo);
+        }throw new IllegalArgumentException("Pesquisa nao encontrada");
+    }
+    public void encerraPesquisa(String codigo, String motivo){
+        if(this.pesquisasCadastradas.containsKey(codigo)){
+            this.pesquisasCadastradas.get(codigo).encerraPesquisa(motivo);
+        }
 }
