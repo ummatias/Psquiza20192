@@ -37,5 +37,13 @@ public class Problema {
 		this.descricao = descricao;
 		this.viabilidade = viabilidade;
 	}
+	
+	/**
+	 * Gera a representação em String de um Problema
+	 */
+	@Override
+	public String toString() {
+		return this.codigo + " - " + this.descricao + " - " + this.viabilidade;
+	}
 
 }

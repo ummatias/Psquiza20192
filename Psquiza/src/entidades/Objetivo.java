@@ -53,5 +53,21 @@ public class Objetivo {
 		this.aderencia = aderencia;
 		this.viabilidade = viabilidade;
 	}
+	
+	/**
+	 * Retorna a representação em String de um Objetivo
+	 */
+	@Override
+	public String toString() {
+		return this.codigo + " - " + this.tipo + " - " + this.descricao + " - " + this.getValor();
+	}
+
+	/**
+	 * Calcula o valor de um Objetivo, que é a soma de seus atributos aderencia e viabilidade.
+	 * @return a soma aderencia+viabilidade
+	 */
+	private int getValor() {
+		return this.aderencia + this.viabilidade;
+	}
 
 }
