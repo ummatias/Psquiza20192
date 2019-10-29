@@ -59,7 +59,7 @@ public class ProblemaObjetivoController {
 		ValidadorEntradas.validarString(descricao, "Campo descricao nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarViabilidade(viabilidade, "Valor invalido de viabilidade.");
 
-		String codigo = "O" + (this.ultimoIDProblemas++);
+		String codigo = "P" + (++this.ultimoIDProblemas);
 		Problema novoProb = new Problema(codigo, descricao, viabilidade);
 
 		this.problemas.put(codigo, novoProb);
@@ -84,7 +84,7 @@ public class ProblemaObjetivoController {
 		ValidadorEntradas.validarAderencia(aderencia, "Valor invalido de aderencia");
 		ValidadorEntradas.validarViabilidade(viabilidade, "Valor invalido de viabilidade.");
 		
-		String codigo = "P" + (this.ultimoIDProblemas++);
+		String codigo = "O" + (++this.ultimoIDProblemas);
 		Objetivo novoObj = new Objetivo(codigo, tipo, descricao, aderencia, viabilidade);
 		
 		this.objetivos.put(codigo, novoObj);
@@ -92,6 +92,64 @@ public class ProblemaObjetivoController {
 		return codigo;
 		
 	}
+
+	/**
+	 * Apaga um problema do sistema
+	 * 
+	 * @param codigo o codigo do pesquisador a ser apagado
+	 */
+	public void apagaProblema(String codigo) {
+		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
+		
+		if(problemas.containsKey(codigo)) {
+			problemas.remove(codigo);
+		} else {
+			throw new IllegalArgumentException("Problema nao encontrado");
+		}
+		
+	}
+
+	/**
+	 * Apaga um objetivo cadastrado no sistema
+	 * 
+	 * @param codigo o codigo do objetivo a ser apagado
+	 */
+	public void apagaObjetivo(String codigo) {
+		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
+		
+		if(objetivos.containsKey(codigo)) {
+			objetivos.remove(codigo);
+		} else {
+			throw new IllegalArgumentException("Objetivo nao encontrado");
+		}
+		
+	}
+
+	/**
+	 * Exibe a representação String de um Problema
+	 * 
+	 * @param codigo o codigo do problema a ser visualizado
+	 * @return a representação String do Problema
+	 */
+	public String exibeProblema(String codigo) {
+		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
+		
+		if(problemas.containsKey(codigo)) {
+			return problemas.get(codigo).toString();
+		} else {
+			throw new IllegalArgumentException("Problema nao encontrado");
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 }
