@@ -16,14 +16,7 @@ class ProblemaObjetivoControllerTest {
 	void setUp() {
 		POcontroller = new ProblemaObjetivoController();
 	}
-
-	@Test
-	void testViabilidadeZeroEmProblema() {
-		assertThrows(IllegalArgumentException.class, () -> {
-			POcontroller.cadastraProblema("Presidente é um machista escroto", 0);
-		});
-	}
-
+	
 	@Test
 	void testViabilidadeZeroEmObjetivo() {
 		assertThrows(IllegalArgumentException.class, () -> {
@@ -59,34 +52,16 @@ class ProblemaObjetivoControllerTest {
 		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	void testCadastraProblemaViabilidadeNull() {
-		POcontroller.cadastraProblema("Transformar crianças com beijo gay na novela", null);
+		assertThrows(NullPointerException.class, () -> {
+			POcontroller.cadastraProblema("Transformar crianças com beijo gay na novela", null);
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	void testCadastraObjetivoViabilidadeDouble() {
-		POcontroller.cadastraObjetivo("Geral", "Desfazer o estrago em Brumadinho", 5, 4.5);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	void testAderenciaZero() {
-		POcontroller.cadastraObjetivo("Especifico", "Cuidar do meio ambiente e não votar em embuste", 0, 5);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	void testAderenciaAcimaDe5() {
-		POcontroller.cadastraObjetivo("Geral", "Exibir a camisa no varal", 6, 4);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	void testAderenciaEmDouble() {
-		POcontroller.cadastraObjetivo("ESPECIFICO", "A Vale assumir a culpa pelo o que fez e tomar medidas", 9.5, 4);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	void testApagaProblemaInexistente() {
-		POcontroller.apagaProblema("P4");
+		assertThrows(IllegalArgumentException.class, () -> { POcontroller.apagaProblema("P4"); });
 	}
 
 	@Test
@@ -100,9 +75,10 @@ class ProblemaObjetivoControllerTest {
 		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	void testApagaObjetivoInexistente() {
-		POcontroller.apagaObjetivo("o5");
+		assertThrows(IllegalArgumentException.class, () -> {
+			POcontroller.apagaObjetivo("O5");});
 	}
 
 	@Test
@@ -115,7 +91,33 @@ class ProblemaObjetivoControllerTest {
 			POcontroller.apagaObjetivo(null);
 		});
 	}
-
+	@Test
+	void testCodigoProblemaComLetraMinuscula() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			POcontroller.apagaProblema("p2");
+		});
+	}
+	
+	@Test
+	void testCodigoObjetivoComLetraMinuscula() {
+		assertThrows(IllegalArgumentException.class, () -> {
+		POcontroller.exibeObjetivo("o3");
+		});
+	}
+	
+	@Test
+	void testCodigoProblemaComLetraApenasLetras() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			POcontroller.apagaProblema("PP");
+		});
+	}
+	@Test
+	void testCodigoObjetivoComLetraApenasLetras() {
+		assertThrows(IllegalArgumentException.class, () -> {
+		POcontroller.exibeObjetivo("OO");
+		});
+	}
+	
 	@Test
 	void testApagaProblemaComSucesso() {
 		POcontroller.cadastraProblema("Fora Temer", 5);
@@ -124,13 +126,15 @@ class ProblemaObjetivoControllerTest {
 
 	@Test
 	void testApagaObjetivoComSucesso() {
-		POcontroller.cadastraObjetivo("Geral", "Tira o pêtê", 5, 5);
+		POcontroller.cadastraObjetivo("Geral", "Tira o pete", 5, 5);
 		POcontroller.apagaObjetivo("O1");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	void testExibeProblemaInexistente() {
-		POcontroller.exibeProblema(p);
+		assertThrows(IllegalArgumentException.class, () -> {
+			POcontroller.exibeProblema(p);
+		});
 	}
 
 	@Test
@@ -144,9 +148,11 @@ class ProblemaObjetivoControllerTest {
 		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	void testExibeObjetivoInexistente() {
-		POcontroller.exibeObjetivo(o);
+		assertThrows(IllegalArgumentException.class, () -> {
+			POcontroller.exibeObjetivo(o);
+		});	
 	}
 
 	@Test
@@ -155,42 +161,36 @@ class ProblemaObjetivoControllerTest {
 			POcontroller.exibeObjetivo("");
 		});
 
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(NullPointerException.class, () -> {
 			POcontroller.exibeObjetivo(null);
 		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	void testIdProblemaComZero() {
-		POcontroller.exibeProblema("P0");
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	void testIdObjetivoComZero() {
-		POcontroller.exibeObjetivo("O0");
-	}
-
 	@Test
 	void testExibeProblemaComSucesso() {
-		POcontroller.cadastraProblema("A Flora não é a protagonista das Winx", 4);
-		assertEquals(POcontroller.exibeProblema("P1"), "P1 - A Flora não é a protagonista das Winx - 4");
+		POcontroller.cadastraProblema("A Flora não eh a protagonista das Winx", 4);
+		assertEquals(POcontroller.exibeProblema("P1"), "P1 - A Flora não eh a protagonista das Winx - 4");
 	}
 
 	@Test
 	void testExibeObjetivosComSucesso() {
-		POcontroller.cadastraObjetivo("Geral", "Promover uma revolução", 4, 5);
-		POcontroller.cadastraObjetivo("Especifico", "Reclamar no twitter e causar comoção", 4, 3);
-		assertEquals(POcontroller.exibeObjetivo("O1"), "O1 - Promover uma revolução - 9");
-		assertEquals(POcontroller.exibeObjetivo("O2"), "O2 - Reclamar no twitter e causar comoção - 7");
+		POcontroller.cadastraObjetivo("Geral", "Promover uma revolucao", 4, 5);
+		POcontroller.cadastraObjetivo("Especifico", "Reclamar no twitter", 4, 3);
+		assertEquals(POcontroller.exibeObjetivo("O1"), "O1 - Promover uma revolucao - 9");
+		assertEquals(POcontroller.exibeObjetivo("O2"), "O2 - Reclamar no twitter - 7");
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	void testExibeObjetivoCodigoVazio() {
-		POcontroller.exibeObjetivo("");
+		assertThrows(IllegalArgumentException.class, () -> {
+			POcontroller.exibeObjetivo("");
+		});
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	void testExibeObjetivoCodigoNulo() {
-		POcontroller.exibeObjetivo(null);
+		assertThrows(IllegalArgumentException.class, () -> {
+			POcontroller.exibeObjetivo(null);
+		});
 	}
 }
