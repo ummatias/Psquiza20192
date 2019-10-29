@@ -71,6 +71,14 @@ public class Pesquisa {
 			this.setCampoDeInteresse(novoValor);
 		}
 	}
+	public void encerraPesquisa( String motivo) {
+		this.status = false;
+	}
+
+	@Override
+	public String toString() {
+		return this.codigo + " - " + this.descricao + " - " + this.campoDeInteresse;
+	}
 
 	
 
