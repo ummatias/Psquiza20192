@@ -82,8 +82,24 @@ public class Facade {
 		probObjController.apagaObjetivo(codigo);
 	}
 	
+	/**
+	 * Exibe a representação String de um Problema
+	 * 
+	 * @param codigo o codigo do problema a ser visualizado
+	 * @return a representação String do Problema
+	 */
 	public String exibeProblema(String codigo) {
 		return probObjController.exibeProblema(codigo);
+	}
+	
+	/**
+	 * Exibe a um Objetivo
+	 * 
+	 * @param codigo o codigo do objetivo
+	 * @return a representação em String do um objetivo.
+	 */
+	public String exibeObjetivo(String codigo) {
+		return probObjController.exibeObjetivo(codigo);
 	}
 	
 	/** 
