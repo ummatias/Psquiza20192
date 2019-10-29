@@ -2,6 +2,7 @@ package controladores;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.experimental.theories.suppliers.TestedOn;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,22 +27,35 @@ class PesquisaControllerTest {
 	}
 	
 	@Test
-	void testCadastraPesquisaDescricaoVaziaNula() {
+	void testCadastraMaisPesquisa() {
+		assertEquals("POL1", pesquisaController.cadastraPesquisa("Incompetencia presidencial e como isso impacta globalmente", "Politica, Bozo"));
+		assertEquals("POL2", pesquisaController.cadastraPesquisa("Pesquisa relaciona a participação feminina no senado", "Politica, Direitos"));
+
+	}
+	
+	@Test
+	void testCadastraPesquisaDescricaoVazia() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisaController.cadastraPesquisa("", "Economia, Oleo" );
 		});
-		
+	}
+	
+	@Test
+	void testCadastraPesquisaDescricaoNula() {
 		assertThrows(NullPointerException.class, () -> {
 			pesquisaController.cadastraPesquisa(null, "Economia, Oleo" );
 		});
 	}
 	
 	@Test
-	void testCadastraPesquisaCamposIntVazioNulo() {
+	void testCadastraPesquisaCamposIntVazio() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisaController.cadastraPesquisa("Pesquisa sobre como o cerebro percebe a dor", "" );
 		});
-		
+	}
+	
+	@Test
+	void testCadastraPesquisaCamposIntNulo() {
 		assertThrows(NullPointerException.class, () -> {
 			pesquisaController.cadastraPesquisa("Pesquisa sobre como o cerebro percebe a dor", null );
 		});
@@ -77,22 +91,28 @@ class PesquisaControllerTest {
 	}
 	
 	@Test
-	void testAlteraPesquisaCodigoVaziaNula() {
+	void testAlteraPesquisaCodigoVazia() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisaController.alteraPesquisa("", "DESCRICAO", "Pesquisa sobre a dependencia causada pela internet");
 		});
-		
+	}
+	
+	@Test
+	void testAlteraPesquisaCodigoNula() {
 		assertThrows(NullPointerException.class, () -> {
 			pesquisaController.alteraPesquisa(null, "DESCRICAO", "Pesquisa sobre a dependencia causada pela internet");
 		});
 	}
 	
 	@Test
-	void testAlteraPesquisaCampoAltVaziaNula() {
+	void testAlteraPesquisaCampoAltVazia() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisaController.alteraPesquisa("INT1", "", "Pesquisa sobre a dependencia causada pela internet");
 		});
-		
+	}
+	
+	@Test
+	void testAlteraPesquisaCampoAltNula() {
 		assertThrows(NullPointerException.class, () -> {
 			pesquisaController.alteraPesquisa("INT1", null, "Pesquisa sobre a dependencia causada pela internet");
 		});
@@ -100,11 +120,14 @@ class PesquisaControllerTest {
 	
 	
 	@Test
-	void testAlteraPesquisaCampoNovoVaziaNula() {
+	void testAlteraPesquisaCampoNovoVazia() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisaController.alteraPesquisa("INT1", "CAMPO", "");
 		});
-		
+	}
+	
+	@Test
+	void testAlteraPesquisaCampoNovoNula() {
 		assertThrows(NullPointerException.class, () -> {
 			pesquisaController.alteraPesquisa("INT1", "CAMPO", null);
 		});	
@@ -134,16 +157,20 @@ class PesquisaControllerTest {
 	}
 	
 	@Test
-	void testEncerraPesquisaCodigoVazioNulo() {
+	void testEncerraPesquisaCodigoVazio() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisaController.encerraPesquisa("");
 		});
-		
+	}
+	
+	@Test
+	void testEncerraPesquisaCodigoNulo() {
 		assertThrows(NullPointerException.class, () -> {
 			pesquisaController.encerraPesquisa(null);
 		});
 	}
 	
+	@Test
 	void testEncerraPesquisaInexistente() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisaController.encerraPesquisa("LOL1");
@@ -171,14 +198,18 @@ class PesquisaControllerTest {
 	}
 	
 	@Test
-	void testAtivaPesquisaCodigoVazioNulo() {
+	void testAtivaPesquisaCodigoVazio() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisaController.ativaPesquisa("");
 		});
-		
+	}
+	
+	@Test
+	void testAtivaPesquisaCodigoNulo() {
 		assertThrows(NullPointerException.class, () -> {
 			pesquisaController.ativaPesquisa(null);
 		});
+	}
 		
 		void testAtivaPesquisaInexistente() {
 			assertThrows(IllegalArgumentException.class, () -> {
@@ -204,11 +235,14 @@ class PesquisaControllerTest {
 	}
 	
 	@Test
-	void testExibePesquisaCodigoVazioNulo() {
+	void testExibePesquisaCodigoVazio() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisaController.exibePesquisa("");
 		});
-		
+	}
+	
+	@Test
+	void testExibePesquisaCodigoNulo() {
 		assertThrows(NullPointerException.class, () -> {
 			pesquisaController.exibePesquisa(null);
 		});
@@ -218,10 +252,13 @@ class PesquisaControllerTest {
 	// Pesquisa Eh Ativa
 	
 	@Test
-	void testPesquisaEhAtivaTrueFalse() {
+	void testPesquisaEhAtivaTrue() {
 		pesquisaController.cadastraPesquisa("Pesquisa com brasileiros para definir se e biscoito ou bolacha", "Bolacha, Biscoito, Verdade");
 		assertTrue(pesquisaController.pesquisaEhAtiva("BOL1"));
-		
+	}
+	
+	@Test
+	void testPesquisaEhAtivaFalse() {
 		pesquisaController.encerraPesquisa("BOL!");
 		assertFalse(pesquisaController.pesquisaEhAtiva("BOL1"));
 	}
@@ -234,10 +271,14 @@ class PesquisaControllerTest {
 	}
 	
 	@Test
-	void testPesquisaEhAtivaCodVazioNulo() {
+	void testPesquisaEhAtivaCodVazio() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisaController.pesquisaEhAtiva("");
 		});
+	}	
+	
+	@Test
+	void testPesquisaEhAtivaCodNulo() {
 		assertThrows(NullPointerException.class, () -> {
 			pesquisaController.pesquisaEhAtiva(null);
 		});

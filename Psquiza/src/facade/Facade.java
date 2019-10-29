@@ -64,6 +64,44 @@ public class Facade {
 		return probObjController.cadastraObjetivo(tipo, descricao, aderencia, viabilidade);
 	}
 	
+	/**
+	 * Apaga um problema do sistema
+	 * 
+	 * @param codigo o codigo do pesquisador a ser apagado
+	 */
+	public void apagarProblema(String codigo) {
+		probObjController.apagaProblema(codigo);
+	}
+	
+	/**
+	 * Apaga um objetivo cadastrado no sistema
+	 * 
+	 * @param codigo o codigo do objetivo a ser apagado
+	 */
+	public void apagarObjetivo(String codigo) {
+		probObjController.apagaObjetivo(codigo);
+	}
+	
+	/**
+	 * Exibe a representação String de um Problema
+	 * 
+	 * @param codigo o codigo do problema a ser visualizado
+	 * @return a representação String do Problema
+	 */
+	public String exibeProblema(String codigo) {
+		return probObjController.exibeProblema(codigo);
+	}
+	
+	/**
+	 * Exibe a um Objetivo
+	 * 
+	 * @param codigo o codigo do objetivo
+	 * @return a representação em String do um objetivo.
+	 */
+	public String exibeObjetivo(String codigo) {
+		return probObjController.exibeObjetivo(codigo);
+	}
+	
 	/** 
 	 * Cadastra um novo pesquisador ao sistema.
 	 * @param nome - nome do pesquisador

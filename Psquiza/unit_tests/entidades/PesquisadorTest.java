@@ -155,6 +155,14 @@ class PesquisadorTest {
 		this.pesquisador1.desativa();
 		assertEquals(this.pesquisador1.getStatus(), false);
 	}
+	@Test
+	void testDesativaPesquisadorInativo() {
+		this.pesquisador1.desativa();
+		assertThrows(IllegalArgumentException.class, () -> {
+			this.pesquisador1.desativa();
+		});
+		
+	}
 
 	@Test
 	void testGetStatus() {
