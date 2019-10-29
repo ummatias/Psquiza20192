@@ -55,7 +55,7 @@ public class Pesquisa {
 	public void ativaPesquisa() {
 		this.status = true;
 	}
-	public boolean getStatus() {
+	public boolean ehAtiva() {
 		return this.status;
 	}
 	public void desativaPesquisa() {
