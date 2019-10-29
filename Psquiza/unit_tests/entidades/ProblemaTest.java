@@ -68,6 +68,17 @@ public class ProblemaTest {
 		});
 	}
 	
+	@Test
+	void testViabilidadeZeroEmProblema() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			new Problema("P5","Presidente é um machista escroto", 0);
+		});
+	}
 	
-
+	@Test
+	void testIdProblemaComZero() {
+		assertThrows(IllegalArgumentException.class, () -> {
+		new Problema("P0", "Calculo ta me matando", 4);
+		});
+	}
 }

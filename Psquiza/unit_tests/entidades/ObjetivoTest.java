@@ -90,7 +90,13 @@ public class ObjetivoTest {
 	@Test
 	void testAderenciaAcimaDe5() {
 		assertThrows(IllegalArgumentException.class, () -> {
-		new Objetivo("O7","Geral", "Exibir a camisa no varal", 6, 4);
+			new Objetivo("O7","Geral", "Exibir a camisa no varal", 6, 4);
+		});
+	}
+	@Test
+	void testIdComZero() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			new Objetivo("O0", "Geral", "Terminar os testes", 5, 5);
 		});
 	}
 
