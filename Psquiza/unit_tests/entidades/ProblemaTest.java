@@ -2,6 +2,7 @@ package entidades;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -46,7 +47,7 @@ public class ProblemaTest {
 	@Test
 	void testHashCodeDiferente() {
 		p = new Problema("P5", "Muita nota baixa para conseguir passar", 3);
-		assertEquals(this.problema.hashCode(), p.hashCode());
+		assertNotEquals(this.problema.hashCode(), p.hashCode());
 	}
 	
 	@Test
