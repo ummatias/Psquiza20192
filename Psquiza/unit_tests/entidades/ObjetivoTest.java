@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -52,4 +53,45 @@ public class ObjetivoTest {
 	void testToString() {
 		assertEquals("O1 - Especifico - Terminar o Projeto com nota alta - 10", this.objetivo.toString());
 	}
+	@Test
+	void testCodigoComLetraMinuscula() {
+		assertThrows(
+				IllegalArgumentException.class,() -> {new Objetivo("o7","Geral","Ser forte o bastante para ninguem se preocupar comigo", 2, 3);}
+		);
+	}
+	
+	@Test
+	void testTipo() {
+		assertThrows(IllegalArgumentException.class, () -> 
+		{new Objetivo("O2","Super", "Virar number one hero", 5, 5);}
+		);
+	}
+	@Test
+	void testDescriçãoObjetivoVazia() {
+		assertThrows(
+				IllegalArgumentException.class,() -> {new Objetivo("O4","Geral","", 2, 3);}
+		);
+	}
+	
+	@Test
+	void testDescriçãoObjetivoNula() {
+		assertThrows(
+				NullPointerException.class, () -> {new Objetivo("O5","Geral",null, 2, 3);}
+		);
+	}
+	
+	@Test
+	void testAderenciaZero() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			new Objetivo("O3","Especifico", "Cuidar do meio ambiente e nao votar em embuste", 0, 5);
+		});
+	}
+	
+	@Test
+	void testAderenciaAcimaDe5() {
+		assertThrows(IllegalArgumentException.class, () -> {
+		new Objetivo("O7","Geral", "Exibir a camisa no varal", 6, 4);
+		});
+	}
+
 }

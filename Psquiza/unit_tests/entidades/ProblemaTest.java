@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,7 +27,7 @@ public class ProblemaTest {
 	
 	@Test
 	void testEquals() {
-		p = new Problema("P1", "Acumulo de matéria", 4);
+		p = new Problema("P1", "Acumulo de materia", 4);
 		assertTrue(this.problema.equals(p));
 	}
 	
@@ -52,4 +53,21 @@ public class ProblemaTest {
 	void testToString() {
 		assertEquals("P1 - Fazer CC sem ir regulamente no psicologo - 3", this.problema.toString());
 	}
+	
+	@Test
+	void testDescriçãoProblemaVazia() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			new Problema("P4","", 2);
+		});
+	}
+	
+	@Test
+	void testDescriçãoProblemaNull() {
+		assertThrows(NullPointerException.class, () -> {
+			new Problema("P3",null, 3);
+		});
+	}
+	
+	
+
 }
