@@ -99,7 +99,7 @@ class PesquisadorControllerTest {
 	}
 
 	@Test
-	void testCadastraPesquisadorEmailInvalido() {
+	void testCadastraPesquisadorEmailInicioInvalido() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			this.controller.cadastraPesquisador("Pedro", "estudante", "pesquisa eficiencia de algoritmos", "@gmail.com",
 					"http://www.foto.com");
@@ -107,11 +107,19 @@ class PesquisadorControllerTest {
 	}
 
 	@Test
-	void testCadastraPesquisadorEmailInvalido2() {
+	void testCadastraPesquisadorEmailFiminvalido() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			this.controller.cadastraPesquisador("Pedro", "estudante", "pesquisa eficiencia de algoritmos", "1@",
 					"http://www.foto.com");
 		});
+	}
+	@Test
+	void testCadastraPesquidadorEmailSemArroba() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			this.controller.cadastraPesquisador("Pedro", "estudante", "pesquisa eficiencia de algoritmos", "pedro.123",
+					"http://www.foto.com");
+		});
+	
 	}
 
 	@Test
