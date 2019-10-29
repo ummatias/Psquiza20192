@@ -53,13 +53,6 @@ class ProblemaObjetivoControllerTest {
 	}
 
 	@Test
-	void testCadastraProblemaViabilidadeNull() {
-		assertThrows(NullPointerException.class, () -> {
-			POcontroller.cadastraProblema("Transformar crianças com beijo gay na novela", null);
-		});
-	}
-
-	@Test
 	void testApagaProblemaInexistente() {
 		assertThrows(IllegalArgumentException.class, () -> { POcontroller.apagaProblema("P4"); });
 	}

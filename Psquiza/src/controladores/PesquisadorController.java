@@ -52,6 +52,8 @@ public class PesquisadorController {
 			break;
 		case "email":
 			pesquisadores.get(email).setEmail(novoValor);
+			pesquisadores.put(novoValor, pesquisadores.get(email));
+			pesquisadores.remove(email);
 			break;
 		case "foto":
 			pesquisadores.get(email).setFoto(novoValor);
@@ -69,7 +71,7 @@ public class PesquisadorController {
 		
 		Pesquisador pesquisador = pesquisadores.get(email);
 		if(pesquisador.getStatus() == true) {
-			pesquisador.setStatus(false);
+			pesquisador.desativa();
 		} 
 			throw new IllegalArgumentException("Pesquisador inativo");
 	}
@@ -83,7 +85,7 @@ public class PesquisadorController {
 		
 		Pesquisador pesquisador = pesquisadores.get(email);
 		if(pesquisador.getStatus() == false) {
-			pesquisador.setStatus(true);
+			pesquisador.ativa();
 		} 
 			throw new IllegalArgumentException("Pesquisador ja ativado.");
 	}
