@@ -143,14 +143,16 @@ public class Pesquisador {
 	}
 
 	/**
-	 * Método
+	 * Método que desativa um pesquisador, o Objeto
+	 * não poderá ser exibido ou alterado.
 	 */
 	public void desativa() {
 		status = false;
 	}
 	
 	/**
-	 * 
+	 * Método que ativa ou reativa um pesquisador,
+	 * alterando seu status para true.
 	 */
 	public void ativa() {
 		status = true;
