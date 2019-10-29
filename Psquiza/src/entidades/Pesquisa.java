@@ -64,6 +64,13 @@ public class Pesquisa {
 	public String getCodigo(String codigo) {
 		return this.codigo;
 	}
+	public void alteraPesquisa(String atributo, String novoValor){
+		if(atributo.equals("DESCRICAO")){
+			this.setDescricao(novoValor);
+		}else if(atributo.equals("CAMPO")){
+			this.setCampoDeInteresse(novoValor);
+		}
+	}
 
 	
 
