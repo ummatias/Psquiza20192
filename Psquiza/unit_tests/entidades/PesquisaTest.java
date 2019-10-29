@@ -16,19 +16,35 @@ class PesquisaTest {
 	}
 	
 	@Test
-	void testEquals() {
-		Pesquisa pesquisa1 = new Pesquisa("ENE1", "Fontes de energia renovaveis na revolucao energetica", "Energia, Eletrica");
-		Pesquisa pesquisa2 = new Pesquisa("ENE1", "Impactos ambientais das fontes fosseis", "Energia, Eletrica");
+	void testEqualsTrue() {
+		Pesquisa pesquisaEX1 = new Pesquisa("ENE1", "Fontes de energia renovaveis na revolucao energetica", "Energia, Eletrica");
+		Pesquisa pesquisaEX2 = new Pesquisa("ENE1", "Impactos ambientais das fontes fosseis", "Energia, Eletrica");
 		
-		assertEquals(pesquisa1, pesquisa2);
+		assertEquals(pesquisaEX1, pesquisaEX2);
 	}
 	
 	@Test
-	void testHash() {
+	void testEqualsFalse() {
+		Pesquisa pesquisaEX3 = new Pesquisa("ENE3", "Impactos da falta", "Energia, Eletrica");
+		Pesquisa pesquisaEX4 = new Pesquisa("ENE4", "Impactos ambientais das fontes fosseis", "Energia, Eletrica");
+		
+		assertNotEquals(pesquisaEX3, pesquisaEX4);
+	}
+	
+	@Test
+	void testHashFalse() {
 		
 		Pesquisa pesquisaOutra = new Pesquisa("CAN1", "Posibilidade de cura para o cancer atraves de impressao 3D", "Cancer, Saude");
 		
 		assertNotEquals(pesquisaOutra.hashCode(), pesquisa.hashCode());
+	}
+	
+	@Test
+	void testHashTrue() {
+		
+		Pesquisa pesquisaMaisUma = new Pesquisa("COMP1", "Impressao 3D e a tulizalçao da computacao a saude", "Computacao, Saude");
+		
+		assertNotEquals(pesquisaMaisUma.hashCode(), pesquisa.hashCode());
 	}
 	
 	@Test
@@ -47,15 +63,32 @@ class PesquisaTest {
 	}
 	
 	@Test
-	void testEncerra() {
+	void testEncerraCorreto() {
 		pesquisa.encerra();
 		assertFalse(pesquisa.getStatus());
 	}
 	
 	@Test
-	void testAtiva() {
+	void testEncerraJaEcerrado() {
+		pesquisa.encerra();
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisa.encerra();
+		});
+	}
+	
+	
+	@Test
+	void testAtivaCorreto() {
+		pesquisa.encerra();
 		pesquisa.ativa();
 		assertTrue(pesquisa.getStatus());
+	}
+	
+	@Test
+	void testAtivaPesquisaAtiva() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisa.ativa();
 	}
 
 
