@@ -63,7 +63,7 @@ class ProblemaObjetivoControllerTest {
 			POcontroller.apagaProblema(" ");
 		});
 
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(NullPointerException.class, () -> {
 			POcontroller.apagaProblema(null);
 		});
 	}
@@ -80,7 +80,7 @@ class ProblemaObjetivoControllerTest {
 			POcontroller.apagaObjetivo("");
 		});
 
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(NullPointerException.class, () -> {
 			POcontroller.apagaObjetivo(null);
 		});
 	}
@@ -126,7 +126,7 @@ class ProblemaObjetivoControllerTest {
 	@Test
 	void testExibeProblemaInexistente() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			POcontroller.exibeProblema(p);
+			POcontroller.exibeProblema("P");
 		});
 	}
 
@@ -136,7 +136,7 @@ class ProblemaObjetivoControllerTest {
 			POcontroller.exibeProblema("");
 		});
 
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(NullPointerException.class, () -> {
 			POcontroller.exibeProblema(null);
 		});
 	}
@@ -144,7 +144,7 @@ class ProblemaObjetivoControllerTest {
 	@Test
 	void testExibeObjetivoInexistente() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			POcontroller.exibeObjetivo(o);
+			POcontroller.exibeObjetivo("O");
 		});	
 	}
 
@@ -167,10 +167,10 @@ class ProblemaObjetivoControllerTest {
 
 	@Test
 	void testExibeObjetivosComSucesso() {
-		POcontroller.cadastraObjetivo("Geral", "Promover uma revolucao", 4, 5);
-		POcontroller.cadastraObjetivo("Especifico", "Reclamar no twitter", 4, 3);
-		assertEquals(POcontroller.exibeObjetivo("O1"), "O1 - Promover uma revolucao - 9");
-		assertEquals(POcontroller.exibeObjetivo("O2"), "O2 - Reclamar no twitter - 7");
+		POcontroller.cadastraObjetivo("GERAL", "Promover uma revolucao", 4, 5);
+		POcontroller.cadastraObjetivo("ESPECIFICO", "Reclamar no twitter", 4, 3);
+		assertEquals(POcontroller.exibeObjetivo("O1"), "O1 - GERAL - Promover uma revolucao - 9");
+		assertEquals(POcontroller.exibeObjetivo("O2"), "O2 - ESPECIFICO - Reclamar no twitter - 7");
 	}
 
 	@Test
@@ -182,7 +182,7 @@ class ProblemaObjetivoControllerTest {
 
 	@Test
 	void testExibeObjetivoCodigoNulo() {
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(NullPointerException.class, () -> {
 			POcontroller.exibeObjetivo(null);
 		});
 	}
