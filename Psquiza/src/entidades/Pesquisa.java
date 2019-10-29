@@ -61,6 +61,9 @@ public class Pesquisa {
 	public void desativaPesquisa() {
 		this.status = false;
 	}
+	public String getCodigo(String codigo) {
+		return this.codigo;
+	}
 
 	
 
