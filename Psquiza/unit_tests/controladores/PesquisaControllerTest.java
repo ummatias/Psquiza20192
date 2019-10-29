@@ -12,7 +12,7 @@ class PesquisaControllerTest {
 
 	@BeforeEach
 	void instanciarController() {
-		this.pesquisaController = new pesquisaController();
+		this.pesquisaController = new PesquisaController();
 		pesquisaController.cadastraPesquisa("Pesquisa sobre as implicacoes psicologicas da pressao gerada na universidade.",
 				"Universidade, Problema, Psico");
 	}

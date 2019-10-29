@@ -54,41 +54,44 @@ class PesquisaTest {
 	
 	@Test
 	void testSetDesc() {
-		assertEquals("COM1 - Desigualdade de genero na computacao - Computacao, Genero" , pesquisa.setDesc("Desigualdade de genero na computacao"));
+		pesquisa.setDescricao("Desigualdade de genero na computacao");
+		assertEquals("COM1 - Desigualdade de genero na computacao - Computacao, Genero" , pesquisa.toString());
 	}
 	
 	@Test
 	void testSetCampo() {
-		assertEquals("COM1 - Desigualdade de genero na computacao - Genero, Computacao" , pesquisa.setCampo("Genero, Computacao"));
+		pesquisa.setCampoDeInteresse("Genero, Computacao");
+		assertEquals("COM1 - Desigualdade de genero na computacao - Genero, Computacao" , pesquisa.toString());
 	}
 	
 	@Test
 	void testEncerraCorreto() {
-		pesquisa.encerra();
-		assertFalse(pesquisa.getStatus());
+		pesquisa.encerraPesquisa();
+		assertFalse(pesquisa.ehAtiva());
 	}
 	
 	@Test
 	void testEncerraJaEcerrado() {
-		pesquisa.encerra();
+		pesquisa.encerraPesquisa();
 		
 		assertThrows(IllegalArgumentException.class, () -> {
-			pesquisa.encerra();
+			pesquisa.encerraPesquisa();
 		});
 	}
 	
 	
 	@Test
 	void testAtivaCorreto() {
-		pesquisa.encerra();
-		pesquisa.ativa();
-		assertTrue(pesquisa.getStatus());
+		pesquisa.encerraPesquisa();
+		pesquisa.ativaPesquisa();
+		assertTrue(pesquisa.ehAtiva());
 	}
 	
 	@Test
 	void testAtivaPesquisaAtiva() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			pesquisa.ativa();
+			pesquisa.ativaPesquisa();
+	});
 	}
 
 
