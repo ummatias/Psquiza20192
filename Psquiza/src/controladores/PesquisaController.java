@@ -69,7 +69,9 @@ public class PesquisaController {
 		if (this.pesquisasCadastradas.containsKey(codigo)) {
 			if(this.pesquisasCadastradas.get(codigo).ehAtiva() == false) {
 				this.pesquisasCadastradas.get(codigo).ativaPesquisa();
-			}throw new IllegalArgumentException("Pesquisa ja ativada.");
+			}else{
+				throw new IllegalArgumentException("Pesquisa ja ativada.");
+			}
 		}else {
 			throw new IllegalArgumentException("Pesquisa nao encontrada");
 		}

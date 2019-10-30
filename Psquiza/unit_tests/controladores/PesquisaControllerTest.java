@@ -69,8 +69,8 @@ class PesquisaControllerTest {
 		pesquisaController.cadastraPesquisa("Pesquisa sobre a dependencia gerada pela internet", "Internet, Dependencia");
 		pesquisaController.alteraPesquisa("INT1", "DESCRICAO", "Pesquisa sobre a dependencia causada pela internet");
 		
-		assertNotEquals(
-				"INT1 - Pesquisa sobre a dependencia gerada pela internet - Internet, Dependencia",
+		assertEquals(
+				"INT1 - Pesquisa sobre a dependencia causada pela internet - Internet, Dependencia",
 				pesquisaController.exibePesquisa("INT1")
 				);
 	}
@@ -180,13 +180,15 @@ class PesquisaControllerTest {
 	
 	// Ativa Pesquisa - Testando ativar com sucesso, ativar pesquisa ja ativa e com cod vazio ou nulo.
 	
-//	@Test
-//	void testAtivaPesquisaComSucesso() {
-//		pesquisaController.cadastraPesquisa("Pesquisa relacionada ao impacto dos jogos digitais na escolha de CC", "Jogos, Computação");
-//		pesquisaController.encerraPesquisa("JOG1","os resultados ja foram obtidos");
-//		
-//		assertTrue(pesquisaController.pesquisaEhAtiva("JOG1"));
-//	}
+	@Test
+	void testAtivaPesquisaComSucesso() {
+		pesquisaController.cadastraPesquisa("Pesquisa relacionada ao impacto dos jogos digitais na escolha de CC", "Jogos, Computação");
+		pesquisaController.encerraPesquisa("JOG1","os resultados ja foram obtidos");
+		pesquisaController.ativaPesquisa("JOG1");
+
+		
+		assertTrue(pesquisaController.pesquisaEhAtiva("JOG1"));
+	}
 	
 	@Test
 	void testAtivaPesquisaJaAtiva() {
