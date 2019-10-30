@@ -1,9 +1,8 @@
-package controladores;
+package pesquisa;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import entidades.Pesquisa;
 import validadores.ValidadorEntradas;
 
 public class PesquisaController {

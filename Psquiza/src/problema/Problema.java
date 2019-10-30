@@ -1,4 +1,4 @@
-package entidades;
+package problema;
 
 import validadores.ValidadorEntradas;
 

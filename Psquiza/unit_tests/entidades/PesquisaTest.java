@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import pesquisa.Pesquisa;
+
 class PesquisaTest {
 
 	private Pesquisa pesquisa;

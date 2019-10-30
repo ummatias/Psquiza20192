@@ -1,4 +1,4 @@
-package entidades;
+package atividade;
 
 public class Item {
 

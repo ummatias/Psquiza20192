@@ -11,6 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import problema.Objetivo;
+
 public class ObjetivoTest {
 	private Objetivo objetivo;
 	private Objetivo o;

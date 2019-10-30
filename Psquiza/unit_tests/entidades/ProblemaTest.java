@@ -11,6 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import problema.Problema;
+
 public class ProblemaTest {
 	private Problema problema;
 	private Problema p;

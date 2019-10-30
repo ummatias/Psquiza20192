@@ -1,8 +1,8 @@
 package facade;
 
-import controladores.PesquisadorController;
-import controladores.ProblemaObjetivoController;
 import easyaccept.EasyAccept;
+import pesquisador.PesquisadorController;
+import problema.ProblemaObjetivoController;
 
 /**
  * Interface de comunicação entre o back-end e o front-end do Sistema.

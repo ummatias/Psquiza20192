@@ -6,6 +6,8 @@ import org.junit.experimental.theories.suppliers.TestedOn;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import pesquisa.PesquisaController;
+
 class PesquisaControllerTest {
 
 	private PesquisaController pesquisaController;
