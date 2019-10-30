@@ -89,7 +89,9 @@ class PesquisaTest {
 	void testAtivaPesquisaAtiva() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisa.ativa();
+		});
 	}
+		
 
 
 }
