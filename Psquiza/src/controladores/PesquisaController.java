@@ -30,15 +30,21 @@ public class PesquisaController {
 		String codigo = campoDeInteresse.substring(0, 3).toUpperCase();
 
 		if (!this.chavesGeradas.containsKey(codigo)) {
-			this.chavesGeradas.put(codigo, 0);
+			this.chavesGeradas.put(codigo, 1);
+			String codigoGerado = codigo + this.chavesGeradas.get(codigo);
+			return codigoGerado;
 
 		}
-		String codigoGerado = codigo + this.chavesGeradas.get(codigo) + 1;
-		this.chavesGeradas.put(codigo, chavesGeradas.get(codigo) + 1);
+		String codigoGerado = codigo + (this.chavesGeradas.get(codigo) + 1);
+		
+		this.chavesGeradas.put(codigo,chavesGeradas.get(codigo) + 1);
 		return codigoGerado;
 	}
 
 	public void alteraPesquisa(String codigo, String conteudoASerAlterado, String novoConteudo) {
+		ValidadorEntradas.validarString(conteudoASerAlterado, "Conteudo nao pode ser vazio ou nulo");
+		ValidadorEntradas.validarString(codigo, "Codigo nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(novoConteudo, "Novo valor nao pode ser nulo ou vazio.");
 		if (this.pesquisasCadastradas.containsKey(codigo)) {
 			this.pesquisasCadastradas.get(codigo).alteraPesquisa(conteudoASerAlterado, novoConteudo);
 		}
@@ -46,19 +52,32 @@ public class PesquisaController {
 	}
 
 	public void encerraPesquisa(String codigo, String motivo) {
+		ValidadorEntradas.validarString(codigo, "Codigo nao pode ser nulo ou vazio.");
 		if (this.pesquisasCadastradas.containsKey(codigo)) {
-			this.pesquisasCadastradas.get(codigo).encerraPesquisa();
+			if(this.pesquisasCadastradas.get(codigo).ehAtiva() == true) {
+				this.pesquisasCadastradas.get(codigo).encerraPesquisa();
+			}else {
+				throw new IllegalArgumentException("Pesquisa desativada.");
+			}
+		}else{
+			throw new IllegalArgumentException("Pesquisa nao encontrada");
 		}
+		
 	}
 
 	public void ativaPesquisa(String codigo) {
 		if (this.pesquisasCadastradas.containsKey(codigo)) {
-			this.pesquisasCadastradas.get(codigo).ativaPesquisa();
+			if(this.pesquisasCadastradas.get(codigo).ehAtiva() == false) {
+				this.pesquisasCadastradas.get(codigo).ativaPesquisa();
+			}throw new IllegalArgumentException("Pesquisa ja ativada.");
+		}else {
+			throw new IllegalArgumentException("Pesquisa nao encontrada");
 		}
-		throw new IllegalArgumentException("Pesquisa nao encontrada");
 	}
 
 	public String exibePesquisa(String codigo) {
+		ValidadorEntradas.validarString(codigo, "Codigo nao pode ser nulo ou vazio.");
+		
 		if (this.pesquisasCadastradas.containsKey(codigo)) {
 			return this.pesquisasCadastradas.get(codigo).toString();
 		}
@@ -66,6 +85,8 @@ public class PesquisaController {
 	}
 
 	public boolean pesquisaEhAtiva(String codigo) {
+		
+		ValidadorEntradas.validarString(codigo, "Codigo nao pode ser nulo ou vazio.");
 		if (this.pesquisasCadastradas.containsKey(codigo)) {
 			return this.pesquisasCadastradas.get(codigo).ehAtiva();
 		}
