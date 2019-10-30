@@ -59,7 +59,7 @@ public class PesquisadorController {
 		ValidadorEntradas.validarString(email, "Campo email nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(atributo, "Atributo nao pode ser vazio ou nulo.");
 		ValidadorEntradas.validaEmail(email, "Formato de email invalido.");
-		ValidadorEntradas.validaAtributosPesquisador(atributo, "");
+		ValidadorEntradas.validaAtributosPesquisador(atributo, "Atributo invalido.");
 		
 		if(!pesquisadores.containsKey(email)) {
 			throw new IllegalArgumentException("Pesquisador nao encontrado");
