@@ -4,7 +4,7 @@ Projeto desenvolvida para a discplina de LP2 do curso de ciência da computaçã
 
 **Desenvolvidores:**
 
- - Emilly Albuquerque - 119111162
+ - Emilly Albuquerque - 119111162 
  - Igor Gomes - 119110051
  - Mateus Matias - 119111153
  - Natalía Salvino - 119110051
@@ -26,4 +26,4 @@ Projeto desenvolvida para a discplina de LP2 do curso de ciência da computaçã
 **Links Úteis:**
 
  - https://docs.google.com/document/d/e/2PACX-1vRKnuseh-1y300CI4fTlgVB8XMx3yDhEl9fg2NfkyrBDqYT9-tTjHTgSdD59htIIxDtJQDdSSYLzrnv/pub
-
+##
