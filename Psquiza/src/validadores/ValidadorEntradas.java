@@ -1,5 +1,9 @@
 package validadores;
 
+import java.util.HashMap;
+
+import atividade.Atividade;
+
 public class ValidadorEntradas {
 
 	/**
