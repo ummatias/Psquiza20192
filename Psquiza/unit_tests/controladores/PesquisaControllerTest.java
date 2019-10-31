@@ -143,9 +143,8 @@ class PesquisaControllerTest {
 		pesquisaController.cadastraPesquisa("Pesquisa sobre os impactos do incendio na amazonia para sobrevivencia na terra", "Natureza, Amazonia, Sobrevivencia");
 		pesquisaController.encerraPesquisa("NAT1", "O governo não se importa com isso");
 		
-		assertThrows(IllegalArgumentException.class, () -> {
-			pesquisaController.exibePesquisa("NAT1");
-		});
+		assertEquals(pesquisaController.pesquisaEhAtiva("NAT1"),false);
+		
 	}
 	
 	@Test

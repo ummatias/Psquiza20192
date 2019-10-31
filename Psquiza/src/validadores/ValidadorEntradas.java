@@ -85,8 +85,7 @@ public class ValidadorEntradas {
 		if (!tipo.equals("GERAL") && !tipo.equals("ESPECIFICO")) {
 			throw new IllegalArgumentException(msg);
 		}
-
-	}
+  }
 
 	/**
 	 * Valida o código de um problema para garantir que comece com P e que tenha
@@ -111,7 +110,7 @@ public class ValidadorEntradas {
 	 * após isso um número inteiro maior que zero
 	 * 
 	 * @param codigo o codigo do objetivo
-	 * @param msg a possivel mensagem de erro
+	 * @param msg    a possivel mensagem de erro
 	 */
 	public static void validarCodigoObjetivo(String codigo, String msg) {
 		if (!codigo.substring(0, 1).equals("O")) {
@@ -189,6 +188,25 @@ public class ValidadorEntradas {
 
 >>>>>>> b0d73c35456f40c33c55587b6c82352b9fea5839
 			throw new IllegalArgumentException(msg);
+		}
+	}
+
+	/**
+	 * Valida o campo de interesse da pesquisa, que deve conter ate 255 caracteres e
+	 * ate quatro campos que nao podem ser vazios
+	 * 
+	 * @param campo o campo de interesse
+	 */
+	public static void validaCampoDeInteresse(String campo) {
+		String[] topicos = campo.split(",");
+		for (int i = 0; i < topicos.length; i++) {
+			if (topicos[i].equals("") || topicos[i].length() < 3) {
+				throw new IllegalArgumentException("Formato do campo de interesse invalido.");
+			}
+
+		}
+		if (topicos.length > 4 || campo.length() > 255) {
+			throw new IllegalArgumentException("Formato do campo de interesse invalido.");
 		}
 	}
 

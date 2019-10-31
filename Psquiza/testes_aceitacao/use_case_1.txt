@@ -1,0 +1,67 @@
+# Cadastro de Pesquisa
+
+# - COM1: ativada
+# - ELE1: ativada
+# - COM2: ativada
+# - FER1: desativada
+# - PSI1: desativada
+
+
+cadastraPesquisa descricao="Homofobia em mensagens online de alunos de computacao do primeiro periodo." campoDeInteresse="computacao, homofobia"
+cadastraPesquisa descricao="Avaliacao de modelos preditivos para a extracao de caracteristicas significativas nas eleicoes brasileiras." campoDeInteresse="eleicao"
+cadastraPesquisa descricao="Autoavaliacao na Disciplina de Programacao Orientada a Objeto." campoDeInteresse="computacao, poo"
+cadastraPesquisa descricao="Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces." campoDeInteresse="fermentacao, cerveja"
+cadastraPesquisa descricao="Alienacao Parental e o Sistema de Justica Brasileiro." campoDeInteresse="psicologia, sistema juridico, alienacao parental, brasil"
+encerraPesquisa codigo="FER1" motivo="Cerveja causou intoxicacao alimentar"
+encerraPesquisa codigo="PSI1" motivo="Pesquisa concluida"
+
+
+# descricao ou campoDeInteresse vazios no cadastro de pesquisa
+
+expectError "Descricao nao pode ser nula ou vazia." cadastraPesquisa descricao="" campoDeInteresse="computacao, homofobia"
+expectError "Formato do campo de interesse invalido." cadastraPesquisa descricao="Homofobia em mensagens online de alunos de computacao do primeiro periodo." campoDeInteresse=""
+
+
+# Entrada do campo de interesse invalido
+
+expectError "Formato do campo de interesse invalido." cadastraPesquisa descricao="Sistemas automatizados para acessibilidade de deficientes em postos de trabalho." campoDeInteresse="Lorem ipsum dolor sit amet consectetur adipiscing elit Integer euismod leo in consequat efficitur. Proin commodo nisi eget ligula consequat imperdiet ac quis turpis In non fringilla orci Pellentesque pellentesque ipsum vel ipsum ultrices scelerisque Nulla facilisi Morbi ut tellus ante Suspendisse malesuada quis quam eu efficitur Ut mollis turpis magna sit amet auctor nunc pulvinar ultricies. Nam pharetra scelerisque magna ut feugiat."
+expectError "Formato do campo de interesse invalido." cadastraPesquisa descricao="Sistemas automatizados para acessibilidade de deficientes em postos de trabalho." campoDeInteresse="acessibilidade, , ,automatizacao"
+expectError "Formato do campo de interesse invalido." cadastraPesquisa descricao="Sistemas automatizados para acessibilidade de deficientes em postos de trabalho." campoDeInteresse=" , , ,"
+expectError "Formato do campo de interesse invalido." cadastraPesquisa descricao="Sistemas automatizados para acessibilidade de deficientes em postos de trabalho." campoDeInteresse="acessibilidade, automatizacao, sistema,condicoes de trabalho, mundo melhor"
+expectError "Formato do campo de interesse invalido." cadastraPesquisa descricao="Sistemas automatizados para acessibilidade de deficientes em postos de trabalho." campoDeInteresse="ho"
+
+
+# ativacao e encerramento
+
+expectError "Pesquisa nao encontrada." ativaPesquisa codigo="ENE1"
+expectError "Pesquisa nao encontrada." encerraPesquisa codigo="ENE1" motivo="quero acabar a pesquisa no brasil."
+expectError "Pesquisa ja ativada." ativaPesquisa codigo="COM1"
+expectError "Motivo nao pode ser nulo ou vazio." encerraPesquisa codigo="COM1" motivo=""
+expectError "Pesquisa desativada." encerraPesquisa codigo="PSI1" motivo="quero fechar de novo mesmo"
+encerraPesquisa codigo="COM2" motivo="Pesquisa concluida"
+ativaPesquisa codigo="COM2"
+
+
+# alterar pesquisas
+
+expectError "Pesquisa nao encontrada." alteraPesquisa codigo="ENE1" conteudoASerAlterado="DESCRICAO" novoConteudo="Modelagem do motor de inducao em estudos de estabilidade de tensao"
+expectError "Nao e possivel alterar esse valor de pesquisa." alteraPesquisa codigo="COM1" conteudoASerAlterado="CaMpO" novoConteudo="age of aquarius"
+expectError "Pesquisa desativada." alteraPesquisa codigo="PSI1" conteudoASerAlterado="CAMPO" novoConteudo="age of aquarius"
+expectError "Descricao nao pode ser nula ou vazia." alteraPesquisa codigo="COM1" conteudoASerAlterado="DESCRICAO" novoConteudo=""
+expectError "Formato do campo de interesse invalido." alteraPesquisa codigo="COM1" conteudoASerAlterado="CAMPO" novoConteudo=""
+alteraPesquisa codigo="ELE1" conteudoASerAlterado="DESCRICAO" novoConteudo="Aumento da evasao no numero de eleitores paraibanos."
+alteraPesquisa codigo="ELE1" conteudoASerAlterado="CAMPO" novoConteudo="eleicao, paraiba"
+expect "ELE1 - Aumento da evasao no numero de eleitores paraibanos. - eleicao, paraiba" exibePesquisa codigo="ELE1"
+
+
+# exibir
+expectError "Pesquisa nao encontrada." exibePesquisa codigo="ENE1"
+expect "COM1 - Homofobia em mensagens online de alunos de computacao do primeiro periodo. - computacao, homofobia" exibePesquisa codigo="COM1"
+
+
+# verificando ativacao
+
+expectError "Codigo nao pode ser nulo ou vazio." pesquisaEhAtiva codigo=""
+expectError "Pesquisa nao encontrada." pesquisaEhAtiva codigo="ENE1"
+expect "true" pesquisaEhAtiva codigo="COM1"
+expect "false" pesquisaEhAtiva codigo="FER1"
