@@ -55,6 +55,10 @@ public class PesquisadorController {
 		ValidadorEntradas.validarString(email, "Campo email nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(atributo, "Atributo nao pode ser vazio ou nulo.");
 		ValidadorEntradas.validaEmail(email, "Formato de email invalido.");
+<<<<<<< HEAD:Psquiza/src/pesquisador/PesquisadorController.java
+=======
+		ValidadorEntradas.validaAtributosPesquisador(atributo, "Atributo invalido.");
+>>>>>>> b0d73c35456f40c33c55587b6c82352b9fea5839:Psquiza/src/controladores/PesquisadorController.java
 		
 		if(!pesquisadores.containsKey(email)) {
 			throw new IllegalArgumentException("Pesquisador nao encontrado");
