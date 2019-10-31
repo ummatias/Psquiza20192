@@ -1,6 +1,7 @@
 package validadores;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import atividade.Atividade;
 
@@ -192,6 +193,18 @@ public class ValidadorEntradas {
 		}
 		if (topicos.length > 4 || campo.length() > 255) {
 			throw new IllegalArgumentException("Formato do campo de interesse invalido.");
+		}
+	}
+	
+	public static void validaValorRisco(String risco) {
+		if(!(risco.equals("MEDIO") || risco.equals("ALTO") || risco.equals("BAIXO"))) {
+			throw new IllegalArgumentException("Valor invalido do nivel do risco.");
+		}
+	}
+	
+	public static void validaAtividadeExiste(Map<String, Atividade> atividades, String codigo) {
+		if(!atividades.containsKey(codigo)) {
+			throw new IllegalArgumentException("Atividade nao encontrada");
 		}
 	}
 

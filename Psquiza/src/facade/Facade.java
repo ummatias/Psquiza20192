@@ -42,7 +42,10 @@ public class Facade {
 	public static void main(String[] args) {
 		args = new String[] { "facade.Facade",
 
-				"testes_aceitacao/use_case_1.txt" };
+				"testes_aceitacao/use_case_1.txt",
+				"testes_aceitacao/use_case_2.txt",
+				"testes_aceitacao/use_case_3.txt",
+				"testes_aceitacao/use_case_4.txt",};
 		EasyAccept.main(args);
 	}
 
@@ -238,14 +241,14 @@ public class Facade {
 		
 	}
 	public String exibeAtividade(String codigo) {
-		return "cadastra";
+		return ativController.exibeAtividade(codigo);
 
 	}
 	public int contaItensPendentes(String codigo) {
-		return 1;
+		return ativController.contaItensPendentes(codigo);
 	}
 	public int contaItensRealizados(String codigo) {
-		return 1;
+		return ativController.contaItensRealizados(codigo);
 
 	}
 	
