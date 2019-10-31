@@ -1,5 +1,6 @@
 package facade;
 
+import atividade.AtividadeController;
 import easyaccept.EasyAccept;
 import pesquisa.PesquisaController;
 import pesquisador.PesquisadorController;
@@ -24,7 +25,9 @@ public class Facade {
 	 * Atributo que contêm o controller responsável pelas operações com Pesquisador.
 	 */
 	private PesquisadorController psqzadorController;
-	private PesquisaController pesquisaController;
+	private PesquisaController pesquisaController;	
+	private AtividadeController ativController;
+
 
 	/**
 	 * Constrói o objeto do tipo Facade inicializando seus atributos.
@@ -33,6 +36,7 @@ public class Facade {
 		this.probObjController = new ProblemaObjetivoController();
 		this.psqzadorController = new PesquisadorController();
 		this.pesquisaController = new PesquisaController();
+		this.ativController = new AtividadeController();
 	}
 
 	public static void main(String[] args) {
@@ -217,5 +221,28 @@ public class Facade {
 	public boolean pesquisaEhAtiva(String codigo) {
 		return this.pesquisaController.pesquisaEhAtiva(codigo);
 	}
+	
+	public String cadastraAtividade(String Descricao, String nivelRisco, String descricaoRisco) {
+		return ativController.cadastraAtividade(Descricao, nivelRisco, descricaoRisco);
+	}
+	
+	public void apagaAtividade(String codigo) {
+		ativController.apagaAtividade(codigo);
+	}
+	public void cadastraItem(String codigo, String item) {
+		ativController.cadastraItem(codigo, item);
+		
+	}
+	public String exibeAtividade(String codigo) {
+		return "cadastra";
 
+	}
+	public int contaItensPendentes(String codigo) {
+		return 1;
+	}
+	public int contaItensRealizados(String codigo) {
+		return 1;
+
+	}
+	
 }
