@@ -119,7 +119,7 @@ class PesquisadorTest {
 
 	@Test
 	void testSetNome() {
-		this.pesquisador1.setNome("Ana maria");
+		this.pesquisador1.setNome("Ana Maria");
 		assertEquals(this.pesquisador1.toString(),
 				"Ana Maria (estudante) - tem interesse em inteligencia artificial - maria@gmail.com - http://www.minhafoto.com");
 	}

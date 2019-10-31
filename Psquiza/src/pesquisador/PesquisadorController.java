@@ -40,10 +40,7 @@ public class PesquisadorController {
 		ValidadorEntradas.validarString(email, "Campo email nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(fotoURL, "Campo fotoURL nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validaEmail(email, "Formato de email invalido.");
-		ValidadorEntradas.validaFoto(fotoURL,"Formato de foto invalido.");
-		if(pesquisadores.containsKey(email)) {
-			throw new IllegalArgumentException("");
-		}
+
 		pesquisadores.put(email, new Pesquisador(nome, funcao, biografia, email, fotoURL));
 		
 	}
@@ -58,7 +55,10 @@ public class PesquisadorController {
 		ValidadorEntradas.validarString(email, "Campo email nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(atributo, "Atributo nao pode ser vazio ou nulo.");
 		ValidadorEntradas.validaEmail(email, "Formato de email invalido.");
-		ValidadorEntradas.validaAtributosPesquisador(atributo, "");
+<<<<<<< HEAD:Psquiza/src/pesquisador/PesquisadorController.java
+=======
+		ValidadorEntradas.validaAtributosPesquisador(atributo, "Atributo invalido.");
+>>>>>>> b0d73c35456f40c33c55587b6c82352b9fea5839:Psquiza/src/controladores/PesquisadorController.java
 		
 		if(!pesquisadores.containsKey(email)) {
 			throw new IllegalArgumentException("Pesquisador nao encontrado");
@@ -101,10 +101,10 @@ public class PesquisadorController {
 		}
 		
 		Pesquisador pesquisador = pesquisadores.get(email);
-		if(pesquisador.getStatus() == true) {
-			pesquisador.desativa();
-		} 
+		if(pesquisador.getStatus() == false) {
 			throw new IllegalArgumentException("Pesquisador inativo");
+		} pesquisador.desativa();
+			
 	}
 
 	/** Método para que o Pesquisador seja ativado ou reativado.
@@ -116,12 +116,12 @@ public class PesquisadorController {
 		if(!pesquisadores.containsKey(email)) {
 			throw new IllegalArgumentException("Pesquisador nao encontrado");
 		}
-		
-		Pesquisador pesquisador = pesquisadores.get(email);
-		if(pesquisador.getStatus() == false) {
-			pesquisador.ativa();
-		} 
+		if(pesquisadores.get(email).getStatus() == true) {
 			throw new IllegalArgumentException("Pesquisador ja ativado.");
+		}
+		
+		pesquisadores.get(email).ativa();
+			
 	}
 
 	/** Método para exibir o pesquisador a partir do seu email.
@@ -140,5 +140,17 @@ public class PesquisadorController {
 		
 		return pesquisadores.get(email).toString();
 		
+	}
+
+	public boolean ehAtivo(String email) {
+		ValidadorEntradas.validarString(email, "Email nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaEmail(email, "Formato de email invalido.");
+		if(!pesquisadores.containsKey(email)) {
+			throw new IllegalArgumentException("Pesquisador nao encontrado");
+		}
+		if (pesquisadores.get(email).getStatus() == false) {
+			return false;
+		}
+		return true;
 	}
 }

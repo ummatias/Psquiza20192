@@ -153,6 +153,10 @@ public class Facade {
 		return psqzadorController.exibePesquisador(email);
 	}
 	
+	public boolean pesquisadorEhAtivo(String email) {
+		return psqzadorController.ehAtivo(email);
+	}
+  
 	public String cadastraAtividade(String Descricao, String nivelRisco, String descricaoRisco) {
 		return ativController.cadastraAtividade(Descricao, nivelRisco, descricaoRisco);
 	}
@@ -175,9 +179,5 @@ public class Facade {
 		return 1;
 
 	}
-	
-
-
-
 	
 }
