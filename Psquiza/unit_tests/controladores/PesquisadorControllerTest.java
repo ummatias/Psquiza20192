@@ -135,7 +135,7 @@ class PesquisadorControllerTest {
 	@Test
 	void testAlteraPesquisadorNaoCadastrado() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			this.controller.alteraPesquisador("pedro@gmail.com", "nome", "Pedro Silva");
+			this.controller.alteraPesquisador("pedro@gmail.com", "NOME", "Pedro Silva");
 		});
 
 	}
@@ -194,7 +194,7 @@ class PesquisadorControllerTest {
 	@Test
 	void testAtivaPesquisadorAtivo() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			this.controller.exibePesquisador("maria@gmail.com");
+			this.controller.ativaPesquisador("maria@gmail.com");
 		});
 	}
 

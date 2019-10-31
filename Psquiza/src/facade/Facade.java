@@ -148,4 +148,8 @@ public class Facade {
 	public String exibePesquisador(String email) {
 		return psqzadorController.exibePesquisador(email);
 	}
+	
+	public boolean pesquisadorEhAtivo(String email) {
+		return psqzadorController.ehAtivo(email);
+	}
 }

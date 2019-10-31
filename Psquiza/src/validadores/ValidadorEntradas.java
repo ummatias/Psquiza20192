@@ -127,8 +127,7 @@ public class ValidadorEntradas {
 	 * @param msg   - mensagem de erro a ser exibidada caso seja invalido
 	 */
 	public static void validaEmail(String email, String msg) {
-		String[] parts = email.split("@");
-		if (parts.length != 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
+		if (email.indexOf("@") == -1 || email.startsWith("@") || email.endsWith("@")) {
 			throw new IllegalArgumentException(msg);
 		}
 	}
@@ -141,13 +140,18 @@ public class ValidadorEntradas {
 	 * @param msg     - mensagem de erro a ser exibidada caso seja invalido
 	 */
 	public static void validaFoto(String fotoURL, String msg) {
-		String[] parts = fotoURL.split("//");
-		if (parts.length != 2 || !(parts[0].equals("http:"))
-				|| !(parts[0].equals("https:") || parts[1].trim().isEmpty())) {
+		
+		if (fotoURL.length() < 7 || !(fotoURL.substring(0, 7).equals("http://")) 
+		|| fotoURL.length() < 8  || !(fotoURL.substring(0, 8).equals("https://"))){
 			throw new IllegalArgumentException(msg);
 		}
 	}
 
+	/** Método que valida se os atributos passados no parametro de alteraPesquisador
+	 * são validos, ou seja, são nome, email, foto, biografia e funcao em caps lock.
+	 * @param atributo - o atributo que vai ser testado.
+	 * @param msg - mensagem de erro a ser exibidada caso seja invalido
+	 */
 	public static void validaAtributosPesquisador(String atributo, String msg) {
 		if (!atributo.equals("NOME") || !atributo.equals("EMAIL") || !atributo.equals("FOTO")
 				|| !atributo.equals("BIOGRAFIA") || !atributo.equals("FUNCAO")) {

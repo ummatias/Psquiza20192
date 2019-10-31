@@ -44,6 +44,13 @@ public class Pesquisador {
 	 * @param fotoURL - url para a foto do pesquisador.
 	 */
 	public Pesquisador(String nome, String funcao, String biografia, String email, String fotoURL) {
+		ValidadorEntradas.validarString(nome, "Campo nome nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(email, "Campo email nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(biografia, "Campo biografia nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(funcao, "Campo funcao nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(fotoURL, "Campo fotoURL nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaEmail(email, "Formato de email invalido.");
+		
 		this.nome = nome;
 		this.funcao = funcao;
 		this.biografia = biografia;
@@ -89,7 +96,7 @@ public class Pesquisador {
 	 */
 	@Override
 	public String toString() {
-		return nome + " ( " + funcao + " ) - " + biografia + " - " + email + " - " + fotoURL;
+		return nome + " (" + funcao + ") - " + biografia + " - " + email + " - " + fotoURL;
 	}
 
 	/** Método para alterar o nome do pesquisador
@@ -131,7 +138,6 @@ public class Pesquisador {
 	 */
 	public void setFoto(String novoValor) {
 		ValidadorEntradas.validarString(novoValor, "Campo fotoURL nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validaFoto(fotoURL, "Formato de foto invalido.");
 		this.fotoURL = novoValor;
 	}
 
@@ -139,7 +145,7 @@ public class Pesquisador {
 	 * @return o status (true ou false)
 	 */
 	public boolean getStatus() {
-		return status;
+		return this.status;
 	}
 
 	/**
@@ -147,7 +153,10 @@ public class Pesquisador {
 	 * não poderá ser exibido ou alterado.
 	 */
 	public void desativa() {
-		status = false;
+		if (status == false) {
+			throw new IllegalArgumentException("Pesquisador inativo.");
+		}
+		this.status = false;
 	}
 	
 	/**
@@ -155,6 +164,9 @@ public class Pesquisador {
 	 * alterando seu status para true.
 	 */
 	public void ativa() {
-		status = true;
+		if(status == true) {
+			throw new IllegalArgumentException("Pesquisador ja ativado.");
+		}
+		this.status = true;
 	}
 }
