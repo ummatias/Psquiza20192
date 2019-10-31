@@ -79,14 +79,12 @@ public class ValidadorEntradas {
 	 * @param msg  a mensagem de erro a ser exibida na possível exceção.
 	 */
 	public static void validarTipo(String tipo, String msg) {
-<<<<<<< HEAD
 		tipo = tipo.toUpperCase();
 
 		if (!tipo.equals("GERAL") && !tipo.equals("ESPECIFICO")) {
 			throw new IllegalArgumentException(msg);
 		}
-
-	}
+  }
 
 	/**
 	 * Valida o código de um problema para garantir que comece com P e que tenha
@@ -111,7 +109,7 @@ public class ValidadorEntradas {
 	 * após isso um número inteiro maior que zero
 	 * 
 	 * @param codigo o codigo do objetivo
-	 * @param msg a possivel mensagem de erro
+	 * @param msg    a possivel mensagem de erro
 	 */
 	public static void validarCodigoObjetivo(String codigo, String msg) {
 		if (!codigo.substring(0, 1).equals("O")) {
@@ -141,13 +139,8 @@ public class ValidadorEntradas {
 	 * @param msg   - mensagem de erro a ser exibidada caso seja invalido
 	 */
 	public static void validaEmail(String email, String msg) {
-<<<<<<< HEAD
-		if (email.indexOf("@") == -1 || email.startsWith("@") || email.endsWith("@")) {
-=======
-		String[] parts = email.split("@");
-		
-		if(email.startsWith("@") || email.endsWith("@") || parts.length != 2) {
->>>>>>> b0d73c35456f40c33c55587b6c82352b9fea5839
+
+		if (email.indexOf("@") == -1 || email.startsWith("@") || email.endsWith("@")) {		
 			throw new IllegalArgumentException(msg);
 		}
 	}
@@ -160,17 +153,15 @@ public class ValidadorEntradas {
 	 * @param msg     - mensagem de erro a ser exibidada caso seja invalido
 	 */
 	public static void validaFoto(String fotoURL, String msg) {
-<<<<<<< HEAD
+
+		if (fotoURL.length() < 7) {
+			throw new IllegalArgumentException(msg);}
 		
-		if (fotoURL.length() < 7 || !(fotoURL.substring(0, 7).equals("http://")) 
-		|| fotoURL.length() < 8  || !(fotoURL.substring(0, 8).equals("https://"))){
-=======
-		String[] parts = fotoURL.split("//");
-		if (parts.length != 2 || !(parts[0].equals("http:"))
-				|| !(parts[0].equals("https:") || parts[1].trim().isEmpty())) {
->>>>>>> b0d73c35456f40c33c55587b6c82352b9fea5839
+		if (fotoURL.length() >= 7 && !(fotoURL.substring(0, 7).equals("http://"))) {
+			if (!(fotoURL.substring(0, 8).equals("https://"))) {
 			throw new IllegalArgumentException(msg);
-		}
+		}}
+		
 	}
 
 	/** Método que valida se os atributos passados no parametro de alteraPesquisador
@@ -179,16 +170,27 @@ public class ValidadorEntradas {
 	 * @param msg - mensagem de erro a ser exibidada caso seja invalido
 	 */
 	public static void validaAtributosPesquisador(String atributo, String msg) {
-<<<<<<< HEAD
-		if (!atributo.equals("NOME") || !atributo.equals("EMAIL") || !atributo.equals("FOTO")
-				|| !atributo.equals("BIOGRAFIA") || !atributo.equals("FUNCAO")) {
-=======
-		if ((atributo != null || !(atributo.trim().isEmpty()))
-				&& ((!atributo.equals("NOME") || !atributo.equals("EMAIL") || !atributo.equals("FOTO")
-						|| !atributo.equals("BIOGRAFIA") || !atributo.equals("FUNCAO")))) {
-
->>>>>>> b0d73c35456f40c33c55587b6c82352b9fea5839
+		if (((!atributo.equals("NOME") || !atributo.equals("EMAIL") || !atributo.equals("FOTO") || !atributo.equals("BIOGRAFIA") || !atributo.equals("FUNCAO")))) {
 			throw new IllegalArgumentException(msg);
+		}
+	}
+
+	/**
+	 * Valida o campo de interesse da pesquisa, que deve conter ate 255 caracteres e
+	 * ate quatro campos que nao podem ser vazios
+	 * 
+	 * @param campo o campo de interesse
+	 */
+	public static void validaCampoDeInteresse(String campo) {
+		String[] topicos = campo.split(",");
+		for (int i = 0; i < topicos.length; i++) {
+			if (topicos[i].equals("") || topicos[i].length() < 3) {
+				throw new IllegalArgumentException("Formato do campo de interesse invalido.");
+			}
+
+		}
+		if (topicos.length > 4 || campo.length() > 255) {
+			throw new IllegalArgumentException("Formato do campo de interesse invalido.");
 		}
 	}
 

@@ -40,6 +40,7 @@ public class PesquisadorController {
 		ValidadorEntradas.validarString(email, "Campo email nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(fotoURL, "Campo fotoURL nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validaEmail(email, "Formato de email invalido.");
+		ValidadorEntradas.validaFoto(fotoURL, "Formato de foto invalido.");
 
 		pesquisadores.put(email, new Pesquisador(nome, funcao, biografia, email, fotoURL));
 		
@@ -55,18 +56,14 @@ public class PesquisadorController {
 		ValidadorEntradas.validarString(email, "Campo email nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(atributo, "Atributo nao pode ser vazio ou nulo.");
 		ValidadorEntradas.validaEmail(email, "Formato de email invalido.");
-<<<<<<< HEAD:Psquiza/src/pesquisador/PesquisadorController.java
-=======
-		ValidadorEntradas.validaAtributosPesquisador(atributo, "Atributo invalido.");
->>>>>>> b0d73c35456f40c33c55587b6c82352b9fea5839:Psquiza/src/controladores/PesquisadorController.java
-		
+
 		if(!pesquisadores.containsKey(email)) {
 			throw new IllegalArgumentException("Pesquisador nao encontrado");
 		}
 		if(pesquisadores.get(email).getStatus() == false) {
 			throw new IllegalArgumentException("Pesquisador inativo");
 		}
-		
+		ValidadorEntradas.validaAtributosPesquisador(atributo, "Atributo invalido.");
 		switch (atributo) {
 		case "NOME":
 			pesquisadores.get(email).setNome(novoValor);
@@ -102,7 +99,7 @@ public class PesquisadorController {
 		
 		Pesquisador pesquisador = pesquisadores.get(email);
 		if(pesquisador.getStatus() == false) {
-			throw new IllegalArgumentException("Pesquisador inativo");
+			throw new IllegalArgumentException("Pesquisador inativo.");
 		} pesquisador.desativa();
 			
 	}
@@ -135,7 +132,7 @@ public class PesquisadorController {
 			throw new IllegalArgumentException("Pesquisador nao encontrado");
 		}
 		if (pesquisadores.get(email).getStatus() == false) {
-			throw new IllegalArgumentException("Pesquisador inativo");
+			throw new IllegalArgumentException("Pesquisador inativo.");
 		}
 		
 		return pesquisadores.get(email).toString();
@@ -143,7 +140,7 @@ public class PesquisadorController {
 	}
 
 	public boolean ehAtivo(String email) {
-		ValidadorEntradas.validarString(email, "Email nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(email, "Email nao pode ser vazio ou nulo.");
 		ValidadorEntradas.validaEmail(email, "Formato de email invalido.");
 		if(!pesquisadores.containsKey(email)) {
 			throw new IllegalArgumentException("Pesquisador nao encontrado");

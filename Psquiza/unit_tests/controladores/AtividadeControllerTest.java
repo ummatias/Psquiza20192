@@ -14,7 +14,7 @@ class AtividadeControllerTest {
 	@BeforeEach
 	void instanciarController() {
 		this.atividadeController = new AtividadeController();
-		atividadeController.cadastrarAtividade("Coletar dados de análises fisico quimicas com polpas de fruta de manga",
+		atividadeController.cadastraAtividade("Coletar dados de análises fisico quimicas com polpas de fruta de manga",
 				"MEDIO", "O manuseio incorreto de ferramentas de laboratório pode causar riscos.");
 	}
 
