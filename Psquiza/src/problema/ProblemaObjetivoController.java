@@ -1,10 +1,8 @@
-package controladores;
+package problema;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import entidades.Objetivo;
-import entidades.Problema;
 import validadores.ValidadorEntradas;
 
 /**

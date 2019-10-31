@@ -2,6 +2,7 @@ package entidades;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -9,6 +10,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import problema.Objetivo;
 
 public class ObjetivoTest {
 	private Objetivo objetivo;
@@ -39,14 +42,14 @@ public class ObjetivoTest {
 	
 	@Test
 	void testHashCodeIguais() {
-		o = new Objetivo("O1", "Geral", "", 2, 1);
+		o = new Objetivo("O1", "Geral", "Terminar o curso", 2, 1);
 		assertEquals(this.objetivo.hashCode(), o.hashCode());
 	}
 	
 	@Test
 	void testHashCodeDiferente() {
 		o = new Objetivo("O2", "Geral", "Manter a saude mental em dia", 5, 5);
-		assertEquals(this.objetivo.hashCode(), o.hashCode());
+		assertNotEquals(this.objetivo.hashCode(), o.hashCode());
 	}
 	
 	@Test

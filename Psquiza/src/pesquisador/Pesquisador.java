@@ -1,4 +1,4 @@
-package entidades;
+package pesquisador;
 
 import validadores.ValidadorEntradas;
 

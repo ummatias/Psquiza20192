@@ -1,10 +1,9 @@
-package controladores;
+package pesquisador;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import validadores.ValidadorEntradas;
-import entidades.Pesquisador;
 
 /**
  * Classe controller responsável pelo gerenciamento da classe Pesquisador.

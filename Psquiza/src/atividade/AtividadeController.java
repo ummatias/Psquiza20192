@@ -1,8 +1,7 @@
-package controladores;
+package atividade;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import entidades.Atividade;
 
 public class AtividadeController {
 	

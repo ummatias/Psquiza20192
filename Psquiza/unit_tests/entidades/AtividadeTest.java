@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import atividade.Atividade;
+
 class AtividadeTest {
 
 	private Atividade atividade;
@@ -15,6 +17,19 @@ class AtividadeTest {
 				"Sem riscos ao aplicar questionários.");
 	}
 
+	@Test
+	void testConstrutorCodigoVazioNulo() {
+		assertThrows(IllegalArgumentException.class, () ->{
+			new Atividade(" ", "Aplicação de questionários para estudantes", "BAIXO",
+					"Sem riscos ao aplicar questionários.");
+		});
+		
+		assertThrows(NullPointerException.class, () ->{
+			new Atividade(null, "Aplicação de questionários para estudantes", "BAIXO",
+					"Sem riscos ao aplicar questionários.");
+		});
+	}
+	
 	@Test
 	void testEqualsTrue() {
 		Atividade atv2 = new Atividade("A1", "Questionários", "BAIXO", "Sem riscos.");
