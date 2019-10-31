@@ -22,13 +22,6 @@ public class PesquisaController {
 	 */
 	private Map<String, Integer> chavesGeradas;
 
-	/**
-	 * Classe que constrói o pesquisaController.
-	 */
-public class PesquisaController {
-	private Map<String, Pesquisa> pesquisasCadastradas;
-	private Map<String, Integer> chavesGeradas;
-
 	public PesquisaController() {
 		this.pesquisasCadastradas = new HashMap<>();
 		this.chavesGeradas = new HashMap<>();
