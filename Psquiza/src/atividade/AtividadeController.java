@@ -17,9 +17,11 @@ public class AtividadeController {
 	}
 	
 	public String cadastraAtividade(String desc, String nvlRisco, String descRisco) {
+		
 		ValidadorEntradas.validarString(desc, "Campo Descricao nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(nvlRisco, "Campo nivelRisco nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(descRisco, "Campo descricaoRisco nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaValorRisco(nvlRisco);
 		
 		String code = generateCodeAtividade();
 		Atividade atividade = new Atividade(code, desc, nvlRisco, descRisco);
@@ -29,6 +31,8 @@ public class AtividadeController {
 	}
 
 	public void apagaAtividade(String codigo) {
+		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaAtividadeExiste(atividades, codigo);
 		atividades.remove(codigo);
 	}
 	
@@ -41,23 +45,28 @@ public class AtividadeController {
 	public void cadastraItem(String codigo, String item) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(item, "Item nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaAtividadeExiste(atividades, codigo);
 		
 		atividades.get(codigo).addItem(item);
 	}
 	
 	public int contaItensPendentes(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-
+		ValidadorEntradas.validaAtividadeExiste(atividades, codigo);
 		return atividades.get(codigo).contaItensPendentes();
 	}
 	
 	public int contaItensRealizados(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaAtividadeExiste(atividades, codigo);
 		
 		return atividades.get(codigo).contaItensRealizados();
 	}
 	
 	public String exibeAtividade(String codigo) {
+		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaAtividadeExiste(atividades, codigo);
+		
 		return atividades.get(codigo).toString();
 	}
 }

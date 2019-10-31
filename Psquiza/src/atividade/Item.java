@@ -10,7 +10,7 @@ public class Item {
 		this.textItem = textItem;
 	}
 	
-	public String ToString() {
+	public String toString() {
 		
 		String estado = "";
 		

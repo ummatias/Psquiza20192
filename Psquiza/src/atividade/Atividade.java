@@ -3,6 +3,8 @@ package atividade;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import validadores.ValidadorEntradas;
+
 public class Atividade {
 	private String desc;
 	private String nvlRisco;
@@ -13,6 +15,11 @@ public class Atividade {
 	
 	
 	public Atividade(String code, String desc, String nvlRisco, String descRisco) {
+		ValidadorEntradas.validarString(code, "Campo codigo nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(desc, "Campo Descricao nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(nvlRisco, "Campo nivelRisco nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(descRisco, "Campo descricaoRisco nao pode ser nulo ou vazio.");
+		
 		this.desc = desc;
 		this.nvlRisco = nvlRisco;
 		this.descRisco = descRisco;
@@ -25,10 +32,10 @@ public class Atividade {
 	}
 	
 	public int contaItensPendentes() {
-		int cont = 0;
-		
-		for(Item item : items) {
-			if(item.getStatus() == false) {
+		int cont;
+		cont = 0;
+		for(Item it : items) {
+			if(!it.getStatus()) {
 				cont += 1;
 			}
 		}
@@ -39,7 +46,7 @@ public class Atividade {
 		int cont = 0;
 		
 		for(Item item : items) {
-			if(item.getStatus() == true) {
+			if(item.getStatus()) {
 				cont += 1;
 			}
 		}
@@ -47,14 +54,16 @@ public class Atividade {
 	}
 	
 	public String toString() {
-		String retorno = retorno = desc + " (" + nvlRisco + " - " + descRisco + ")";
-		if(!items.isEmpty()) {
-			for(Item item : items) {
-				retorno += item.ToString();
-			}	
+		String retorno = desc + " (" + nvlRisco + " - " + descRisco + ")";
+		for(Item it : items) {
+			retorno += " | " + it.toString();
 		}
-		
+		retorno = retorno.substring(0, retorno.length());
 		return retorno;
+	}
+
+	private String getCode() {
+		return code;
 	}
 
 	@Override
@@ -81,4 +90,9 @@ public class Atividade {
 			return false;
 		return true;
 	}
+
+
+
+
+	
 }

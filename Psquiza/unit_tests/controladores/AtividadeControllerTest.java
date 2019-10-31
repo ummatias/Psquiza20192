@@ -91,7 +91,7 @@ class AtividadeControllerTest {
 			atividadeController.apagaAtividade("");
 		});
 
-		assertThrows(IllegalArgumentException.class, () -> {
+		assertThrows(NullPointerException.class, () -> {
 			atividadeController.apagaAtividade(null);
 		});
 	}
@@ -101,8 +101,8 @@ class AtividadeControllerTest {
 		atividadeController.cadastraItem("A1", "Comprar as polpas");
 
 		assertEquals(
-				"Coletar dados de análises fisico quimicas com polpas de fruta de manga (MEDIO - O manuseio incorreto de ferramentas de laboratório pode causar riscos.):"
-						+ "\n- PENDENTE - Comprar as polpas",
+				"Coletar dados de análises fisico quimicas com polpas de fruta de manga (MEDIO - O manuseio incorreto de ferramentas de laboratório pode causar riscos.)"
+						+ " | PENDENTE - Comprar as polpas",
 				atividadeController.exibeAtividade("A1"));
 
 	}
