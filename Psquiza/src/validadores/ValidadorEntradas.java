@@ -79,7 +79,6 @@ public class ValidadorEntradas {
 	 * @param msg  a mensagem de erro a ser exibida na possível exceção.
 	 */
 	public static void validarTipo(String tipo, String msg) {
-<<<<<<< HEAD
 		tipo = tipo.toUpperCase();
 
 		if (!tipo.equals("GERAL") && !tipo.equals("ESPECIFICO")) {
@@ -140,13 +139,8 @@ public class ValidadorEntradas {
 	 * @param msg   - mensagem de erro a ser exibidada caso seja invalido
 	 */
 	public static void validaEmail(String email, String msg) {
-<<<<<<< HEAD
-		if (email.indexOf("@") == -1 || email.startsWith("@") || email.endsWith("@")) {
-=======
-		String[] parts = email.split("@");
-		
-		if(email.startsWith("@") || email.endsWith("@") || parts.length != 2) {
->>>>>>> b0d73c35456f40c33c55587b6c82352b9fea5839
+
+		if (email.indexOf("@") == -1 || email.startsWith("@") || email.endsWith("@")) {		
 			throw new IllegalArgumentException(msg);
 		}
 	}
@@ -159,15 +153,10 @@ public class ValidadorEntradas {
 	 * @param msg     - mensagem de erro a ser exibidada caso seja invalido
 	 */
 	public static void validaFoto(String fotoURL, String msg) {
-<<<<<<< HEAD
+
 		
 		if (fotoURL.length() < 7 || !(fotoURL.substring(0, 7).equals("http://")) 
 		|| fotoURL.length() < 8  || !(fotoURL.substring(0, 8).equals("https://"))){
-=======
-		String[] parts = fotoURL.split("//");
-		if (parts.length != 2 || !(parts[0].equals("http:"))
-				|| !(parts[0].equals("https:") || parts[1].trim().isEmpty())) {
->>>>>>> b0d73c35456f40c33c55587b6c82352b9fea5839
 			throw new IllegalArgumentException(msg);
 		}
 	}
@@ -178,15 +167,11 @@ public class ValidadorEntradas {
 	 * @param msg - mensagem de erro a ser exibidada caso seja invalido
 	 */
 	public static void validaAtributosPesquisador(String atributo, String msg) {
-<<<<<<< HEAD
-		if (!atributo.equals("NOME") || !atributo.equals("EMAIL") || !atributo.equals("FOTO")
-				|| !atributo.equals("BIOGRAFIA") || !atributo.equals("FUNCAO")) {
-=======
 		if ((atributo != null || !(atributo.trim().isEmpty()))
 				&& ((!atributo.equals("NOME") || !atributo.equals("EMAIL") || !atributo.equals("FOTO")
 						|| !atributo.equals("BIOGRAFIA") || !atributo.equals("FUNCAO")))) {
 
->>>>>>> b0d73c35456f40c33c55587b6c82352b9fea5839
+
 			throw new IllegalArgumentException(msg);
 		}
 	}
