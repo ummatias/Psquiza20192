@@ -80,15 +80,14 @@ public class ValidadorEntradas {
 		if (!tipo.equals("GERAL") && !tipo.equals("ESPECIFICO")) {
 			throw new IllegalArgumentException(msg);
 		}
-
-	}
+  }
 
 	/**
 	 * Valida o código de um problema para garantir que comece com P e que tenha
 	 * após isso um número inteiro maior que zero
 	 * 
 	 * @param codigo o codigo do problema
-	 * @param msg    a possivel mensagem de erro
+	 * @param msg a possivel mensagem de erro
 	 */
 	public static void validarCodigoProblema(String codigo, String msg) {
 		if (!codigo.substring(0, 1).equals("P")) {

@@ -56,6 +56,7 @@ public class Pesquisa {
 		this.descricao = descricao;
 	}
 
+
 	/**
 	 * Altera o campo de interesse
 	 * 
@@ -90,6 +91,7 @@ public class Pesquisa {
 		this.status = false;
 	}
 
+
 	/**
 	 * retorna o codigo da pesquisa
 	 * 
@@ -115,13 +117,14 @@ public class Pesquisa {
 			throw new IllegalArgumentException("Nao e possivel alterar esse valor de pesquisa.");
 		}
 	}
-
+		
 	/**
 	 * encerra uma pesquisa
 	 */
 	public void encerraPesquisa() {
 		this.status = false;
 	}
+
 
 	/**
 	 * cria a representacao textual da pesquisa

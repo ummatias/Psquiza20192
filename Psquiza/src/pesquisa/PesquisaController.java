@@ -5,6 +5,7 @@ import java.util.Map;
 
 import validadores.ValidadorEntradas;
 
+
 /**
  * Classe que representa o controlador de pesquisas.
  * 
@@ -24,6 +25,10 @@ public class PesquisaController {
 	/**
 	 * Classe que constrói o pesquisaController.
 	 */
+public class PesquisaController {
+	private Map<String, Pesquisa> pesquisasCadastradas;
+	private Map<String, Integer> chavesGeradas;
+
 	public PesquisaController() {
 		this.pesquisasCadastradas = new HashMap<>();
 		this.chavesGeradas = new HashMap<>();
@@ -46,10 +51,9 @@ public class PesquisaController {
 		Pesquisa pesquisa = new Pesquisa(codigo, descricao, campoDeInteresse);
 		this.pesquisasCadastradas.put(codigo, pesquisa);
 		return this.pesquisasCadastradas.get(codigo).getCodigo();
-
 	}
 
-	/**
+  /**
 	 * Gera um codigo para a pesquisa a partir do campo de interesse de pesquisa.
 	 * 
 	 * @param campoDeInteresse o campo de interesse da pesquisa
@@ -65,8 +69,8 @@ public class PesquisaController {
 			return codigoGerado;
 
 		}
+    
 		String codigoGerado = codigo + (this.chavesGeradas.get(codigo) + 1);
-
 		this.chavesGeradas.put(codigo, chavesGeradas.get(codigo) + 1);
 		return codigoGerado;
 	}
@@ -160,8 +164,7 @@ public class PesquisaController {
 	 * @param codigo o codigo da pesquisa
 	 * @return retorna um boolean depois de verificar se a pesquisa e ativa
 	 */
-	public boolean pesquisaEhAtiva(String codigo) {
-
+	public boolean pesquisaEhAtiva(String codigo) {		
 		ValidadorEntradas.validarString(codigo, "Codigo nao pode ser nulo ou vazio.");
 		if (this.pesquisasCadastradas.containsKey(codigo)) {
 			return this.pesquisasCadastradas.get(codigo).ehAtiva();
