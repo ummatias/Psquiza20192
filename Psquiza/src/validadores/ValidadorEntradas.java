@@ -1,6 +1,5 @@
 package validadores;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import atividade.Atividade;
@@ -141,7 +140,7 @@ public class ValidadorEntradas {
 	 */
 	public static void validaEmail(String email, String msg) {
 
-		if (email.indexOf("@") == -1 || email.startsWith("@") || email.endsWith("@")) {		
+		if (email.startsWith("@") || email.endsWith("@") || email.indexOf("@") == -1 ) {		
 			throw new IllegalArgumentException(msg);
 		}
 	}
@@ -154,11 +153,14 @@ public class ValidadorEntradas {
 	 * @param msg     - mensagem de erro a ser exibidada caso seja invalido
 	 */
 	public static void validaFoto(String fotoURL, String msg) {
-
-		
-		if (fotoURL.length() < 7 || !(fotoURL.substring(0, 7).equals("http://")) 
-		|| fotoURL.length() < 8  || !(fotoURL.substring(0, 8).equals("https://"))){
+		if (fotoURL.length() < 7) {
 			throw new IllegalArgumentException(msg);
+		}
+		
+		if(fotoURL.length() >= 7 && !(fotoURL.substring(0, 7).equals("http://"))) {
+			if (!(fotoURL.substring(0, 8).equals("https://"))){
+				throw new IllegalArgumentException(msg);	
+			}
 		}
 	}
 
@@ -168,12 +170,16 @@ public class ValidadorEntradas {
 	 * @param msg - mensagem de erro a ser exibidada caso seja invalido
 	 */
 	public static void validaAtributosPesquisador(String atributo, String msg) {
-		if ((atributo != null || !(atributo.trim().isEmpty()))
-				&& ((!atributo.equals("NOME") || !atributo.equals("EMAIL") || !atributo.equals("FOTO")
-						|| !atributo.equals("BIOGRAFIA") || !atributo.equals("FUNCAO")))) {
-
-
-			throw new IllegalArgumentException(msg);
+		if (!atributo.equals("NOME")) {
+			if (!atributo.equals("EMAIL")) {
+				if (!atributo.equals("FOTO")) {
+					if (!atributo.equals("BIOGRAFIA")) {
+						if (!atributo.equals("FUNCAO")) {
+							throw new IllegalArgumentException(msg);
+						}
+					}
+				}
+			}
 		}
 	}
 
