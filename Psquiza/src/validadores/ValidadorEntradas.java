@@ -131,7 +131,6 @@ public class ValidadorEntradas {
 	}
 
 	/**
->>>>>>> b0d73c35456f40c33c55587b6c82352b9fea5839
 	 * Método que valida o email do pesquisador. Para ser valido deve ter um @, e
 	 * uma letra ou numero antes e depois do @
 	 * 

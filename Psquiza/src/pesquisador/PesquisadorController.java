@@ -48,9 +48,9 @@ public class PesquisadorController {
 
 	/** Método para alterar algum atributo de pesquisador,
 	 * seja ele: nome, email, função, url ou biografia.
-	 * @param email
-	 * @param atributo
-	 * @param novoValor
+	 * @param email - email do pesquisador
+	 * @param atributo - atributo que será alterado
+	 * @param novoValor - valor que o atributo vai assumir.
 	 */
 	public void alteraPesquisador(String email, String atributo, String novoValor) {
 		ValidadorEntradas.validarString(email, "Campo email nao pode ser nulo ou vazio.");
@@ -140,6 +140,10 @@ public class PesquisadorController {
 		
 	}
 
+	/** Método que verifica se o pesquisador está ativo ou não
+	 * @param email - email do pesquisador
+	 * @return true se estiver ativo, false se não estiver.
+	 */
 	public boolean ehAtivo(String email) {
 		ValidadorEntradas.validarString(email, "Email nao pode ser vazio ou nulo.");
 		ValidadorEntradas.validaEmail(email, "Formato de email invalido.");
