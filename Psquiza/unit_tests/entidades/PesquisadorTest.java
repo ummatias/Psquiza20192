@@ -149,7 +149,7 @@ class PesquisadorTest {
 	void testSetFoto() {
 		this.pesquisador1.setFoto("http://fotonova.com");
 		assertEquals(this.pesquisador1.toString(),
-				"Maria (estudante) - tem interesse em inteligencia artificial - maria@gmail.com - http://www.fotonova.com");
+				"Maria (estudante) - tem interesse em inteligencia artificial - maria@gmail.com - http://fotonova.com");
 	}
 
 	@Test

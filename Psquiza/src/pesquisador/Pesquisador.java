@@ -50,13 +50,14 @@ public class Pesquisador {
 		ValidadorEntradas.validarString(funcao, "Campo funcao nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(fotoURL, "Campo fotoURL nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validaEmail(email, "Formato de email invalido.");
+		ValidadorEntradas.validaFoto(fotoURL, "Formato de foto invalido.");
 		
 		this.nome = nome;
 		this.funcao = funcao;
 		this.biografia = biografia;
 		this.email = email;
 		this.fotoURL = fotoURL;
-		status = true;
+		this.status = true;
 		}
 
 	/**
@@ -129,7 +130,8 @@ public class Pesquisador {
 	 * @param novoValor - novo endereço de email do pesquisador
 	 */
 	public void setEmail(String novoValor) {
-		ValidadorEntradas.validaEmail(email, "Formato de email invalido.");
+		ValidadorEntradas.validarString(novoValor, "Campo email nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaEmail(novoValor, "Formato de email invalido.");
 		this.email = novoValor;
 	}
 
@@ -138,6 +140,7 @@ public class Pesquisador {
 	 */
 	public void setFoto(String novoValor) {
 		ValidadorEntradas.validarString(novoValor, "Campo fotoURL nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaFoto(novoValor, "Formato de foto invalido.");
 		this.fotoURL = novoValor;
 	}
 
@@ -153,7 +156,7 @@ public class Pesquisador {
 	 * não poderá ser exibido ou alterado.
 	 */
 	public void desativa() {
-		if (status == false) {
+		if (!status) {
 			throw new IllegalArgumentException("Pesquisador inativo.");
 		}
 		this.status = false;
@@ -164,7 +167,7 @@ public class Pesquisador {
 	 * alterando seu status para true.
 	 */
 	public void ativa() {
-		if(status == true) {
+		if(status) {
 			throw new IllegalArgumentException("Pesquisador ja ativado.");
 		}
 		this.status = true;
