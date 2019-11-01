@@ -202,12 +202,23 @@ public class ValidadorEntradas {
 		}
 	}
 	
+	/**
+	 * Valida o nível de risco da atividade que deve ser: Alto, Médio ou Baixo.
+	 * 
+	 * @param risco String contento o risco a ser validado
+	 */
 	public static void validaValorRisco(String risco) {
 		if(!(risco.equals("MEDIO") || risco.equals("ALTO") || risco.equals("BAIXO"))) {
 			throw new IllegalArgumentException("Valor invalido do nivel do risco.");
 		}
 	}
 	
+	/**
+	 * Valida se uma atividade existe dentro de um map de atividades.
+	 * 
+	 * @param atividades Map de atividades para a validação.
+	 * @param codigo String contendo o código da atividade a ser validada.
+	 */
 	public static void validaAtividadeExiste(Map<String, Atividade> atividades, String codigo) {
 		if(!atividades.containsKey(codigo)) {
 			throw new IllegalArgumentException("Atividade nao encontrada");
