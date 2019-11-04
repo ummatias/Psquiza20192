@@ -1,11 +1,7 @@
 package facade;
 
-import atividade.AtividadeController;
 import easyaccept.EasyAccept;
 import generaliza.ControllerGeral;
-import pesquisa.PesquisaController;
-import pesquisador.PesquisadorController;
-import problema.ProblemaObjetivoController;
 
 /**
  * Interface de comunicação entre o back-end e o front-end do Sistema.
@@ -33,6 +29,7 @@ public class Facade {
 				"testes_aceitacao/use_case_3.txt",
 				"testes_aceitacao/use_case_4.txt",
 				"testes_aceitacao/use_case_5.txt",
+				"testes_aceitacao/use_case_7.txt"
 				};
 		EasyAccept.main(args);
 	}
@@ -255,4 +252,26 @@ public class Facade {
 	public boolean desassociaObjetivo(String idPesquisa, String idProblema) {
 		return controllerGeral.desassociaProblema(idPesquisa, idProblema);
 	}
+	
+	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
+		return controllerGeral.associaAtividade(codigoPesquisa, codigoAtividade);
+	}
+    public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
+    	return controllerGeral.desassociaAtividade(codigoPesquisa, codigoAtividade);
+    }
+    public void executaAtividade(String codigoAtividade, int item, int duracao) {
+    	controllerGeral.executaAtividade(codigoAtividade, item, duracao);
+    }
+    public int cadastraResultado(String codigoAtividade, String resultado) {
+    	return controllerGeral.cadastraResultado(codigoAtividade, resultado);
+    }
+    public boolean removeResultado(String codigoAtividade, int numeroResultado) {
+    	return controllerGeral.removeResultado(codigoAtividade, numeroResultado);
+    }
+    public String listaResultados(String codigoAtividade) {
+    	return controllerGeral.listaResultados(codigoAtividade);
+    }
+    public int getDuracao(String codigoAtividade) {
+    	return controllerGeral.getDuracao(codigoAtividade);
+    }
 }
