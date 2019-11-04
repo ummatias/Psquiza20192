@@ -204,7 +204,7 @@ public class Pesquisa {
 		}return false;
 	}
 	
-	public void associaObjetivo(Objetivo objetivo) {	
+	public void associaObjetivo(Objetivo objetivo) {
 		objetivos.put(objetivo.getCodigo(), objetivo);
 	}
 	
@@ -217,5 +217,12 @@ public class Pesquisa {
 	
 	public Problema getProblema() {
 		return this.problema;
+	}
+	
+	public boolean existeEsseObjetivo(String idObjetivo) {
+		if(objetivos.containsKey(idObjetivo)) {
+			return true;
+		}
+		return false;
 	}
 }

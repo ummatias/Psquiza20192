@@ -3,6 +3,7 @@ package validadores;
 import java.util.Map;
 
 import atividade.Atividade;
+import pesquisa.Pesquisa;
 import problema.Objetivo;
 import problema.Problema;
 
@@ -237,5 +238,19 @@ public class ValidadorEntradas {
 			throw new IllegalArgumentException("Objetivo nao encontrado");
 		}
 	}
+	
+	public static void validaPesquisaExiste(Map<String, Pesquisa> pesquisas, String codigo) {
+		if(!pesquisas.containsKey(codigo)) {
+			throw new IllegalArgumentException("Pesquisa nao encontrada.");
+		}
+	}
+	
+	public static void validaPesquisaEstaAtiva(Map<String, Pesquisa> pesquisas, String codigo) {
+		if(!pesquisas.get(codigo).ehAtiva()) {
+			throw new IllegalArgumentException("Pesquisa desativada.");
+		}
+	}
+	
+
 
 }

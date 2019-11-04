@@ -80,6 +80,7 @@ public class PesquisaController {
 	public void alteraPesquisa(String codigo, String conteudoASerAlterado, String novoConteudo) {
 		ValidadorEntradas.validarString(conteudoASerAlterado, "Conteudo nao pode ser vazio ou nulo");
 		ValidadorEntradas.validarString(codigo, "Codigo nao pode ser nulo ou vazio.");
+		
 		if (novoConteudo == null || novoConteudo.equals("")) {
 			if (conteudoASerAlterado.equals("DESCRICAO")) {
 				throw new IllegalArgumentException("Descricao nao pode ser nula ou vazia.");
@@ -107,17 +108,10 @@ public class PesquisaController {
 	public void encerraPesquisa(String codigo, String motivo) {
 		ValidadorEntradas.validarString(codigo, "Codigo nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(motivo, "Motivo nao pode ser nulo ou vazio.");
-
-		if (this.pesquisasCadastradas.containsKey(codigo)) {
-			if (this.pesquisasCadastradas.get(codigo).ehAtiva()) {
-				this.pesquisasCadastradas.get(codigo).encerraPesquisa();
-			} else {
-				throw new IllegalArgumentException("Pesquisa desativada.");
-			}
-		} else {
-			throw new IllegalArgumentException("Pesquisa nao encontrada.");
-		}
-
+		ValidadorEntradas.validaPesquisaEstaAtiva(pesquisasCadastradas, codigo);
+		ValidadorEntradas.validaPesquisaExiste(pesquisasCadastradas, codigo);
+		
+		this.pesquisasCadastradas.get(codigo).encerraPesquisa();
 	}
 
 	/**
@@ -127,14 +121,12 @@ public class PesquisaController {
 	 */
 	public void ativaPesquisa(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Codigo nao pode ser nulo ou vazio.");
-		if (this.pesquisasCadastradas.containsKey(codigo)) {
-			if (this.pesquisasCadastradas.get(codigo).ehAtiva() == false) {
-				this.pesquisasCadastradas.get(codigo).ativaPesquisa();
-			} else {
-				throw new IllegalArgumentException("Pesquisa ja ativada.");
-			}
+		ValidadorEntradas.validaPesquisaExiste(pesquisasCadastradas, codigo);
+		
+		if (this.pesquisasCadastradas.get(codigo).ehAtiva() == false) {
+			this.pesquisasCadastradas.get(codigo).ativaPesquisa();
 		} else {
-			throw new IllegalArgumentException("Pesquisa nao encontrada.");
+			throw new IllegalArgumentException("Pesquisa ja ativada.");
 		}
 	}
 
@@ -146,11 +138,8 @@ public class PesquisaController {
 	 */
 	public String exibePesquisa(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Codigo nao pode ser nulo ou vazio.");
-
-		if (this.pesquisasCadastradas.containsKey(codigo)) {
-			return this.pesquisasCadastradas.get(codigo).toString();
-		}
-		throw new IllegalArgumentException("Pesquisa nao encontrada.");
+		ValidadorEntradas.validaPesquisaExiste(pesquisasCadastradas, codigo);
+		return this.pesquisasCadastradas.get(codigo).toString();
 	}
 
 	/**
@@ -161,15 +150,16 @@ public class PesquisaController {
 	 */
 	public boolean pesquisaEhAtiva(String codigo) {		
 		ValidadorEntradas.validarString(codigo, "Codigo nao pode ser nulo ou vazio.");
-		if (this.pesquisasCadastradas.containsKey(codigo)) {
-			return this.pesquisasCadastradas.get(codigo).ehAtiva();
-		}
-		throw new IllegalArgumentException("Pesquisa nao encontrada.");
+		ValidadorEntradas.validaPesquisaExiste(pesquisasCadastradas, codigo);
+		return this.pesquisasCadastradas.get(codigo).ehAtiva();
 	}
 	
 	public boolean associaProblema(String idPesquisa, Problema problema) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
-		if(pesquisasCadastradas.get(idPesquisa).getProblema() != null) {
+		ValidadorEntradas.validaPesquisaExiste(pesquisasCadastradas, idPesquisa);
+		ValidadorEntradas.validaPesquisaEstaAtiva(pesquisasCadastradas, idPesquisa);
+		
+		if(pesquisasCadastradas.get(idPesquisa).getProblema() != null && !(pesquisasCadastradas.get(idPesquisa).getProblema().equals(problema))) {
 			throw new IllegalArgumentException("Pesquisa ja associada a um problema.");
 		}
 		return pesquisasCadastradas.get(idPesquisa).associaProblema(problema);
@@ -177,18 +167,29 @@ public class PesquisaController {
 	
 	public boolean desassociaProblema(String idPesquisa) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaPesquisaExiste(pesquisasCadastradas, idPesquisa);
+		ValidadorEntradas.validaPesquisaEstaAtiva(pesquisasCadastradas, idPesquisa);
+		
 		return pesquisasCadastradas.get(idPesquisa).desassociaProblema();
 	}
 	
 	public void associaObjetivo(String idPesquisa, Objetivo objetivo) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaPesquisaExiste(pesquisasCadastradas, idPesquisa);
+		ValidadorEntradas.validaPesquisaEstaAtiva(pesquisasCadastradas, idPesquisa);
 		pesquisasCadastradas.get(idPesquisa).associaObjetivo(objetivo);
 	}
 	
 	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaPesquisaExiste(pesquisasCadastradas, idPesquisa);
+		ValidadorEntradas.validaPesquisaEstaAtiva(pesquisasCadastradas, idPesquisa);
 		
 		return pesquisasCadastradas.get(idPesquisa).desassociaObjetivo(idObjetivo);
+	}
+	
+	public boolean existeEsseObjetivo(String idPesquisa, String idObjetivo) {
+		return pesquisasCadastradas.get(idPesquisa).existeEsseObjetivo(idObjetivo);
 	}
 }

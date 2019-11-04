@@ -252,8 +252,13 @@ public class ControllerGeral {
 	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
-		
+
 		Objetivo objetivo = probObjController.getObjetivo(idObjetivo);
+		
+		if(objetivo.getStatus() && !pesquisaController.existeEsseObjetivo(idPesquisa, idObjetivo)) {
+			throw new IllegalArgumentException("Objetivo ja associado a uma pesquisa.");
+		}
+		
 		if(!objetivo.getStatus()) {
 			
 			objetivo.setStatus(true);

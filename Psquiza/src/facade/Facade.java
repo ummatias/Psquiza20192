@@ -249,10 +249,10 @@ public class Facade {
 	}
 	
 	public boolean associaObjetivo(String idPesquisa, String idProblema) {
-		return controllerGeral.associaProblema(idPesquisa, idProblema);
+		return controllerGeral.associaObjetivo(idPesquisa, idProblema);
 	}
 	
 	public boolean desassociaObjetivo(String idPesquisa, String idProblema) {
-		return controllerGeral.desassociaProblema(idPesquisa, idProblema);
+		return controllerGeral.associaObjetivo(idPesquisa, idProblema);
 	}
 }
