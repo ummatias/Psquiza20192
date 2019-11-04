@@ -3,6 +3,8 @@ package validadores;
 import java.util.Map;
 
 import atividade.Atividade;
+import problema.Objetivo;
+import problema.Problema;
 
 public class ValidadorEntradas {
 
@@ -221,6 +223,18 @@ public class ValidadorEntradas {
 	public static void validaAtividadeExiste(Map<String, Atividade> atividades, String codigo) {
 		if(!atividades.containsKey(codigo)) {
 			throw new IllegalArgumentException("Atividade nao encontrada");
+		}
+	}
+	
+	public static void validaProblemaExiste(Map<String, Problema> problemas, String codigo) {
+		if(!problemas.containsKey(codigo)) {
+			throw new IllegalArgumentException("Problema nao encontrado");
+		}
+	}
+	
+	public static void validaObjetivoExiste(Map<String, Objetivo> objetivos, String codigo) {
+		if(!objetivos.containsKey(codigo)) {
+			throw new IllegalArgumentException("Objetivo nao encontrado");
 		}
 	}
 

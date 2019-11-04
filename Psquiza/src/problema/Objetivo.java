@@ -38,6 +38,8 @@ public class Objetivo {
 	 * O quão viável é a conclusão de um objetivo. Inteiro de 1 a 5.
 	 */
 	private int viabilidade;
+	
+	private boolean status;
 
 	/**
 	 * Constrói o objeto do tipo Objetivo inicializando seus atributos.
@@ -63,6 +65,7 @@ public class Objetivo {
 		this.descricao = descricao;
 		this.aderencia = aderencia;
 		this.viabilidade = viabilidade;
+		this.status = false;
 	}
 	
 	/**
@@ -110,6 +113,18 @@ public class Objetivo {
 	 */
 	private int getValor() {
 		return this.aderencia + this.viabilidade;
+	}
+	
+	public String getCodigo() {
+		return this.codigo;
+	}
+	
+	public boolean getStatus() {
+		return this.status;
+	}
+	
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 
 }

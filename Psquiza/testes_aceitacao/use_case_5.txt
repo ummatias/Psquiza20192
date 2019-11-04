@@ -1,0 +1,54 @@
+#COM1 associado com P1
+#COM2 associado com P2
+#COM1 associado com 01
+#COM1 associado com 02
+#COM1 associado com 03
+#COM2 associado com 04
+
+
+#associando e desassociando problemas a pesquisas
+
+expect true associaProblema idPesquisa="COM1" idProblema="P1"
+expectError "Pesquisa ja associada a um problema." associaProblema idPesquisa="COM1" idProblema="P2"
+expect false associaProblema idPesquisa="COM1" idProblema="P1"
+expect true desassociaProblema idPesquisa="COM1" idProblema="P1"
+expect false desassociaProblema idPesquisa="COM1" idProblema="P1"
+expectError "Campo idPesquisa nao pode ser nulo ou vazio." associaProblema idPesquisa="" idProblema="P2"
+expectError "Campo idProblema nao pode ser nulo ou vazio." desassociaProblema idPesquisa="COM1" idProblema=""
+expectError "Pesquisa nao encontrada." associaProblema idPesquisa="LED7" idProblema="P2"
+expectError "Pesquisa nao encontrada." desassociaProblema idPesquisa="OPA42" idProblema="P2"
+expectError "Pesquisa desativada." associaProblema idPesquisa="FER1" idProblema="P2"
+expectError "Pesquisa desativada." desassociaProblema idPesquisa="FER1" idProblema="P2"
+expect true associaProblema idPesquisa="COM1" idProblema="P1"
+expect true associaProblema idPesquisa="COM2" idProblema="P2"
+
+
+#associando e desassociando objetivos a pesquisas
+
+expect true associaObjetivo idPesquisa="COM1" idObjetivo="O1"
+expectError "Objetivo ja associado a uma pesquisa." associaObjetivo idPesquisa="COM2" idObjetivo="O1"
+expect false associaObjetivo idPesquisa="COM1" idObjetivo="O1"
+expect true desassociaObjetivo idPesquisa="COM1" idObjetivo="O1"
+expect false desassociaObjetivo idPesquisa="COM1" idObjetivo="O1"
+expectError "Campo idPesquisa nao pode ser nulo ou vazio." associaObjetivo idPesquisa="" idObjetivo="O2"
+expectError "Campo idObjetivo nao pode ser nulo ou vazio." desassociaObjetivo idPesquisa="COM1" idObjetivo=""
+expectError "Pesquisa nao encontrada." associaObjetivo idPesquisa="LED7" idObjetivo="O2"
+expectError "Pesquisa nao encontrada." desassociaObjetivo idPesquisa="OPA42" idObjetivo="O2"
+expectError "Pesquisa desativada." associaObjetivo idPesquisa="FER1" idObjetivo="O2"
+expectError "Pesquisa desativada." desassociaObjetivo idPesquisa="FER1" idObjetivo="O2"
+expect true associaObjetivo idPesquisa="COM1" idObjetivo="O1"
+expect true associaObjetivo idPesquisa="COM1" idObjetivo="O2"
+expect true associaObjetivo idPesquisa="COM1" idObjetivo="O3"
+expect true associaObjetivo idPesquisa="COM2" idObjetivo="O4"
+
+
+#listando as pesquisas
+
+expect "COM2 - Autoavaliacao na Disciplina de Programacao Orientada a Objeto. - computacao, poo | COM1 - Homofobia em mensagens online de alunos de computacao do primeiro periodo. - computacao, homofobia | PSI1 - Alienacao Parental e o Sistema de Justica Brasileiro. - psicologia, sistema juridico, alienacao parental, brasil | FER1 - Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces. - fermentacao, cerveja | ELE1 - Aumento da evasao no numero de eleitores paraibanos. - eleicao, paraiba" listaPesquisas ordem="PROBLEMA"
+
+expect "COM1 - Homofobia em mensagens online de alunos de computacao do primeiro periodo. - computacao, homofobia | COM2 - Autoavaliacao na Disciplina de Programacao Orientada a Objeto. - computacao, poo | PSI1 - Alienacao Parental e o Sistema de Justica Brasileiro. - psicologia, sistema juridico, alienacao parental, brasil | FER1 - Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces. - fermentacao, cerveja | ELE1 - Aumento da evasao no numero de eleitores paraibanos. - eleicao, paraiba" listaPesquisas ordem="OBJETIVOS"
+
+expect "PSI1 - Alienacao Parental e o Sistema de Justica Brasileiro. - psicologia, sistema juridico, alienacao parental, brasil | FER1 - Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces. - fermentacao, cerveja | ELE1 - Aumento da evasao no numero de eleitores paraibanos. - eleicao, paraiba | COM2 - Autoavaliacao na Disciplina de Programacao Orientada a Objeto. - computacao, poo | COM1 - Homofobia em mensagens online de alunos de computacao do primeiro periodo. - computacao, homofobia" listaPesquisas ordem="PESQUISA"
+
+expectError "Valor invalido da ordem" listaPesquisas ordem=""
+expectError "Valor invalido da ordem" listaPesquisas ordem="LEGAL"
