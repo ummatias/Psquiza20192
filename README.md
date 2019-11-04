@@ -17,7 +17,7 @@ Projeto desenvolvida para a discplina de LP2 do curso de ciência da computaçã
 **Dúvidas Gerais:**
 
  - Thiago Lima
- - Antônio Neto
+ - Antonio Neto
 
  **Professor Responsável:**
  
