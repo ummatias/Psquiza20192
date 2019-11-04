@@ -3,6 +3,7 @@ package pesquisa;
 import java.util.HashMap;
 import java.util.Map;
 
+import atividade.Atividade;
 import validadores.ValidadorEntradas;
 
 
@@ -163,5 +164,22 @@ public class PesquisaController {
 			return this.pesquisasCadastradas.get(codigo).ehAtiva();
 		}
 		throw new IllegalArgumentException("Pesquisa nao encontrada.");
+	}
+	
+	/** Método que associa uma atividade a pesquisa.
+	 * @param codigoPesquisa - código da pesquisa
+	 * @param atividade - atividade a ser associada
+	 * @return true se conseguir associar com sucesso. False se já tiver uma atividade associada.
+	 */
+	public boolean associaAtividade(String codigoPesquisa, Atividade atividade) {
+		return pesquisasCadastradas.get(codigoPesquisa).associaAtividade(atividade);
+	}
+	
+	/**Método que desassocia uma atividade a pesquisa.
+	 * @param codigoPesquisa - código da pesquisa
+	 * @return true se for desassociada com sucesso, false se já não tiver uma atividade.
+	 */
+	public boolean desassociaAtividade(String codigoPesquisa) {
+		return pesquisasCadastradas.get(codigoPesquisa).desassociaAtividade();
 	}
 }

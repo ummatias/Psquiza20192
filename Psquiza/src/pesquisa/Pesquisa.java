@@ -28,6 +28,9 @@ public class Pesquisa {
 	 */
 	private boolean status;
 	
+	/**
+	 * Atividade associada a pesquisa.
+	 */
 	private Atividade atividade;
 
 	/**
@@ -169,11 +172,28 @@ public class Pesquisa {
 		return true;
 	}
 	
-	public void associaAtividade(Atividade atv) {
-		this.atividade = atv;
+	/** Método que associa uma Atividade a pesquisa.
+	 * @param atividade a ser associdada
+	 */
+	public boolean associaAtividade(Atividade atividade) {
+		if (atividade == null) {
+			this.atividade = atividade;
+			return true;
+		} return false;
 	}
 	
-	public void desassociaAtividade() {
+	/**
+	 * Método que desassocia a atividade a pesquisa.
+	 * @return 
+	 */
+	public boolean desassociaAtividade() {
+		if (atividade == null) {
+			return false;}
 		this.atividade = null;
+		return true;
+	}
+	
+	public Atividade getAtividade() {
+		return atividade;
 	}
 }
