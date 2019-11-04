@@ -266,7 +266,6 @@ public class ControllerGeral {
 	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
-		
 		if(pesquisaController.desassociaObjetivo(idPesquisa, idObjetivo)) {
 			Objetivo objetivo = probObjController.getObjetivo(idObjetivo);
 			objetivo.setStatus(false);

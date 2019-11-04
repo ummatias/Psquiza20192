@@ -102,12 +102,10 @@ public class ProblemaObjetivoController {
 	 */
 	public void apagaProblema(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaProblemaExiste(problemas, codigo);
 
-		if (problemas.containsKey(codigo)) {
-			problemas.remove(codigo);
-		} else {
-			throw new IllegalArgumentException("Problema nao encontrado");
-		}
+		problemas.remove(codigo);
+
 
 	}
 
@@ -118,13 +116,8 @@ public class ProblemaObjetivoController {
 	 */
 	public void apagaObjetivo(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-
-		if (objetivos.containsKey(codigo)) {
-			objetivos.remove(codigo);
-		} else {
-			throw new IllegalArgumentException("Objetivo nao encontrado");
-		}
-
+		ValidadorEntradas.validaObjetivoExiste(objetivos, codigo);
+		objetivos.remove(codigo);
 	}
 
 	/**
@@ -135,13 +128,8 @@ public class ProblemaObjetivoController {
 	 */
 	public String exibeProblema(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-
-		if (problemas.containsKey(codigo)) {
-			return problemas.get(codigo).toString();
-		} else {
-			throw new IllegalArgumentException("Problema nao encontrado");
-		}
-
+		ValidadorEntradas.validaProblemaExiste(problemas, codigo);
+		return problemas.get(codigo).toString();
 	}
 
 	/**
@@ -152,12 +140,9 @@ public class ProblemaObjetivoController {
 	 */
 	public String exibeObjetivo(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-
-		if (objetivos.containsKey(codigo)) {
-			return objetivos.get(codigo).toString();
-		} else {
-			throw new IllegalArgumentException("Objetivo nao encontrado");
-		}
+		ValidadorEntradas.validaObjetivoExiste(objetivos, codigo);
+		
+		return objetivos.get(codigo).toString();
 	}
 	
 	public Problema getProblema(String idProblema) {

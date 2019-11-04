@@ -169,6 +169,9 @@ public class PesquisaController {
 	
 	public boolean associaProblema(String idPesquisa, Problema problema) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		if(pesquisasCadastradas.get(idPesquisa).getProblema() != null) {
+			throw new IllegalArgumentException("Pesquisa ja associada a um problema.");
+		}
 		return pesquisasCadastradas.get(idPesquisa).associaProblema(problema);
 	}
 	

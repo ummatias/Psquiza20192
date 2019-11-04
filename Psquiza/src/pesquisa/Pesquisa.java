@@ -214,4 +214,8 @@ public class Pesquisa {
 			return true;
 		}return false;
 	}
+	
+	public Problema getProblema() {
+		return this.problema;
+	}
 }
