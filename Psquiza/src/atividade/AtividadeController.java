@@ -52,7 +52,8 @@ public class AtividadeController {
 		
 		String code = generateCodeAtividade();
 		Atividade atividade = new Atividade(code, desc, nvlRisco, descRisco);
-		atividades.put(code, atividade);
+		if (!atividades.containsKey(code)) {
+			atividades.put(code, atividade);}
 		return code;
 		
 	}
@@ -132,17 +133,56 @@ public class AtividadeController {
 		return atividades.get(codigo).toString();
 	}
 	
+	/** Método para retornar uma atividade do sistema pelo codigo.
+	 * @param codigo - codigo da atividade
+	 * @return o objeto Atividade
+	 */
 	public Atividade getAtividade(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validaAtividadeExiste(atividades, codigo);
 		return atividades.get(codigo);
 	}
 	
+	/**Método para indicar a execução de determinada atividade.
+	 * @param codigoAtividade - codigo da atividade
+	 * @param item - item que será executado
+	 * @param duracao - duraçao da execução
+	 */
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
 		atividades.get(codigoAtividade).executaAtividade(item, duracao);
 	}
 	
+	/**Método que retorna a duração de determinada atividade.
+	 * @param codigoAtividade - codigo da atividade.
+	 * @return a duração total da atividade.
+	 */
 	public int getDuracao(String codigoAtividade) {
 		return atividades.get(codigoAtividade).getDuracao();
+	}
+	
+	/** Método que cadastra resultados a uma determinada atividade.
+	 * @param codigoAtividade - código da atividade que vai cadastrar o resultado
+	 * @param resultado - resultado que vai ser adicionado
+	 * @return código do resultado
+	 */
+	public int cadastraResultado(String codigoAtividade, String resultado) {
+		return atividades.get(codigoAtividade).addResultados(resultado);
+	}
+	
+	/**Método para remover determinado resultado.
+	 * @param codigoAtividade - código da atividade que terá o resultado removido
+	 * @param numeroResultado - codigo do resultado 
+	 * @return true se foi removido com sucesso
+	 */
+	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
+		return atividades.get(codigoAtividade).removeResultado(numeroResultado);
+	}
+	
+	/** Método que retorna a listagem de todos os resultados de determinada atividade.
+	 * @param codigoAtividade - código da atividade
+	 * @return a lista de resultados
+	 */
+	public String listaResultados(String codigoAtividade) {
+		return atividades.get(codigoAtividade).listaResultados();
 	}
 }
