@@ -1,7 +1,7 @@
 package atividade;
 
-import java.util.LinkedHashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import validadores.ValidadorEntradas;
 
@@ -38,11 +38,11 @@ public class Atividade {
 	/**
 	 * Set que contém os itens da atividade.
 	 */
-	private Set<Item> itens;
+	private List<Item> itens;
 	
 	private int duracao;
 	
-	
+	private List<String> resultados;
 	
 	/**
 	 * Constrói uma atividade a partir de seu codigo, descrição
@@ -62,8 +62,9 @@ public class Atividade {
 		this.desc = desc;
 		this.nvlRisco = nvlRisco;
 		this.descRisco = descRisco;
-		this.itens = new LinkedHashSet<Item>();
+		this.itens = new ArrayList<Item>();
 		this.duracao = 0;
+		this.resultados = new ArrayList<String>();
 	}
 	
 	/**
@@ -119,15 +120,6 @@ public class Atividade {
 		return retorno;
 	}
 	
-	
-	/**
-	 * Retorna o código da atividade.
-	 * 
-	 * @return String referente ao código da atividade
-	 */
-	private String getCode() {
-		return code;
-	}
 
 	//Gera um inteiro que serve como identificador único para a atividade.
 	@Override
@@ -160,17 +152,51 @@ public class Atividade {
 		return true;
 	}
 
+	/** Método que retorna a duração da ativida.
+	 * @return duração da atividade inteira.
+	 */
 	public int getDuracao() {
 	 return duracao;
 	}
 
+	/** Método para executar a atividade.
+	 * @param item - item usado para realizar a atividade, será alterado o status como executado;
+	 * @param horas - horas gastas com a atividade
+	 */
 	public void executaAtividade(int item, int horas) {
-		this.duracao = horas;
-		
+		this.duracao += horas;
+		itens.get(item - 1).setStatus(true);
 	}
 
+	/**Método para adicionar resultados a atividade.
+	 * @param resultado - resultado a ser cadastrado
+	 * @return código do resultado
+	 */
+	public int addResultados(String resultado) {
+		resultados.add(resultado);
+		return resultados.size() + 1;
+	}
 
+	/** Método que remove um resultado da atividade.
+	 * @param numeroResultado - numero do indice do resultado
+	 * @return true se o resultado foi removido com sucesso.
+	 */
+	public boolean removeResultado(int numeroResultado) {
+		resultados.remove(numeroResultado);
+		if (resultados.get(numeroResultado) == null) {
+			return true;
+		}  return false;
+	}
 
-
-	
+	/** Método que retorna a lista com os resultados
+	 * @return representação textual com todos os
+	 * resultados dessa atividade
+	 */
+	public String listaResultados() {
+		String retorno = "";
+		for (String resultado:resultados) {
+			retorno += resultado + " | " + System.lineSeparator();
+		}
+		return retorno.substring(0, retorno.length() - 3);
+	}
 }
