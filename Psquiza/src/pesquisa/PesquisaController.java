@@ -3,6 +3,8 @@ package pesquisa;
 import java.util.HashMap;
 import java.util.Map;
 
+import problema.Objetivo;
+import problema.Problema;
 import validadores.ValidadorEntradas;
 
 
@@ -163,5 +165,27 @@ public class PesquisaController {
 			return this.pesquisasCadastradas.get(codigo).ehAtiva();
 		}
 		throw new IllegalArgumentException("Pesquisa nao encontrada.");
+	}
+	
+	public boolean associaProblema(String idPesquisa, Problema problema) {
+		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		return pesquisasCadastradas.get(idPesquisa).associaProblema(problema);
+	}
+	
+	public boolean desassociaProblema(String idPesquisa) {
+		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		return pesquisasCadastradas.get(idPesquisa).desassociaProblema();
+	}
+	
+	public void associaObjetivo(String idPesquisa, Objetivo objetivo) {
+		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		pesquisasCadastradas.get(idPesquisa).associaObjetivo(objetivo);
+	}
+	
+	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
+		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
+		
+		return pesquisasCadastradas.get(idPesquisa).desassociaObjetivo(idObjetivo);
 	}
 }

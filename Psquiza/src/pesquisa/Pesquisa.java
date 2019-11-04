@@ -1,6 +1,12 @@
 package pesquisa;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 import atividade.Atividade;
+import problema.Objetivo;
+import problema.Problema;
 import validadores.ValidadorEntradas;
 
 /**
@@ -29,6 +35,10 @@ public class Pesquisa {
 	private boolean status;
 	
 	private Atividade atividade;
+	
+	private Problema problema;
+	
+	private Map<String, Objetivo> objetivos;
 
 	/**
 	 * Contrutor da pesquisa
@@ -46,6 +56,8 @@ public class Pesquisa {
 		this.codigo = codigo;
 		this.status = true;
 		this.atividade = null;
+		this.problema = null;
+		this.objetivos = new HashMap<>();
 
 	}
 
@@ -175,5 +187,31 @@ public class Pesquisa {
 	
 	public void desassociaAtividade() {
 		this.atividade = null;
+	}
+	
+	public boolean associaProblema(Problema problema) {
+		if(this.problema == null) {
+			this.problema = problema;
+			return true;
+			
+		}return false;
+	}
+	
+	public boolean desassociaProblema() {
+		if(this.problema != null) {
+			this.problema = null;
+			return true;
+		}return false;
+	}
+	
+	public void associaObjetivo(Objetivo objetivo) {	
+		objetivos.put(objetivo.getCodigo(), objetivo);
+	}
+	
+	public boolean desassociaObjetivo(String idObjetivo) {	
+		if(objetivos.containsKey(idObjetivo)) {
+			objetivos.remove(idObjetivo);
+			return true;
+		}return false;
 	}
 }

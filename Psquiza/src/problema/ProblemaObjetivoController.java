@@ -159,5 +159,17 @@ public class ProblemaObjetivoController {
 			throw new IllegalArgumentException("Objetivo nao encontrado");
 		}
 	}
+	
+	public Problema getProblema(String idProblema) {
+		ValidadorEntradas.validarString(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
+		
+		return problemas.get(idProblema);
+	}
+	
+	public Objetivo getObjetivo(String idObjetivo) {
+		ValidadorEntradas.validarString(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
+		
+		return objetivos.get(idObjetivo);
+	}
 
 }
