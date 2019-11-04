@@ -40,6 +40,8 @@ public class Atividade {
 	 */
 	private Set<Item> itens;
 	
+	private int duracao;
+	
 	
 	
 	/**
@@ -61,6 +63,7 @@ public class Atividade {
 		this.nvlRisco = nvlRisco;
 		this.descRisco = descRisco;
 		this.itens = new LinkedHashSet<Item>();
+		this.duracao = 0;
 	}
 	
 	/**
@@ -155,6 +158,15 @@ public class Atividade {
 		} else if (!code.equals(other.code))
 			return false;
 		return true;
+	}
+
+	public int getDuracao() {
+	 return duracao;
+	}
+
+	public void executaAtividade(int item, int horas) {
+		this.duracao = horas;
+		
 	}
 
 

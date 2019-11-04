@@ -19,6 +19,8 @@ public class Item {
 	 */
 	private String textItem;
 	
+	
+	
 	/**
 	 * Constrói um item através da sua descrição e inicializa seus atributos.
 	 * 

@@ -1,5 +1,6 @@
 package pesquisa;
 
+import atividade.Atividade;
 import validadores.ValidadorEntradas;
 
 /**
@@ -26,6 +27,8 @@ public class Pesquisa {
 	 * O status da pesquisa, que pode ser ativo ou inativo
 	 */
 	private boolean status;
+	
+	private Atividade atividade;
 
 	/**
 	 * Contrutor da pesquisa
@@ -42,6 +45,7 @@ public class Pesquisa {
 		this.campoDeInteresse = campoDeInteresse;
 		this.codigo = codigo;
 		this.status = true;
+		this.atividade = null;
 
 	}
 
@@ -164,5 +168,12 @@ public class Pesquisa {
 			return false;
 		return true;
 	}
-
+	
+	public void associaAtividade(Atividade atv) {
+		this.atividade = atv;
+	}
+	
+	public void desassociaAtividade() {
+		this.atividade = null;
+	}
 }
