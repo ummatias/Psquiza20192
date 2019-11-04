@@ -131,4 +131,18 @@ public class AtividadeController {
 		
 		return atividades.get(codigo).toString();
 	}
+	
+	public Atividade getAtividade(String codigo) {
+		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaAtividadeExiste(atividades, codigo);
+		return atividades.get(codigo);
+	}
+	
+	public void executaAtividade(String codigoAtividade, int item, int duracao) {
+		atividades.get(codigoAtividade).executaAtividade(item, duracao);
+	}
+	
+	public int getDuracao(String codigoAtividade) {
+		return atividades.get(codigoAtividade).getDuracao();
+	}
 }
