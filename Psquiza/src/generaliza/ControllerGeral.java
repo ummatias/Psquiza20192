@@ -1,5 +1,6 @@
 package generaliza;
 
+import atividade.Atividade;
 import atividade.AtividadeController;
 import pesquisa.PesquisaController;
 import pesquisador.PesquisadorController;
@@ -271,5 +272,35 @@ public class ControllerGeral {
 			objetivo.setStatus(false);
 			return true;
 		}return false;
+	}
+	
+	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
+		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		
+		Atividade atividade = ativController.getAtividade(codigoAtividade);
+		return pesquisaController.associaAtividade(codigoPesquisa, atividade);
+	}
+	
+	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
+		return pesquisaController.desassociaAtividade(codigoPesquisa);
+	}
+	
+	public void executaAtividade(String codigoAtividade, int item, int duracao) {
+		ativController.executaAtividade(codigoAtividade, item, duracao);
+	}
+	
+	public int cadastraResultado(String codigoAtividade, String resultado) {
+		return ativController.cadastraResultado(codigoAtividade, resultado);
+	}
+	
+	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
+		return ativController.removeResultado(codigoAtividade, numeroResultado);
+	}
+	
+	public String listaResultados(String codigoAtividade) {
+		return ativController.listaResultados(codigoAtividade);
+	}
+	public int getDuracao(String codigoAtividade) {
+		return ativController.getDuracao(codigoAtividade);
 	}
 }

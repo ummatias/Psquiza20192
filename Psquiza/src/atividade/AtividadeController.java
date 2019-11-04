@@ -9,7 +9,7 @@ import validadores.ValidadorEntradas;
  * e "Item". Classe que armazena as atividades no sistema
  * 
  * @author Mateus Matias Ribeiro - 119111153
- *
+ * @author Emilly de Albuquerque Oliveira - 119111162
  */
 public class AtividadeController {
 	

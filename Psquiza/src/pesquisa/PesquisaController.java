@@ -191,13 +191,14 @@ public class PesquisaController {
 		ValidadorEntradas.validarString(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
 		
 		return pesquisasCadastradas.get(idPesquisa).desassociaObjetivo(idObjetivo);
-
+	}
 	/** Método que associa uma atividade a pesquisa.
 	 * @param codigoPesquisa - código da pesquisa
 	 * @param atividade - atividade a ser associada
 	 * @return true se conseguir associar com sucesso. False se já tiver uma atividade associada.
 	 */
 	public boolean associaAtividade(String codigoPesquisa, Atividade atividade) {
+		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		return pesquisasCadastradas.get(codigoPesquisa).associaAtividade(atividade);
 	}
 	
@@ -206,6 +207,7 @@ public class PesquisaController {
 	 * @return true se for desassociada com sucesso, false se já não tiver uma atividade.
 	 */
 	public boolean desassociaAtividade(String codigoPesquisa) {
+		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		return pesquisasCadastradas.get(codigoPesquisa).desassociaAtividade();
 
 	}

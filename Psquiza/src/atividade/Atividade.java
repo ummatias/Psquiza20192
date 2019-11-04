@@ -11,7 +11,7 @@ import validadores.ValidadorEntradas;
  * descrição para esse risco.
  * 
  * @author Mateus Matias Ribeiro - 119111153
- *
+ * @author Emilly de Albuquerque Oliveira - 119111162
  */
 public class Atividade {
 	
