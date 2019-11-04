@@ -58,4 +58,13 @@ public class Item {
 		return status;
 	}
 
+	/** Método que altera o status do item para realizado.
+	 * @param status - status do item.
+	 */
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+	
+
+
 }
