@@ -13,7 +13,7 @@ import validadores.ValidadorEntradas;
  * @author Mateus Matias Ribeiro - 119111153
  * @author Emilly de Albuquerque Oliveira - 119111162
  */
-public class Atividade {
+public class Atividade implements Comparable<Atividade>{
 	
 	/**
 	 * String referente a descrição da atividade.
@@ -198,5 +198,27 @@ public class Atividade {
 			retorno += resultado + " | " + System.lineSeparator();
 		}
 		return retorno.substring(0, retorno.length() - 3);
+	}
+	public String getCodigo() {
+		return this.code;
+	}
+
+	@Override
+	public int compareTo(Atividade o) {
+		return (this.getCodigo().compareTo(o.getCodigo())) * -1;
+	}
+	public String buscaTermo(String termo) {
+		String saida = "";
+		
+		if(this.desc.toLowerCase().contains(termo.toLowerCase())) {
+			saida += this.code + ": " + this.desc + " | ";
+		}
+		if(this.descRisco.toLowerCase().contains(termo.toLowerCase())) {
+			saida += this.code + ": " + this.descRisco + " | ";
+		}
+		if(saida.length() > 0) {
+			return saida.substring(0,saida.length() - 3);
+		}
+		return saida;
 	}
 }

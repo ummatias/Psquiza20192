@@ -297,18 +297,7 @@ class PesquisaControllerTest {
 			pesquisaController.pesquisaEhAtiva(null);
 		});
 	}
-	@Test
-	void testAssociaProblemaComSucesso() {
-		assertEquals(true,pesquisaController.associaProblema("UNI1", "P1"));
-	}
-	@Test
-	void TestDesassociaProblemaComSucesso() {
-		assertEquals(true,pesquisaController.desassociaProblema("UNI1", "P1"));
-	}
-	@Test
-	void TestAssociaObjetivoComSucesso() {
-		assertEquals(true, pesquisaController.associaObjetivo("UNI1", "O1"));
-	}
+
 
 	// parte 2 - cdu 7
 
