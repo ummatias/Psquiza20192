@@ -5,16 +5,21 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import pesquisa.PesquisaController;
+import problema.ProblemaObjetivoController;
 
 class PesquisaControllerTest {
 
 	private PesquisaController pesquisaController;
+	private ProblemaObjetivoController problemaObjetivoController;
 
 	@BeforeEach
 	void instanciarController() {
 		this.pesquisaController = new PesquisaController();
 		pesquisaController.cadastraPesquisa("Pesquisa sobre as implicacoes psicologicas da pressao gerada na universidade.",
 				"Universidade, Problema, Psico");
+		this.problemaObjetivoController = new ProblemaObjetivoController();
+		this.problemaObjetivoController.cadastraProblema("Falta de acessibilidade no ambiente academico", 5);
+		this.problemaObjetivoController.cadastraObjetivo("ESPECIFICO", "contruir rampas em todos os predios", 5, 5);
 	}
 	
 	// Cadastra Pesquisa - testando cadastros e campos vazios ou nulos.
@@ -283,6 +288,19 @@ class PesquisaControllerTest {
 			pesquisaController.pesquisaEhAtiva(null);
 		});
 	}
+	@Test
+	void testAssociaProblemaComSucesso() {
+		assertEquals(true,pesquisaController.associaProblema("UNI1", "P1"));
+	}
+	@Test
+	void TestDesassociaProblemaComSucesso() {
+		assertEquals(true,pesquisaController.desassociaProblema("UNI1", "P1"));
+	}
+	@Test
+	void TestAssociaObjetivoComSucesso() {
+		assertEquals(true, pesquisaController.associaObjetivo("UNI1", "O1"));
+	}
+
 	
 
 }
