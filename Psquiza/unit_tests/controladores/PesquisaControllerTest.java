@@ -403,6 +403,11 @@ class PesquisaControllerTest {
 		});
 	}
 	
-	//
+	@Test
+	void testDesassociaAtividadeInexistente() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.desassociaAtividade("UNI2", "A1");
+		});
+	}
 
 }
