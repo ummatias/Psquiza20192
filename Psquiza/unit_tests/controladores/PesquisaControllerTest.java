@@ -349,7 +349,7 @@ class PesquisaControllerTest {
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisaController.associaAtividade("UNI2", atv1);
 		});
-	}
+	}	
 
 	// desassocia atividade
 
