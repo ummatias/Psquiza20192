@@ -237,5 +237,25 @@ public class ValidadorEntradas {
 			throw new IllegalArgumentException("Objetivo nao encontrado");
 		}
 	}
+	
+	public static void validaFormatoData(String data, String msg) {
+		String[] dataQuebrada = data.split("/");
+		
+		if(dataQuebrada.length != 3) {
+			throw new IllegalArgumentException(msg);
+		} else if (dataQuebrada[0].length() != 2 || dataQuebrada[1].length() != 2 || dataQuebrada[2].length() != 4) {
+			throw new IllegalArgumentException(msg);
+		} else {
+			int dia = Integer.parseInt(dataQuebrada[0]);
+			int mes = Integer.parseInt(dataQuebrada[1]);
+			
+			if(dia > 31 || dia < 1) {
+				throw new IllegalArgumentException(msg);
+			} else if (mes > 12 || mes < 1) {
+				throw new IllegalArgumentException(msg);
+			}
+		}
+		
+	}
 
 }

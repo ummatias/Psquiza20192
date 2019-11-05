@@ -24,13 +24,9 @@ public class Facade {
 	public static void main(String[] args) {
 		args = new String[] { "facade.Facade",
 
-				"testes_aceitacao/use_case_1.txt",
-				"testes_aceitacao/use_case_2.txt",
-				"testes_aceitacao/use_case_3.txt",
-				"testes_aceitacao/use_case_4.txt",
-				"testes_aceitacao/use_case_5.txt",
-				"testes_aceitacao/use_case_7.txt"
-				};
+				"testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt", "testes_aceitacao/use_case_3.txt",
+				"testes_aceitacao/use_case_4.txt", "testes_aceitacao/use_case_5.txt",
+				"testes_aceitacao/use_case_6.txt", };
 		EasyAccept.main(args);
 	}
 
@@ -209,69 +205,92 @@ public class Facade {
 	public boolean pesquisaEhAtiva(String codigo) {
 		return this.controllerGeral.pesquisaEhAtiva(codigo);
 	}
-	
+
 	public boolean pesquisadorEhAtivo(String email) {
 		return controllerGeral.pesquisadorEhAtivo(email);
 	}
-  
+
 	public String cadastraAtividade(String Descricao, String nivelRisco, String descricaoRisco) {
 		return controllerGeral.cadastraAtividade(Descricao, nivelRisco, descricaoRisco);
 	}
-	
+
 	public void apagaAtividade(String codigo) {
 		controllerGeral.apagaAtividade(codigo);
 	}
+
 	public void cadastraItem(String codigo, String item) {
 		controllerGeral.cadastraItem(codigo, item);
-		
+
 	}
+
 	public String exibeAtividade(String codigo) {
 		return controllerGeral.exibeAtividade(codigo);
 
 	}
+
 	public int contaItensPendentes(String codigo) {
 		return controllerGeral.contaItensPendentes(codigo);
 	}
+
 	public int contaItensRealizados(String codigo) {
 		return controllerGeral.contaItensRealizados(codigo);
 
 	}
-	
+
 	public boolean associaProblema(String idPesquisa, String idProblema) {
 		return controllerGeral.associaProblema(idPesquisa, idProblema);
 	}
-	
+
 	public boolean desassociaProblema(String idPesquisa, String idProblema) {
 		return controllerGeral.desassociaProblema(idPesquisa, idProblema);
 	}
-	
+
 	public boolean associaObjetivo(String idPesquisa, String idProblema) {
 		return controllerGeral.associaProblema(idPesquisa, idProblema);
 	}
-	
+
 	public boolean desassociaObjetivo(String idPesquisa, String idProblema) {
 		return controllerGeral.desassociaProblema(idPesquisa, idProblema);
 	}
-	
+
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
 		return controllerGeral.associaAtividade(codigoPesquisa, codigoAtividade);
 	}
-    public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
-    	return controllerGeral.desassociaAtividade(codigoPesquisa, codigoAtividade);
-    }
-    public void executaAtividade(String codigoAtividade, int item, int duracao) {
-    	controllerGeral.executaAtividade(codigoAtividade, item, duracao);
-    }
-    public int cadastraResultado(String codigoAtividade, String resultado) {
-    	return controllerGeral.cadastraResultado(codigoAtividade, resultado);
-    }
-    public boolean removeResultado(String codigoAtividade, int numeroResultado) {
-    	return controllerGeral.removeResultado(codigoAtividade, numeroResultado);
-    }
-    public String listaResultados(String codigoAtividade) {
-    	return controllerGeral.listaResultados(codigoAtividade);
-    }
-    public int getDuracao(String codigoAtividade) {
-    	return controllerGeral.getDuracao(codigoAtividade);
-    }
+
+	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
+		return controllerGeral.desassociaAtividade(codigoPesquisa, codigoAtividade);
+	}
+
+	public void executaAtividade(String codigoAtividade, int item, int duracao) {
+		controllerGeral.executaAtividade(codigoAtividade, item, duracao);
+	}
+
+	public int cadastraResultado(String codigoAtividade, String resultado) {
+		return controllerGeral.cadastraResultado(codigoAtividade, resultado);
+	}
+
+	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
+		return controllerGeral.removeResultado(codigoAtividade, numeroResultado);
+	}
+
+	public String listaResultados(String codigoAtividade) {
+		return controllerGeral.listaResultados(codigoAtividade);
+	}
+
+	public int getDuracao(String codigoAtividade) {
+		return controllerGeral.getDuracao(codigoAtividade);
+	}
+
+	/**
+	 * Especializa um pesquisador como sendo do tipo Professor, cadastrando seus
+	 * atributos especiais: formação, unidade e data de contratação
+	 * 
+	 * @param email o email do pesquisador
+	 * @param formacao o grau de formação do professor
+	 * @param unidade a unidade academica do professor
+	 * @param data a data de contratação do professor
+	 */
+	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
+		controllerGeral.cadastraEspecialidadeProfessor(email, formacao, unidade, data);
+	}
 }

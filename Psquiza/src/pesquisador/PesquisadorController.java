@@ -154,4 +154,33 @@ public class PesquisadorController {
 			return false;
 		}   return true;
 	}
+
+	/**
+	 * Especializa um pesquisador como sendo do tipo Professor, cadastrando seus
+	 * atributos especiais: formação, unidade e data de contratação
+	 * 
+	 * @param email o email do pesquisador
+	 * @param formacao o grau de formação do professor
+	 * @param unidade a unidade academica do professor
+	 * @param data a data de contratação do professor
+	 */
+	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
+		ValidadorEntradas.validarString(email, "Campo email nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaEmail(email, "Formato de email invalido.");
+		ValidadorEntradas.validarString(formacao, "Campo formacao nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(unidade, "Campo unidade nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(data, "Campo data nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaFormatoData(data, "Atributo data com formato invalido.");
+		
+		if(pesquisadores.containsKey(email)) {
+			Pesquisador pesquisador = pesquisadores.get(email);
+			pesquisador.setEspecialidadeProfessor(formacao, unidade, data);
+			
+		} else {
+			throw new IllegalArgumentException("Pesquisadora nao encontrada.");
+		}
+		
+	}
+	
+	
 }

@@ -303,4 +303,17 @@ public class ControllerGeral {
 	public int getDuracao(String codigoAtividade) {
 		return ativController.getDuracao(codigoAtividade);
 	}
+
+	/**
+	 * Especializa um pesquisador como sendo do tipo Professor, cadastrando seus
+	 * atributos especiais: formação, unidade e data de contratação
+	 * 
+	 * @param email o email do pesquisador
+	 * @param formacao o grau de formação do professor
+	 * @param unidade a unidade academica do professor
+	 * @param data a data de contratação do professor
+	 */
+	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
+		psqzadorController.cadastraEspecialidadeProfessor(email, formacao, unidade, data);
+	}
 }

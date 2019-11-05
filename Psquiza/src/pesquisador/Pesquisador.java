@@ -20,6 +20,10 @@ public class Pesquisador {
 	 */
 	private String funcao;
 	/**
+	 * Guarda a especialidade do professor caso esta seja cadastrada, caso não seja é setado como null
+	 */
+	private Especialidade especialidade;
+	/**
 	 * Atributo que tem a biografia do pesquisador.
 	 */
 	private String biografia;
@@ -54,10 +58,12 @@ public class Pesquisador {
 		
 		this.nome = nome;
 		this.funcao = funcao;
+		this.especialidade = null;
 		this.biografia = biografia;
 		this.email = email;
 		this.fotoURL = fotoURL;
 		this.status = true;
+
 		}
 
 	/**
@@ -171,5 +177,21 @@ public class Pesquisador {
 			throw new IllegalArgumentException("Pesquisador ja ativado.");
 		}
 		this.status = true;
+	}
+
+	/**
+	 * Cadastra os atributos especiais de um professor
+	 * 
+	 * @param formacao o grau de formação do professor
+	 * @param unidade a unidade academica do professor
+	 * @param data a data de contratação do professor
+	 */
+	public void setEspecialidadeProfessor(String formacao, String unidade, String data) {
+		if(this.funcao.equalsIgnoreCase("PROFESSOR")) {
+			this.especialidade = new Professor(formacao, unidade, data);
+		} else {
+			throw new IllegalArgumentException("Pesquisador nao compativel com a especialidade.");
+		}
+		
 	}
 }

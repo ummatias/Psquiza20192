@@ -1,0 +1,127 @@
+#Associando COM2 e matheusgr@computacao.ufcg.edu.br
+
+
+expect true associaPesquisador idPesquisa="COM2" emailPesquisador="matheusgr@computacao.ufcg.edu.br"
+expect false associaPesquisador idPesquisa="COM2" emailPesquisador="matheusgr@computacao.ufcg.edu.br"
+expect true associaPesquisador idPesquisa="COM1" emailPesquisador="eliane@computacao.ufcg.edu.br"
+expect true desassociaPesquisador idPesquisa="COM1" emailPesquisador="eliane@computacao.ufcg.edu.br"
+expect false desassociaPesquisador idPesquisa="COM1" emailPesquisador="eliane@computacao.ufcg.edu.br"
+
+#idPesquisa ou emailPesquisador vazios em associaPesquisador
+
+expectError "Campo idPesquisa nao pode ser nulo ou vazio." associaPesquisador idPesquisa="" emailPesquisador="breakingbad@2008"
+expectError "Campo emailPesquisador nao pode ser nulo ou vazio." associaPesquisador idPesquisa="ELE1" emailPesquisador=""
+
+
+#pesquisa inexistente ou desativada em associaPesquisador
+
+expectError "Pesquisa nao encontrada." associaPesquisador idPesquisa="ZAP6" emailPesquisador="breakingbad@2008"
+expectError "Pesquisa desativada." associaPesquisador idPesquisa="PSI1" emailPesquisador="breakingbad@2008"
+
+
+#idPesquisa ou emailPesquisador vazios em desassociaPesquisador
+
+expectError "Campo idPesquisa nao pode ser nulo ou vazio." desassociaPesquisador idPesquisa="" emailPesquisador="breakingbad@2008"
+expectError "Campo emailPesquisador nao pode ser nulo ou vazio." desassociaPesquisador idPesquisa="ELE1" emailPesquisador=""
+
+
+#pesquisa inexistente ou desativada em desassociaPesquisador
+
+expectError "Pesquisa nao encontrada." desassociaPesquisador idPesquisa="ZAP6" emailPesquisador="breakingbad@2008"
+expectError "Pesquisa desativada." desassociaPesquisador idPesquisa="PSI1" emailPesquisador="breakingbad@2008"
+
+
+#Especializando professores
+
+cadastraEspecialidadeProfessor email="matheusgr@computacao.ufcg.edu.br" formacao="Bacharel" unidade="CC" data="01/01/1975"
+cadastraEspecialidadeProfessor email="eliane@computacao.ufcg.edu.br" formacao="Doutorado" unidade="DSC" data="07/07/2007"
+cadastraEspecialidadeProfessor email="livia@computacao.ufcg.edu.br" formacao="Doutorado" unidade="DSC" data="20/06/2006"
+
+
+#Informacoes vazias em especializando professores
+
+expectError "Campo email nao pode ser nulo ou vazio." cadastraEspecialidadeProfessor email="" formacao="Doutorado" unidade="DSC" data="01/01/2011"
+expectError "Campo formacao nao pode ser nulo ou vazio." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="" unidade="DSC" data="01/01/2011"
+expectError "Campo unidade nao pode ser nulo ou vazio." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="" data="01/01/2011"
+expectError "Campo data nao pode ser nulo ou vazio." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="DSC" data=""
+
+
+#pesquisador inexistente
+
+expectError "Pesquisadora nao encontrada." cadastraEspecialidadeProfessor email="chapuletei@2018" formacao="Doutorado" unidade="DSC" data="04/04/2004"
+
+
+#data invalida em especializando professores
+
+expectError "Atributo data com formato invalido." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="DSC" data="01012011"
+expectError "Atributo data com formato invalido." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="DSC" data="0101/2011"
+expectError "Atributo data com formato invalido." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="DSC" data="01/012011"
+expectError "Atributo data com formato invalido." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="DSC" data="01/01/11"
+expectError "Atributo data com formato invalido." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="DSC" data="01/01/20011"
+expectError "Atributo data com formato invalido." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="DSC" data="010/01/2011"
+expectError "Atributo data com formato invalido." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="DSC" data="01/010/2011"
+expectError "Atributo data com formato invalido." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="DSC" data="01/17/2011"
+expectError "Atributo data com formato invalido." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="DSC" data="45/01/2011"
+
+
+#Usando a cadastraEspecialidadeProfessor em externos e alunos.
+
+expectError "Pesquisador nao compativel com a especialidade." cadastraEspecialidadeProfessor email="hunterxhunter@1998" formacao="Doutorado" unidade="MAT" data="01/01/2011"
+expectError "Pesquisador nao compativel com a especialidade." cadastraEspecialidadeProfessor email="thelastofus@2013" formacao="Doutorado" unidade="MAT" data="01/01/2011"
+
+
+#Especializando alunos
+
+cadastraEspecialidadeAluno email="hunterxhunter@1998" semestre=2 IEA=9.9999
+
+
+#Informacoes vazias em especializando alunos
+
+expectError "Campo email nao pode ser nulo ou vazio." cadastraEspecialidadeAluno email="" semestre=3 IEA=6.9
+expectError "Atributo semestre com formato invalido." cadastraEspecialidadeAluno email="borutofathers@1997" semestre=-3 IEA=6.9
+expectError "Atributo semestre com formato invalido." cadastraEspecialidadeAluno email="borutofathers@1997" semestre=0 IEA=6.9
+expectError "Atributo IEA com formato invalido." cadastraEspecialidadeAluno email="borutofathers@1997" semestre=3 IEA=-7
+expectError "Atributo IEA com formato invalido." cadastraEspecialidadeAluno email="borutofathers@1997" semestre=3 IEA=11
+
+
+#pesquisador inexistente
+
+expectError "Pesquisadora nao encontrada." cadastraEspecialidadeAluno email="void@void" semestre=3 IEA=0.1
+
+
+#semestre e iea invalidos em especializando alunos
+
+expectError "Atributo IEA com formato invalido." cadastraEspecialidadeAluno email="borutofathers@1997" semestre=3 IEA=-2.0
+expectError "Atributo IEA com formato invalido." cadastraEspecialidadeAluno email="borutofathers@1997" semestre=3 IEA=8000
+expectError "Atributo semestre com formato invalido." cadastraEspecialidadeAluno email="borutofathers@1997" semestre=-1 IEA=8
+expectError "Atributo semestre com formato invalido." cadastraEspecialidadeAluno email="borutofathers@1997" semestre=0 IEA=9
+
+
+#Usando cadastraEspecialidadeAluno em externos e professores
+
+expectError "Pesquisador nao compativel com a especialidade." cadastraEspecialidadeAluno email="matheusgr@computacao.ufcg.edu.br" semestre=3 IEA=2.0
+expectError "Pesquisador nao compativel com a especialidade." cadastraEspecialidadeAluno email="thelastofus@2013" semestre=3 IEA=2.0
+
+
+#Listando pesquisadores
+
+expect "Prairie Johnson (externo) - Interessada no estudo de multiplas dimensoes e no estudo dos sentidos humanos. - theoa@2016 - https://notblind | Joel (externo) - Interresado em fungos. - thelastofus@2013 - https://Cordyceps" listaPesquisadores tipo="EXTERNO"
+expectError "Campo tipo nao pode ser nulo ou vazio." listaPesquisadores tipo=""
+expectError "Tipo BOM DIA FAMILIA inexistente." listaPesquisadores tipo="BOM DIA FAMILIA"
+
+
+#Alterando pesquisadores
+
+alteraPesquisador email="matheusgr@computacao.ufcg.edu.br" atributo="FORMACAO" novoValor="Doutorado"
+alteraPesquisador email="matheusgr@computacao.ufcg.edu.br" atributo="DATA" novoValor="02/01/1975"
+alteraPesquisador email="matheusgr@computacao.ufcg.edu.br" atributo="UNIDADE" novoValor="DSC"
+alteraPesquisador email="hunterxhunter@1998" atributo="SEMESTRE" novoValor="4"
+alteraPesquisador email="hunterxhunter@1998" atributo="IEA" novoValor="9.5"
+
+
+#Exibindo pesquisadores
+
+expectError "Campo email nao pode ser nulo ou vazio." exibePesquisador email=""
+expectError "Pesquisador nao encontrado" exibePesquisador email="gagau@ccc.ufcg.edu.br"
+expect "killua zoldyck (estudante) - Interessado em eletricidade, o terceiro de cinco filhos da famosa familia Zaoldyeck. - hunterxhunter@1998 - https://godspeed - 4o SEMESTRE - 9.5" exibePesquisador email="hunterxhunter@1998"
+expect "Matheus Gaudencio (professor) - Um tchuchucador de respeito - matheusgr@computacao.ufcg.edu.br - https://omeMaisLindoDeComputacao - Doutorado - DSC - 02/01/1975" exibePesquisador email="matheusgr@computacao.ufcg.edu.br"
