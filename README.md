@@ -2,7 +2,7 @@
 
 Projeto desenvolvida para a discplina de LP2 do curso de ciência da computação da UFCG.
 
-**Desenvolvidores:**
+**Desenvolvedores:**
 
  - Emilly Albuquerque - 119111162
  - Igor Gomes - 119110051
