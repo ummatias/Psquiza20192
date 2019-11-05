@@ -314,10 +314,10 @@ class PesquisaControllerTest {
 			pesquisaController.associaAtividade(null, atv1);
 		});
 	}
-	
+
 	@Test
 	void testAssociaAtividadeNula() {
-		
+
 		assertThrows(NullPointerException.class, () -> {
 			pesquisaController.associaAtividade("UNI1", null);
 		});
@@ -328,25 +328,44 @@ class PesquisaControllerTest {
 		Atividade atv1 = new Atividade("A1", "Questionario", "baixo", "n tem risco");
 
 		pesquisaController.associaAtividade("UNI1", atv1);
-		
+
 		assertFalse(pesquisaController.associaAtividade("UNI1", atv1));
 	}
+
+	@Test
+	void testAssociaAtividadePesquisaDesativada() {
+		Atividade atv1 = new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		pesquisaController.encerraPesquisa("UNI1", "to só testando hehe");
+
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.associaAtividade("UNI1", atv1);
+		});
+	}
 	
-	//desassocia atividade
-	
+	@Test
+	void testAssociaAtividadePesquisaInexistente() {
+		Atividade atv1 = new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.associaAtividade("UNI2", atv1);
+		});
+	}
+
+	// desassocia atividade
+
 	@Test
 	void testDesassociaAtividadeComSucesso() {
 		Atividade atv1 = new Atividade("A1", "Questionario", "baixo", "n tem risco");
 		pesquisaController.associaAtividade("UNI1", atv1);
-		
+
 		assertTrue(pesquisaController.desassociaAtividade("UNI1", "A1"));
 	}
-	
+
 	@Test
 	void testDesassociaAtividadeCodVazioNulo() {
 		Atividade atv1 = new Atividade("A1", "Questionario", "baixo", "n tem risco");
 		pesquisaController.associaAtividade("UNI1", atv1);
-		
+
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisaController.desassociaAtividade("", "A1");
 		});
@@ -355,15 +374,35 @@ class PesquisaControllerTest {
 			pesquisaController.desassociaAtividade(null, "A1");
 		});
 	}
-	
+
 	@Test
 	void testDesassociaAtividadeJaDesassociada() {
 		Atividade atv1 = new Atividade("A1", "Questionario", "baixo", "n tem risco");
 
 		pesquisaController.associaAtividade("UNI1", atv1);
 		pesquisaController.desassociaAtividade("UNI1", "A1");
-		
+
 		assertFalse(pesquisaController.desassociaAtividade("UNI1", "A1"));
 	}
+	
+	@Test
+	void testDesassociaAtividadePesquisaDesativada() {
+		Atividade atv1 = new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		pesquisaController.associaAtividade("UNI1", atv1);
+		pesquisaController.encerraPesquisa("UNI1", "to só testando hehe");
+
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.desassociaAtividade("UNI1", "A1");
+		});
+	}
+	
+	@Test
+	void testDesassociaAtividadePesquisaInexistente() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.desassociaAtividade("UNI2", "A1");
+		});
+	}
+	
+	//
 
 }
