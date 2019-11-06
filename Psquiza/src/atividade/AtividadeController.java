@@ -138,7 +138,7 @@ public class AtividadeController {
 	 * @return o objeto Atividade
 	 */
 	public Atividade getAtividade(String codigo) {
-		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(codigo, "Campo codigoAtividade nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validaAtividadeExiste(atividades, codigo);
 		return atividades.get(codigo);
 	}

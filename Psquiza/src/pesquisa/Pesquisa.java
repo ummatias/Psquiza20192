@@ -1,6 +1,5 @@
 package pesquisa;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -188,9 +187,10 @@ public class Pesquisa {
 	 * @param atividade a ser associdada
 	 */
 	public boolean associaAtividade(Atividade atividade) {
-		if (atividade == null) {
+		if (this.atividade == null) {
 			this.atividade = atividade;
 			return true;
+			
 		} return false;
 	}
 	
@@ -199,11 +199,10 @@ public class Pesquisa {
 	 * @return 
 	 */
 	public boolean desassociaAtividade() {
-		if (atividade == null) {
-			return false;}
-		this.atividade = null;
-		return true;
-	}
+		if (atividade != null) {
+			this.atividade = null;
+			return true;
+		} 	return false;}
 	
 	public Atividade getAtividade() {
 		return atividade;

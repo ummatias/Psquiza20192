@@ -244,4 +244,11 @@ public class ValidadorEntradas {
 		}
 	}
 
+	public static void validaPesquisaAtiva(boolean pesquisaEhAtiva) {
+		if (!pesquisaEhAtiva) {
+			throw new IllegalArgumentException("Pesquisa desativada.");
+		}
+		
+	}
+
 }

@@ -174,7 +174,7 @@ public class Atividade {
 	 */
 	public int addResultados(String resultado) {
 		resultados.add(resultado);
-		return resultados.size() + 1;
+		return resultados.size();
 	}
 
 	/** Método que remove um resultado da atividade.
@@ -195,7 +195,7 @@ public class Atividade {
 	public String listaResultados() {
 		String retorno = "";
 		for (String resultado:resultados) {
-			retorno += resultado + " | " + System.lineSeparator();
+			retorno += resultado + " | ";
 		}
 		return retorno.substring(0, retorno.length() - 3);
 	}
