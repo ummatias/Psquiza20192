@@ -316,4 +316,17 @@ public class ControllerGeral {
 	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
 		psqzadorController.cadastraEspecialidadeProfessor(email, formacao, unidade, data);
 	}
+
+	/**
+	 * Especializa um pesquisador como sendo do tipo Aluno, cadastrando seus
+	 * atributos especiais: semestre e IEA.
+	 * 
+	 * @param email o email do pesquisador
+	 * @param semestre o semestre do aluno
+	 * @param iea o indice de eficiencia academica do aluno
+	 */
+	public void cadastraEspecialidadeAluno(String email, int semestre, double iea) {
+		psqzadorController.cadastraEspecialidadeAluno(email, semestre, iea);
+		
+	}
 }

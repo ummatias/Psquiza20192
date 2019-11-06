@@ -181,6 +181,29 @@ public class PesquisadorController {
 		}
 		
 	}
+
+	/**
+	 * Especializa um pesquisador como sendo do tipo Aluno, cadastrando seus
+	 * atributos especiais: semestre e IEA.
+	 * 
+	 * @param email o email do pesquisador
+	 * @param semestre o semestre do aluno
+	 * @param iea o indice de eficiencia academica do aluno
+	 */
+	public void cadastraEspecialidadeAluno(String email, int semestre, double iea) {
+		ValidadorEntradas.validarString(email, "Campo email nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaEmail(email, "Formato de email invalido.");
+		ValidadorEntradas.validaSemestreAluno(semestre, "Atributo semestre com formato invalido.");
+		ValidadorEntradas.validaIEA(iea, "Atributo IEA com formato invalido.");
+		
+		if(pesquisadores.containsKey(email)) {
+			Pesquisador pesquisador = pesquisadores.get(email);
+			pesquisador.setEspecialidadeAluno(semestre, iea);
+			
+		} else {
+			throw new IllegalArgumentException("Pesquisadora nao encontrada.");
+		}
+	}
 	
 	
 }

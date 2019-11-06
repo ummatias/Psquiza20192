@@ -194,4 +194,18 @@ public class Pesquisador {
 		}
 		
 	}
+
+	/**
+	 * Cadastra os atributos especiais de um aluno
+	 * 
+	 * @param semestre o semestre do aluno
+	 * @param iea o indice de eficiencia academica do aluno
+	 */
+	public void setEspecialidadeAluno(int semestre, double iea) {
+		if(this.funcao.equalsIgnoreCase("ESTUDANTE")) {
+			this.especialidade = new Aluno(semestre, iea);
+		} else {
+			throw new IllegalArgumentException("Pesquisador nao compativel com a especialidade.");
+		}
+	}
 }

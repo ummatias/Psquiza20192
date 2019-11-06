@@ -293,4 +293,16 @@ public class Facade {
 	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
 		controllerGeral.cadastraEspecialidadeProfessor(email, formacao, unidade, data);
 	}
+	
+	/**
+	 * Especializa um pesquisador como sendo do tipo Aluno, cadastrando seus
+	 * atributos especiais: semestre e IEA.
+	 * 
+	 * @param email o email do pesquisador
+	 * @param semestre o semestre do aluno
+	 * @param iea o indice de eficiencia academica do aluno
+	 */
+	public void cadastraEspecialidadeAluno(String email, int semestre, double iea) {
+		controllerGeral.cadastraEspecialidadeAluno(email, semestre, iea);
+	}
 }
