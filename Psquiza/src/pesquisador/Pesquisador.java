@@ -103,7 +103,13 @@ public class Pesquisador {
 	 */
 	@Override
 	public String toString() {
-		return nome + " (" + funcao + ") - " + biografia + " - " + email + " - " + fotoURL;
+		String base = nome + " (" + funcao + ") - " + biografia + " - " + email + " - " + fotoURL;
+		
+		if(especialidade == null) {
+			return base;
+		} else {
+			return especialidade.toString(base);
+		}
 	}
 
 	/** Método para alterar o nome do pesquisador
@@ -207,5 +213,13 @@ public class Pesquisador {
 		} else {
 			throw new IllegalArgumentException("Pesquisador nao compativel com a especialidade.");
 		}
+	}
+
+	/**
+	 * Acessa o email do pesquisador
+	 * @return o email do pesquisador
+	 */
+	public String getEmail() {
+		return this.email;
 	}
 }

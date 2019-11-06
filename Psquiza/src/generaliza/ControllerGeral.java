@@ -3,6 +3,7 @@ package generaliza;
 import atividade.Atividade;
 import atividade.AtividadeController;
 import pesquisa.PesquisaController;
+import pesquisador.Pesquisador;
 import pesquisador.PesquisadorController;
 import problema.Objetivo;
 import problema.Problema;
@@ -328,5 +329,30 @@ public class ControllerGeral {
 	public void cadastraEspecialidadeAluno(String email, int semestre, double iea) {
 		psqzadorController.cadastraEspecialidadeAluno(email, semestre, iea);
 		
+	}
+
+	/**
+	 * Associa um pesquisador a uma pesquisa desde que esta esteja ainda ativa.
+	 * 
+	 * @param idPesquisa o id da pesquisa
+	 * @param emailPesquisador o email do pesquisador
+	 * @return true se a associação aconteceu com sucesso, false - caso a associação já exista
+	 */
+	public boolean associaPesquisador(String idPesquisa, String emailPesquisador) {
+		Pesquisador pesquisador = psqzadorController.getPesquisador(emailPesquisador);
+		
+		return pesquisaController.associaPesquisador(idPesquisa, pesquisador);
+		
+	}
+
+	/**
+	 * Desassocia um pesquisador de uma pesquisa desde que esta ainda esteja ativa.
+	 * 
+	 * @param idPesquisa o id da pesquisa
+	 * @param emailPesquisador o email do pesquisador
+	 * @return true - se a desassociação aconteceu com sucesso, false - caso a associação não exista
+	 */
+	public boolean desassociaPesquisador(String idPesquisa, String emailPesquisador) {
+		return pesquisaController.desassociaPesquisador(idPesquisa, emailPesquisador);
 	}
 }

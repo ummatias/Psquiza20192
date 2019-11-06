@@ -204,6 +204,24 @@ public class PesquisadorController {
 			throw new IllegalArgumentException("Pesquisadora nao encontrada.");
 		}
 	}
+
+	/**
+	 * Retorna um objeto do tipo Pesquisador para ser usado em outras entidades.
+	 * 
+	 * @param email o email do pesquisador
+	 * @return o objeto Pesquisador desejado
+	 */
+	public Pesquisador getPesquisador(String email) {
+		ValidadorEntradas.validarString(email, "Campo emailPesquisador nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaEmail(email, "Formato de email invalido.");
+		
+		if(pesquisadores.containsKey(email)) {
+			return pesquisadores.get(email);
+			
+		} else {
+			throw new IllegalArgumentException("Pesquisadora nao encontrada.");
+		}
+	}
 	
 	
 }

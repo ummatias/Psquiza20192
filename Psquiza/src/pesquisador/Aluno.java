@@ -56,4 +56,8 @@ public class Aluno implements Especialidade{
 		
 	}
 	
+	public String toString(String base) {
+		return base + " - " + this.semestre + "o SEMESTRE - " + this.iea;
+	}
+	
 }

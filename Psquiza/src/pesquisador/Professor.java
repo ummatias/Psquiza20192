@@ -71,4 +71,9 @@ public class Professor implements Especialidade {
 
 	}
 
+	@Override
+	public String toString(String base) {
+		return base + " - " + this.formacao + " - " + this.unidade + " - " + this.dataContrato;
+	}
+
 }

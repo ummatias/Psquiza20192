@@ -14,4 +14,6 @@ public interface Especialidade {
 	 */
 	public void alteraPesquisador(String atributo, String novoValor);
 
+	public String toString(String base);
+
 }

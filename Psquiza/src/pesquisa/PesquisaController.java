@@ -6,8 +6,8 @@ import java.util.Map;
 import problema.Objetivo;
 import problema.Problema;
 import atividade.Atividade;
+import pesquisador.Pesquisador;
 import validadores.ValidadorEntradas;
-
 
 /**
  * Classe que representa o controlador de pesquisas.
@@ -49,7 +49,7 @@ public class PesquisaController {
 		return this.pesquisasCadastradas.get(codigo).getCodigo();
 	}
 
-  /**
+	/**
 	 * Gera um codigo para a pesquisa a partir do campo de interesse de pesquisa.
 	 * 
 	 * @param campoDeInteresse o campo de interesse da pesquisa
@@ -65,7 +65,7 @@ public class PesquisaController {
 			return codigoGerado;
 
 		}
-    
+
 		String codigoGerado = codigo + (this.chavesGeradas.get(codigo) + 1);
 		this.chavesGeradas.put(codigo, chavesGeradas.get(codigo) + 1);
 		return codigoGerado;
@@ -160,55 +160,102 @@ public class PesquisaController {
 	 * @param codigo o codigo da pesquisa
 	 * @return retorna um boolean depois de verificar se a pesquisa e ativa
 	 */
-	public boolean pesquisaEhAtiva(String codigo) {		
+	public boolean pesquisaEhAtiva(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Codigo nao pode ser nulo ou vazio.");
 		if (this.pesquisasCadastradas.containsKey(codigo)) {
 			return this.pesquisasCadastradas.get(codigo).ehAtiva();
 		}
 		throw new IllegalArgumentException("Pesquisa nao encontrada.");
 	}
-  
+
 	public boolean associaProblema(String idPesquisa, Problema problema) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
-		if(pesquisasCadastradas.get(idPesquisa).getProblema() != null) {
+		if (pesquisasCadastradas.get(idPesquisa).getProblema() != null) {
 			throw new IllegalArgumentException("Pesquisa ja associada a um problema.");
 		}
 		return pesquisasCadastradas.get(idPesquisa).associaProblema(problema);
 	}
-	
+
 	public boolean desassociaProblema(String idPesquisa) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		return pesquisasCadastradas.get(idPesquisa).desassociaProblema();
 	}
-	
+
 	public void associaObjetivo(String idPesquisa, Objetivo objetivo) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		pesquisasCadastradas.get(idPesquisa).associaObjetivo(objetivo);
 	}
-	
+
 	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
-		
+
 		return pesquisasCadastradas.get(idPesquisa).desassociaObjetivo(idObjetivo);
 	}
-	/** Método que associa uma atividade a pesquisa.
+
+	/**
+	 * Método que associa uma atividade a pesquisa.
+	 * 
 	 * @param codigoPesquisa - código da pesquisa
-	 * @param atividade - atividade a ser associada
-	 * @return true se conseguir associar com sucesso. False se já tiver uma atividade associada.
+	 * @param atividade      - atividade a ser associada
+	 * @return true se conseguir associar com sucesso. False se já tiver uma
+	 *         atividade associada.
 	 */
 	public boolean associaAtividade(String codigoPesquisa, Atividade atividade) {
 		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		return pesquisasCadastradas.get(codigoPesquisa).associaAtividade(atividade);
 	}
-	
-	/**Método que desassocia uma atividade a pesquisa.
+
+	/**
+	 * Método que desassocia uma atividade a pesquisa.
+	 * 
 	 * @param codigoPesquisa - código da pesquisa
-	 * @return true se for desassociada com sucesso, false se já não tiver uma atividade.
+	 * @return true se for desassociada com sucesso, false se já não tiver uma
+	 *         atividade.
 	 */
 	public boolean desassociaAtividade(String codigoPesquisa) {
 		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		return pesquisasCadastradas.get(codigoPesquisa).desassociaAtividade();
 
+	}
+
+	/**
+	 * Associa um pesquisador a uma pesquisa desde que esta esteja ainda ativa.
+	 * 
+	 * @param idPesquisa  o id da pesquisa
+	 * @param pesquisador o objeto pesquisador que se deseja associar
+	 * @return true - se a associação aconteceu com sucesso, false - caso a
+	 *         associação já exista
+	 */
+	public boolean associaPesquisador(String idPesquisa, Pesquisador pesquisador) {
+		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+
+		if (pesquisasCadastradas.containsKey(idPesquisa)) {
+			Pesquisa pesquisa = pesquisasCadastradas.get(idPesquisa);
+
+			return pesquisa.associaPesquisador(pesquisador);
+		} else {
+			throw new IllegalArgumentException("Pesquisa nao encontrada.");
+		}
+	}
+
+	/**
+	 * Desassocia um pesquisador de uma pesquisa desde que esta ainda esteja ativa.
+	 * 
+	 * @param idPesquisa o id da pesquisa
+	 * @param emailPesquisador o email do pesquisador
+	 * @return true - se a desassociação aconteceu com sucesso, false - caso a associação não exista
+	 */
+	public boolean desassociaPesquisador(String idPesquisa, String emailPesquisador) {
+		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(emailPesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
+		
+		if (pesquisasCadastradas.containsKey(idPesquisa)) {
+			Pesquisa pesquisa = pesquisasCadastradas.get(idPesquisa);
+
+			return pesquisa.desassociaPesquisador(emailPesquisador);
+		} else {
+			throw new IllegalArgumentException("Pesquisa nao encontrada.");
+		}
 	}
 }
