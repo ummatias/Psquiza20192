@@ -259,6 +259,7 @@ public class PesquisaController {
 		} else {
 			throw new IllegalArgumentException("Pesquisa nao encontrada.");
 		}
+	}
     
   public String buscaDescricaoCampoDeInteresse(String termo) {
 		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");

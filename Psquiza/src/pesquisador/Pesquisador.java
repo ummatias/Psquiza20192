@@ -10,7 +10,7 @@ import validadores.ValidadorEntradas;
  * @author Emilly de Albuquerque Oliveira - 119111162
  *
  */
-public class Pesquisador implements Comparable<Pesquisador>{
+public class Pesquisador implements Comparable<Pesquisador> {
 
 	/**
 	 * Atributo com o nome do pesquisador
@@ -47,16 +47,11 @@ public class Pesquisador implements Comparable<Pesquisador>{
 	/**
 	 * Construtor que cria o objeto do tipo Pesquisador e inicializa seus atributos
 	 * 
-	 * @param nome
-	 *            - nome do pesquisador
-	 * @param funcao
-	 *            - função do pesquisador
-	 * @param biografia
-	 *            - biografia do pesquisador
-	 * @param email
-	 *            - email e identificador unico do pesquisador.
-	 * @param fotoURL
-	 *            - url para a foto do pesquisador.
+	 * @param nome      - nome do pesquisador
+	 * @param funcao    - função do pesquisador
+	 * @param biografia - biografia do pesquisador
+	 * @param email     - email e identificador unico do pesquisador.
+	 * @param fotoURL   - url para a foto do pesquisador.
 	 */
 	public Pesquisador(String nome, String funcao, String biografia, String email, String fotoURL) {
 		ValidadorEntradas.validarString(nome, "Campo nome nao pode ser nulo ou vazio.");
@@ -156,12 +151,9 @@ public class Pesquisador implements Comparable<Pesquisador>{
 	/**
 	 * Cadastra os atributos especiais de um professor
 	 * 
-	 * @param formacao
-	 *            o grau de formação do professor
-	 * @param unidade
-	 *            a unidade academica do professor
-	 * @param data
-	 *            a data de contratação do professor
+	 * @param formacao o grau de formação do professor
+	 * @param unidade  a unidade academica do professor
+	 * @param data     a data de contratação do professor
 	 */
 	public void setEspecialidadeProfessor(String formacao, String unidade, String data) {
 		if (this.funcao.equalsIgnoreCase("PROFESSOR")) {
@@ -175,10 +167,8 @@ public class Pesquisador implements Comparable<Pesquisador>{
 	/**
 	 * Cadastra os atributos especiais de um aluno
 	 * 
-	 * @param semestre
-	 *            o semestre do aluno
-	 * @param iea
-	 *            o indice de eficiencia academica do aluno
+	 * @param semestre o semestre do aluno
+	 * @param iea      o indice de eficiencia academica do aluno
 	 */
 	public void setEspecialidadeAluno(int semestre, double iea) {
 		if (this.funcao.equalsIgnoreCase("ESTUDANTE")) {
@@ -242,21 +232,23 @@ public class Pesquisador implements Comparable<Pesquisador>{
 
 			}
 		}
+	}
 
 	@Override
 	public int compareTo(Pesquisador o) {
 		return (this.getEmail().compareTo(o.getEmail())) * -1;
 	}
+
 	public String buscaTermo(String termo) {
 		String saida = "";
-		
-		if(this.biografia.toLowerCase().contains(termo.toLowerCase())) {
+
+		if (this.biografia.toLowerCase().contains(termo.toLowerCase())) {
 			saida += this.email + ": " + this.biografia + " | ";
-			
+
 		}
-	
-		if(saida.length() > 0) {
-			return saida.substring(0,saida.length() - 3);
+
+		if (saida.length() > 0) {
+			return saida.substring(0, saida.length() - 3);
 		}
 		return saida;
 	}

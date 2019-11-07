@@ -34,13 +34,13 @@ public class ControllerGeralTest {
 	@Test
 	void  testContaResultadosBuscaVazia() {
 		assertThrows( IllegalArgumentException.class, () -> {
-			controller. contaResultadosBusca("");
-		});
+			controller.contaResultadosBusca("");
+		}); 
 	}
 	@Test
 	void  testContaResultadosBuscaNula() {
 		assertThrows( NullPointerException.class, () -> {
-			controller. contaResultadosBusca(null);
+			controller.contaResultadosBusca(null);
 		});
 	}
 	@Test

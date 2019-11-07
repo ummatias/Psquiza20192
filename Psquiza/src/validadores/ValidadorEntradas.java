@@ -313,6 +313,7 @@ public class ValidadorEntradas {
 		if (iea < 0 || iea > 10) {
 			throw new IllegalArgumentException(msg);
 		}
+	}
 
 	public static void validaDuracao(int duracao) {
 		if (duracao < 1) {
