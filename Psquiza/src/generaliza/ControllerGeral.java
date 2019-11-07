@@ -275,6 +275,11 @@ public class ControllerGeral {
 		}return false;
 	}
 	
+	/** Método que associa uma atividade a pesquisa.
+	 * @param codigoPesquisa - código de pesquisa
+	 * @param codigoAtividade - código de atividade
+	 * @return true se associar com sucesso.
+	 */
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade){
 		Atividade atividade = ativController.getAtividade(codigoAtividade);
 		
@@ -285,6 +290,11 @@ public class ControllerGeral {
 		return pesquisaController.associaAtividade(codigoPesquisa, atividade);
 	}
 	
+	/** Método que desassocia uma atividade a pesquisa.
+	 * @param codigoPesquisa - código de pesquisa
+	 * @param codigoAtividade - código de atividade
+	 * @return true se desassociar com sucesso.
+	 */
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
 		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
@@ -294,21 +304,44 @@ public class ControllerGeral {
 		return pesquisaController.desassociaAtividade(codigoPesquisa, codigoAtividade);
 	}
 	
+	/** Método que executa uma atividade
+	 * @param codigoAtividade - código da atividade
+	 * @param item - item usado durante a execução
+	 * @param duracao - duração da execução
+	 */
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
 		ativController.executaAtividade(codigoAtividade, item, duracao);
 	}
 	
+	/** Método que cadastra um resultado à atividade
+	 * @param codigoAtividade - código de atividade
+	 * @param resultado - resultado que vai ser cadastrado
+	 * @return indice do resultado e ordem do cadastro
+	 */
 	public int cadastraResultado(String codigoAtividade, String resultado) {
 		return ativController.cadastraResultado(codigoAtividade, resultado);
 	}
 	
+	/** Método que remove um resultado do sistema
+	 * @param codigoAtividade - código da atividade
+	 * @param numeroResultado - indice do resultado.
+	 * @return true se foi removido com sucesso
+	 */
 	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
 		return ativController.removeResultado(codigoAtividade, numeroResultado);
 	}
 	
+	/** Método que retorna uma lista dos resultados de determinada atividade
+	 * @param codigoAtividade - código da atividade
+	 * @return a lista dos resultados.
+	 */
 	public String listaResultados(String codigoAtividade) {
 		return ativController.listaResultados(codigoAtividade);
 	}
+	/** Método que retorna a duração total da atividade
+	 * @param codigoAtividade - código da atividade
+	 * @return a duração total da atividade.
+	 */
 	public int getDuracao(String codigoAtividade) {
 		return ativController.getDuracao(codigoAtividade);
 	}
