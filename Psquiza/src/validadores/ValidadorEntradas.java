@@ -238,4 +238,17 @@ public class ValidadorEntradas {
 		}
 	}
 
+	public static void validaDuracao(int duracao) {
+		if (duracao < 1) {
+			throw new IllegalArgumentException("Duracao nao pode ser nula ou negativa.");
+		}
+	}
+
+	public static void validaPesquisaAtiva(boolean pesquisaEhAtiva) {
+		if (!pesquisaEhAtiva) {
+			throw new IllegalArgumentException("Pesquisa desativada.");
+		}
+		
+	}
+
 }
