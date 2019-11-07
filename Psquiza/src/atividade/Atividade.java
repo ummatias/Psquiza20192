@@ -42,8 +42,14 @@ public class Atividade implements Comparable<Atividade>{
 	 */
 	private List<Item> itens;
 	
+	/**
+	 * Duração total da atividade
+	 */
 	private int duracao;
 	
+	/**
+	 * Resultados da atividade, identificados pela sua ordem no cadastro.
+	 */
 	private Map<Integer ,String> resultados;
 	
 	/**
@@ -211,6 +217,7 @@ public class Atividade implements Comparable<Atividade>{
 		}
 		return retorno.substring(0, retorno.length() - 3);
 	}
+	
 	public String getCodigo() {
 		return this.code;
 	}
@@ -219,6 +226,7 @@ public class Atividade implements Comparable<Atividade>{
 	public int compareTo(Atividade o) {
 		return (this.getCodigo().compareTo(o.getCodigo())) * -1;
 	}
+	
 	public String buscaTermo(String termo) {
 		String saida = "";
 		

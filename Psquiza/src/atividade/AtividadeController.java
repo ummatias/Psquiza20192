@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import pesquisa.Pesquisa;
 import validadores.ValidadorEntradas;
 
 /**
@@ -149,6 +148,9 @@ public class AtividadeController {
 	}
 	
 	
+	/** Método que retorna o mapa de atividades.
+	 * @return o mapa de atividades.
+	 */
 	public Map<String, Atividade> getMapa() {
 		return atividades;
 	}
