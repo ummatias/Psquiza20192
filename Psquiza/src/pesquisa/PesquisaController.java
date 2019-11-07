@@ -1,6 +1,9 @@
 package pesquisa;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import problema.Objetivo;
@@ -257,5 +260,22 @@ public class PesquisaController {
 		} else {
 			throw new IllegalArgumentException("Pesquisa nao encontrada.");
 		}
+    
+  public String buscaDescricaoCampoDeInteresse(String termo) {
+		List<Pesquisa> listPesquisa = new ArrayList<>(this.pesquisasCadastradas.values());
+		Collections.sort(listPesquisa);
+		String saida = "";
+		for (Pesquisa pesquisa : listPesquisa) {
+			String pesquisaSaida = pesquisa.buscaTermo(termo);
+			
+			if (pesquisaSaida.length() > 0) {
+				saida += pesquisaSaida + " | ";
+			}
+			
+		}
+		if (saida.length() > 0) {
+			return saida.substring(0, saida.length() - 3);
+		}
+		return saida;
 	}
 }

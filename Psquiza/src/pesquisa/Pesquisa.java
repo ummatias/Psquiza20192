@@ -1,6 +1,5 @@
 package pesquisa;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +16,7 @@ import validadores.ValidadorEntradas;
  * @author Natalia salvino
  *
  */
-public class Pesquisa {
+public class Pesquisa implements Comparable<Pesquisa>{
 	/**
 	 * Descricao da pesquisa
 	 */
@@ -191,7 +190,7 @@ public class Pesquisa {
 	 * @param atividade a ser associdada
 	 */
 	public boolean associaAtividade(Atividade atividade) {
-		if (atividade == null) {
+		if (this.atividade == null) {
 			this.atividade = atividade;
 			return true;
 		}
@@ -204,13 +203,12 @@ public class Pesquisa {
 	 * @return
 	 */
 	public boolean desassociaAtividade() {
-		if (atividade == null) {
-			return false;
-		}
-		this.atividade = null;
-		return true;
-	}
 
+		if (atividade != null) {
+			this.atividade = null;
+			return true;
+		} 	return false;}
+	
 	public Atividade getAtividade() {
 		return atividade;
 	}
@@ -219,7 +217,6 @@ public class Pesquisa {
 		if (this.problema == null) {
 			this.problema = problema;
 			return true;
-
 		}
 		return false;
 	}
@@ -247,6 +244,7 @@ public class Pesquisa {
 	public Problema getProblema() {
 		return this.problema;
 	}
+
 
 	/**
 	 * Adiciona um pesquisador ao mapa de pesquisadores associados à Pesquisa.
@@ -288,5 +286,26 @@ public class Pesquisa {
 		} else {
 			throw new IllegalArgumentException("Pesquisa desativada.");
 		}
+
+	@Override
+	public int compareTo(Pesquisa o) {
+		return (this.getCodigo().compareTo(o.getCodigo())) * -1;
+	}
+
+	public String buscaTermo(String termo) {
+		String saida = "";
+				
+		if(this.descricao.toLowerCase().contains(termo.toLowerCase())) {
+			saida += this.codigo + ": " + this.descricao + " | ";
+		}
+		if(this.campoDeInteresse.toLowerCase().contains(termo.toLowerCase())) {
+			saida += this.codigo + ": " + this.campoDeInteresse + " | ";
+		}
+		if(saida.length() > 0) {
+			saida = saida.substring(0, saida.length() - 3);
+		}
+		
+		return saida;
+
 	}
 }

@@ -262,7 +262,7 @@ public class ValidadorEntradas {
 			throw new IllegalArgumentException("Objetivo nao encontrado");
 		}
 	}
-
+  
 	/**
 	 * Valida se uma string correspondente à uma data tem o formato "dd-mm-aaaa"
 	 * 
@@ -313,6 +313,18 @@ public class ValidadorEntradas {
 		if (iea < 0 || iea > 10) {
 			throw new IllegalArgumentException(msg);
 		}
+
+	public static void validaDuracao(int duracao) {
+		if (duracao < 1) {
+			throw new IllegalArgumentException("Duracao nao pode ser nula ou negativa.");
+		}
+	}
+
+	public static void validaPesquisaAtiva(boolean pesquisaEhAtiva) {
+		if (!pesquisaEhAtiva) {
+			throw new IllegalArgumentException("Pesquisa desativada.");
+		}
+		
 	}
 
 }

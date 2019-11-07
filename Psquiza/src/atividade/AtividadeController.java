@@ -1,7 +1,12 @@
 package atividade;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import pesquisa.Pesquisa;
 import validadores.ValidadorEntradas;
 
 /**
@@ -138,7 +143,7 @@ public class AtividadeController {
 	 * @return o objeto Atividade
 	 */
 	public Atividade getAtividade(String codigo) {
-		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(codigo, "Campo codigoAtividade nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validaAtividadeExiste(atividades, codigo);
 		return atividades.get(codigo);
 	}
@@ -149,6 +154,8 @@ public class AtividadeController {
 	 * @param duracao - duraçao da execução
 	 */
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
+		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaDuracao(duracao);
 		atividades.get(codigoAtividade).executaAtividade(item, duracao);
 	}
 	
@@ -157,6 +164,8 @@ public class AtividadeController {
 	 * @return a duração total da atividade.
 	 */
 	public int getDuracao(String codigoAtividade) {
+		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		
 		return atividades.get(codigoAtividade).getDuracao();
 	}
 	
@@ -166,6 +175,9 @@ public class AtividadeController {
 	 * @return código do resultado
 	 */
 	public int cadastraResultado(String codigoAtividade, String resultado) {
+		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(resultado, "Resultado nao pode ser nulo ou vazio.");
+		
 		return atividades.get(codigoAtividade).addResultados(resultado);
 	}
 	
@@ -175,6 +187,7 @@ public class AtividadeController {
 	 * @return true se foi removido com sucesso
 	 */
 	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
+		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
 		return atividades.get(codigoAtividade).removeResultado(numeroResultado);
 	}
 	
@@ -183,6 +196,20 @@ public class AtividadeController {
 	 * @return a lista de resultados
 	 */
 	public String listaResultados(String codigoAtividade) {
+		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		
 		return atividades.get(codigoAtividade).listaResultados();
+	}
+	public String busca(String termo) {
+		List<Atividade> listAtividades = new ArrayList<>(this.atividades.values());
+		Collections.sort(listAtividades);
+		String saida = "";
+		for (Atividade atividade : listAtividades) {
+			saida += atividade.buscaTermo(termo) + " | ";
+		}
+		if (saida.length() > 0) {
+			return saida.substring(0, saida.length() - 3);
+		}
+		return saida;
 	}
 }

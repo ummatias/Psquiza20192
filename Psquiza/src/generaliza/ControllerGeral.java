@@ -275,10 +275,12 @@ public class ControllerGeral {
 		}return false;
 	}
 	
-	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
-		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
-		
+	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade){
 		Atividade atividade = ativController.getAtividade(codigoAtividade);
+		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaPesquisaAtiva(pesquisaController.pesquisaEhAtiva(codigoPesquisa));
+
 		return pesquisaController.associaAtividade(codigoPesquisa, atividade);
 	}
 	
@@ -304,6 +306,7 @@ public class ControllerGeral {
 	public int getDuracao(String codigoAtividade) {
 		return ativController.getDuracao(codigoAtividade);
 	}
+
 
 	/**
 	 * Especializa um pesquisador como sendo do tipo Professor, cadastrando seus
@@ -354,5 +357,8 @@ public class ControllerGeral {
 	 */
 	public boolean desassociaPesquisador(String idPesquisa, String emailPesquisador) {
 		return pesquisaController.desassociaPesquisador(idPesquisa, emailPesquisador);
+
+	public String busca(String termo) {
+		return this.pesquisaController.buscaDescricaoCampoDeInteresse(termo);
 	}
 }

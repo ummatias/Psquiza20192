@@ -24,9 +24,16 @@ public class Facade {
 	public static void main(String[] args) {
 		args = new String[] { "facade.Facade",
 
-				"testes_aceitacao/use_case_1.txt", "testes_aceitacao/use_case_2.txt", "testes_aceitacao/use_case_3.txt",
-				"testes_aceitacao/use_case_4.txt", "testes_aceitacao/use_case_5.txt",
-				"testes_aceitacao/use_case_6.txt", };
+				"testes_aceitacao/use_case_1.txt",
+				"testes_aceitacao/use_case_2.txt",
+				"testes_aceitacao/use_case_3.txt",
+				"testes_aceitacao/use_case_4.txt",
+				"testes_aceitacao/use_case_5.txt",
+        "testes_aceitacao/use_case_6.txt",
+				"testes_aceitacao/use_case_7.txt",
+				"testes_aceitacao/use_case_8.txt"
+				};
+
 		EasyAccept.main(args);
 	}
 
@@ -257,6 +264,7 @@ public class Facade {
 		return controllerGeral.associaAtividade(codigoPesquisa, codigoAtividade);
 	}
 
+
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
 		return controllerGeral.desassociaAtividade(codigoPesquisa, codigoAtividade);
 	}
@@ -280,6 +288,10 @@ public class Facade {
 	public int getDuracao(String codigoAtividade) {
 		return controllerGeral.getDuracao(codigoAtividade);
 	}
+  
+  public String busca(String termo) {
+    	return controllerGeral.busca(termo);
+   }
 
 	/**
 	 * Especializa um pesquisador como sendo do tipo Professor, cadastrando seus
@@ -327,6 +339,5 @@ public class Facade {
 	public boolean desassociaPesquisador(String idPesquisa, String emailPesquisador) {
 		return controllerGeral.desassociaPesquisador(idPesquisa, emailPesquisador);
 	}
-	
-	
+
 }
