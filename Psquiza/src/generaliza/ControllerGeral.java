@@ -288,10 +288,10 @@ public class ControllerGeral {
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
 		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validaPesquisaAtiva(pesquisaController.pesquisaEhAtiva(codigoPesquisa));
+		ValidadorEntradas.validaPesquisaAtiva(pesquisaEhAtiva(codigoPesquisa));
+		ValidadorEntradas.validaAtividadeExiste(ativController.getMapa(), codigoAtividade);
 		
-		
-		return pesquisaController.desassociaAtividade(codigoPesquisa);
+		return pesquisaController.desassociaAtividade(codigoPesquisa, codigoAtividade);
 	}
 	
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {

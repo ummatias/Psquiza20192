@@ -1,7 +1,9 @@
 package atividade;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import validadores.ValidadorEntradas;
 
@@ -42,7 +44,7 @@ public class Atividade implements Comparable<Atividade>{
 	
 	private int duracao;
 	
-	private List<String> resultados;
+	private Map<Integer ,String> resultados;
 	
 	/**
 	 * Constrói uma atividade a partir de seu codigo, descrição
@@ -64,7 +66,7 @@ public class Atividade implements Comparable<Atividade>{
 		this.descRisco = descRisco;
 		this.itens = new ArrayList<Item>();
 		this.duracao = 0;
-		this.resultados = new ArrayList<String>();
+		this.resultados = new HashMap<>();
 		this.code = code;
 	}
 	
@@ -165,6 +167,10 @@ public class Atividade implements Comparable<Atividade>{
 	 * @param horas - horas gastas com a atividade
 	 */
 	public void executaAtividade(int item, int horas) {
+		ValidadorEntradas.validaItemExiste(itens, item);
+		if (itens.get(item - 1).getStatus()) {
+			throw new IllegalArgumentException("Item ja executado.");
+		}
 		
 		this.duracao += horas;
 		itens.get(item - 1).setStatus(true);
@@ -175,7 +181,7 @@ public class Atividade implements Comparable<Atividade>{
 	 * @return código do resultado
 	 */
 	public int addResultados(String resultado) {
-		resultados.add(resultado);
+		resultados.put(resultados.size() + 1, resultado);
 		return resultados.size();
 	}
 
@@ -184,10 +190,14 @@ public class Atividade implements Comparable<Atividade>{
 	 * @return true se o resultado foi removido com sucesso.
 	 */
 	public boolean removeResultado(int numeroResultado) {
-		resultados.remove(numeroResultado - 1);
-		if (resultados.get(numeroResultado - 1) != null) {
-		  return false;
-		} return true;
+		ValidadorEntradas.validaResultadoExiste(resultados, numeroResultado);
+		
+		if (resultados.get(numeroResultado) == null) {
+			return false;
+		}  resultados.remove(numeroResultado);
+		if (resultados.get(numeroResultado) == null) {
+		  return true;
+		} return false;
 	}
 
 	/** Método que retorna a lista com os resultados
@@ -196,7 +206,7 @@ public class Atividade implements Comparable<Atividade>{
 	 */
 	public String listaResultados() {
 		String retorno = "";
-		for (String resultado:resultados) {
+		for (String resultado:resultados.values()) {
 			retorno += resultado + " | ";
 		}
 		return retorno.substring(0, retorno.length() - 3);

@@ -249,7 +249,7 @@ public class ValidadorEntradas {
 	 */
 	public static void validaAtividadeExiste(Map<String, Atividade> atividades, String codigo) {
 		if (!atividades.containsKey(codigo)) {
-			throw new IllegalArgumentException("Atividade nao encontrada.");
+			throw new IllegalArgumentException("Atividade nao encontrada");
 		}
 	}
 
@@ -339,4 +339,18 @@ public class ValidadorEntradas {
 		if ((Integer)(numeroResultado) == null || numeroResultado < 1)
 	throw new IllegalArgumentException("numeroResultado nao pode ser nulo ou negativo.");
 	}
+
+	public static void validaItemExiste(List<Item> itens, int item) {
+		if (itens.size() < item) {
+			throw new IllegalArgumentException("Item nao encontrado.");
+		}
+		
+	}
+
+	public static void validaResultadoExiste(Map<Integer, String> resultados, int numeroResultado) {
+		if (numeroResultado > resultados.size()) {
+			throw new IllegalArgumentException("Resultado nao encontrado.");
+		}
+	}
+
 }
