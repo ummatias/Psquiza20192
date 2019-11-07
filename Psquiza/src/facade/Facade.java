@@ -58,7 +58,7 @@ public class Facade {
 	/**
 	 * Apaga um problema do sistema
 	 * 
-	 * @param codigo o codigo do pesquisador a ser apagado
+	 * @param codigo o codigo do problema a ser apagado
 	 */
 	public void apagarProblema(String codigo) {
 		controllerGeral.apagarProblema(codigo);

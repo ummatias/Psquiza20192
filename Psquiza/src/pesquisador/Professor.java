@@ -1,5 +1,7 @@
 package pesquisador;
 
+import validadores.ValidadorEntradas;
+
 /**
  * Especialidade que o Pesquisador pode assumir.
  * Possui formacao, unidade e data de contratação.
@@ -67,7 +69,23 @@ public class Professor implements Especialidade {
 	 */
 	@Override
 	public void alteraPesquisador(String atributo, String novoValor) {
-		// TODO Auto-generated method stub
+		switch (atributo.toUpperCase()) {
+		case "FORMACAO":
+			ValidadorEntradas.validarString(novoValor, "Campo formacao nao pode ser nulo ou vazio.");
+			this.formacao = novoValor;
+			break;
+		case "UNIDADE":
+			ValidadorEntradas.validarString(novoValor, "Campo unidade nao pode ser nulo ou vazio.");
+			this.unidade = novoValor;
+			break;
+		case "DATA":
+			ValidadorEntradas.validarString(novoValor, "Campo data nao pode ser nulo ou vazio.");
+			ValidadorEntradas.validaFormatoData(novoValor, "Formato de data invalido.");
+			this.dataContrato = novoValor;
+			break;
+		default:
+			throw new IllegalArgumentException("Atributo invalido.");
+		}
 
 	}
 

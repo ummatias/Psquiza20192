@@ -1,5 +1,7 @@
 package pesquisador;
 
+import validadores.ValidadorEntradas;
+
 /**
  * Especialidade que o Pesquisador pode assumir.
  * Possui semestre e IEA
@@ -52,7 +54,22 @@ public class Aluno implements Especialidade{
 	 */
 	@Override
 	public void alteraPesquisador(String atributo, String novoValor) {
-		// TODO Auto-generated method stub
+		switch (atributo.toUpperCase()) {
+		case "SEMESTRE":
+			int semestre = Integer.parseInt(novoValor);
+			ValidadorEntradas.validaSemestreAluno(semestre, "Formato de semestre invalido.");
+			
+			this.semestre = semestre;
+			break;
+		case "IEA":
+			double iea = Double.parseDouble(novoValor);
+			ValidadorEntradas.validaIEA(iea, "Formato de IEA invalido.");
+			
+			this.iea = iea;
+			break;
+		default:
+			throw new IllegalArgumentException("Atributo invalido.");
+		}
 		
 	}
 	

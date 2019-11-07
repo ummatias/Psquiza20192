@@ -64,26 +64,11 @@ public class PesquisadorController {
 			throw new IllegalArgumentException("Pesquisador inativo");
 		}
 		
-		ValidadorEntradas.validaAtributosPesquisador(atributo, "Atributo invalido.");
-		switch (atributo) {
-		case "NOME":
-			pesquisadores.get(email).setNome(novoValor);
-			break;
-		case "FUNCAO":
-			pesquisadores.get(email).setFuncao(novoValor);
-			break;
-		case "BIOGRAFIA":
-			pesquisadores.get(email).setBiografia(novoValor);
-			break;
-		case "EMAIL":
-			pesquisadores.get(email).setEmail(novoValor);
+		pesquisadores.get(email).alteraPesquisador(atributo, novoValor);
+		
+		if(atributo.equals("EMAIL")) {
 			pesquisadores.put(novoValor, pesquisadores.get(email));
 			pesquisadores.remove(email);
-			break;
-		case "FOTO":
-			pesquisadores.get(email).setFoto(novoValor);
-			break;
-
 		}
 	}
 
