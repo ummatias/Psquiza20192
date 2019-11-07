@@ -303,4 +303,7 @@ public class ControllerGeral {
 	public int getDuracao(String codigoAtividade) {
 		return ativController.getDuracao(codigoAtividade);
 	}
+	public String busca(String termo) {
+		return this.pesquisaController.buscaDescricaoCampoDeInteresse(termo);
+	}
 }

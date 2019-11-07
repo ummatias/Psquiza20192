@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 import generaliza.ControllerGeral;
 
-public class BuscaControllerGeralTest {
+public class ControllerGeralTest {
 	private ControllerGeral controller;
 	
 	@BeforeEach
@@ -59,4 +59,5 @@ public class BuscaControllerGeralTest {
 	void testDesassociaObjetivoComSucesso() {
 		assertEquals(true,controller.desassociaObjetivo("CAL1", "O1"));
 	}
+	
 }

@@ -9,7 +9,7 @@ import validadores.ValidadorEntradas;
  * @author Emilly de Albuquerque Oliveira - 119111162
  *
  */
-public class Pesquisador {
+public class Pesquisador implements Comparable<Pesquisador>{
 
 	/**
 	 * Atributo com o nome do pesquisador
@@ -171,5 +171,25 @@ public class Pesquisador {
 			throw new IllegalArgumentException("Pesquisador ja ativado.");
 		}
 		this.status = true;
+	}
+	public String getEmail() {
+		return this.email;
+	}
+
+	@Override
+	public int compareTo(Pesquisador o) {
+		return (this.getEmail().compareTo(o.getEmail())) * -1;
+	}
+	public String buscaTermo(String termo) {
+		String saida = "";
+		
+		if(this.biografia.toLowerCase().contains(termo.toLowerCase())) {
+			saida += this.email + ": " + this.biografia + " | ";
+		}
+	
+		if(saida.length() > 0) {
+			return saida.substring(saida.length() - 3);
+		}
+		return saida;
 	}
 }

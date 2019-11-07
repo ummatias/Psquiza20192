@@ -16,7 +16,7 @@ import validadores.ValidadorEntradas;
  * @author Natalia salvino
  *
  */
-public class Pesquisa {
+public class Pesquisa implements Comparable<Pesquisa>{
 	/**
 	 * Descricao da pesquisa
 	 */
@@ -237,5 +237,26 @@ public class Pesquisa {
 	
 	public Problema getProblema() {
 		return this.problema;
+	}
+
+	@Override
+	public int compareTo(Pesquisa o) {
+		return (this.getCodigo().compareTo(o.getCodigo())) * -1;
+	}
+
+	public String buscaTermo(String termo) {
+		String saida = "";
+				
+		if(this.descricao.toLowerCase().contains(termo.toLowerCase())) {
+			saida += this.codigo + ": " + this.descricao + " | ";
+		}
+		if(this.campoDeInteresse.toLowerCase().contains(termo.toLowerCase())) {
+			saida += this.codigo + ": " + this.campoDeInteresse + " | ";
+		}
+		if(saida.length() > 0) {
+			saida = saida.substring(0, saida.length() - 3);
+		}
+		
+		return saida;
 	}
 }

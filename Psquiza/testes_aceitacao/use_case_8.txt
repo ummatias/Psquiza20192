@@ -1,0 +1,26 @@
+#Cadastro de algumas coisas para testar na busca
+cadastraPesquisador nome="Gaara" funcao="estudante" biografia="Interessado na computacao com areia e em lutar com o rock lee ao som de linkin park." email="gaaraxrocklee@12LinkinPark" fotoURL="https://areiaMassa"
+cadastraProblema descricao="O problema causado pela areia na segunda guerra mundial ninja de computacao." viabilidade=4
+cadastraObjetivo tipo="GERAL" descricao="Diminuir a dor no coracao dos estudantes de computacao depois de ver rock lee vs gaara ao som de linkin park." aderencia=4 viabilidade=2
+cadastraAtividade Descricao="Monitoramento por ninjas de computacao na guerra ninja." nivelRisco="BAIXO" descricaoRisco="Por se tratar de apenas um monitoramento, o risco nao e elevado."
+
+#buscando o primeiro resultado de um termo
+
+expect "COM2: computacao, poo | COM1: Homofobia em mensagens online de alunos de computacao do primeiro periodo. | COM1: computacao, homofobia | gaaraxrocklee@12LinkinPark: Interessado na computacao com areia e em lutar com o rock lee ao som de linkin park. | P4: O problema causado pela areia na segunda guerra mundial ninja de computacao. | P1: O problema do discurso homofobico em chats online de alunos de computacao de primeiro periodo | O6: Diminuir a dor no coracao dos estudantes de computacao depois de ver rock lee vs gaara ao som de linkin park. | O1: Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao. | A5: Monitoramento por ninjas de computacao na guerra ninja. | A1: Monitoramento de chats dos alunos de computacao do primeiro periodo." busca termo="computacao"
+expectError "Campo termo nao pode ser nulo ou vazio." busca termo=""
+
+
+#buscando um resultado esecifico da procura por um termo
+
+expect "COM1: computacao, homofobia" busca termo="computacao" numeroDoResultado=3
+expect "gaaraxrocklee@12LinkinPark: Interessado na computacao com areia e em lutar com o rock lee ao som de linkin park." busca termo="computacao" numeroDoResultado=4
+expectError "Campo termo nao pode ser nulo ou vazio." busca termo="" numeroDoResultado=1
+expectError "Numero do resultado nao pode ser negativo" busca termo="computacao" numeroDoResultado=-6
+expectError "Entidade nao encontrada." busca termo="computacao" numeroDoResultado=42
+
+
+#contando quantos resultados aparecem quando procura um termo. 
+
+expectError "Campo termo nao pode ser nulo ou vazio." contaResultadosBusca termo=""
+expectError "Nenhum resultado encontrado" contaResultadosBusca termo="Ziggy Stardust"
+expect 10 contaResultadosBusca termo="computacao"

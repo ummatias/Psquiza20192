@@ -29,7 +29,8 @@ public class Facade {
 				"testes_aceitacao/use_case_3.txt",
 				"testes_aceitacao/use_case_4.txt",
 				"testes_aceitacao/use_case_5.txt",
-				"testes_aceitacao/use_case_7.txt"
+				"testes_aceitacao/use_case_7.txt",
+				"testes_aceitacao/use_case_8.txt"
 				};
 		EasyAccept.main(args);
 	}
@@ -273,5 +274,8 @@ public class Facade {
     }
     public int getDuracao(String codigoAtividade) {
     	return controllerGeral.getDuracao(codigoAtividade);
+    }
+    public String busca(String termo) {
+    	return controllerGeral.busca(termo);
     }
 }

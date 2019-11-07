@@ -10,7 +10,7 @@ import validadores.ValidadorEntradas;
  * @author José Igor de Farias Gomes - 119110692
  *
  */
-public class Problema {
+public class Problema implements Comparable<Problema>{
 
 	/**
 	 * Código e identificador único de um problema
@@ -82,6 +82,26 @@ public class Problema {
 	@Override
 	public String toString() {
 		return this.codigo + " - " + this.descricao + " - " + this.viabilidade;
+	}
+	public String getCodigo() {
+		return this.codigo;
+	}
+
+	@Override
+	public int compareTo(Problema o) {
+		return (this.getCodigo().compareTo(o.getCodigo())) * -1;
+	}
+	public String buscaTermo(String termo) {
+		String saida = "";
+		
+		if(this.descricao.toLowerCase().contains(termo.toLowerCase())) {
+			saida += this.codigo + ": " + this.descricao + " | ";
+		}
+	
+		if(saida.length() > 0) {
+			return saida.substring(0,saida.length() - 3);
+		}
+		return saida;
 	}
 
 }

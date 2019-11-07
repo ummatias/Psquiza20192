@@ -12,7 +12,7 @@ import validadores.ValidadorEntradas;
  * @author José Igor de Farias Gomes - 119110692
  *
  */
-public class Objetivo {
+public class Objetivo implements Comparable<Objetivo>{
 
 	/**
 	 * O código que identifica unicamente um objetivo.
@@ -125,6 +125,23 @@ public class Objetivo {
 	
 	public void setStatus(boolean status) {
 		this.status = status;
+	}
+
+	@Override
+	public int compareTo(Objetivo o) {
+		return (this.getCodigo().compareTo(o.getCodigo())) * -1;
+	}
+	public String buscaTermo(String termo) {
+		String saida = "";
+		
+		if(this.descricao.toLowerCase().contains(termo.toLowerCase())) {
+			saida += this.codigo + ": " + this.descricao + " | ";
+		}
+	
+		if(saida.length() > 0) {
+			return saida.substring(0,saida.length() - 3);
+		}
+		return saida;
 	}
 
 }
