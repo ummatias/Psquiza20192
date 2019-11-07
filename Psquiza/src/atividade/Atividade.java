@@ -65,6 +65,7 @@ public class Atividade implements Comparable<Atividade>{
 		this.itens = new ArrayList<Item>();
 		this.duracao = 0;
 		this.resultados = new ArrayList<String>();
+		this.code = code;
 	}
 	
 	/**

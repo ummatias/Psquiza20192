@@ -200,13 +200,22 @@ public class AtividadeController {
 		
 		return atividades.get(codigoAtividade).listaResultados();
 	}
-	public String busca(String termo) {
+	public String buscaDescricao(String termo) {
+		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
+		
 		List<Atividade> listAtividades = new ArrayList<>(this.atividades.values());
 		Collections.sort(listAtividades);
+		
 		String saida = "";
 		for (Atividade atividade : listAtividades) {
-			saida += atividade.buscaTermo(termo) + " | ";
+			String atividadeSaida = atividade.buscaTermo(termo);
+			
+			if (atividadeSaida.length() > 0) {
+				saida += atividadeSaida + " | ";
+				
+			}
 		}
+		
 		if (saida.length() > 0) {
 			return saida.substring(0, saida.length() - 3);
 		}

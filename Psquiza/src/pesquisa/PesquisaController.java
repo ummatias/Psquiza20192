@@ -221,7 +221,6 @@ public class PesquisaController {
 		return pesquisasCadastradas.get(codigoPesquisa).desassociaAtividade();
 
 	}
-
 	/**
 	 * Associa um pesquisador a uma pesquisa desde que esta esteja ainda ativa.
 	 * 
@@ -262,6 +261,7 @@ public class PesquisaController {
 		}
     
   public String buscaDescricaoCampoDeInteresse(String termo) {
+		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
 		List<Pesquisa> listPesquisa = new ArrayList<>(this.pesquisasCadastradas.values());
 		Collections.sort(listPesquisa);
 		String saida = "";
