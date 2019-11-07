@@ -1,8 +1,10 @@
 package validadores;
 
+import java.util.List;
 import java.util.Map;
 
 import atividade.Atividade;
+import atividade.Item;
 import problema.Objetivo;
 import problema.Problema;
 
@@ -325,7 +327,30 @@ public class ValidadorEntradas {
 		if (!pesquisaEhAtiva) {
 			throw new IllegalArgumentException("Pesquisa desativada.");
 		}
+	}
+
+	public static void validaItem(int item) {
+		if ((Integer)(item) == null || item < 1) {
+			throw new IllegalArgumentException("Item nao pode ser nulo ou negativo.");
+		}
+	}
+
+	public static void validaResultado(int numeroResultado) {
+		if ((Integer)(numeroResultado) == null || numeroResultado < 1)
+	throw new IllegalArgumentException("numeroResultado nao pode ser nulo ou negativo.");
+	}
+
+	public static void validaItemExiste(List<Item> itens, int item) {
+		if (itens.size() < item) {
+			throw new IllegalArgumentException("Item nao encontrado.");
+		}
 		
+	}
+
+	public static void validaResultadoExiste(Map<Integer, String> resultados, int numeroResultado) {
+		if (numeroResultado > resultados.size()) {
+			throw new IllegalArgumentException("Resultado nao encontrado.");
+		}
 	}
 
 }

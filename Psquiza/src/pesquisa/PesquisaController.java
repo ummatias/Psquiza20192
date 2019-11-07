@@ -213,11 +213,12 @@ public class PesquisaController {
 	 * Método que desassocia uma atividade a pesquisa.
 	 * 
 	 * @param codigoPesquisa - código da pesquisa
+	 * @param codigoAtividade 
 	 * @return true se for desassociada com sucesso, false se já não tiver uma
 	 *         atividade.
 	 */
-	public boolean desassociaAtividade(String codigoPesquisa) {
-		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
+	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
+
 		return pesquisasCadastradas.get(codigoPesquisa).desassociaAtividade();
 
 	}

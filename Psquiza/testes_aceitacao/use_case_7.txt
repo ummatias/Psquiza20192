@@ -8,7 +8,7 @@ expectError "Campo codigoPesquisa nao pode ser nulo ou vazio." associaAtividade 
 expectError "Campo codigoAtividade nao pode ser nulo ou vazio." associaAtividade codigoPesquisa="COM1" codigoAtividade=""
 expectError "Pesquisa nao encontrada." associaAtividade codigoPesquisa="GOT8" codigoAtividade="A2"
 expectError "Pesquisa desativada." associaAtividade codigoPesquisa="PSI1" codigoAtividade="A2"
-expectError "Atividade nao encontrada." associaAtividade codigoPesquisa="COM1" codigoAtividade="A69"
+expectError "Atividade nao encontrada" associaAtividade codigoPesquisa="COM1" codigoAtividade="A69"
 expect "false" associaAtividade codigoPesquisa="COM1" codigoAtividade="A1"
 
 
@@ -18,7 +18,7 @@ expectError "Campo codigoPesquisa nao pode ser nulo ou vazio." desassociaAtivida
 expectError "Campo codigoAtividade nao pode ser nulo ou vazio." desassociaAtividade codigoPesquisa="COM1" codigoAtividade=""
 expectError "Pesquisa nao encontrada." desassociaAtividade codigoPesquisa="GOT8" codigoAtividade="A1"
 expectError "Pesquisa desativada." desassociaAtividade codigoPesquisa="PSI1" codigoAtividade="A1"
-expectError "Atividade nao encontrada." desassociaAtividade codigoPesquisa="COM1" codigoAtividade="A65"
+expectError "Atividade nao encontrada" desassociaAtividade codigoPesquisa="COM1" codigoAtividade="A65"
 expect "false" desassociaAtividade codigoPesquisa="COM1" codigoAtividade="A1"
 
 
@@ -43,8 +43,8 @@ executaAtividade codigoAtividade="A2" item=1 duracao=8
 expect "2" contaItensPendentes codigo="A2"
 expect "1" contaItensRealizados codigo="A2"
 executaAtividade codigoAtividade="A2" item=3 duracao=8
-expect "1" contaItensPendentes codigo="A1"
-expect "2" contaItensRealizados codigo="A1"
+expect "1" contaItensPendentes codigo="A2"
+expect "2" contaItensRealizados codigo="A2"
 
 expectError "Campo codigoAtividade nao pode ser nulo ou vazio." executaAtividade codigoAtividade="" item=2 duracao=8
 expectError "Item nao pode ser nulo ou negativo." executaAtividade codigoAtividade="A2" item=-2 duracao=8
@@ -73,7 +73,7 @@ expect true removeResultado codigoAtividade="A1" numeroResultado=1
 expect true removeResultado codigoAtividade="A2" numeroResultado=4
 expect false removeResultado codigoAtividade="A1" numeroResultado=1
 expectError "Campo codigoAtividade nao pode ser nulo ou vazio." removeResultado codigoAtividade="" numeroResultado=1
-expectError "Atividade nao encontrada." removeResultado codigoAtividade="A420" numeroResultado=1
+expectError "Atividade nao encontrada" removeResultado codigoAtividade="A420" numeroResultado=1
 expectError "numeroResultado nao pode ser nulo ou negativo." removeResultado codigoAtividade="A1" numeroResultado=-1
 expectError "Resultado nao encontrado." removeResultado codigoAtividade="A1" numeroResultado=10
 
@@ -82,7 +82,7 @@ expectError "Resultado nao encontrado." removeResultado codigoAtividade="A1" num
 expect "Ocorreu sem nenhum problema aparente o monitoramento de chats dos alunos de computacao do primeiro periodo em diversas plataformas. | Criou-se um bom banco de dados em cima dessa analise, para que diversas pesquisas tenham acesso." listaResultados codigoAtividade="A1"
 expect "Verificou-se um interesse no mercado. | Nos horarios em que ocorreram os itens, verificou-se uma maior procura por cervejas geladas. | Nao houve situacoes de mal estar de nenhu participante ao ingerir o produto. | Nilson sexta." listaResultados codigoAtividade="A2"
 expectError "Campo codigoAtividade nao pode ser nulo ou vazio." listaResultados codigoAtividade=""
-expectError "Atividade nao encontrada." listaResultados codigoAtividade="cicada3301"
+expectError "Atividade nao encontrada" listaResultados codigoAtividade="cicada3301"
 
 
 #Olhando as duracoes
@@ -90,4 +90,4 @@ expectError "Atividade nao encontrada." listaResultados codigoAtividade="cicada3
 expect 20 getDuracao codigoAtividade="A1"
 expect 16 getDuracao codigoAtividade="A2"
 expectError "Campo codigoAtividade nao pode ser nulo ou vazio." getDuracao codigoAtividade=""
-expectError "Atividade nao encontrada." getDuracao codigoAtividade="A420"
+expectError "Atividade nao encontrada" getDuracao codigoAtividade="A420"
