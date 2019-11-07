@@ -190,7 +190,9 @@ public class AtividadeController {
 	public String listaResultados(String codigoAtividade) {
 		return atividades.get(codigoAtividade).listaResultados();
 	}
-	public String busca(String termo) {
+	public String buscaDescricao(String termo) {
+		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
+		
 		List<Atividade> listAtividades = new ArrayList<>(this.atividades.values());
 		Collections.sort(listAtividades);
 		String saida = "";

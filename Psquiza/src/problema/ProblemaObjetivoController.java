@@ -1,8 +1,12 @@
 package problema;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import pesquisa.Pesquisa;
 import validadores.ValidadorEntradas;
 
 /**
@@ -155,6 +159,42 @@ public class ProblemaObjetivoController {
 		ValidadorEntradas.validarString(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
 		
 		return objetivos.get(idObjetivo);
+	}
+	public String buscaDescricaoProblema(String termo) {
+		List<Problema> listProblema = new ArrayList<>(this.problemas.values());
+		Collections.sort(listProblema);
+		String saida = "";
+		for (Problema problema : listProblema) {
+			String problemaSaida = problema.buscaTermo(termo);
+			
+			if (problemaSaida.length() > 0) {
+				saida += problemaSaida + " | ";
+			}
+			
+		}
+		if (saida.length() > 0) {
+			return saida.substring(0, saida.length() - 3);
+		}
+		return saida;
+	}
+	public String buscaDescricaoObjetivo(String termo) {
+		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
+		
+		List<Objetivo> listObjetivo = new ArrayList<>(this.objetivos.values());
+		Collections.sort(listObjetivo);
+		String saida = "";
+		for (Objetivo objetivo : listObjetivo) {
+			String objetivoSaida = objetivo.buscaTermo(termo);
+			
+			if (objetivoSaida.length() > 0) {
+				saida += objetivoSaida + " | ";
+			}
+			
+		}
+		if (saida.length() > 0) {
+			return saida.substring(0, saida.length() - 3);
+		}
+		return saida;
 	}
 
 }

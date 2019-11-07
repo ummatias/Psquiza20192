@@ -1,8 +1,12 @@
 package pesquisador;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import pesquisa.Pesquisa;
 import validadores.ValidadorEntradas;
 
 /**
@@ -154,4 +158,27 @@ public class PesquisadorController {
 			return false;
 		}   return true;
 	}
+	public String buscaBiografia(String termo) {
+		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
+		
+		List<Pesquisador> listPesquisador = new ArrayList<>(this.pesquisadores.values());
+		Collections.sort(listPesquisador);
+		String saida = "";
+		for (Pesquisador pesquisador : listPesquisador) {
+			String pesquisadorSaida = pesquisador.buscaTermo(termo);
+			
+			if (pesquisadorSaida.length() > 0) {
+				saida += pesquisadorSaida + " | ";
+				
+			}
+			
+		}
+		if (saida.length() > 0) {
+			
+			return saida.substring(0, saida.length() - 3);
+		}
+		
+		return saida;
+	}
+	
 }

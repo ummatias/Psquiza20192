@@ -216,6 +216,8 @@ public class PesquisaController {
 	}
 
 	public String buscaDescricaoCampoDeInteresse(String termo) {
+		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
+		
 		List<Pesquisa> listPesquisa = new ArrayList<>(this.pesquisasCadastradas.values());
 		Collections.sort(listPesquisa);
 		String saida = "";

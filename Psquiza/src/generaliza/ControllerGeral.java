@@ -304,6 +304,8 @@ public class ControllerGeral {
 		return ativController.getDuracao(codigoAtividade);
 	}
 	public String busca(String termo) {
-		return this.pesquisaController.buscaDescricaoCampoDeInteresse(termo);
+		return this.pesquisaController.buscaDescricaoCampoDeInteresse(termo) +" | " + this.psqzadorController.buscaBiografia(termo)
+		+ " | " + this.probObjController.buscaDescricaoProblema(termo) + " | " + this.probObjController.buscaDescricaoObjetivo(termo)
+		+ " | " + this.ativController.buscaDescricao(termo);
 	}
 }

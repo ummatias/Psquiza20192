@@ -185,10 +185,11 @@ public class Pesquisador implements Comparable<Pesquisador>{
 		
 		if(this.biografia.toLowerCase().contains(termo.toLowerCase())) {
 			saida += this.email + ": " + this.biografia + " | ";
+			
 		}
 	
 		if(saida.length() > 0) {
-			return saida.substring(saida.length() - 3);
+			return saida.substring(0,saida.length() - 3);
 		}
 		return saida;
 	}
