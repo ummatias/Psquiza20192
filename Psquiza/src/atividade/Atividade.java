@@ -165,6 +165,7 @@ public class Atividade implements Comparable<Atividade>{
 	 * @param horas - horas gastas com a atividade
 	 */
 	public void executaAtividade(int item, int horas) {
+		
 		this.duracao += horas;
 		itens.get(item - 1).setStatus(true);
 	}
@@ -183,10 +184,10 @@ public class Atividade implements Comparable<Atividade>{
 	 * @return true se o resultado foi removido com sucesso.
 	 */
 	public boolean removeResultado(int numeroResultado) {
-		resultados.remove(numeroResultado);
-		if (resultados.get(numeroResultado) == null) {
-			return true;
-		}  return false;
+		resultados.remove(numeroResultado - 1);
+		if (resultados.get(numeroResultado - 1) != null) {
+		  return false;
+		} return true;
 	}
 
 	/** Método que retorna a lista com os resultados

@@ -277,6 +277,7 @@ public class ControllerGeral {
 	
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade){
 		Atividade atividade = ativController.getAtividade(codigoAtividade);
+		
 		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validaPesquisaAtiva(pesquisaController.pesquisaEhAtiva(codigoPesquisa));
@@ -285,6 +286,11 @@ public class ControllerGeral {
 	}
 	
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
+		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaPesquisaAtiva(pesquisaController.pesquisaEhAtiva(codigoPesquisa));
+		
+		
 		return pesquisaController.desassociaAtividade(codigoPesquisa);
 	}
 	
@@ -345,7 +351,6 @@ public class ControllerGeral {
 		Pesquisador pesquisador = psqzadorController.getPesquisador(emailPesquisador);
 		
 		return pesquisaController.associaPesquisador(idPesquisa, pesquisador);
-		
 	}
 
 	/**

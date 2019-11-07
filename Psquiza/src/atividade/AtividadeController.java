@@ -156,6 +156,9 @@ public class AtividadeController {
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
 		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validaDuracao(duracao);
+		ValidadorEntradas.validaItem(item);
+		ValidadorEntradas.validaAtividadeExiste(atividades, codigoAtividade);
+		
 		atividades.get(codigoAtividade).executaAtividade(item, duracao);
 	}
 	
@@ -188,6 +191,7 @@ public class AtividadeController {
 	 */
 	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
 		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaResultado(numeroResultado);
 		return atividades.get(codigoAtividade).removeResultado(numeroResultado);
 	}
 	
