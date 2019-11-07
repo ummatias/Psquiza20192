@@ -3,6 +3,7 @@ package generaliza;
 import atividade.Atividade;
 import atividade.AtividadeController;
 import pesquisa.PesquisaController;
+import pesquisador.Pesquisador;
 import pesquisador.PesquisadorController;
 import problema.Objetivo;
 import problema.Problema;
@@ -274,10 +275,12 @@ public class ControllerGeral {
 		}return false;
 	}
 	
-	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
-		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
-		
+	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade){
 		Atividade atividade = ativController.getAtividade(codigoAtividade);
+		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaPesquisaAtiva(pesquisaController.pesquisaEhAtiva(codigoPesquisa));
+
 		return pesquisaController.associaAtividade(codigoPesquisa, atividade);
 	}
 	
@@ -303,6 +306,58 @@ public class ControllerGeral {
 	public int getDuracao(String codigoAtividade) {
 		return ativController.getDuracao(codigoAtividade);
 	}
+
+
+	/**
+	 * Especializa um pesquisador como sendo do tipo Professor, cadastrando seus
+	 * atributos especiais: formação, unidade e data de contratação
+	 * 
+	 * @param email o email do pesquisador
+	 * @param formacao o grau de formação do professor
+	 * @param unidade a unidade academica do professor
+	 * @param data a data de contratação do professor
+	 */
+	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
+		psqzadorController.cadastraEspecialidadeProfessor(email, formacao, unidade, data);
+	}
+
+	/**
+	 * Especializa um pesquisador como sendo do tipo Aluno, cadastrando seus
+	 * atributos especiais: semestre e IEA.
+	 * 
+	 * @param email o email do pesquisador
+	 * @param semestre o semestre do aluno
+	 * @param iea o indice de eficiencia academica do aluno
+	 */
+	public void cadastraEspecialidadeAluno(String email, int semestre, double iea) {
+		psqzadorController.cadastraEspecialidadeAluno(email, semestre, iea);
+		
+	}
+
+	/**
+	 * Associa um pesquisador a uma pesquisa desde que esta esteja ainda ativa.
+	 * 
+	 * @param idPesquisa o id da pesquisa
+	 * @param emailPesquisador o email do pesquisador
+	 * @return true se a associação aconteceu com sucesso, false - caso a associação já exista
+	 */
+	public boolean associaPesquisador(String idPesquisa, String emailPesquisador) {
+		Pesquisador pesquisador = psqzadorController.getPesquisador(emailPesquisador);
+		
+		return pesquisaController.associaPesquisador(idPesquisa, pesquisador);
+		
+	}
+
+	/**
+	 * Desassocia um pesquisador de uma pesquisa desde que esta ainda esteja ativa.
+	 * 
+	 * @param idPesquisa o id da pesquisa
+	 * @param emailPesquisador o email do pesquisador
+	 * @return true - se a desassociação aconteceu com sucesso, false - caso a associação não exista
+	 */
+	public boolean desassociaPesquisador(String idPesquisa, String emailPesquisador) {
+		return pesquisaController.desassociaPesquisador(idPesquisa, emailPesquisador);
+
 	public String busca(String termo) {
 		return this.pesquisaController.buscaDescricaoCampoDeInteresse(termo) +" | " + this.psqzadorController.buscaBiografia(termo)
 		+ " | " + this.probObjController.buscaDescricaoProblema(termo) + " | " + this.probObjController.buscaDescricaoObjetivo(termo)

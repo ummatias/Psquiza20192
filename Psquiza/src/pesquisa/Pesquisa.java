@@ -1,10 +1,10 @@
 package pesquisa;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 import atividade.Atividade;
+import pesquisador.Pesquisador;
 import problema.Objetivo;
 import problema.Problema;
 import validadores.ValidadorEntradas;
@@ -33,15 +33,17 @@ public class Pesquisa implements Comparable<Pesquisa>{
 	 * O status da pesquisa, que pode ser ativo ou inativo
 	 */
 	private boolean status;
-	
+
 	/**
 	 * Atividade associada a pesquisa.
 	 */
 	private Atividade atividade;
-	
+
 	private Problema problema;
-	
+
 	private Map<String, Objetivo> objetivos;
+
+	private Map<String, Pesquisador> pesquisadores;
 
 	/**
 	 * Contrutor da pesquisa
@@ -61,6 +63,7 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		this.atividade = null;
 		this.problema = null;
 		this.objetivos = new HashMap<>();
+		this.pesquisadores = new HashMap<>();
 
 	}
 
@@ -74,7 +77,6 @@ public class Pesquisa implements Comparable<Pesquisa>{
 
 		this.descricao = descricao;
 	}
-
 
 	/**
 	 * Altera o campo de interesse
@@ -110,7 +112,6 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		this.status = false;
 	}
 
-
 	/**
 	 * retorna o codigo da pesquisa
 	 * 
@@ -136,14 +137,13 @@ public class Pesquisa implements Comparable<Pesquisa>{
 			throw new IllegalArgumentException("Nao e possivel alterar esse valor de pesquisa.");
 		}
 	}
-		
+
 	/**
 	 * encerra uma pesquisa
 	 */
 	public void encerraPesquisa() {
 		this.status = false;
 	}
-
 
 	/**
 	 * cria a representacao textual da pesquisa
@@ -183,61 +183,109 @@ public class Pesquisa implements Comparable<Pesquisa>{
 			return false;
 		return true;
 	}
-	
-	/** Método que associa uma Atividade a pesquisa.
+
+	/**
+	 * Método que associa uma Atividade a pesquisa.
+	 * 
 	 * @param atividade a ser associdada
 	 */
 	public boolean associaAtividade(Atividade atividade) {
-		if (atividade == null) {
+		if (this.atividade == null) {
 			this.atividade = atividade;
 			return true;
-		} return false;
+		}
+		return false;
 	}
-	
+
 	/**
 	 * Método que desassocia a atividade a pesquisa.
-	 * @return 
+	 * 
+	 * @return
 	 */
 	public boolean desassociaAtividade() {
-		if (atividade == null) {
-			return false;}
-		this.atividade = null;
-		return true;
-	}
+
+		if (atividade != null) {
+			this.atividade = null;
+			return true;
+		} 	return false;}
 	
 	public Atividade getAtividade() {
 		return atividade;
 	}
-	
+
 	public boolean associaProblema(Problema problema) {
-		if(this.problema == null) {
+		if (this.problema == null) {
 			this.problema = problema;
 			return true;
-			
-		}return false;
+		}
+		return false;
 	}
-	
+
 	public boolean desassociaProblema() {
-		if(this.problema != null) {
+		if (this.problema != null) {
 			this.problema = null;
 			return true;
-		}return false;
+		}
+		return false;
 	}
-	
-	public void associaObjetivo(Objetivo objetivo) {	
+
+	public void associaObjetivo(Objetivo objetivo) {
 		objetivos.put(objetivo.getCodigo(), objetivo);
 	}
-	
-	public boolean desassociaObjetivo(String idObjetivo) {	
-		if(objetivos.containsKey(idObjetivo)) {
+
+	public boolean desassociaObjetivo(String idObjetivo) {
+		if (objetivos.containsKey(idObjetivo)) {
 			objetivos.remove(idObjetivo);
 			return true;
-		}return false;
+		}
+		return false;
 	}
-	
+
 	public Problema getProblema() {
 		return this.problema;
 	}
+
+
+	/**
+	 * Adiciona um pesquisador ao mapa de pesquisadores associados à Pesquisa.
+	 * 
+	 * @param pesquisador o pesquisador a ser adiconado
+	 * @return true - caso o pesquisador seja adicionado com sucesso, false - caso o
+	 *         pesquisador já exista no mapa.
+	 */
+	public boolean associaPesquisador(Pesquisador pesquisador) {
+		if (this.status) {
+			String email = pesquisador.getEmail();
+
+			if (pesquisadores.containsKey(email)) {
+				return false;
+			}
+			pesquisadores.put(email, pesquisador);
+			return true;
+		} else {
+			throw new IllegalArgumentException("Pesquisa desativada.");
+		}
+
+	}
+
+	/**
+	 * Remove um pesquisador do mapa de pesquisadores.
+	 * 
+	 * @param emailPesquisador o email do pesquisador
+	 * @return true - se a desassociação ocorrer com sucesso, false - caso o
+	 *         pesquisador não esteja no mapa de pesquisadores.
+	 */
+	public boolean desassociaPesquisador(String emailPesquisador) {
+		if (this.status) {
+			if (!pesquisadores.containsKey(emailPesquisador)) {
+				return false;
+			}
+
+			pesquisadores.remove(emailPesquisador);
+			return true;
+		} else {
+			throw new IllegalArgumentException("Pesquisa desativada.");
+		}
 
 	@Override
 	public int compareTo(Pesquisa o) {
@@ -258,5 +306,6 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		}
 		
 		return saida;
+
 	}
 }

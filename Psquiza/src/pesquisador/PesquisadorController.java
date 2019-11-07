@@ -68,26 +68,11 @@ public class PesquisadorController {
 			throw new IllegalArgumentException("Pesquisador inativo");
 		}
 		
-		ValidadorEntradas.validaAtributosPesquisador(atributo, "Atributo invalido.");
-		switch (atributo) {
-		case "NOME":
-			pesquisadores.get(email).setNome(novoValor);
-			break;
-		case "FUNCAO":
-			pesquisadores.get(email).setFuncao(novoValor);
-			break;
-		case "BIOGRAFIA":
-			pesquisadores.get(email).setBiografia(novoValor);
-			break;
-		case "EMAIL":
-			pesquisadores.get(email).setEmail(novoValor);
+		pesquisadores.get(email).alteraPesquisador(atributo, novoValor);
+		
+		if(atributo.equals("EMAIL")) {
 			pesquisadores.put(novoValor, pesquisadores.get(email));
 			pesquisadores.remove(email);
-			break;
-		case "FOTO":
-			pesquisadores.get(email).setFoto(novoValor);
-			break;
-
 		}
 	}
 
@@ -158,6 +143,7 @@ public class PesquisadorController {
 			return false;
 		}   return true;
 	}
+
 	public String buscaBiografia(String termo) {
 		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
 		
@@ -180,5 +166,72 @@ public class PesquisadorController {
 		
 		return saida;
 	}
-	
+
+	/**
+	 * Especializa um pesquisador como sendo do tipo Professor, cadastrando seus
+	 * atributos especiais: formação, unidade e data de contratação
+	 * 
+	 * @param email o email do pesquisador
+	 * @param formacao o grau de formação do professor
+	 * @param unidade a unidade academica do professor
+	 * @param data a data de contratação do professor
+	 */
+	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
+		ValidadorEntradas.validarString(email, "Campo email nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaEmail(email, "Formato de email invalido.");
+		ValidadorEntradas.validarString(formacao, "Campo formacao nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(unidade, "Campo unidade nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(data, "Campo data nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaFormatoData(data, "Atributo data com formato invalido.");
+		
+		if(pesquisadores.containsKey(email)) {
+			Pesquisador pesquisador = pesquisadores.get(email);
+			pesquisador.setEspecialidadeProfessor(formacao, unidade, data);
+			
+		} else {
+			throw new IllegalArgumentException("Pesquisadora nao encontrada.");
+		}
+		
+	}
+
+	/**
+	 * Especializa um pesquisador como sendo do tipo Aluno, cadastrando seus
+	 * atributos especiais: semestre e IEA.
+	 * 
+	 * @param email o email do pesquisador
+	 * @param semestre o semestre do aluno
+	 * @param iea o indice de eficiencia academica do aluno
+	 */
+	public void cadastraEspecialidadeAluno(String email, int semestre, double iea) {
+		ValidadorEntradas.validarString(email, "Campo email nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaEmail(email, "Formato de email invalido.");
+		ValidadorEntradas.validaSemestreAluno(semestre, "Atributo semestre com formato invalido.");
+		ValidadorEntradas.validaIEA(iea, "Atributo IEA com formato invalido.");
+		
+		if(pesquisadores.containsKey(email)) {
+			Pesquisador pesquisador = pesquisadores.get(email);
+			pesquisador.setEspecialidadeAluno(semestre, iea);
+			
+		} else {
+			throw new IllegalArgumentException("Pesquisadora nao encontrada.");
+		}
+	}
+
+	/**
+	 * Retorna um objeto do tipo Pesquisador para ser usado em outras entidades.
+	 * 
+	 * @param email o email do pesquisador
+	 * @return o objeto Pesquisador desejado
+	 */
+	public Pesquisador getPesquisador(String email) {
+		ValidadorEntradas.validarString(email, "Campo emailPesquisador nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaEmail(email, "Formato de email invalido.");
+		
+		if(pesquisadores.containsKey(email)) {
+			return pesquisadores.get(email);
+			
+		} else {
+			throw new IllegalArgumentException("Pesquisadora nao encontrada.");
+		}
+	}
 }
