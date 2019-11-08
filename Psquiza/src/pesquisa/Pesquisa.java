@@ -309,4 +309,10 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		return saida;
 
 	}
+	
+	public boolean problemaJaExiste(Problema problema) {
+		if(this.problema.getCodigo().equals(problema.getCodigo())) {
+			return true;
+		} return false;
+	}
 }
