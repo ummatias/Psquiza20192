@@ -1,5 +1,7 @@
 #Ativando FER1
-#ASSOCIANDO 
+#Cadastrando 1 item em A4
+#ASSOCIANDO COM1 E COM2 com A1
+#ASSOCIANDO FER1 com A2
 
 #associando atividades
 
@@ -29,6 +31,8 @@ expect "true" associaAtividade codigoPesquisa="COM1" codigoAtividade="A1"
 expect "true" associaAtividade codigoPesquisa="COM2" codigoAtividade="A1"
 expect "true" associaAtividade codigoPesquisa="FER1" codigoAtividade="A2"
 
+cadastraItem codigo="A4" item="Monitoramento das hashtags como forma de tentar prever resultados das eleicoes"
+expectError "Atividade sem associacoes com pesquisas." executaAtividade codigoAtividade="A4" item=1 duracao=500
 executaAtividade codigoAtividade="A1" item=1 duracao=5
 expect "3" contaItensPendentes codigo="A1"
 expect "1" contaItensRealizados codigo="A1"
@@ -71,7 +75,6 @@ expectError "Resultado nao pode ser nulo ou vazio." cadastraResultado codigoAtiv
 
 expect true removeResultado codigoAtividade="A1" numeroResultado=1
 expect true removeResultado codigoAtividade="A2" numeroResultado=4
-expect false removeResultado codigoAtividade="A1" numeroResultado=1
 expectError "Campo codigoAtividade nao pode ser nulo ou vazio." removeResultado codigoAtividade="" numeroResultado=1
 expectError "Atividade nao encontrada" removeResultado codigoAtividade="A420" numeroResultado=1
 expectError "numeroResultado nao pode ser nulo ou negativo." removeResultado codigoAtividade="A1" numeroResultado=-1
