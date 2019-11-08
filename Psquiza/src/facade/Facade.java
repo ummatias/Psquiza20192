@@ -253,6 +253,6 @@ public class Facade {
 	}
 	
 	public boolean desassociaObjetivo(String idPesquisa, String idProblema) {
-		return controllerGeral.associaObjetivo(idPesquisa, idProblema);
+		return controllerGeral.desassociaObjetivo(idPesquisa, idProblema);
 	}
 }

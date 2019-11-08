@@ -65,7 +65,8 @@ public class AtividadeController {
 	 */
 	public void apagaAtividade(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validaAtividadeExiste(atividades, codigo);
+		validaExisteAtividade(codigo);
+		
 		atividades.remove(codigo);
 	}
 	
@@ -89,7 +90,7 @@ public class AtividadeController {
 	public void cadastraItem(String codigo, String item) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(item, "Item nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validaAtividadeExiste(atividades, codigo);
+		validaExisteAtividade(codigo);
 		
 		atividades.get(codigo).addItem(item);
 	}
@@ -102,7 +103,7 @@ public class AtividadeController {
 	 */
 	public int contaItensPendentes(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validaAtividadeExiste(atividades, codigo);
+		validaExisteAtividade(codigo);
 		return atividades.get(codigo).contaItensPendentes();
 	}
 	
@@ -114,7 +115,7 @@ public class AtividadeController {
 	 */
 	public int contaItensRealizados(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validaAtividadeExiste(atividades, codigo);
+		validaExisteAtividade(codigo);
 		
 		return atividades.get(codigo).contaItensRealizados();
 	}
@@ -128,7 +129,7 @@ public class AtividadeController {
 	 */
 	public String exibeAtividade(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validaAtividadeExiste(atividades, codigo);
+		validaExisteAtividade(codigo);
 		
 		return atividades.get(codigo).toString();
 	}
@@ -139,7 +140,7 @@ public class AtividadeController {
 	 */
 	public Atividade getAtividade(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validaAtividadeExiste(atividades, codigo);
+		validaExisteAtividade(codigo);
 		return atividades.get(codigo);
 	}
 	
@@ -149,6 +150,7 @@ public class AtividadeController {
 	 * @param duracao - duraçao da execução
 	 */
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
+		validaExisteAtividade(codigoAtividade);
 		atividades.get(codigoAtividade).executaAtividade(item, duracao);
 	}
 	
@@ -157,6 +159,7 @@ public class AtividadeController {
 	 * @return a duração total da atividade.
 	 */
 	public int getDuracao(String codigoAtividade) {
+		validaExisteAtividade(codigoAtividade);
 		return atividades.get(codigoAtividade).getDuracao();
 	}
 	
@@ -166,6 +169,7 @@ public class AtividadeController {
 	 * @return código do resultado
 	 */
 	public int cadastraResultado(String codigoAtividade, String resultado) {
+		validaExisteAtividade(codigoAtividade);
 		return atividades.get(codigoAtividade).addResultados(resultado);
 	}
 	
@@ -175,6 +179,7 @@ public class AtividadeController {
 	 * @return true se foi removido com sucesso
 	 */
 	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
+		validaExisteAtividade(codigoAtividade);
 		return atividades.get(codigoAtividade).removeResultado(numeroResultado);
 	}
 	
@@ -183,6 +188,13 @@ public class AtividadeController {
 	 * @return a lista de resultados
 	 */
 	public String listaResultados(String codigoAtividade) {
+		validaExisteAtividade(codigoAtividade);
 		return atividades.get(codigoAtividade).listaResultados();
+	}
+	
+	private void validaExisteAtividade(String idAtividade) {
+		if(!atividades.containsKey(idAtividade)) {
+			throw new IllegalArgumentException("Atividade nao encontrada");
+		}
 	}
 }

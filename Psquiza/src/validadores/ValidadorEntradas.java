@@ -214,43 +214,6 @@ public class ValidadorEntradas {
 			throw new IllegalArgumentException("Valor invalido do nivel do risco.");
 		}
 	}
-	
-	/**
-	 * Valida se uma atividade existe dentro de um map de atividades.
-	 * 
-	 * @param atividades Map de atividades para a validação.
-	 * @param codigo String contendo o código da atividade a ser validada.
-	 */
-	public static void validaAtividadeExiste(Map<String, Atividade> atividades, String codigo) {
-		if(!atividades.containsKey(codigo)) {
-			throw new IllegalArgumentException("Atividade nao encontrada");
-		}
-	}
-	
-	public static void validaProblemaExiste(Map<String, Problema> problemas, String codigo) {
-		if(!problemas.containsKey(codigo)) {
-			throw new IllegalArgumentException("Problema nao encontrado");
-		}
-	}
-	
-	public static void validaObjetivoExiste(Map<String, Objetivo> objetivos, String codigo) {
-		if(!objetivos.containsKey(codigo)) {
-			throw new IllegalArgumentException("Objetivo nao encontrado");
-		}
-	}
-	
-	public static void validaPesquisaExiste(Map<String, Pesquisa> pesquisas, String codigo) {
-		if(!pesquisas.containsKey(codigo)) {
-			throw new IllegalArgumentException("Pesquisa nao encontrada.");
-		}
-	}
-	
-	public static void validaPesquisaEstaAtiva(Map<String, Pesquisa> pesquisas, String codigo) {
-		if(!pesquisas.get(codigo).ehAtiva()) {
-			throw new IllegalArgumentException("Pesquisa desativada.");
-		}
-	}
-	
 
 
 }

@@ -102,7 +102,8 @@ public class ProblemaObjetivoController {
 	 */
 	public void apagaProblema(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validaProblemaExiste(problemas, codigo);
+		validaProblemaExiste(codigo);
+
 
 		problemas.remove(codigo);
 
@@ -116,7 +117,8 @@ public class ProblemaObjetivoController {
 	 */
 	public void apagaObjetivo(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validaObjetivoExiste(objetivos, codigo);
+		validaObjetivoExiste(codigo);
+		
 		objetivos.remove(codigo);
 	}
 
@@ -128,7 +130,8 @@ public class ProblemaObjetivoController {
 	 */
 	public String exibeProblema(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validaProblemaExiste(problemas, codigo);
+		validaProblemaExiste(codigo);
+		
 		return problemas.get(codigo).toString();
 	}
 
@@ -140,21 +143,36 @@ public class ProblemaObjetivoController {
 	 */
 	public String exibeObjetivo(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validaObjetivoExiste(objetivos, codigo);
+		validaObjetivoExiste(codigo);
 		
 		return objetivos.get(codigo).toString();
 	}
 	
 	public Problema getProblema(String idProblema) {
 		ValidadorEntradas.validarString(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
+		validaProblemaExiste(idProblema);
 		
 		return problemas.get(idProblema);
 	}
 	
 	public Objetivo getObjetivo(String idObjetivo) {
 		ValidadorEntradas.validarString(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
+		validaObjetivoExiste(idObjetivo);
 		
 		return objetivos.get(idObjetivo);
+	}
+	
+	private void validaProblemaExiste(String idProblema) {
+		if(!problemas.containsKey(idProblema)) {
+			throw new IllegalArgumentException("Problema nao encontrado");
+		}
+	}
+	
+	
+	private void validaObjetivoExiste(String idObjetivo) {
+		if(!objetivos.containsKey(idObjetivo)) {
+			throw new IllegalArgumentException("Objetivo nao encontrado");
+		}
 	}
 
 }
