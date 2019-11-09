@@ -362,15 +362,32 @@ public class ControllerGeral {
 	}
 
 	public String busca(String termo) {
-;
+		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
+		
 		return this.pesquisaController.buscaDescricaoCampoDeInteresse(termo) +" | " + this.psqzadorController.buscaBiografia(termo)
 		+ " | " + this.probObjController.buscaDescricaoProblema(termo) + " | " + this.probObjController.buscaDescricaoObjetivo(termo)
 		+ " | " + this.ativController.buscaDescricao(termo) ;
-	}
+}
 	public int contaResultadosBusca(String termo) {
+		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
+		
+		
+		System.out.println(this.pesquisaController.buscaDescricaoCampoDeInteresse(termo)  + " | " +
+	this.psqzadorController.buscaBiografia(termo));
+		String busca = this.busca(termo);
+		if (busca.equals("")) {
+			throw new IllegalArgumentException("Nenhum resultado encontrado");
+		}
+		String[] resultado = busca.split(" | ");
+		
+		return resultado.length;
+	}
+	public String busca(String termo, int num) {
+		if(num < 0) {
+			throw new IllegalArgumentException("Numero do resultado nao pode ser negativo");
+		}
 		String busca = this.busca(termo);
 		String[] resultado = busca.split(" | ");
-		System.out.println(Arrays.toString(resultado));
-		return resultado.length;
+		return resultado[num - 1];
 	}
 }

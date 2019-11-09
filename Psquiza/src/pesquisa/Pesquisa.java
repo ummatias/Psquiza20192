@@ -286,6 +286,7 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		} else {
 			throw new IllegalArgumentException("Pesquisa desativada.");
 		}
+	}
 
 	@Override
 	public int compareTo(Pesquisa o) {

@@ -242,6 +242,7 @@ public class Pesquisador implements Comparable<Pesquisador>{
 
 			}
 		}
+	}
 
 	@Override
 	public int compareTo(Pesquisador o) {

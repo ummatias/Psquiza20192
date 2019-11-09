@@ -342,5 +342,8 @@ public class Facade {
 	public int contaResultadosBusca(String termo) {
 		return this.controllerGeral.contaResultadosBusca(termo);
 	}
+	public String busca(String termo, int numero) {
+		return this.controllerGeral.busca(termo, numero);
+	}
 
 }
