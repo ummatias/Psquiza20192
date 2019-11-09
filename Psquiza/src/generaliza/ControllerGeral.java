@@ -236,6 +236,19 @@ public class ControllerGeral {
 	}
 
 	
+	
+	
+	
+	
+	/**
+	 * Associa um problma a uma pesquisa, apartir de seus respectivos ID's e
+	 * retorna um valor booleano dizendo se a associação foi bem sucedida (true)
+	 * ou se o problema já estava associado (false)
+	 * 
+	 * @param idPesquisa ID da pesquisa que será associado o problema
+	 * @param idProblema ID do problema a ser associado a pesquisa
+	 * @return valor boolean contendo o resultado da operação
+	 */
 	public boolean associaProblema(String idPesquisa, String idProblema) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
@@ -244,25 +257,28 @@ public class ControllerGeral {
 		return pesquisaController.associaProblema(idPesquisa, problema);
 	}
 	
-	public boolean desassociaProblema(String idPesquisa, String idProblema) {
+	public boolean desassociaProblema(String idPesquisa) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validarString(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
 		
 		return pesquisaController.desassociaProblema(idPesquisa);
 	}
 	
+	
+	/**
+	 * Associa um objetivo a uma pesquisa, apartir de seus respectivos ID's e
+	 * retorna um valor booleano dizendo se a associação foi bem sucedida (true)
+	 * ou se o objetivo já estava associado (false)
+	 * 
+	 * @param idPesquisa ID da pesquisa que será associado o objetivo
+	 * @param idObjetivo ID do objetivo a ser associado a pesquisa
+	 * @return valor boolean que representa o resultado da operação
+	 */
 	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
 		
 		Objetivo objetivo = probObjController.getObjetivo(idObjetivo);
-		if(!objetivo.getStatus()) {
-			
-			objetivo.setStatus(true);
-			pesquisaController.associaObjetivo(idPesquisa, objetivo);
-			return true;
-			
-		}return false;
+		return pesquisaController.associaObjetivo(idPesquisa, objetivo);
 	}
 	
 	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
@@ -274,6 +290,11 @@ public class ControllerGeral {
 			return true;
 		}return false;
 	}
+	
+	
+	
+	
+	
 	
 	/** Método que associa uma atividade a pesquisa.
 	 * @param codigoPesquisa - código de pesquisa
