@@ -1,5 +1,7 @@
 package generaliza;
 
+import java.util.Arrays;
+
 import atividade.Atividade;
 import atividade.AtividadeController;
 import pesquisa.PesquisaController;
@@ -357,10 +359,18 @@ public class ControllerGeral {
 	 */
 	public boolean desassociaPesquisador(String idPesquisa, String emailPesquisador) {
 		return pesquisaController.desassociaPesquisador(idPesquisa, emailPesquisador);
+	}
 
 	public String busca(String termo) {
+;
 		return this.pesquisaController.buscaDescricaoCampoDeInteresse(termo) +" | " + this.psqzadorController.buscaBiografia(termo)
 		+ " | " + this.probObjController.buscaDescricaoProblema(termo) + " | " + this.probObjController.buscaDescricaoObjetivo(termo)
-		+ " | " + this.ativController.buscaDescricao(termo);
+		+ " | " + this.ativController.buscaDescricao(termo) ;
+	}
+	public int contaResultadosBusca(String termo) {
+		String busca = this.busca(termo);
+		String[] resultado = busca.split(" | ");
+		System.out.println(Arrays.toString(resultado));
+		return resultado.length;
 	}
 }

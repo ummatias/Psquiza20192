@@ -339,5 +339,8 @@ public class Facade {
 	public boolean desassociaPesquisador(String idPesquisa, String emailPesquisador) {
 		return controllerGeral.desassociaPesquisador(idPesquisa, emailPesquisador);
 	}
+	public int contaResultadosBusca(String termo) {
+		return this.controllerGeral.contaResultadosBusca(termo);
+	}
 
 }
