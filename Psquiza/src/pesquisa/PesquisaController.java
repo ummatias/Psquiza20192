@@ -28,9 +28,15 @@ public class PesquisaController {
 	 */
 	private Map<String, Integer> chavesGeradas;
 
+	/**
+	 * Lista com todas as atividades associadas as pesquisas do sistema.
+	 */
+	private List<Atividade> atividadesAssociadas;
+
 	public PesquisaController() {
 		this.pesquisasCadastradas = new HashMap<>();
 		this.chavesGeradas = new HashMap<>();
+		this.atividadesAssociadas = new ArrayList<>();
 	}
 
 	/**
@@ -206,22 +212,24 @@ public class PesquisaController {
 	 */
 	public boolean associaAtividade(String codigoPesquisa, Atividade atividade) {
 		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		atividadesAssociadas.add(atividade);
 		return pesquisasCadastradas.get(codigoPesquisa).associaAtividade(atividade);
 	}
 
 	/**
 	 * Método que desassocia uma atividade a pesquisa.
 	 * 
-	 * @param codigoPesquisa - código da pesquisa
-	 * @param codigoAtividade 
+	 * @param codigoPesquisa  - código da pesquisa
+	 * @param codigoAtividade
 	 * @return true se for desassociada com sucesso, false se já não tiver uma
 	 *         atividade.
 	 */
-	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
-
+	public boolean desassociaAtividade(String codigoPesquisa, Atividade atividade) {
+		atividadesAssociadas.remove(atividade);
 		return pesquisasCadastradas.get(codigoPesquisa).desassociaAtividade();
 
 	}
+
 	/**
 	 * Associa um pesquisador a uma pesquisa desde que esta esteja ainda ativa.
 	 * 
@@ -245,14 +253,15 @@ public class PesquisaController {
 	/**
 	 * Desassocia um pesquisador de uma pesquisa desde que esta ainda esteja ativa.
 	 * 
-	 * @param idPesquisa o id da pesquisa
+	 * @param idPesquisa       o id da pesquisa
 	 * @param emailPesquisador o email do pesquisador
-	 * @return true - se a desassociação aconteceu com sucesso, false - caso a associação não exista
+	 * @return true - se a desassociação aconteceu com sucesso, false - caso a
+	 *         associação não exista
 	 */
 	public boolean desassociaPesquisador(String idPesquisa, String emailPesquisador) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(emailPesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
-		
+
 		if (pesquisasCadastradas.containsKey(idPesquisa)) {
 			Pesquisa pesquisa = pesquisasCadastradas.get(idPesquisa);
 
@@ -261,23 +270,32 @@ public class PesquisaController {
 			throw new IllegalArgumentException("Pesquisa nao encontrada.");
 		}
 	}
-    
-  public String buscaDescricaoCampoDeInteresse(String termo) {
+
+	public String buscaDescricaoCampoDeInteresse(String termo) {
 		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
 		List<Pesquisa> listPesquisa = new ArrayList<>(this.pesquisasCadastradas.values());
 		Collections.sort(listPesquisa);
 		String saida = "";
 		for (Pesquisa pesquisa : listPesquisa) {
 			String pesquisaSaida = pesquisa.buscaTermo(termo);
-			
+
 			if (pesquisaSaida.length() > 0) {
 				saida += pesquisaSaida + " | ";
 			}
-			
+
 		}
 		if (saida.length() > 0) {
 			return saida.substring(0, saida.length() - 3);
 		}
 		return saida;
+	}
+
+	/**
+	 * Método que retorna todas as atividades associadas a pesquisas.
+	 * 
+	 * @return a lista de atividades.
+	 */
+	public List<Atividade> getAtividades() {
+		return atividadesAssociadas;
 	}
 }

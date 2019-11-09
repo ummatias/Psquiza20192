@@ -301,7 +301,9 @@ public class ControllerGeral {
 		ValidadorEntradas.validaPesquisaAtiva(pesquisaEhAtiva(codigoPesquisa));
 		ValidadorEntradas.validaAtividadeExiste(ativController.getMapa(), codigoAtividade);
 		
-		return pesquisaController.desassociaAtividade(codigoPesquisa, codigoAtividade);
+		Atividade atividade = ativController.getAtividade(codigoAtividade);
+		
+		return pesquisaController.desassociaAtividade(codigoPesquisa, atividade);
 	}
 	
 	/** Método que executa uma atividade
@@ -310,6 +312,9 @@ public class ControllerGeral {
 	 * @param duracao - duração da execução
 	 */
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
+		
+		ValidadorEntradas.validaAtividadeEstaAssociada(pesquisaController.getAtividades(), ativController.getAtividade(codigoAtividade));
+		
 		ativController.executaAtividade(codigoAtividade, item, duracao);
 	}
 	
