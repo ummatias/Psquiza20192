@@ -353,4 +353,11 @@ public class ValidadorEntradas {
 		}
 	}
 
+	public static void validaAtividadeEstaAssociada(List<Atividade> atividades, Atividade atividade) {
+		if (!atividades.contains(atividade)) {
+			throw new IllegalArgumentException("Atividade sem associacoes com pesquisas.");
+		}
+		
+	}
+
 }
