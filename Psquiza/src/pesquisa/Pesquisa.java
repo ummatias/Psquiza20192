@@ -213,7 +213,13 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		return atividade;
 	}
 
+	
+	
 	public boolean associaProblema(Problema problema) {
+		if(this.problema != null && !this.problema.equals(problema)) {
+			throw new IllegalArgumentException("Pesquisa ja associada a um problema.");
+		}
+		
 		if (this.problema == null) {
 			this.problema = problema;
 			return true;
@@ -229,8 +235,15 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		return false;
 	}
 
-	public void associaObjetivo(Objetivo objetivo) {
-		objetivos.put(objetivo.getCodigo(), objetivo);
+	public boolean associaObjetivo(Objetivo objetivo) {
+		if(!objetivo.getStatus()) {
+			objetivo.setStatus(true);
+			objetivos.put(objetivo.getCodigo(), objetivo);
+			return true;
+		}else if(objetivos.containsKey(objetivo.getCodigo())) {
+			return false;
+		}
+		throw new IllegalArgumentException("Objetivo ja associado a uma pesquisa.");
 	}
 
 	public boolean desassociaObjetivo(String idObjetivo) {
