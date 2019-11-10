@@ -346,6 +346,12 @@ public class ValidadorEntradas {
 		}
 		
 	}
+	public static String validaBuscaVazia(String busca) {
+		if(busca.equals("")) {
+			return busca;
+		}return busca + " | ";
+		
+	}
 
 
 }
