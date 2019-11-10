@@ -7,6 +7,8 @@ cadastraAtividade Descricao="Monitoramento por ninjas de computacao na guerra ni
 #buscando o primeiro resultado de um termo
 
 expect "COM2: computacao, poo | COM1: Homofobia em mensagens online de alunos de computacao do primeiro periodo. | COM1: computacao, homofobia | gaaraxrocklee@12LinkinPark: Interessado na computacao com areia e em lutar com o rock lee ao som de linkin park. | P4: O problema causado pela areia na segunda guerra mundial ninja de computacao. | P1: O problema do discurso homofobico em chats online de alunos de computacao de primeiro periodo | O6: Diminuir a dor no coracao dos estudantes de computacao depois de ver rock lee vs gaara ao som de linkin park. | O1: Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao. | A5: Monitoramento por ninjas de computacao na guerra ninja. | A1: Monitoramento de chats dos alunos de computacao do primeiro periodo." busca termo="computacao"
+expect "ELE1: Aumento da evasao no numero de eleitores paraibanos. | ELE1: eleicao, paraiba" busca termo="parai"
+expect "" busca termo="nao vou chorar, nem me arrepender"
 expectError "Campo termo nao pode ser nulo ou vazio." busca termo=""
 
 
