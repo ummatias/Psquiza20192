@@ -463,4 +463,8 @@ public class ControllerGeral {
 		return resultado.length;
 	}
 
+	public String listaPesquisadores(String tipo) {
+		return this.psqzadorController.listaPesquisadores(tipo);
+	}
+
 }
