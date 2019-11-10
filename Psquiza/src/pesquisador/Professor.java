@@ -69,7 +69,7 @@ public class Professor implements Especialidade {
 	 */
 	@Override
 	public void alteraPesquisador(String atributo, String novoValor) {
-		switch (atributo.toUpperCase()) {
+		switch (atributo) {
 		case "FORMACAO":
 			ValidadorEntradas.validarString(novoValor, "Campo formacao nao pode ser nulo ou vazio.");
 			this.formacao = novoValor;

@@ -55,7 +55,7 @@ public class Objetivo implements Comparable<Objetivo>{
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(tipo, "Campo tipo nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validarTipo(tipo, "Valor invalido de tipo.");
+		ValidadorEntradas.validarTipoObjetivo(tipo, "Valor invalido de tipo.");
 		ValidadorEntradas.validarString(descricao, "Campo descricao nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarAderencia(aderencia, "Valor invalido de aderencia");
 		ValidadorEntradas.validarViabilidade(viabilidade, "Valor invalido de viabilidade.");

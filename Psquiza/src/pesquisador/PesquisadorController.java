@@ -234,4 +234,28 @@ public class PesquisadorController {
 			throw new IllegalArgumentException("Pesquisadora nao encontrada.");
 		}
 	}
+
+	/**
+	 * Lista os pesquisadores de um determinado tipo/funcao.
+	 * 
+	 * @param tipo o tipo do pesquisador
+	 * @return a listagem dos pesquisadores que pertencem a uma função.
+	 */
+	public String listaPesquisadores(String tipo) {
+		ValidadorEntradas.validarString(tipo, "Campo tipo nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarFuncaoPesquisador(tipo, "Tipo " + tipo + " inexistente.");
+		
+		String retorno = "";
+		for (Pesquisador pesquisador : pesquisadores.values()) {
+			if(pesquisador.getFuncao().equalsIgnoreCase(tipo)) {
+				retorno += pesquisador.toString() + " | ";
+			}
+			
+		}
+		if (retorno.length() > 0) {
+			return retorno.substring(0, retorno.length() - 3);
+		}
+		
+		return retorno;
+	}
 }

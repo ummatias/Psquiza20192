@@ -54,7 +54,7 @@ public class Aluno implements Especialidade{
 	 */
 	@Override
 	public void alteraPesquisador(String atributo, String novoValor) {
-		switch (atributo.toUpperCase()) {
+		switch (atributo) {
 		case "SEMESTRE":
 			int semestre = Integer.parseInt(novoValor);
 			ValidadorEntradas.validaSemestreAluno(semestre, "Formato de semestre invalido.");
