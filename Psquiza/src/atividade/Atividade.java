@@ -174,6 +174,7 @@ public class Atividade implements Comparable<Atividade>{
 	 */
 	public void executaAtividade(int item, int horas) {
 		ValidadorEntradas.validaItemExiste(itens, item);
+		
 		if (itens.get(item - 1).getStatus()) {
 			throw new IllegalArgumentException("Item ja executado.");
 		}
