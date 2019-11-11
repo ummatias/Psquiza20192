@@ -359,6 +359,15 @@ public class ValidadorEntradas {
 
 	}
 
+	public static void validaResultadoExiste(Map<Integer, String> resultados, int numeroResultado) {
+		if (numeroResultado > resultados.size()) {
+			throw new IllegalArgumentException("Resultado nao encontrado.");
+		}
+	}
+
+	public static void validaAtividadeEstaAssociada(List<Atividade> atividades, Atividade atividade) {
+		if (!atividades.contains(atividade)) {
+			throw new IllegalArgumentException("Atividade sem associacoes com pesquisas.");
 	/**
 	 * Valida uma string verificando se está é igual a uma função válida de pesquisador.
 	 * 

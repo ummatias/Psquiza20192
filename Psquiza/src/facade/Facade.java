@@ -244,29 +244,41 @@ public class Facade {
 
 	
 	
-	
+	/**
+	 * {@link ControllerGeral}
+	 */
 	public boolean associaProblema(String idPesquisa, String idProblema) {
 		return controllerGeral.associaProblema(idPesquisa, idProblema);
 	}
-
+	
+	/**
+	 * {@link ControllerGeral}
+	 */
 	public boolean desassociaProblema(String idPesquisa) {
 		return controllerGeral.desassociaProblema(idPesquisa);
 	}
 
 	
-	
+	/**
+	 * {@link ControllerGeral}
+	 */
 	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
 		return controllerGeral.associaObjetivo(idPesquisa, idObjetivo);
 	}
-
+	
+	/**
+	 * {@link ControllerGeral}
+	 */
 	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
 		return controllerGeral.desassociaObjetivo(idPesquisa, idObjetivo);
 	}
-
 	
-	
-	
-	
+	/**
+	 * {@link ControllerGeral}
+	 */
+	public String listaPesquisas(String ordem) {
+		return controllerGeral.listaPesquisas(ordem);
+	}
 	
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
 		return controllerGeral.associaAtividade(codigoPesquisa, codigoAtividade);

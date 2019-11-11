@@ -1,5 +1,6 @@
 package pesquisa;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,7 +34,7 @@ public class Pesquisa implements Comparable<Pesquisa>{
 	 * O status da pesquisa, que pode ser ativo ou inativo
 	 */
 	private boolean status;
-
+	
 	/**
 	 * Atividade associada a pesquisa.
 	 */
@@ -64,7 +65,6 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		this.problema = null;
 		this.objetivos = new HashMap<>();
 		this.pesquisadores = new HashMap<>();
-
 	}
 
 	/**
@@ -214,7 +214,13 @@ public class Pesquisa implements Comparable<Pesquisa>{
 	}
 
 	
-	
+	/**
+	 * Associa um problma a uma pesquisa e retorna um valor booleano dizendo se a
+	 * associação foi bem sucedida (true) ou se o problema já estava associado (false)
+	 * 
+	 * @param problema Problema a ser associado a pesquisa
+	 * @return valor boolean contendo o resultado da operação
+	 */
 	public boolean associaProblema(Problema problema) {
 		if(this.problema != null && !this.problema.equals(problema)) {
 			throw new IllegalArgumentException("Pesquisa ja associada a um problema.");
@@ -227,6 +233,11 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		return false;
 	}
 
+	/**
+	 * Desassocia o problema que estiver ligado a pesquisa
+	 * 
+	 * @return Valor booleano contendo o resultado da operação
+	 */
 	public boolean desassociaProblema() {
 		if (this.problema != null) {
 			this.problema = null;
@@ -234,7 +245,14 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Associa um objetivo a uma pesquisa e retorna um valor booleano dizendo se a
+	 * associação foi bem sucedida (true) ou se o problema já estava associado (false)
+	 * 
+	 * @param objetivo Objetivo a ser associado a pesquisa
+	 * @return valor boolean contendo o resultado da operação
+	 */
 	public boolean associaObjetivo(Objetivo objetivo) {
 		if(!objetivo.getStatus()) {
 			objetivo.setStatus(true);
@@ -246,6 +264,12 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		throw new IllegalArgumentException("Objetivo ja associado a uma pesquisa.");
 	}
 
+	/**
+	 * Desassocia um objetivo que estiver cadastrado na pesquisa através de seu ID
+	 * 
+	 * @param idObjetivo ID do objetivo a ser desassociado
+	 * @return Valor booleano contendo o resultado da operação
+	 */
 	public boolean desassociaObjetivo(String idObjetivo) {
 		if (objetivos.containsKey(idObjetivo)) {
 			objetivos.remove(idObjetivo);
@@ -256,6 +280,27 @@ public class Pesquisa implements Comparable<Pesquisa>{
 
 	public Problema getProblema() {
 		return this.problema;
+	}
+	
+	/**
+	 * Retorna um inteiro que representa a quantidade de objetivos
+	 * cadastrados em uma pesquisa
+	 * 
+	 * @return Inteiro contendo a quantidade de objetivos da pesquisa
+	 */
+	public int quntObjetivos() {
+		return this.objetivos.size();
+	}
+	
+	/**
+	 * Gera uma lista de objetivos e retorna o mais recente 
+	 * 
+	 * @return ultimo objetivo cadastrado na pesquisa
+	 */
+	public Objetivo ultimoObjetivo() {
+		ArrayList<Objetivo> objetivosOrdenados = new ArrayList<Objetivo>();
+		objetivosOrdenados.addAll(objetivos.values());
+		return objetivosOrdenados.get(objetivosOrdenados.size());
 	}
 
 
