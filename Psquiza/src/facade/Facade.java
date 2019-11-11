@@ -29,6 +29,7 @@ public class Facade {
 				"testes_aceitacao/use_case_3.txt",
 				"testes_aceitacao/use_case_4.txt",
 				"testes_aceitacao/use_case_5.txt",
+				"testes_aceitacao/use_case_6.txt",
 				};
 
 		EasyAccept.main(args);
@@ -357,6 +358,22 @@ public class Facade {
 	 */
 	public boolean desassociaPesquisador(String idPesquisa, String emailPesquisador) {
 		return controllerGeral.desassociaPesquisador(idPesquisa, emailPesquisador);
+	}
+	public int contaResultadosBusca(String termo) {
+		return this.controllerGeral.contaResultadosBusca(termo);
+	}
+	public String busca(String termo, int numero) {
+		return this.controllerGeral.busca(termo, numero);
+	}
+	
+	/**
+	 * Lista os pesquisadores de um determinado tipo/funcao.
+	 * 
+	 * @param tipo o tipo do pesquisador
+	 * @return a listagem dos pesquisadores que pertencem a uma função.
+	 */
+	public String listaPesquisadores(String tipo) {
+		return controllerGeral.listaPesquisadores(tipo);
 	}
 
 }

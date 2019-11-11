@@ -1,5 +1,7 @@
 package generaliza;
 
+import java.util.Arrays;
+
 import atividade.Atividade;
 import atividade.AtividadeController;
 import pesquisa.PesquisaController;
@@ -429,8 +431,46 @@ public class ControllerGeral {
 		return pesquisaController.desassociaPesquisador(idPesquisa, emailPesquisador);
 	}
 	public String busca(String termo) {
-		return this.pesquisaController.buscaDescricaoCampoDeInteresse(termo) +" | " + this.psqzadorController.buscaBiografia(termo)
-		+ " | " + this.probObjController.buscaDescricaoProblema(termo) + " | " + this.probObjController.buscaDescricaoObjetivo(termo)
-		+ " | " + this.ativController.buscaDescricao(termo);
+		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
+
+		String saida = ValidadorEntradas.validaBuscaVazia(this.pesquisaController.buscaDescricaoCampoDeInteresse(termo))
+				+ ValidadorEntradas.validaBuscaVazia(this.psqzadorController.buscaBiografia(termo))
+				+ ValidadorEntradas.validaBuscaVazia(this.probObjController.buscaDescricaoProblema(termo))
+				+ ValidadorEntradas.validaBuscaVazia(this.probObjController.buscaDescricaoObjetivo(termo))
+				+ ValidadorEntradas.validaBuscaVazia(this.ativController.buscaDescricao(termo));
+		
+		if (saida.length() > 0) {
+			return saida.substring(0, saida.length() - 3);
+		}
+		return saida;
 	}
+	public String busca(String termo, int num) {
+		if (num < 0) {
+			throw new IllegalArgumentException("Numero do resultado nao pode ser negativo");
+		}
+		String busca = this.busca(termo);
+		
+		String[] resultado = busca.split("\\|");
+		if (num - 1 > resultado.length) {
+			throw new IllegalArgumentException("Entidade nao encontrada.");
+		}
+		return resultado[num - 1].trim();
+	}
+	public int contaResultadosBusca(String termo) {
+		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
+
+		String busca = this.busca(termo);
+		if (busca.equals("")) {
+			throw new IllegalArgumentException("Nenhum resultado encontrado");
+		}
+		System.out.println(busca);
+		String[] resultado = busca.split("\\|");
+
+		return resultado.length;
+	}
+
+	public String listaPesquisadores(String tipo) {
+		return this.psqzadorController.listaPesquisadores(tipo);
+	}
+
 }

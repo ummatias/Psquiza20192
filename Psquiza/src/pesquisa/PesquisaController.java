@@ -371,8 +371,9 @@ public class PesquisaController {
 			throw new IllegalArgumentException("Pesquisa nao encontrada.");
 		}
 	}
-
-	public String buscaDescricaoCampoDeInteresse(String termo) {
+    
+  public String buscaDescricaoCampoDeInteresse(String termo) {
+	
 		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
 		List<Pesquisa> listPesquisa = new ArrayList<>(this.pesquisasCadastradas.values());
 		Collections.sort(listPesquisa);
@@ -390,7 +391,6 @@ public class PesquisaController {
 		}
 		return saida;
 	}
-
 	/**
 	 * Método que retorna todas as atividades associadas a pesquisas.
 	 * 
@@ -423,5 +423,5 @@ public class PesquisaController {
 			throw new IllegalArgumentException("Pesquisa desativada.");
 		}
 	}
-	
+
 }

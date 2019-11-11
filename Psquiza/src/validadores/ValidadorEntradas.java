@@ -94,7 +94,7 @@ public class ValidadorEntradas {
 	 * @param msg
 	 *            a mensagem de erro a ser exibida na possível exceção.
 	 */
-	public static void validarTipo(String tipo, String msg) {
+	public static void validarTipoObjetivo(String tipo, String msg) {
 		tipo = tipo.toUpperCase();
 
 		if (!tipo.equals("GERAL") && !tipo.equals("ESPECIFICO")) {
@@ -264,7 +264,7 @@ public class ValidadorEntradas {
 			throw new IllegalArgumentException("Objetivo nao encontrado");
 		}
 	}
-  
+
 	/**
 	 * Valida se uma string correspondente à uma data tem o formato "dd-mm-aaaa"
 	 * 
@@ -296,8 +296,10 @@ public class ValidadorEntradas {
 	/**
 	 * Valida se um semestre é maior que zero.
 	 * 
-	 * @param semestre o semestre a ser validado
-	 * @param msg a mensagem de erro que possivelmente será exibida
+	 * @param semestre
+	 *            o semestre a ser validado
+	 * @param msg
+	 *            a mensagem de erro que possivelmente será exibida
 	 */
 	public static void validaSemestreAluno(int semestre, String msg) {
 		if (semestre <= 0) {
@@ -308,8 +310,10 @@ public class ValidadorEntradas {
 	/**
 	 * Valida se um IEA está entre 0 e 10
 	 * 
-	 * @param iea o IEA a ser validado
-	 * @param msg a mensagem de erro que possivelmente será exibida
+	 * @param iea
+	 *            o IEA a ser validado
+	 * @param msg
+	 *            a mensagem de erro que possivelmente será exibida
 	 */
 	public static void validaIEA(double iea, String msg) {
 		if (iea < 0 || iea > 10) {
@@ -330,21 +334,29 @@ public class ValidadorEntradas {
 	}
 
 	public static void validaItem(int item) {
-		if ((Integer)(item) == null || item < 1) {
+		if ((Integer) (item) == null || item < 1) {
 			throw new IllegalArgumentException("Item nao pode ser nulo ou negativo.");
 		}
 	}
 
 	public static void validaResultado(int numeroResultado) {
-		if ((Integer)(numeroResultado) == null || numeroResultado < 1)
-	throw new IllegalArgumentException("numeroResultado nao pode ser nulo ou negativo.");
+		if ((Integer) (numeroResultado) == null || numeroResultado < 1)
+			throw new IllegalArgumentException("numeroResultado nao pode ser nulo ou negativo.");
 	}
 
 	public static void validaItemExiste(List<Item> itens, int item) {
 		if (itens.size() < item) {
 			throw new IllegalArgumentException("Item nao encontrado.");
 		}
-		
+
+	}
+
+	public static String validaBuscaVazia(String busca) {
+		if (busca.equals("")) {
+			return busca;
+		}
+		return busca + " | ";
+
 	}
 
 	public static void validaResultadoExiste(Map<Integer, String> resultados, int numeroResultado) {
@@ -356,6 +368,15 @@ public class ValidadorEntradas {
 	public static void validaAtividadeEstaAssociada(List<Atividade> atividades, Atividade atividade) {
 		if (!atividades.contains(atividade)) {
 			throw new IllegalArgumentException("Atividade sem associacoes com pesquisas.");
+	/**
+	 * Valida uma string verificando se está é igual a uma função válida de pesquisador.
+	 * 
+	 * @param tipo a funcao do pesquisador
+	 * @param msg a possivel mensagem de erro
+	 */
+	public static void validarFuncaoPesquisador(String tipo, String msg) {
+		if(!(tipo.equals("PROFESSOR")) && !(tipo.equals("ESTUDANTE")) && !(tipo.equals("EXTERNO"))) {
+			throw new IllegalArgumentException(msg);
 		}
 		
 	}

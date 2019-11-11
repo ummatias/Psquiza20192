@@ -190,21 +190,21 @@ public class Pesquisador implements Comparable<Pesquisador> {
 
 	public void alteraPesquisador(String atributo, String novoValor) {
 
-		if (atributo.equalsIgnoreCase("SEMESTRE") || atributo.equalsIgnoreCase("IEA")) {
+		if (atributo.equals("SEMESTRE") || atributo.equals("IEA")) {
 			if (this.funcao.equalsIgnoreCase("ESTUDANTE")) {
 				this.especialidade.alteraPesquisador(atributo, novoValor);
 			} else {
 				throw new IllegalArgumentException("Atributo invalido.");
 			}
-		} else if (atributo.equalsIgnoreCase("FORMACAO") || atributo.equalsIgnoreCase("DATA")
-				|| atributo.equalsIgnoreCase("UNIDADE")) {
+		} else if (atributo.equals("FORMACAO") || atributo.equals("DATA")
+				|| atributo.equals("UNIDADE")) {
 			if (this.funcao.equalsIgnoreCase("PROFESSOR")) {
 				this.especialidade.alteraPesquisador(atributo, novoValor);
 			} else {
 				throw new IllegalArgumentException("Atributo invalido.");
 			}
 		} else {
-			switch (atributo.toUpperCase()) {
+			switch (atributo) {
 			case "NOME":
 				ValidadorEntradas.validarString(novoValor, "Campo nome nao pode ser nulo ou vazio.");
 				this.nome = novoValor;
@@ -251,5 +251,9 @@ public class Pesquisador implements Comparable<Pesquisador> {
 			return saida.substring(0, saida.length() - 3);
 		}
 		return saida;
+	}
+
+	public String getFuncao() {
+		return this.funcao;
 	}
 }
