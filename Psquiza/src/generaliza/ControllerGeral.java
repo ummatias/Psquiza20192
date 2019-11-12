@@ -291,9 +291,15 @@ public class ControllerGeral {
 		}return false;
 	}
 	
-	
-	
-	
+	/**
+	 * Lista as pesquisas baseando-se em um critério passado como parametro
+	 * 
+	 * @param ordem Critério que definira a forma de ordenação
+	 * @return String que representa as pesquisas ordenadas de acordo com o critério especificado
+	 */
+	public String listaPesquisas(String ordem) {
+		return pesquisaController.listaPesquisas(ordem);
+	}
 	
 	
 	/** Método que associa uma atividade a pesquisa.

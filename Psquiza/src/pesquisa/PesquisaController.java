@@ -9,6 +9,10 @@ import java.util.Map;
 import problema.Objetivo;
 import problema.Problema;
 import atividade.Atividade;
+import ordenacao.OpcaoObjetivo;
+import ordenacao.OpcaoPesquisa;
+import ordenacao.OpcaoProblema;
+import ordenacao.OrdenaPesquisa;
 import pesquisador.Pesquisador;
 import validadores.ValidadorEntradas;
 
@@ -195,7 +199,13 @@ public class PesquisaController {
 		validaPesquisaAtiva(idPesquisa);
 		return pesquisasCadastradas.get(idPesquisa).associaProblema(problema);
 	}
-
+	
+	/**
+	 * Desassocia o problema que estiver ligado a pesquisa
+	 * 
+	 * @param idPesquisa ID da pesquisa que terá o problema desassociado
+	 * @return Valor booleano contendo o resultado da operação
+	 */
 	public boolean desassociaProblema(String idPesquisa) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		validaPesquisaExiste(idPesquisa);
@@ -220,7 +230,15 @@ public class PesquisaController {
 		return pesquisasCadastradas.get(idPesquisa).associaObjetivo(objetivo);
 		
 	}
-
+	
+	/**
+	 * Desassocia um objetivo que estiver cadastrado na pesquisa através de seus
+	 * respectivos ID's
+	 * 
+	 * @param idPesquisa ID da pesquisa que será desassociado o objetivo
+	 * @param idObjetivo ID do objetivo a ser desassociado
+	 * @return Valor booleano contendo o resultado da operação
+	 */
 	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
@@ -230,26 +248,60 @@ public class PesquisaController {
 		return pesquisasCadastradas.get(idPesquisa).desassociaObjetivo(idObjetivo);
 	}
 	
-	public String listarPesquisas(String ordem) {
-		switch (ordem) {
+	/**
+	 * Lista as pesquisas baseando-se em um critério passado como parametro
+	 * 
+	 * @param ordem Critério que definira a forma de ordenação
+	 * @return String que representa as pesquisas ordenadas de acordo com o critério especificado
+	 */
+	public String listaPesquisas(String ordem) {
+		ArrayList<Pesquisa> pesquisasOrdenadas = ordenaPesquisas(ordem);
+		String retorno = "";
+		
+		for(Pesquisa pesquisa : pesquisasOrdenadas) {
+			retorno += pesquisa.toString() + " | ";
+		}
+		
+		return retorno.substring(0, retorno.length() - 3);
+		
+		
+		
+	}
+	
+	/**
+	 * Cria uma lista de objetivos ordenada de acordo com um critério
+	 * especificado por parametro.
+	 * 
+	 * @param Tipoordem Critério a ser usado na ordenação
+	 * @return Lista ordenada de objetivos
+	 */
+	private ArrayList<Pesquisa> ordenaPesquisas(String Tipoordem) {
+		OrdenaPesquisa ordem;
+		
+		switch (Tipoordem) {
 		case "PROBLEMA":
+			ordem = new OpcaoProblema();
 			
 			break;
 		case "OBJETIVOS":
-					
+			ordem = new OpcaoObjetivo();
 			break;
 		case "PESQUISA":
+			ordem = new OpcaoPesquisa();
 			
 			break;
 
 		default:
-			break;
+			throw new IllegalArgumentException("Valor invalido da ordem");
 		}
+		ArrayList<Pesquisa> pesquisasOrdenadas = new ArrayList<Pesquisa>();
+		pesquisasOrdenadas.addAll(pesquisasCadastradas.values());
+		
+		Collections.sort(pesquisasOrdenadas, ordem);
+		return pesquisasOrdenadas;
 		
 	}
 
-	
-	
 	
 	/**
 	 * Método que associa uma atividade a pesquisa.
@@ -348,12 +400,24 @@ public class PesquisaController {
 		return atividadesAssociadas;
 	}
 	
+	/**
+	 * Valida se determinada pesquisa está cadastrada no sistema e
+	 * lança uma exceção caso não esteja
+	 * 
+	 * @param idPesquisa ID da pesquisa a ser validada
+	 */
 	private void validaPesquisaExiste(String idPesquisa) {
 		if(!pesquisasCadastradas.containsKey(idPesquisa)) {
 			throw new IllegalArgumentException("Pesquisa nao encontrada.");
 		}
 	}
 	
+	/**
+	 * Valida se determinada pesquisa está ativa no sistema e
+	 * lança uma exceção caso não esteja
+	 * 
+	 * @param idPesquisa ID da pesquisa a ser validada
+	 */
 	private void validaPesquisaAtiva(String idPesquisa) {
 		if(!pesquisasCadastradas.get(idPesquisa).ehAtiva()) {
 			throw new IllegalArgumentException("Pesquisa desativada.");
