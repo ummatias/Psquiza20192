@@ -28,12 +28,12 @@ public class Facade {
 	 * Constrói o objeto do tipo Facade inicializando seus atributos.
 	 */
 	public Facade() {
-		this.controllerGeral = new ControllerGeral();
 		this.atividadeController = new AtividadeController();
 		this.pesquisaController = new PesquisaController();
 		this.pesquisadorController = new PesquisadorController();
 		this.problemaObjetivoController = new ProblemaObjetivoController();
-		this.buscaController = new BuscaController(atividadeController,pesquisaController, pesquisadorController, problemaObjetivoController);
+		this.controllerGeral = new ControllerGeral(this.atividadeController,this.pesquisaController, this.pesquisadorController, this.problemaObjetivoController);
+		this.buscaController = new BuscaController(this.atividadeController,this.pesquisaController, this.pesquisadorController, this.problemaObjetivoController);
 	}
 
 	public static void main(String[] args) {
@@ -392,6 +392,6 @@ public class Facade {
 	public String listaPesquisadores(String tipo) {
 		return controllerGeral.listaPesquisadores(tipo);
 	}
-
+	
 
 }

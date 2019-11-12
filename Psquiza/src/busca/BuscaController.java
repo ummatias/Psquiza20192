@@ -22,8 +22,7 @@ public class BuscaController {
  * @param pesquisadorController o controller de pesquisadores
  * @param problemaObjetivoController o controller de problemas e objetivos
  */
-	public BuscaController(AtividadeController atividadeController, PesquisaController pesquisaController, PesquisadorController pesquisadorController,
-			ProblemaObjetivoController problemaObjetivoController) {
+	public BuscaController(AtividadeController atividadeController, PesquisaController pesquisaController, PesquisadorController pesquisadorController,ProblemaObjetivoController problemaObjetivoController) {
 		this.atividadeController = atividadeController;
 		this.pesquisaController = pesquisaController;
 		this.pesquisadorController = pesquisadorController;

@@ -27,11 +27,11 @@ public class ControllerGeral {
 	private ProblemaObjetivoController probObjController;
 	private AtividadeController ativController;
 	
-	public ControllerGeral() {
-		pesquisaController = new PesquisaController();
-		psqzadorController = new PesquisadorController();
-		probObjController = new ProblemaObjetivoController();
-		ativController = new AtividadeController();
+	public ControllerGeral(AtividadeController atividadeController, PesquisaController pesquisaController, PesquisadorController pesquisadorController,ProblemaObjetivoController problemaObjetivoController) {
+		this.pesquisaController = pesquisaController;
+		this.psqzadorController = pesquisadorController;
+		this.probObjController = problemaObjetivoController;
+		this.ativController = atividadeController;
 	}
 	
 	/**
