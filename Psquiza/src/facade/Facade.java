@@ -3,7 +3,6 @@ package facade;
 import atividade.AtividadeController;
 import busca.BuscaController;
 import easyaccept.EasyAccept;
-import generaliza.ControllerGeral;
 import pesquisa.PesquisaController;
 import pesquisador.PesquisadorController;
 import problema.ProblemaObjetivoController;
@@ -13,11 +12,12 @@ import problema.ProblemaObjetivoController;
  * Responsável por delegar as operações aos diferentes controllers do sistema.
  * 
  * @author José Igor de Farias Gomes -119110692
- *
+ * @author Emilly de Albuquerque Oliveira - 119111162
+ * @author Natalia Salvino André - 119110051
+ * @author Mateus Matias Ribeiro - 119111153
  */
 public class Facade {
 
-	private ControllerGeral controllerGeral;
 	private BuscaController buscaController;
 	private AtividadeController atividadeController;
 	private PesquisaController pesquisaController;
@@ -29,10 +29,9 @@ public class Facade {
 	 */
 	public Facade() {
 		this.atividadeController = new AtividadeController();
-		this.pesquisaController = new PesquisaController();
 		this.pesquisadorController = new PesquisadorController();
 		this.problemaObjetivoController = new ProblemaObjetivoController();
-		this.controllerGeral = new ControllerGeral(this.atividadeController,this.pesquisaController, this.pesquisadorController, this.problemaObjetivoController);
+		this.pesquisaController = new PesquisaController(atividadeController, problemaObjetivoController, pesquisadorController);
 		this.buscaController = new BuscaController(this.atividadeController,this.pesquisaController, this.pesquisadorController, this.problemaObjetivoController);
 	}
 
@@ -60,7 +59,7 @@ public class Facade {
 	 * @return o código do novo problema cadastrado.
 	 */
 	public String cadastraProblema(String descricao, int viabilidade) {
-		return controllerGeral.cadastraProblema(descricao, viabilidade);
+		return problemaObjetivoController.cadastraProblema(descricao, viabilidade);
 	}
 
 	/**
@@ -74,7 +73,7 @@ public class Facade {
 	 * @return o código do novo objetivo.
 	 */
 	public String cadastraObjetivo(String tipo, String descricao, int aderencia, int viabilidade) {
-		return controllerGeral.cadastraObjetivo(tipo, descricao, aderencia, viabilidade);
+		return problemaObjetivoController.cadastraObjetivo(tipo, descricao, aderencia, viabilidade);
 	}
 
 	/**
@@ -83,7 +82,7 @@ public class Facade {
 	 * @param codigo o codigo do problema a ser apagado
 	 */
 	public void apagarProblema(String codigo) {
-		controllerGeral.apagarProblema(codigo);
+		problemaObjetivoController.apagaProblema(codigo);
 	}
 
 	/**
@@ -92,7 +91,7 @@ public class Facade {
 	 * @param codigo o codigo do objetivo a ser apagado
 	 */
 	public void apagarObjetivo(String codigo) {
-		controllerGeral.apagarObjetivo(codigo);
+		problemaObjetivoController.apagaObjetivo(codigo);
 	}
 
 	/**
@@ -102,7 +101,7 @@ public class Facade {
 	 * @return a representação String do Problema
 	 */
 	public String exibeProblema(String codigo) {
-		return controllerGeral.exibeProblema(codigo);
+		return problemaObjetivoController.exibeProblema(codigo);
 	}
 
 	/**
@@ -112,7 +111,7 @@ public class Facade {
 	 * @return a representação em String do um objetivo.
 	 */
 	public String exibeObjetivo(String codigo) {
-		return controllerGeral.exibeObjetivo(codigo);
+		return problemaObjetivoController.exibeObjetivo(codigo);
 	}
 
 	/**
@@ -125,7 +124,7 @@ public class Facade {
 	 * @param fotoURL   - url da foto do pesquisador.
 	 */
 	public void cadastraPesquisador(String nome, String funcao, String biografia, String email, String fotoURL) {
-		controllerGeral.cadastraPesquisador(nome, funcao, biografia, email, fotoURL);
+		pesquisadorController.cadastraPesquisador(nome, funcao, biografia, email, fotoURL);
 	}
 
 	/**
@@ -136,7 +135,7 @@ public class Facade {
 	 * @param novoValor - novo valor que o atributo vai assumir.
 	 */
 	public void alteraPesquisador(String email, String atributo, String novoValor) {
-		controllerGeral.alteraPesquisador(email, atributo, novoValor);
+		pesquisadorController.alteraPesquisador(email, atributo, novoValor);
 	}
 
 	/**
@@ -145,7 +144,7 @@ public class Facade {
 	 * @param email - email e identificador unico do pesquisador.
 	 */
 	public void desativaPesquisador(String email) {
-		controllerGeral.desativaPesquisador(email);
+		pesquisadorController.desativaPesquisador(email);
 	}
 
 	/**
@@ -154,7 +153,7 @@ public class Facade {
 	 * @param email - email e identificador unico do pesquisador.
 	 */
 	public void ativaPesquisador(String email) {
-		controllerGeral.ativaPesquisador(email);
+		pesquisadorController.ativaPesquisador(email);
 	}
 
 	/**
@@ -164,7 +163,7 @@ public class Facade {
 	 * @return a representação textual do pesquisador.
 	 */
 	public String exibePesquisador(String email) {
-		return controllerGeral.exibePesquisador(email);
+		return pesquisadorController.exibePesquisador(email);
 	}
 
 	/**
@@ -175,7 +174,7 @@ public class Facade {
 	 * @return retorna o codigo da pesquisa
 	 */
 	public String cadastraPesquisa(String descricao, String campoDeInteresse) {
-		return this.controllerGeral.cadastraPesquisa(descricao, campoDeInteresse);
+		return this.pesquisaController.cadastraPesquisa(descricao, campoDeInteresse);
 	}
 
 	/**
@@ -186,7 +185,7 @@ public class Facade {
 	 * @param novoConteudo         o novo conteudo
 	 */
 	public void alteraPesquisa(String codigo, String conteudoASerAlterado, String novoConteudo) {
-		this.controllerGeral.alteraPesquisa(codigo, conteudoASerAlterado, novoConteudo);
+		this.pesquisaController.alteraPesquisa(codigo, conteudoASerAlterado, novoConteudo);
 	}
 
 	/**
@@ -196,7 +195,7 @@ public class Facade {
 	 * @param motivo o motivo do encerramento
 	 */
 	public void encerraPesquisa(String codigo, String motivo) {
-		this.controllerGeral.encerraPesquisa(codigo, motivo);
+		this.pesquisaController.encerraPesquisa(codigo, motivo);
 	}
 
 	/**
@@ -205,7 +204,7 @@ public class Facade {
 	 * @param codigo o codigo da pesquisa
 	 */
 	public void ativaPesquisa(String codigo) {
-		this.controllerGeral.ativaPesquisa(codigo);
+		this.pesquisaController.ativaPesquisa(codigo);
 	}
 
 	/**
@@ -215,7 +214,7 @@ public class Facade {
 	 * @return retorna a representacao textual da pesquisa
 	 */
 	public String exibePesquisa(String codigo) {
-		return this.controllerGeral.exibePesquisa(codigo);
+		return this.pesquisaController.exibePesquisa(codigo);
 	}
 
 	/**
@@ -225,173 +224,124 @@ public class Facade {
 	 * @return retorna o boolean se a pesquisa e ativa ou nao
 	 */
 	public boolean pesquisaEhAtiva(String codigo) {
-		return this.controllerGeral.pesquisaEhAtiva(codigo);
+		return this.pesquisaController.pesquisaEhAtiva(codigo);
 	}
 
 	public boolean pesquisadorEhAtivo(String email) {
-		return controllerGeral.pesquisadorEhAtivo(email);
+		return pesquisadorController.ehAtivo(email);
 	}
 
 	public String cadastraAtividade(String Descricao, String nivelRisco, String descricaoRisco) {
-		return controllerGeral.cadastraAtividade(Descricao, nivelRisco, descricaoRisco);
+		return atividadeController.cadastraAtividade(Descricao, nivelRisco, descricaoRisco);
 	}
 
 	public void apagaAtividade(String codigo) {
-		controllerGeral.apagaAtividade(codigo);
+		atividadeController.apagaAtividade(codigo);
 	}
 
 	public void cadastraItem(String codigo, String item) {
-		controllerGeral.cadastraItem(codigo, item);
+		atividadeController.cadastraItem(codigo, item);
 
 	}
 
 	public String exibeAtividade(String codigo) {
-		return controllerGeral.exibeAtividade(codigo);
+		return atividadeController.exibeAtividade(codigo);
 
 	}
 
 	public int contaItensPendentes(String codigo) {
-		return controllerGeral.contaItensPendentes(codigo);
+		return atividadeController.contaItensPendentes(codigo);
 	}
 
 	public int contaItensRealizados(String codigo) {
-		return controllerGeral.contaItensRealizados(codigo);
+		return atividadeController.contaItensRealizados(codigo);
 
 	}
 
-	
-	
-	/**
-	 * {@link ControllerGeral}
-	 */
 	public boolean associaProblema(String idPesquisa, String idProblema) {
-		return controllerGeral.associaProblema(idPesquisa, idProblema);
+		return pesquisaController.associaProblema(idPesquisa, idProblema);
 	}
 	
-	/**
-	 * {@link ControllerGeral}
-	 */
 	public boolean desassociaProblema(String idPesquisa) {
-		return controllerGeral.desassociaProblema(idPesquisa);
+		return pesquisaController.desassociaProblema(idPesquisa);
 	}
 
-	
-	/**
-	 * {@link ControllerGeral}
-	 */
 	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
-		return controllerGeral.associaObjetivo(idPesquisa, idObjetivo);
+		return pesquisaController.associaObjetivo(idPesquisa, idObjetivo);
 	}
-	
-	/**
-	 * {@link ControllerGeral}
-	 */
+
 	public boolean desassociaObjetivo(String idPesquisa, String idObjetivo) {
-		return controllerGeral.desassociaObjetivo(idPesquisa, idObjetivo);
+		return pesquisaController.desassociaObjetivo(idPesquisa, idObjetivo);
 	}
 	
-	/**
-	 * {@link ControllerGeral}
-	 */
 	public String listaPesquisas(String ordem) {
-		return controllerGeral.listaPesquisas(ordem);
+		return pesquisaController.listaPesquisas(ordem);
 	}
 	
 	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
-		return controllerGeral.associaAtividade(codigoPesquisa, codigoAtividade);
+		return pesquisaController.associaAtividade(codigoPesquisa, codigoAtividade);
 	}
 
 
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
-		return controllerGeral.desassociaAtividade(codigoPesquisa, codigoAtividade);
+		return pesquisaController.desassociaAtividade(codigoPesquisa, codigoAtividade);
 	}
 
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
-		controllerGeral.executaAtividade(codigoAtividade, item, duracao);
+		pesquisaController.executaAtividade(codigoAtividade, item, duracao);
 	}
 
 	public int cadastraResultado(String codigoAtividade, String resultado) {
-		return controllerGeral.cadastraResultado(codigoAtividade, resultado);
+		return atividadeController.cadastraResultado(codigoAtividade, resultado);
 	}
 
 	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
-		return controllerGeral.removeResultado(codigoAtividade, numeroResultado);
+		return atividadeController.removeResultado(codigoAtividade, numeroResultado);
 	}
 
 	public String listaResultados(String codigoAtividade) {
-		return controllerGeral.listaResultados(codigoAtividade);
+		return atividadeController.listaResultados(codigoAtividade);
 	}
 
 	public int getDuracao(String codigoAtividade) {
-		return controllerGeral.getDuracao(codigoAtividade);
+		return atividadeController.getDuracao(codigoAtividade);
 	}
   
-  public String busca(String termo) {
+	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
+		pesquisadorController.cadastraEspecialidadeProfessor(email, formacao, unidade, data);
+	}
+	
+	
+	public void cadastraEspecialidadeAluno(String email, int semestre, double iea) {
+		pesquisadorController.cadastraEspecialidadeAluno(email, semestre, iea);
+	}
+	
+
+	public boolean associaPesquisador(String idPesquisa, String emailPesquisador) {
+		return pesquisaController.associaPesquisador(idPesquisa, emailPesquisador);
+	}
+	
+
+	public boolean desassociaPesquisador(String idPesquisa, String emailPesquisador) {
+		return pesquisaController.desassociaPesquisador(idPesquisa, emailPesquisador);
+	}
+
+	public String listaPesquisadores(String tipo) {
+		return pesquisadorController.listaPesquisadores(tipo);
+	}
+	
+	public String busca(String termo) {
     	return buscaController.busca(termo);
    }
 
-	/**
-	 * Especializa um pesquisador como sendo do tipo Professor, cadastrando seus
-	 * atributos especiais: formação, unidade e data de contratação
-	 * 
-	 * @param email o email do pesquisador
-	 * @param formacao o grau de formação do professor
-	 * @param unidade a unidade academica do professor
-	 * @param data a data de contratação do professor
-	 */
-	public void cadastraEspecialidadeProfessor(String email, String formacao, String unidade, String data) {
-		controllerGeral.cadastraEspecialidadeProfessor(email, formacao, unidade, data);
-	}
-	
-	/**
-	 * Especializa um pesquisador como sendo do tipo Aluno, cadastrando seus
-	 * atributos especiais: semestre e IEA.
-	 * 
-	 * @param email o email do pesquisador
-	 * @param semestre o semestre do aluno
-	 * @param iea o indice de eficiencia academica do aluno
-	 */
-	public void cadastraEspecialidadeAluno(String email, int semestre, double iea) {
-		controllerGeral.cadastraEspecialidadeAluno(email, semestre, iea);
-	}
-	
-	/**
-	 * Associa um pesquisador a uma pesquisa desde que esta ainda esteja ativa.
-	 * 
-	 * @param idPesquisa o id da pesquisa
-	 * @param emailPesquisador o email do pesquisador
-	 * @return true - se a associação aconteceu com sucesso, false - caso a associação já exista
-	 */
-	public boolean associaPesquisador(String idPesquisa, String emailPesquisador) {
-		return controllerGeral.associaPesquisador(idPesquisa, emailPesquisador);
-	}
-	
-	/**
-	 * Desassocia um pesquisador de uma pesquisa desde que esta ainda esteja ativa.
-	 * 
-	 * @param idPesquisa o id da pesquisa
-	 * @param emailPesquisador o email do pesquisador
-	 * @return true - se a desassociação aconteceu com sucesso, false - caso a associação não exista
-	 */
-	public boolean desassociaPesquisador(String idPesquisa, String emailPesquisador) {
-		return controllerGeral.desassociaPesquisador(idPesquisa, emailPesquisador);
-	}
 	public int contaResultadosBusca(String termo) {
 		return this.buscaController.contaResultadosBusca(termo);
 	}
+	
 	public String busca(String termo, int numero) {
 		return this.buscaController.busca(termo, numero);
 	}
 	
-	/**
-	 * Lista os pesquisadores de um determinado tipo/funcao.
-	 * 
-	 * @param tipo o tipo do pesquisador
-	 * @return a listagem dos pesquisadores que pertencem a uma função.
-	 */
-	public String listaPesquisadores(String tipo) {
-		return controllerGeral.listaPesquisadores(tipo);
-	}
 	
 
 }

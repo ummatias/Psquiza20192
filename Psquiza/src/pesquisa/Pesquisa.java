@@ -14,7 +14,10 @@ import validadores.ValidadorEntradas;
  * Classe que representa a pesquisa, contendo uma descricao, campo de interesse
  * um codigo unico e um status
  * 
- * @author Natalia salvino
+ * @author José Igor de Farias Gomes -119110692
+ * @author Emilly de Albuquerque Oliveira - 119111162
+ * @author Natalia Salvino André - 119110051
+ * @author Mateus Matias Ribeiro - 119111153
  *
  */
 public class Pesquisa implements Comparable<Pesquisa>{
@@ -272,6 +275,8 @@ public class Pesquisa implements Comparable<Pesquisa>{
 	 */
 	public boolean desassociaObjetivo(String idObjetivo) {
 		if (objetivos.containsKey(idObjetivo)) {
+			objetivos.get(idObjetivo).desativa();
+			
 			objetivos.remove(idObjetivo);
 			return true;
 		}

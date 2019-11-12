@@ -14,6 +14,8 @@ import validadores.ValidadorEntradas;
  * 
  * @author Mateus Matias Ribeiro - 119111153
  * @author Emilly de Albuquerque Oliveira - 119111162
+ * @author José Igor de Farias Gomes -119110692
+ * @author Natalia Salvino André - 119110051
  */
 public class AtividadeController {
 	

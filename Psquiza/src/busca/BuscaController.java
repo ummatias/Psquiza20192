@@ -45,7 +45,6 @@ public class BuscaController {
 		if (saida.length() > 0) {
 			return saida.substring(0, saida.length() - 3);
 		}
-		System.out.println(this.pesquisaController.buscaDescricaoCampoDeInteresse(termo));
 		return saida;
 	}
 /**
@@ -55,7 +54,7 @@ public class BuscaController {
  * @return retorna o resultado da busca na posição procurada
  */
 	public String busca(String termo, int num) {
-		if (num < 0) {
+		if (num <= 0) {
 			throw new IllegalArgumentException("Numero do resultado nao pode ser negativo");
 		}
 		String busca = this.busca(termo);
@@ -78,7 +77,6 @@ public class BuscaController {
 		if (busca.equals("")) {
 			throw new IllegalArgumentException("Nenhum resultado encontrado");
 		}
-		System.out.println(busca);
 		String[] resultado = busca.split("\\|");
 
 		return resultado.length;

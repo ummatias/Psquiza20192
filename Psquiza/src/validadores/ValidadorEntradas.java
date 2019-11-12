@@ -334,13 +334,13 @@ public class ValidadorEntradas {
 	}
 
 	public static void validaItem(int item) {
-		if ((Integer) (item) == null || item < 1) {
+		if ( item < 1) {
 			throw new IllegalArgumentException("Item nao pode ser nulo ou negativo.");
 		}
 	}
 
 	public static void validaResultado(int numeroResultado) {
-		if ((Integer) (numeroResultado) == null || numeroResultado < 1)
+		if (numeroResultado < 1)
 			throw new IllegalArgumentException("numeroResultado nao pode ser nulo ou negativo.");
 	}
 
