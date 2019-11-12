@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import atividade.AtividadeController;
+import pesquisa.PesquisaController;
 
 class AtividadeControllerTest {
 
@@ -185,7 +186,7 @@ class AtividadeControllerTest {
 
 		assertEquals(2, atividadeController.contaItensPendentes("A1"));
 	}
-	
+
 	@Test
 	void testContaItensPendentesSemItens() {
 		assertEquals(0, atividadeController.contaItensPendentes("A1"));
@@ -193,15 +194,15 @@ class AtividadeControllerTest {
 
 	@Test
 	void testContaItensPendentesCodigoVazioNulo() {
-		assertThrows(IllegalArgumentException.class, () ->{
+		assertThrows(IllegalArgumentException.class, () -> {
 			atividadeController.contaItensPendentes("");
 		});
-		
-		assertThrows(NullPointerException.class, () ->{
+
+		assertThrows(NullPointerException.class, () -> {
 			atividadeController.contaItensPendentes(null);
 		});
 	}
-	
+
 	@Test
 	void testContaItensRealizados() {
 		atividadeController.cadastraItem("A1", "Comprar as polpas");
@@ -210,4 +211,50 @@ class AtividadeControllerTest {
 		assertEquals(0, atividadeController.contaItensRealizados("A1"));
 	}
 
+	// cdu 7 - executa atividade
+
+	@Test
+	void testExecutaAtividadeComSucesso() {
+		atividadeController.cadastraItem("A1", "Comprar as polpas");
+		atividadeController.cadastraItem("A1", "Preparar laboratório");
+		
+		PesquisaController pesquisaControllerTemp = new PesquisaController();
+		pesquisaControllerTemp.cadastraPesquisa("Analises de polpas", "FISICO-QUIMICA");
+		pesquisaControllerTemp.associaAtividade("FIS1", atividadeController.getAtividade("A1"));
+
+		atividadeController.executaAtividade("A1", 1, 100);
+
+		assertThrows(IllegalArgumentException.class, () -> {
+			atividadeController.executaAtividade("A1", 1, 100);
+		});
+	}
+
+	@Test
+	void testExecutaAtividadeCodigoVazioNulo() {
+
+		assertThrows(IllegalArgumentException.class, () -> {
+			atividadeController.executaAtividade("", 1, 100);
+		});
+		
+		assertThrows(NullPointerException.class, () -> {
+			atividadeController.executaAtividade(null, 1, 100);
+		});
+		
+	}
+
+	@Test
+	void testExecutaAtividadeNaoAssociada() {
+
+		
+	}
+
+	@Test
+	void testExecutaAtividadeItemJaExecutado() {
+
+	}
+
+	@Test
+	void testExecutaAtividadeItemInexistente() {
+
+	}
 }
