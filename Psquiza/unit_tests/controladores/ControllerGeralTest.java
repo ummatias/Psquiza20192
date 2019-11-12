@@ -1,8 +1,10 @@
 package controladores;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -164,6 +166,36 @@ public class ControllerGeralTest {
 	@Test
 	void testDesassociaObjetivoComSucesso() {
 		assertEquals(true,controller.desassociaObjetivo("CAL1", "O1"));
+	}
+	@Test
+	void testAssociaPesquisaJaDesativada() {
+		this.controller.encerraPesquisa("ADE1", "falta de verba");
+		assertThrows(IllegalArgumentException.class, () -> {
+			controller.associaObjetivo("ADE1", "O1");
+		});
+		
+	}
+	@Test
+	void testAssociaSegundoProblemaAPesquisa() {
+		this.controller.associaProblema("ADE1", "P1");
+		this.controller.cadastraProblema("Falta de ativiades pela saude mental de alunos", 5);
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			controller.associaProblema("ADE1", "P2");
+		});
+		
+	}
+	@Test
+	void testAssociaProblemaJaAssociado() {
+		this.controller.associaProblema("ADE1", "P1");
+		assertFalse(controller.associaProblema("ADE1", "P1"));
+
+	}
+	@Test
+	void testAssociaObjetivoJaAssociado() {
+		this.controller.associaObjetivo("ADE1", "O1");
+		assertFalse(controller.associaObjetivo("ADE1", "O1"));
+
 	}
 	
 }
