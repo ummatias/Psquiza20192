@@ -1,7 +1,12 @@
 package facade;
 
+import atividade.AtividadeController;
+import busca.BuscaController;
 import easyaccept.EasyAccept;
 import generaliza.ControllerGeral;
+import pesquisa.PesquisaController;
+import pesquisador.PesquisadorController;
+import problema.ProblemaObjetivoController;
 
 /**
  * Interface de comunicação entre o back-end e o front-end do Sistema.
@@ -13,12 +18,22 @@ import generaliza.ControllerGeral;
 public class Facade {
 
 	private ControllerGeral controllerGeral;
+	private BuscaController buscaController;
+	private AtividadeController atividadeController;
+	private PesquisaController pesquisaController;
+	private PesquisadorController pesquisadorController;
+	private ProblemaObjetivoController problemaObjetivoController;
 
 	/**
 	 * Constrói o objeto do tipo Facade inicializando seus atributos.
 	 */
 	public Facade() {
 		this.controllerGeral = new ControllerGeral();
+		this.atividadeController = new AtividadeController();
+		this.pesquisaController = new PesquisaController();
+		this.pesquisadorController = new PesquisadorController();
+		this.problemaObjetivoController = new ProblemaObjetivoController();
+		this.buscaController = new BuscaController(atividadeController,pesquisaController, pesquisadorController, problemaObjetivoController);
 	}
 
 	public static void main(String[] args) {
@@ -30,6 +45,8 @@ public class Facade {
 				"testes_aceitacao/use_case_4.txt",
 				"testes_aceitacao/use_case_5.txt",
 				"testes_aceitacao/use_case_6.txt",
+				"testes_aceitacao/use_case_7.txt",
+				"testes_aceitacao/use_case_8.txt"
 				};
 
 		EasyAccept.main(args);
@@ -298,7 +315,7 @@ public class Facade {
 	}
   
   public String busca(String termo) {
-    	return controllerGeral.busca(termo);
+    	return buscaController.busca(termo);
    }
 
 	/**
@@ -348,10 +365,10 @@ public class Facade {
 		return controllerGeral.desassociaPesquisador(idPesquisa, emailPesquisador);
 	}
 	public int contaResultadosBusca(String termo) {
-		return this.controllerGeral.contaResultadosBusca(termo);
+		return this.buscaController.contaResultadosBusca(termo);
 	}
 	public String busca(String termo, int numero) {
-		return this.controllerGeral.busca(termo, numero);
+		return this.buscaController.busca(termo, numero);
 	}
 	
 	/**
@@ -363,5 +380,6 @@ public class Facade {
 	public String listaPesquisadores(String tipo) {
 		return controllerGeral.listaPesquisadores(tipo);
 	}
+
 
 }
