@@ -144,4 +144,9 @@ public class Objetivo implements Comparable<Objetivo>{
 		return saida;
 	}
 
+	public void desativa() {
+		this.status = false;
+		
+	}
+
 }

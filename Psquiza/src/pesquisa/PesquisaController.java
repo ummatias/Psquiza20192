@@ -8,18 +8,24 @@ import java.util.Map;
 
 import problema.Objetivo;
 import problema.Problema;
+import problema.ProblemaObjetivoController;
 import atividade.Atividade;
+import atividade.AtividadeController;
 import ordenacao.OpcaoObjetivo;
 import ordenacao.OpcaoPesquisa;
 import ordenacao.OpcaoProblema;
 import ordenacao.OrdenaPesquisa;
 import pesquisador.Pesquisador;
+import pesquisador.PesquisadorController;
 import validadores.ValidadorEntradas;
 
 /**
  * Classe que representa o controlador de pesquisas.
  * 
- * @author Natalia Salvino
+ * @author José Igor de Farias Gomes -119110692
+ * @author Emilly de Albuquerque Oliveira - 119111162
+ * @author Natalia Salvino André - 119110051
+ * @author Mateus Matias Ribeiro - 119111153
  *
  */
 public class PesquisaController {
@@ -36,11 +42,21 @@ public class PesquisaController {
 	 * Lista com todas as atividades associadas as pesquisas do sistema.
 	 */
 	private List<Atividade> atividadesAssociadas;
+	
+	private AtividadeController atividadeController;
+	
+	private ProblemaObjetivoController problemaObjetivoController;
+	
+	private PesquisadorController pesquisadorController;
 
-	public PesquisaController() {
+	public PesquisaController(AtividadeController atvController, ProblemaObjetivoController poController, PesquisadorController pesquisadorController) {
 		this.pesquisasCadastradas = new HashMap<>();
 		this.chavesGeradas = new HashMap<>();
 		this.atividadesAssociadas = new ArrayList<>();
+		this.atividadeController = atvController;
+		this.problemaObjetivoController = poController;
+		this.pesquisadorController = pesquisadorController;
+		
 	}
 
 	/**
@@ -193,10 +209,13 @@ public class PesquisaController {
 	 * @param problema Problema a ser associado a pesquisa
 	 * @return valor boolean contendo o resultado da operação
 	 */
-	public boolean associaProblema(String idPesquisa, Problema problema) {
+	public boolean associaProblema(String idPesquisa, String idProblema) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
 		validaPesquisaExiste(idPesquisa);
 		validaPesquisaAtiva(idPesquisa);
+		
+		Problema problema = problemaObjetivoController.getProblema(idProblema);
 		return pesquisasCadastradas.get(idPesquisa).associaProblema(problema);
 	}
 	
@@ -222,8 +241,11 @@ public class PesquisaController {
 	 * @param objetivo objetivo a ser associado a pesquisa
 	 * @return valor boolean contendo o resultado da operação
 	 */
-	public boolean associaObjetivo(String idPesquisa, Objetivo objetivo) {
+	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
+		
+		Objetivo objetivo = problemaObjetivoController.getObjetivo(idObjetivo);
 		validaPesquisaExiste(idPesquisa);
 		validaPesquisaAtiva(idPesquisa);
 
@@ -311,8 +333,14 @@ public class PesquisaController {
 	 * @return true se conseguir associar com sucesso. False se já tiver uma
 	 *         atividade associada.
 	 */
-	public boolean associaAtividade(String codigoPesquisa, Atividade atividade) {
+	public boolean associaAtividade(String codigoPesquisa,String codigoAtividade) {
 		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaPesquisaAtiva(pesquisaEhAtiva(codigoPesquisa));
+		
+		Atividade atividade = atividadeController.getAtividade(codigoAtividade);
+		
+		
 		atividadesAssociadas.add(atividade);
 		return pesquisasCadastradas.get(codigoPesquisa).associaAtividade(atividade);
 	}
@@ -325,7 +353,14 @@ public class PesquisaController {
 	 * @return true se for desassociada com sucesso, false se já não tiver uma
 	 *         atividade.
 	 */
-	public boolean desassociaAtividade(String codigoPesquisa, Atividade atividade) {
+	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
+		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validaPesquisaAtiva(pesquisaEhAtiva(codigoPesquisa));
+		ValidadorEntradas.validaAtividadeExiste(atividadeController.getMapa(), codigoAtividade);
+		
+		Atividade atividade = atividadeController.getAtividade(codigoAtividade);
+		
 		atividadesAssociadas.remove(atividade);
 		return pesquisasCadastradas.get(codigoPesquisa).desassociaAtividade();
 
@@ -339,8 +374,9 @@ public class PesquisaController {
 	 * @return true - se a associação aconteceu com sucesso, false - caso a
 	 *         associação já exista
 	 */
-	public boolean associaPesquisador(String idPesquisa, Pesquisador pesquisador) {
+	public boolean associaPesquisador(String idPesquisa, String emailPesquisador) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
+		Pesquisador pesquisador = pesquisadorController.getPesquisador(emailPesquisador);
 
 		if (pesquisasCadastradas.containsKey(idPesquisa)) {
 			Pesquisa pesquisa = pesquisasCadastradas.get(idPesquisa);
@@ -396,9 +432,23 @@ public class PesquisaController {
 	 * 
 	 * @return a lista de atividades.
 	 */
-	public List<Atividade> getAtividades() {
+	private List<Atividade> getAtividades() {
 		return atividadesAssociadas;
 	}
+	
+	
+	/** Método que executa uma atividade
+	 * @param codigoAtividade - código da atividade
+	 * @param item - item usado durante a execução
+	 * @param duracao - duração da execução
+	 */
+	public void executaAtividade(String codigoAtividade, int item, int duracao) {
+		
+		ValidadorEntradas.validaAtividadeEstaAssociada(getAtividades(), atividadeController.getAtividade(codigoAtividade));
+		
+		atividadeController.executaAtividade(codigoAtividade, item, duracao);
+	}
+	
 	
 	/**
 	 * Valida se determinada pesquisa está cadastrada no sistema e
