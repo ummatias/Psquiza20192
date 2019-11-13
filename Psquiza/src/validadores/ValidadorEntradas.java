@@ -351,13 +351,7 @@ public class ValidadorEntradas {
 
 	}
 
-	public static String validaBuscaVazia(String busca) {
-		if (busca.equals("")) {
-			return busca;
-		}
-		return busca + " | ";
 
-	}
 
 	public static void validaResultadoExiste(Map<Integer, String> resultados, int numeroResultado) {
 		if (numeroResultado > resultados.size()) {
