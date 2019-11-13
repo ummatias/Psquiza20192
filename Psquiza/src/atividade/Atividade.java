@@ -50,6 +50,11 @@ public class Atividade implements Comparable<Atividade>{
 	private int duracao;
 	
 	/**
+	 * Sugestão de próxima atividade a ser realizada.
+	 */
+	private Atividade proximaAtividade;
+	
+	/**
 	 * Resultados da atividade, identificados pela sua ordem no cadastro.
 	 */
 	private Map<Integer ,String> resultados;
@@ -77,6 +82,7 @@ public class Atividade implements Comparable<Atividade>{
 		this.duracao = 0;
 		this.resultados = new HashMap<>();
 		this.code = code;
+		this.proximaAtividade = null;
 	}
 	
 	/**
@@ -244,6 +250,59 @@ public class Atividade implements Comparable<Atividade>{
 			return saida.substring(0,saida.length() - 3);
 		}
 		return saida;
+	}
+
+	/**
+	 * Define a atividade cuja execução sugere-se que seja após a execução desta atividade.
+	 * 
+	 * @param atividadeSubsequente a atividade a ser definida como proxima
+	 */
+	public void defineProximaAtividade(Atividade atividadeSubsequente) {
+		if(this.proximaAtividade != null) {
+			throw new IllegalArgumentException("Atividade ja possui uma subsequente.");
+		} else if(atividadeSubsequente.fazLoopCom(this)) {
+			throw new IllegalArgumentException("Criacao de loops negada.");
+		} else {
+			this.proximaAtividade = atividadeSubsequente;
+		}
+	}
+
+	/**
+	 * Metodo que verifica se uma atividade está ligada a outra direta ou indiretamente.
+	 * 
+	 * @param atividade a atividade que deseja-se verificar se está ligada a outra direta ou indiretamente
+	 * @return true se estiver ligada, false caso contrário
+	 */
+	private boolean fazLoopCom(Atividade atividade) {
+		if(this.equals(atividade)) {
+			return true;
+		}
+		if (this.proximaAtividade == null) {
+			return false;
+		}
+		
+		return this.proximaAtividade.fazLoopCom(atividade);
+		
+	}
+
+	/**
+	 * Remove a referência à próxima atividade
+	 */
+	public void tiraProximaAtividade() {
+		this.proximaAtividade = null;
+		
+	}
+
+	/**
+	 * Conta quantas atividades estão encadeadas após esta
+	 * @return a quantidade de atividades encadeadas
+	 */
+	public int contaProximos() {
+		if(this.proximaAtividade == null) {
+			return 0;
+		}
+		
+		return 1 + this.proximaAtividade.contaProximos();
 	}
 	
 	
