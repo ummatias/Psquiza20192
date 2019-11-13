@@ -118,41 +118,6 @@ class PesquisadorTest {
 	}
 
 	@Test
-	void testSetNome() {
-		this.pesquisador1.setNome("Ana Maria");
-		assertEquals(this.pesquisador1.toString(),
-				"Ana Maria (estudante) - tem interesse em inteligencia artificial - maria@gmail.com - http://www.minhafoto.com");
-	}
-
-	@Test
-	void testSetFuncao() {
-		this.pesquisador1.setFuncao("professor");
-		assertEquals(this.pesquisador1.toString(),
-				"Maria (professor) - tem interesse em inteligencia artificial - maria@gmail.com - http://www.minhafoto.com");
-	}
-
-	@Test
-	void testSetBiografia() {
-		this.pesquisador1.setBiografia("tem interesse em analise de dados");
-		assertEquals(this.pesquisador1.toString(),
-				"Maria (estudante) - tem interesse em analise de dados - maria@gmail.com - http://www.minhafoto.com");
-	}
-
-	@Test
-	void testSetEmail() {
-		this.pesquisador1.setEmail("mari@gmail.com");
-		assertEquals(this.pesquisador1.toString(),
-				"Maria (estudante) - tem interesse em inteligencia artificial - mari@gmail.com - http://www.minhafoto.com");
-	}
-
-	@Test
-	void testSetFoto() {
-		this.pesquisador1.setFoto("http://fotonova.com");
-		assertEquals(this.pesquisador1.toString(),
-				"Maria (estudante) - tem interesse em inteligencia artificial - maria@gmail.com - http://fotonova.com");
-	}
-
-	@Test
 	void testDesativa() {
 		this.pesquisador1.desativa();
 		assertEquals(this.pesquisador1.getStatus(), false);
