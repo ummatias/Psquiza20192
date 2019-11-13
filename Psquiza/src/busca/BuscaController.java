@@ -33,14 +33,21 @@ public class BuscaController {
  * @param termo o termo procurado
  * @return retorna a representação textual dos respectivos objetos cadastrados que possuem o termo procurado
  */
+	
+	private String verificaBuscaVazia(String busca) {
+		if (busca.equals("")) {
+			return busca;
+		}
+		return busca + " | ";
+	}
 	public String busca(String termo) {
 		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
 
-		String saida = ValidadorEntradas.validaBuscaVazia(this.pesquisaController.buscaDescricaoCampoDeInteresse(termo))
-				+ ValidadorEntradas.validaBuscaVazia(this.pesquisadorController.buscaBiografia(termo))
-				+ ValidadorEntradas.validaBuscaVazia(this.problemaObjetivoController.buscaDescricaoProblema(termo))
-				+ ValidadorEntradas.validaBuscaVazia(this.problemaObjetivoController.buscaDescricaoObjetivo(termo))
-				+ ValidadorEntradas.validaBuscaVazia(this.atividadeController.buscaDescricao(termo));
+		String saida = verificaBuscaVazia(this.pesquisaController.buscaDescricaoCampoDeInteresse(termo))
+				+ verificaBuscaVazia(this.pesquisadorController.buscaBiografia(termo))
+				+ verificaBuscaVazia(this.problemaObjetivoController.buscaDescricaoProblema(termo))
+				+ verificaBuscaVazia(this.problemaObjetivoController.buscaDescricaoObjetivo(termo))
+				+ verificaBuscaVazia(this.atividadeController.buscaDescricao(termo));
 		
 		if (saida.length() > 0) {
 			return saida.substring(0, saida.length() - 3);
