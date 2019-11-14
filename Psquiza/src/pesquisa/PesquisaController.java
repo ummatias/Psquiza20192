@@ -11,6 +11,7 @@ import problema.Problema;
 import problema.ProblemaObjetivoController;
 import atividade.Atividade;
 import atividade.AtividadeController;
+import atividade.Estrategia;
 import ordenacao.OpcaoObjetivo;
 import ordenacao.OpcaoPesquisa;
 import ordenacao.OpcaoProblema;
@@ -48,6 +49,8 @@ public class PesquisaController {
 	private ProblemaObjetivoController problemaObjetivoController;
 	
 	private PesquisadorController pesquisadorController;
+	
+	private Estrategia estrategia;
 
 	public PesquisaController(AtividadeController atvController, ProblemaObjetivoController poController, PesquisadorController pesquisadorController) {
 		this.pesquisasCadastradas = new HashMap<>();
@@ -56,7 +59,7 @@ public class PesquisaController {
 		this.atividadeController = atvController;
 		this.problemaObjetivoController = poController;
 		this.pesquisadorController = pesquisadorController;
-		
+		this.estrategia = null;
 	}
 
 	/**
@@ -474,4 +477,12 @@ public class PesquisaController {
 		}
 	}
 
+	public void configuraEstrategia(String estrategia) {
+		this.estrategia = this.estrategia.getEstrategia(estrategia);
+	}
+	
+	public String proximaAtividade(String codigoPesquisa) {
+		return this.estrategia.proximaAtividade(getAtividades());
+		
+	}
 }

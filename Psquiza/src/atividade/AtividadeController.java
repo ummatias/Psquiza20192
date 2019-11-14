@@ -30,6 +30,7 @@ public class AtividadeController {
 	 */
 	int contAtiv;
 
+
 	/**
 	 * Constrói um Controller e inicializa seus atributos.
 	 */

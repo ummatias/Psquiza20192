@@ -304,6 +304,8 @@ public class Atividade implements Comparable<Atividade>{
 		
 		return 1 + this.proximaAtividade.contaProximos();
 	}
-	
+	public String getNivelRisco() {
+		return nvlRisco;
+	}
 	
 }
