@@ -239,20 +239,6 @@ public class ValidadorEntradas {
 		}
 	}
 
-	/**
-	 * Valida se uma atividade existe dentro de um map de atividades.
-	 * 
-	 * @param atividades
-	 *            Map de atividades para a validação.
-	 * @param codigo
-	 *            String contendo o código da atividade a ser validada.
-	 */
-	public static void validaAtividadeExiste(Map<String, Atividade> atividades, String codigo) {
-		if (!atividades.containsKey(codigo)) {
-			throw new IllegalArgumentException("Atividade nao encontrada");
-		}
-	}
-
 	public static void validaProblemaExiste(Map<String, Problema> problemas, String codigo) {
 		if (!problemas.containsKey(codigo)) {
 			throw new IllegalArgumentException("Problema nao encontrado");
@@ -375,6 +361,18 @@ public class ValidadorEntradas {
 			throw new IllegalArgumentException(msg);
 		}
 		
+	}
+
+	public static void validaEntradaEstrategia(String estrategia) {
+		if (!estrategia.equals("MAIOR_RISCO")) {
+			if (!estrategia.equals("MAIOR_DURACAO")) {
+				if (!estrategia.equals("MAIS_ANTIGA")) {
+					if (!estrategia.equals("MENOS_PENDENCIAS")) {
+							throw new IllegalArgumentException("Valor invalido da estrategia");
+					}
+				}
+			}
+		}
 	}
 
 }

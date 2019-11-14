@@ -48,6 +48,8 @@ public class PesquisaController {
 	private ProblemaObjetivoController problemaObjetivoController;
 	
 	private PesquisadorController pesquisadorController;
+	
+	private Estrategia estrategia;
 
 	public PesquisaController(AtividadeController atvController, ProblemaObjetivoController poController, PesquisadorController pesquisadorController) {
 		this.pesquisasCadastradas = new HashMap<>();
@@ -56,7 +58,7 @@ public class PesquisaController {
 		this.atividadeController = atvController;
 		this.problemaObjetivoController = poController;
 		this.pesquisadorController = pesquisadorController;
-		
+		this.estrategia = new MaisAntiga();
 	}
 
 	/**
@@ -339,8 +341,6 @@ public class PesquisaController {
 		ValidadorEntradas.validaPesquisaAtiva(pesquisaEhAtiva(codigoPesquisa));
 		
 		Atividade atividade = atividadeController.getAtividade(codigoAtividade);
-		
-		
 		atividadesAssociadas.add(atividade);
 		return pesquisasCadastradas.get(codigoPesquisa).associaAtividade(atividade);
 	}
@@ -357,12 +357,12 @@ public class PesquisaController {
 		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validaPesquisaAtiva(pesquisaEhAtiva(codigoPesquisa));
-		ValidadorEntradas.validaAtividadeExiste(atividadeController.getMapa(), codigoAtividade);
+		atividadeController.validaAtividadeExiste(codigoAtividade);
 		
 		Atividade atividade = atividadeController.getAtividade(codigoAtividade);
 		
 		atividadesAssociadas.remove(atividade);
-		return pesquisasCadastradas.get(codigoPesquisa).desassociaAtividade();
+		return pesquisasCadastradas.get(codigoPesquisa).desassociaAtividade(atividade);
 
 	}
 
@@ -474,4 +474,38 @@ public class PesquisaController {
 		}
 	}
 
+	/** Método que configura a estrategia para sugerir a proxima
+	 * atividade a ser executada.
+	 * @param estrategia - estrategia que será usada.
+	 */
+	public void configuraEstrategia(String estrategia) {
+		ValidadorEntradas.validarString(estrategia, "Estrategia nao pode ser nula ou vazia.");
+		ValidadorEntradas.validaEntradaEstrategia(estrategia);
+		if("MENOS_PENDENCIAS".equals(estrategia)) {
+			this.estrategia = new MenosPendencias();
+		}
+		if("MAIOR_RISCO".equals(estrategia)) {
+			this.estrategia = new MaiorRisco();
+		}
+		 
+		if ("MAIOR_DURACAO".equals(estrategia)) {
+			this.estrategia = new MaiorDuracao();
+		}
+		if ("MAIS_ANTIGA".equals(estrategia)) {
+			this.estrategia = new MaisAntiga();
+		}
+	}
+	
+	/**Método para indicar qual a proxima atividade a ser executado.
+	 * @param codigoPesquisa - codigo da pesquisa.
+	 * @return a proxima atividade.
+	 */
+	public String proximaAtividade(String codigoPesquisa) {
+		ValidadorEntradas.validarString(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
+		validaPesquisaExiste(codigoPesquisa);
+		validaPesquisaAtiva(codigoPesquisa);
+		return this.estrategia.proximaAtividade(pesquisasCadastradas.get(codigoPesquisa).getAtividades());
+		
+	}
+	
 }

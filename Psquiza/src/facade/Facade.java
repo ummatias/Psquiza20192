@@ -47,6 +47,7 @@ public class Facade {
 				"testes_aceitacao/use_case_7.txt",
 				"testes_aceitacao/use_case_8.txt",
 				"testes_aceitacao/use_case_9.txt",
+				"testes_aceitacao/use_case_10.txt"
 				};
 
 		EasyAccept.main(args);
@@ -251,12 +252,21 @@ public class Facade {
 		return atividadeController.contaProximos(idPrecedente);
 	}
 	
+
+	public void configuraEstrategia(String estrategia) {
+		pesquisaController.configuraEstrategia(estrategia);
+	}
+	
+	public String proximaAtividade(String codigoPesquisa) {
+		return pesquisaController.proximaAtividade(codigoPesquisa);
+	}
 	public String pegaProximo(String idAtividade, int enesimaAtividade) {
 		return atividadeController.pegaProximo(idAtividade, enesimaAtividade);
 	}
 	
 	public String pegaMaiorRiscoAtividades(String idAtividade) {
 		return atividadeController.pegaMaiorRiscoAtividades(idAtividade);
+
 	}
 
 }
