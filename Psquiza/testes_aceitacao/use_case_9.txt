@@ -3,7 +3,7 @@
 cadastraAtividade Descricao="Plantio de um grao de feijao em um algodao." nivelRisco="ALTO" descricaoRisco="Por se tratar de uma vida, o risco e extremamente elevado."
 cadastraAtividade Descricao="Analise do comportamento dos alunos de computacao com os alunos de arq/urb." nivelRisco="ALTO" descricaoRisco="Por se tratar de uma analise a partir de denuncias de um comportamento hostil, o risco e extremamente elevado."
 cadastraAtividade Descricao="Testando se a terra e plana" nivelRisco="BAIXO" descricaoRisco="Por se tratar de uma atividade que ja se sabe que seus resultados, sendo assim uma atividade simbolica, seu risco e hiperbólicamente baixo."
-cadastraAtividade Descricao="Analise de quantas maos levantadas sao necessarias para Goku fazer uma Genki Dama que consiga derrotar Saitama" nivelRisco="ALTO" descricaoRisco="Por se tratar de uma vida, o risco e extremamente elevado."
+cadastraAtividade Descricao="Analise de quantas maos levantadas sao necessarias para Goku fazer uma Genki Dama que consiga derrotar Saitama" nivelRisco="ALTO" descricaoRisco="Pela possibilidade de nao existirem pesoas o bastante no universo para levantar a mao, o risco e alto."
 cadastraAtividade Descricao="Busca e analise de uma razao para a Netflix cancelar BoJack Horseman" nivelRisco="ALTO" descricaoRisco="Nao existe uma razao plausivel, assim o risco e elevado."
 cadastraAtividade Descricao="Demonstracao de amor pela HBO por estar produzindo novos episodios de Adventure Time." nivelRisco="BAIXO" descricaoRisco="Sem risco, so demonstracao de amor"
 cadastraAtividade Descricao="Mudancas nas relacoes do instagram, apos a ocultacao do numero de curtidas das postagens." nivelRisco="ALTO" descricaoRisco="Por envolver uma crise economica brutal, com diversas blogueirinhas perdendo seus empregos, e de uma crise social, com diversas pessoas perdendo o rummo de suas vidas, o risco e extremamente elevado."
@@ -27,7 +27,7 @@ expectError "Atividade nao pode ser nulo ou vazio." defineProximaAtividade idPre
 expectError "Atividade nao encontrada." defineProximaAtividade idPrecedente="A4" idSubsquente="A42"
 expectError "Atividade nao encontrada." defineProximaAtividade idPrecedente="A666" idSubsquente="A4"
 expectError "Atividade nao encontrada." defineProximaAtividade idPrecedente="A4" idSubsquente="O1"
-#expectError "Criacao de loops negada." defineProximaAtividade idPrecedente="A11" idSubsquente="A5"
+expectError "Criacao de loops negada." defineProximaAtividade idPrecedente="A10" idSubsquente="A5"
 
 
 #Contando quantas atividades tem depois
@@ -36,7 +36,6 @@ expect 0 contaProximos idPrecedente="A4"
 expect 6 contaProximos idPrecedente="A5" 
 expect 2 contaProximos idPrecedente="A12" 
 expect 3 contaProximos idPrecedente="A7" 
-#expect  contaProximos idPrecedente="" falta fazer
 expectError "Atividade nao pode ser nulo ou vazio." contaProximos idPrecedente=""
 expectError "Atividade nao encontrada." tiraProximaAtividade idPrecedente="A42"
 
