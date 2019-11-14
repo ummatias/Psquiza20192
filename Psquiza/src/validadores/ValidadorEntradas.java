@@ -377,4 +377,16 @@ public class ValidadorEntradas {
 		
 	}
 
+	public static void validaEntradaEstrategia(String estrategia) {
+		if (!estrategia.equals("MAIOR_RISCO")) {
+			if (!estrategia.equals("MAIOR_DURACAO")) {
+				if (!estrategia.equals("MAIS_ANTIGA")) {
+					if (!estrategia.equals("MENOS_PENDENCIAS")) {
+							throw new IllegalArgumentException("Valor invalido da estrategia");
+					}
+				}
+			}
+		}
+	}
+
 }

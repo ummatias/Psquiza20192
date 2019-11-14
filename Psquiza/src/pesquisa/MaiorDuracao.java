@@ -1,14 +1,11 @@
-package atividade;
+package pesquisa;
 
 import java.util.List;
 
+import atividade.Atividade;
+
 public class MaiorDuracao implements Estrategia {
-
-	@Override
-	public Estrategia getEstrategia(String estrategia) {
-		return new MaiorDuracao();
-	}
-
+	
 	@Override
 	public String proximaAtividade(List<Atividade> atividades) {
 		int maiorDuracao = 0;

@@ -2,6 +2,7 @@ package pesquisa;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import atividade.Atividade;
@@ -41,7 +42,7 @@ public class Pesquisa implements Comparable<Pesquisa>{
 	/**
 	 * Atividade associada a pesquisa.
 	 */
-	private Atividade atividade;
+	private List<Atividade> atividades;
 
 	private Problema problema;
 
@@ -64,7 +65,7 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		this.campoDeInteresse = campoDeInteresse;
 		this.codigo = codigo;
 		this.status = true;
-		this.atividade = null;
+		this.atividades = new ArrayList<>();
 		this.problema = null;
 		this.objetivos = new HashMap<>();
 		this.pesquisadores = new HashMap<>();
@@ -193,8 +194,8 @@ public class Pesquisa implements Comparable<Pesquisa>{
 	 * @param atividade a ser associdada
 	 */
 	public boolean associaAtividade(Atividade atividade) {
-		if (this.atividade == null) {
-			this.atividade = atividade;
+		if (!this.atividades.contains(atividade)) {
+			this.atividades.add(atividade);
 			return true;
 		}
 		return false;
@@ -205,15 +206,21 @@ public class Pesquisa implements Comparable<Pesquisa>{
 	 * 
 	 * @return
 	 */
-	public boolean desassociaAtividade() {
+	public boolean desassociaAtividade(Atividade atividade) {
 
-		if (atividade != null) {
-			this.atividade = null;
+		if (this.atividades.contains(atividade)) {
+			this.atividades.remove(atividade);
 			return true;
 		} 	return false;}
 	
-	public Atividade getAtividade() {
-		return atividade;
+	public Atividade getAtividade(String codigo) {
+		for (Atividade atividade: atividades) {
+			if (codigo.equals(atividade.getCodigo())) {
+				return atividade;
+			}
+		}
+		
+		throw new IllegalArgumentException("Atividade sem associacoes com pesquisas.");
 	}
 
 	
@@ -371,5 +378,9 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		
 		return saida;
 
+	}
+
+	public List<Atividade> getAtividades() {
+		return atividades;
 	}
 }

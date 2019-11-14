@@ -11,7 +11,6 @@ import problema.Problema;
 import problema.ProblemaObjetivoController;
 import atividade.Atividade;
 import atividade.AtividadeController;
-import atividade.Estrategia;
 import ordenacao.OpcaoObjetivo;
 import ordenacao.OpcaoPesquisa;
 import ordenacao.OpcaoProblema;
@@ -59,7 +58,7 @@ public class PesquisaController {
 		this.atividadeController = atvController;
 		this.problemaObjetivoController = poController;
 		this.pesquisadorController = pesquisadorController;
-		this.estrategia = null;
+		this.estrategia = new MaisAntiga();
 	}
 
 	/**
@@ -342,8 +341,6 @@ public class PesquisaController {
 		ValidadorEntradas.validaPesquisaAtiva(pesquisaEhAtiva(codigoPesquisa));
 		
 		Atividade atividade = atividadeController.getAtividade(codigoAtividade);
-		
-		
 		atividadesAssociadas.add(atividade);
 		return pesquisasCadastradas.get(codigoPesquisa).associaAtividade(atividade);
 	}
@@ -365,7 +362,7 @@ public class PesquisaController {
 		Atividade atividade = atividadeController.getAtividade(codigoAtividade);
 		
 		atividadesAssociadas.remove(atividade);
-		return pesquisasCadastradas.get(codigoPesquisa).desassociaAtividade();
+		return pesquisasCadastradas.get(codigoPesquisa).desassociaAtividade(atividade);
 
 	}
 
@@ -478,11 +475,29 @@ public class PesquisaController {
 	}
 
 	public void configuraEstrategia(String estrategia) {
-		this.estrategia = this.estrategia.getEstrategia(estrategia);
+		ValidadorEntradas.validarString(estrategia, "Estrategia nao pode ser nula ou vazia.");
+		ValidadorEntradas.validaEntradaEstrategia(estrategia);
+		if("MENOS_PENDENCIAS".equals(estrategia)) {
+			this.estrategia = new MenosPendencias();
+		}
+		if("MAIOR_RISCO".equals(estrategia)) {
+			this.estrategia = new MaiorRisco();
+		}
+		 
+		if ("MAIOR_DURACAO".equals(estrategia)) {
+			this.estrategia = new MaiorDuracao();
+		}
+		if ("MAIS_ANTIGA".equals(estrategia)) {
+			this.estrategia = new MaisAntiga();
+		}
 	}
 	
 	public String proximaAtividade(String codigoPesquisa) {
-		return this.estrategia.proximaAtividade(getAtividades());
+		ValidadorEntradas.validarString(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
+		validaPesquisaExiste(codigoPesquisa);
+		validaPesquisaAtiva(codigoPesquisa);
+		return this.estrategia.proximaAtividade(pesquisasCadastradas.get(codigoPesquisa).getAtividades());
 		
 	}
+	
 }

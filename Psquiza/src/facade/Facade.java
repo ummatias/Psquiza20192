@@ -259,7 +259,7 @@ public class Facade {
 	
 	public String proximaAtividade(String codigoPesquisa) {
 		return pesquisaController.proximaAtividade(codigoPesquisa);
-
+	}
 	public String pegaProximo(String idAtividade, int enesimaAtividade) {
 		return atividadeController.pegaProximo(idAtividade, enesimaAtividade);
 	}

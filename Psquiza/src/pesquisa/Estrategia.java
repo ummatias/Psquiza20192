@@ -1,8 +1,10 @@
-package atividade;
+package pesquisa;
 
 import java.util.List;
 
+import atividade.Atividade;
+
 public interface Estrategia {
-	public abstract Estrategia getEstrategia(String estrategia);
+
 	public String proximaAtividade(List<Atividade> atividades);
 }
