@@ -1,8 +1,7 @@
-#Cadastrando COM3, deixando-a ativada, e relacionando com A1, A2, A5, A6, A7, A8, A9, A10, A12
+#Cadastrando COM3, deixando-a ativada, e relacionando com A1, A5, A6, A7, A8, A9, A10, A12
 
 cadastraPesquisa descricao="Dificuldade de pensar em bons exemplos para os testes do projeto da disciplina LP2" campoDeInteresse="computacao, bloqueio criativo, insonia"
 expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A1"
-expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A2"
 expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A5"
 expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A7"
 expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A8"

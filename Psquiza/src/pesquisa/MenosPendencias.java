@@ -9,8 +9,20 @@ public class MenosPendencias implements Estrategia {
 	
 	@Override
 	public String proximaAtividade(List<Atividade> atividades) {
-		// TODO Auto-generated method stub
-		return null;
+		int cont = 0;
+		String codeAtividade = "";
+		for (Atividade atividade:atividades) {
+			if(atividade.getContaItensPendentes() > cont) {
+				cont = atividade.getContaItensPendentes();
+				codeAtividade = atividade.getCodigo();
+			}
+		}
+		
+		if (cont == 0) {
+			throw new IllegalArgumentException("Pesquisa sem atividades com pendencias");
+		}
+		
+		return codeAtividade;
 	}
 
 }

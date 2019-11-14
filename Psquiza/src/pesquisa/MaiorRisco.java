@@ -8,6 +8,10 @@ public class MaiorRisco implements Estrategia{
 
 	@Override
 	public String proximaAtividade(List<Atividade> atividades) {
-		return "oi";
+		String retorno = "";
+		for (Atividade atividade:atividades) {
+			retorno = atividade.pegaMaiorRiscoAtividades();
+		}
+		return retorno;
 	}
 }

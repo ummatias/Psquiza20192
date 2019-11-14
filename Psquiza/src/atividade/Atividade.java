@@ -330,11 +330,6 @@ public class Atividade implements Comparable<Atividade> {
 		return 1 + this.proximaAtividade.contaProximos();
 	}
 
-	public String getNivelRisco() {
-		return nvlRisco;
-	}
-	
-
 
 	public String pegaProximo(int enesimaAtividade) {
 		if (enesimaAtividade == 0) {
@@ -385,5 +380,14 @@ public class Atividade implements Comparable<Atividade> {
 		
 		return this.proximaAtividade.pegaMaiorRiscoAtividades(nivelMaior, codeMaior);
 
+	}
+	
+	public int getContaItensPendentes() {
+		int cont = 0;
+		for (Item item:itens) {
+			if(item.getStatus()) {
+				cont += 1;
+			}
+		} return cont;
 	}
 }

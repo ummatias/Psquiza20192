@@ -357,7 +357,7 @@ public class PesquisaController {
 		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validaPesquisaAtiva(pesquisaEhAtiva(codigoPesquisa));
-		ValidadorEntradas.validaAtividadeExiste(atividadeController.getMapa(), codigoAtividade);
+		atividadeController.validaAtividadeExiste(codigoAtividade);
 		
 		Atividade atividade = atividadeController.getAtividade(codigoAtividade);
 		
@@ -474,6 +474,10 @@ public class PesquisaController {
 		}
 	}
 
+	/** Método que configura a estrategia para sugerir a proxima
+	 * atividade a ser executada.
+	 * @param estrategia - estrategia que será usada.
+	 */
 	public void configuraEstrategia(String estrategia) {
 		ValidadorEntradas.validarString(estrategia, "Estrategia nao pode ser nula ou vazia.");
 		ValidadorEntradas.validaEntradaEstrategia(estrategia);
@@ -492,6 +496,10 @@ public class PesquisaController {
 		}
 	}
 	
+	/**Método para indicar qual a proxima atividade a ser executado.
+	 * @param codigoPesquisa - codigo da pesquisa.
+	 * @return a proxima atividade.
+	 */
 	public String proximaAtividade(String codigoPesquisa) {
 		ValidadorEntradas.validarString(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
 		validaPesquisaExiste(codigoPesquisa);

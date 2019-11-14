@@ -8,7 +8,11 @@ public class MaisAntiga implements Estrategia{
 
 	@Override
 	public String proximaAtividade(List<Atividade> atividades) {
-		return atividades.get(0).getCodigo();
+		String codeAtividade = "";
+		for (Atividade atividade:atividades) {
+			if (atividade.getContaItensPendentes() > 0) {
+				codeAtividade = atividade.getCodigo();
+			}
+		} return codeAtividade;
 	}
-
 }
