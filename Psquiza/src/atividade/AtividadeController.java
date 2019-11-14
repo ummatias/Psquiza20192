@@ -308,4 +308,28 @@ public class AtividadeController {
 		} else
 			throw new IllegalArgumentException("Atividade nao encontrada.");
 	}
+
+	public String pegaProximo(String idAtividade, int enesimaAtividade) {
+		ValidadorEntradas.validarString(idAtividade, "Atividade nao pode ser nulo ou vazio.");
+		
+		if (atividades.containsKey(idAtividade)) {
+			Atividade atividade = atividades.get(idAtividade);
+			return atividade.pegaProximo(enesimaAtividade);
+			
+		} else {
+			throw new IllegalArgumentException("Atividade inexistente.");
+		}
+	}
+
+	public String pegaMaiorRiscoAtividades(String idAtividade) {
+		ValidadorEntradas.validarString(idAtividade, "Atividade nao pode ser nulo ou vazio.");
+		
+		if (atividades.containsKey(idAtividade)) {
+			Atividade atividade = atividades.get(idAtividade);
+			return atividade.pegaMaiorRiscoAtividades();
+			
+		} else {
+			throw new IllegalArgumentException("Atividade nao encontrada.");
+		}
+	}
 }

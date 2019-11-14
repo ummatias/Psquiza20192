@@ -252,12 +252,21 @@ public class Facade {
 		return atividadeController.contaProximos(idPrecedente);
 	}
 	
+
 	public void configuraEstrategia(String estrategia) {
 		pesquisaController.configuraEstrategia(estrategia);
 	}
 	
 	public String proximaAtividade(String codigoPesquisa) {
 		return pesquisaController.proximaAtividade(codigoPesquisa);
+
+	public String pegaProximo(String idAtividade, int enesimaAtividade) {
+		return atividadeController.pegaProximo(idAtividade, enesimaAtividade);
+	}
+	
+	public String pegaMaiorRiscoAtividades(String idAtividade) {
+		return atividadeController.pegaMaiorRiscoAtividades(idAtividade);
+
 	}
 
 }
