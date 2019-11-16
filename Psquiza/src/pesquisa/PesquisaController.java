@@ -496,7 +496,7 @@ public class PesquisaController {
 		}
 	}
 	
-	/**Método para indicar qual a proxima atividade a ser executado.
+	/**Método para indicar qual a proxima atividade a ser executada.
 	 * @param codigoPesquisa - codigo da pesquisa.
 	 * @return a proxima atividade.
 	 */

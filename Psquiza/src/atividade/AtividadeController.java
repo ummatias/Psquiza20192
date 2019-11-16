@@ -95,6 +95,7 @@ public class AtividadeController {
 	public void cadastraItem(String codigo, String item) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(item, "Item nao pode ser nulo ou vazio.");
+		validaAtividadeExiste(codigo);
 
 		atividades.get(codigo).addItem(item);
 	}
