@@ -252,7 +252,6 @@ public class Facade {
 		return atividadeController.contaProximos(idPrecedente);
 	}
 	
-
 	public void configuraEstrategia(String estrategia) {
 		pesquisaController.configuraEstrategia(estrategia);
 	}
