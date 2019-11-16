@@ -19,6 +19,7 @@ public class MaisAntiga implements Estrategia{
 		for (Atividade atividade:atividades) {
 			if (atividade.contaItensPendentes() > 0) {
 				codeAtividade = atividade.getCodigo();
+				break;
 			}
 		} return codeAtividade;
 	}

@@ -17,9 +17,13 @@ public class MaiorRisco implements Estrategia{
 	@Override
 	public String proximaAtividade(List<Atividade> atividades) {
 		String retorno = "";
-		for (Atividade atividade:atividades) {
-			retorno = atividade.pegaMaiorRiscoAtividades();
-		}
+//		for (int i = 0; i < atividades.size(); i++) {
+//			Atividade atividade = atividades.get(i);
+//			Atividade prox = atividades.get(i++);
+//			atividade.defineProximaAtividade(prox);
+//			retorno = atividade.pegaMaiorRiscoAtividades();
+//			atividade.tiraProximaAtividade();
+//		}
 		return retorno;
 	}
 }

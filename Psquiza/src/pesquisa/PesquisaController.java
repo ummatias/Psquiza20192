@@ -504,8 +504,18 @@ public class PesquisaController {
 		ValidadorEntradas.validarString(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
 		validaPesquisaExiste(codigoPesquisa);
 		validaPesquisaAtiva(codigoPesquisa);
+		validaPesquisaSemPendencias(codigoPesquisa);
 		return this.estrategia.proximaAtividade(pesquisasCadastradas.get(codigoPesquisa).getAtividades());
 		
+	}
+	
+	private void validaPesquisaSemPendencias(String codigoPesquisa) {
+		List<Atividade> atividades = pesquisasCadastradas.get(codigoPesquisa).getAtividades();
+		for (Atividade atividade:atividades) {
+			if (atividade.contaItensPendentes() != 0) {
+				return;
+			}
+		} throw new IllegalArgumentException("Pesquisa sem atividades com pendencias.");
 	}
 	
 }
