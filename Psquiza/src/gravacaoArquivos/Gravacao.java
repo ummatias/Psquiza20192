@@ -1,4 +1,4 @@
-package GravacaoArquivos;
+package gravacaoArquivos;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -50,4 +50,5 @@ public class Gravacao {
 		return objeto;
 
 	}
+	
 }

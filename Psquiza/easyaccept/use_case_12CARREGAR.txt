@@ -1,0 +1,448 @@
+carregar
+
+#################### US5 ####################
+
+#COM1 associado com P1
+#COM2 associado com P2
+#COM1 associado com 01
+#COM1 associado com 02
+#COM1 associado com 03
+#COM2 associado com 04
+
+
+#associando e desassociando problemas a pesquisas
+
+expect true associaProblema idPesquisa="COM1" idProblema="P1"
+expectError "Pesquisa ja associada a um problema." associaProblema idPesquisa="COM1" idProblema="P2"
+expect false associaProblema idPesquisa="COM1" idProblema="P1"
+expect true desassociaProblema idPesquisa="COM1"
+expect false desassociaProblema idPesquisa="COM1"
+expectError "Campo idPesquisa nao pode ser nulo ou vazio." associaProblema idPesquisa="" idProblema="P2"
+expectError "Campo idProblema nao pode ser nulo ou vazio." associaProblema idPesquisa="COM2" idProblema=""
+expectError "Pesquisa nao encontrada." associaProblema idPesquisa="LED7" idProblema="P2"
+expectError "Pesquisa nao encontrada." desassociaProblema idPesquisa="OPA42"
+expectError "Pesquisa desativada." associaProblema idPesquisa="FER1" idProblema="P2"
+expectError "Pesquisa desativada." desassociaProblema idPesquisa="FER1"
+expect true associaProblema idPesquisa="COM1" idProblema="P1"
+expect true associaProblema idPesquisa="COM2" idProblema="P2"
+
+
+#associando e desassociando objetivos a pesquisas
+
+expect true associaObjetivo idPesquisa="COM1" idObjetivo="O1"
+expectError "Objetivo ja associado a uma pesquisa." associaObjetivo idPesquisa="COM2" idObjetivo="O1"
+expect false associaObjetivo idPesquisa="COM1" idObjetivo="O1"
+expect true desassociaObjetivo idPesquisa="COM1" idObjetivo="O1"
+expect false desassociaObjetivo idPesquisa="COM1" idObjetivo="O1"
+expectError "Campo idPesquisa nao pode ser nulo ou vazio." associaObjetivo idPesquisa="" idObjetivo="O2"
+expectError "Campo idObjetivo nao pode ser nulo ou vazio." desassociaObjetivo idPesquisa="COM1" idObjetivo=""
+expectError "Pesquisa nao encontrada." associaObjetivo idPesquisa="LED7" idObjetivo="O2"
+expectError "Pesquisa nao encontrada." desassociaObjetivo idPesquisa="OPA42" idObjetivo="O2"
+expectError "Pesquisa desativada." associaObjetivo idPesquisa="FER1" idObjetivo="O2"
+expectError "Pesquisa desativada." desassociaObjetivo idPesquisa="FER1" idObjetivo="O2"
+expect true associaObjetivo idPesquisa="COM1" idObjetivo="O1"
+expect true associaObjetivo idPesquisa="COM1" idObjetivo="O2"
+expect true associaObjetivo idPesquisa="COM1" idObjetivo="O3"
+expect true associaObjetivo idPesquisa="COM2" idObjetivo="O4"
+
+
+#listando as pesquisas
+
+expect "COM2 - Autoavaliacao na Disciplina de Programacao Orientada a Objeto. - computacao, poo | COM1 - Homofobia em mensagens online de alunos de computacao do primeiro periodo. - computacao, homofobia | PSI1 - Alienacao Parental e o Sistema de Justica Brasileiro. - psicologia, sistema juridico, alienacao parental, brasil | FER1 - Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces. - fermentacao, cerveja | ELE1 - Aumento da evasao no numero de eleitores paraibanos. - eleicao, paraiba" listaPesquisas ordem="PROBLEMA"
+
+expect "COM1 - Homofobia em mensagens online de alunos de computacao do primeiro periodo. - computacao, homofobia | COM2 - Autoavaliacao na Disciplina de Programacao Orientada a Objeto. - computacao, poo | PSI1 - Alienacao Parental e o Sistema de Justica Brasileiro. - psicologia, sistema juridico, alienacao parental, brasil | FER1 - Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces. - fermentacao, cerveja | ELE1 - Aumento da evasao no numero de eleitores paraibanos. - eleicao, paraiba" listaPesquisas ordem="OBJETIVOS"
+
+expect "PSI1 - Alienacao Parental e o Sistema de Justica Brasileiro. - psicologia, sistema juridico, alienacao parental, brasil | FER1 - Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces. - fermentacao, cerveja | ELE1 - Aumento da evasao no numero de eleitores paraibanos. - eleicao, paraiba | COM2 - Autoavaliacao na Disciplina de Programacao Orientada a Objeto. - computacao, poo | COM1 - Homofobia em mensagens online de alunos de computacao do primeiro periodo. - computacao, homofobia" listaPesquisas ordem="PESQUISA"
+
+expectError "Valor invalido da ordem" listaPesquisas ordem=""
+expectError "Valor invalido da ordem" listaPesquisas ordem="LEGAL"
+
+
+#################### US6 ####################
+
+#Associando COM2 e matheusgr@computacao.ufcg.edu.br
+
+
+expect true associaPesquisador idPesquisa="COM2" emailPesquisador="matheusgr@computacao.ufcg.edu.br"
+expect false associaPesquisador idPesquisa="COM2" emailPesquisador="matheusgr@computacao.ufcg.edu.br"
+expect true associaPesquisador idPesquisa="COM1" emailPesquisador="eliane@computacao.ufcg.edu.br"
+expect true desassociaPesquisador idPesquisa="COM1" emailPesquisador="eliane@computacao.ufcg.edu.br"
+expect false desassociaPesquisador idPesquisa="COM1" emailPesquisador="eliane@computacao.ufcg.edu.br"
+
+#idPesquisa ou emailPesquisador vazios em associaPesquisador
+
+expectError "Campo idPesquisa nao pode ser nulo ou vazio." associaPesquisador idPesquisa="" emailPesquisador="breakingbad@2008"
+expectError "Campo emailPesquisador nao pode ser nulo ou vazio." associaPesquisador idPesquisa="ELE1" emailPesquisador=""
+
+
+#pesquisa inexistente ou desativada em associaPesquisador
+
+expectError "Pesquisa nao encontrada." associaPesquisador idPesquisa="ZAP6" emailPesquisador="breakingbad@2008"
+expectError "Pesquisa desativada." associaPesquisador idPesquisa="PSI1" emailPesquisador="breakingbad@2008"
+
+
+#idPesquisa ou emailPesquisador vazios em desassociaPesquisador
+
+expectError "Campo idPesquisa nao pode ser nulo ou vazio." desassociaPesquisador idPesquisa="" emailPesquisador="breakingbad@2008"
+expectError "Campo emailPesquisador nao pode ser nulo ou vazio." desassociaPesquisador idPesquisa="ELE1" emailPesquisador=""
+
+
+#pesquisa inexistente ou desativada em desassociaPesquisador
+
+expectError "Pesquisa nao encontrada." desassociaPesquisador idPesquisa="ZAP6" emailPesquisador="breakingbad@2008"
+expectError "Pesquisa desativada." desassociaPesquisador idPesquisa="PSI1" emailPesquisador="breakingbad@2008"
+
+
+#Especializando professores
+
+cadastraEspecialidadeProfessor email="matheusgr@computacao.ufcg.edu.br" formacao="Bacharel" unidade="CC" data="01/01/1975"
+cadastraEspecialidadeProfessor email="eliane@computacao.ufcg.edu.br" formacao="Doutorado" unidade="DSC" data="07/07/2007"
+cadastraEspecialidadeProfessor email="livia@computacao.ufcg.edu.br" formacao="Doutorado" unidade="DSC" data="20/06/2006"
+
+
+#Informacoes vazias em especializando professores
+
+expectError "Campo email nao pode ser nulo ou vazio." cadastraEspecialidadeProfessor email="" formacao="Doutorado" unidade="DSC" data="01/01/2011"
+expectError "Campo formacao nao pode ser nulo ou vazio." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="" unidade="DSC" data="01/01/2011"
+expectError "Campo unidade nao pode ser nulo ou vazio." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="" data="01/01/2011"
+expectError "Campo data nao pode ser nulo ou vazio." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="DSC" data=""
+
+
+#pesquisador inexistente
+
+expectError "Pesquisadora nao encontrada." cadastraEspecialidadeProfessor email="chapuletei@2018" formacao="Doutorado" unidade="DSC" data="04/04/2004"
+
+
+#data invalida em especializando professores
+
+expectError "Atributo data com formato invalido." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="DSC" data="01012011"
+expectError "Atributo data com formato invalido." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="DSC" data="0101/2011"
+expectError "Atributo data com formato invalido." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="DSC" data="01/012011"
+expectError "Atributo data com formato invalido." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="DSC" data="01/01/11"
+expectError "Atributo data com formato invalido." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="DSC" data="01/01/20011"
+expectError "Atributo data com formato invalido." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="DSC" data="010/01/2011"
+expectError "Atributo data com formato invalido." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="DSC" data="01/010/2011"
+expectError "Atributo data com formato invalido." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="DSC" data="01/17/2011"
+expectError "Atributo data com formato invalido." cadastraEspecialidadeProfessor email="breakingbad@2008" formacao="Doutorado" unidade="DSC" data="45/01/2011"
+
+
+#Usando a cadastraEspecialidadeProfessor em externos e alunos.
+
+expectError "Pesquisador nao compativel com a especialidade." cadastraEspecialidadeProfessor email="hunterxhunter@1998" formacao="Doutorado" unidade="MAT" data="01/01/2011"
+expectError "Pesquisador nao compativel com a especialidade." cadastraEspecialidadeProfessor email="thelastofus@2013" formacao="Doutorado" unidade="MAT" data="01/01/2011"
+
+
+#Especializando alunos
+
+cadastraEspecialidadeAluno email="hunterxhunter@1998" semestre=2 IEA=9.9999
+
+
+#Informacoes vazias em especializando alunos
+
+expectError "Campo email nao pode ser nulo ou vazio." cadastraEspecialidadeAluno email="" semestre=3 IEA=6.9
+expectError "Atributo semestre com formato invalido." cadastraEspecialidadeAluno email="borutofathers@1997" semestre=-3 IEA=6.9
+expectError "Atributo semestre com formato invalido." cadastraEspecialidadeAluno email="borutofathers@1997" semestre=0 IEA=6.9
+expectError "Atributo IEA com formato invalido." cadastraEspecialidadeAluno email="borutofathers@1997" semestre=3 IEA=-7
+expectError "Atributo IEA com formato invalido." cadastraEspecialidadeAluno email="borutofathers@1997" semestre=3 IEA=11
+
+
+#pesquisador inexistente
+
+expectError "Pesquisadora nao encontrada." cadastraEspecialidadeAluno email="void@void" semestre=3 IEA=0.1
+
+
+#semestre e iea invalidos em especializando alunos
+
+expectError "Atributo IEA com formato invalido." cadastraEspecialidadeAluno email="borutofathers@1997" semestre=3 IEA=-2.0
+expectError "Atributo IEA com formato invalido." cadastraEspecialidadeAluno email="borutofathers@1997" semestre=3 IEA=8000
+expectError "Atributo semestre com formato invalido." cadastraEspecialidadeAluno email="borutofathers@1997" semestre=-1 IEA=8
+expectError "Atributo semestre com formato invalido." cadastraEspecialidadeAluno email="borutofathers@1997" semestre=0 IEA=9
+
+
+#Usando cadastraEspecialidadeAluno em externos e professores
+
+expectError "Pesquisador nao compativel com a especialidade." cadastraEspecialidadeAluno email="matheusgr@computacao.ufcg.edu.br" semestre=3 IEA=2.0
+expectError "Pesquisador nao compativel com a especialidade." cadastraEspecialidadeAluno email="thelastofus@2013" semestre=3 IEA=2.0
+
+
+#Listando pesquisadores
+
+expect "Prairie Johnson (externo) - Interessada no estudo de multiplas dimensoes e no estudo dos sentidos humanos. - theoa@2016 - https://notblind | Joel (externo) - Interresado em fungos. - thelastofus@2013 - https://Cordyceps" listaPesquisadores tipo="EXTERNO"
+expectError "Campo tipo nao pode ser nulo ou vazio." listaPesquisadores tipo=""
+expectError "Tipo BOM DIA FAMILIA inexistente." listaPesquisadores tipo="BOM DIA FAMILIA"
+
+
+#Alterando pesquisadores
+
+alteraPesquisador email="matheusgr@computacao.ufcg.edu.br" atributo="FORMACAO" novoValor="Doutorado"
+alteraPesquisador email="matheusgr@computacao.ufcg.edu.br" atributo="DATA" novoValor="02/01/1975"
+alteraPesquisador email="matheusgr@computacao.ufcg.edu.br" atributo="UNIDADE" novoValor="DSC"
+alteraPesquisador email="hunterxhunter@1998" atributo="SEMESTRE" novoValor="4"
+alteraPesquisador email="hunterxhunter@1998" atributo="IEA" novoValor="9.5"
+
+
+#Exibindo pesquisadores
+
+expectError "Campo email nao pode ser nulo ou vazio." exibePesquisador email=""
+expectError "Pesquisador nao encontrado" exibePesquisador email="gagau@ccc.ufcg.edu.br"
+expect "killua zoldyck (estudante) - Interessado em eletricidade, o terceiro de cinco filhos da famosa familia Zaoldyeck. - hunterxhunter@1998 - https://godspeed - 4o SEMESTRE - 9.5" exibePesquisador email="hunterxhunter@1998"
+expect "Matheus Gaudencio (professor) - Um tchuchucador de respeito - matheusgr@computacao.ufcg.edu.br - https://omeMaisLindoDeComputacao - Doutorado - DSC - 02/01/1975" exibePesquisador email="matheusgr@computacao.ufcg.edu.br"
+
+#################### US7 ####################
+
+#Ativando FER1
+#Cadastrando 1 item em A4
+#ASSOCIANDO COM1 E COM2 com A1
+#ASSOCIANDO FER1 com A2
+
+#associando atividades
+
+expect "true" associaAtividade codigoPesquisa="COM1" codigoAtividade="A1"
+expectError "Campo codigoPesquisa nao pode ser nulo ou vazio." associaAtividade codigoPesquisa="" codigoAtividade="A2"
+expectError "Campo codigoAtividade nao pode ser nulo ou vazio." associaAtividade codigoPesquisa="COM1" codigoAtividade=""
+expectError "Pesquisa nao encontrada." associaAtividade codigoPesquisa="GOT8" codigoAtividade="A2"
+expectError "Pesquisa desativada." associaAtividade codigoPesquisa="PSI1" codigoAtividade="A2"
+expectError "Atividade nao encontrada" associaAtividade codigoPesquisa="COM1" codigoAtividade="A69"
+expect "false" associaAtividade codigoPesquisa="COM1" codigoAtividade="A1"
+
+
+#desassociando atividades
+expect "true" desassociaAtividade codigoPesquisa="COM1" codigoAtividade="A1"
+expectError "Campo codigoPesquisa nao pode ser nulo ou vazio." desassociaAtividade codigoPesquisa="" codigoAtividade="A2"
+expectError "Campo codigoAtividade nao pode ser nulo ou vazio." desassociaAtividade codigoPesquisa="COM1" codigoAtividade=""
+expectError "Pesquisa nao encontrada." desassociaAtividade codigoPesquisa="GOT8" codigoAtividade="A1"
+expectError "Pesquisa desativada." desassociaAtividade codigoPesquisa="PSI1" codigoAtividade="A1"
+expectError "Atividade nao encontrada" desassociaAtividade codigoPesquisa="COM1" codigoAtividade="A65"
+expect "false" desassociaAtividade codigoPesquisa="COM1" codigoAtividade="A1"
+
+
+#Executando atividades
+
+ativaPesquisa codigo="FER1"
+expect "true" associaAtividade codigoPesquisa="COM1" codigoAtividade="A1"
+expect "true" associaAtividade codigoPesquisa="COM2" codigoAtividade="A1"
+expect "true" associaAtividade codigoPesquisa="FER1" codigoAtividade="A2"
+
+cadastraItem codigo="A4" item="Monitoramento das hashtags como forma de tentar prever resultados das eleicoes"
+expectError "Atividade sem associacoes com pesquisas." executaAtividade codigoAtividade="A4" item=1 duracao=500
+executaAtividade codigoAtividade="A1" item=1 duracao=5
+expect "3" contaItensPendentes codigo="A1"
+expect "1" contaItensRealizados codigo="A1"
+
+executaAtividade codigoAtividade="A1" item=2 duracao=5
+executaAtividade codigoAtividade="A1" item=3 duracao=5
+executaAtividade codigoAtividade="A1" item=4 duracao=5
+expect "0" contaItensPendentes codigo="A1"
+expect "4" contaItensRealizados codigo="A1"
+
+executaAtividade codigoAtividade="A2" item=1 duracao=8
+expect "2" contaItensPendentes codigo="A2"
+expect "1" contaItensRealizados codigo="A2"
+executaAtividade codigoAtividade="A2" item=3 duracao=8
+expect "1" contaItensPendentes codigo="A2"
+expect "2" contaItensRealizados codigo="A2"
+
+expectError "Campo codigoAtividade nao pode ser nulo ou vazio." executaAtividade codigoAtividade="" item=2 duracao=8
+expectError "Item nao pode ser nulo ou negativo." executaAtividade codigoAtividade="A2" item=-2 duracao=8
+expectError "Item nao encontrado." executaAtividade codigoAtividade="A2" item=9 duracao=8
+expectError "Duracao nao pode ser nula ou negativa." executaAtividade codigoAtividade="A2" item=9 duracao=-6
+expectError "Item ja executado." executaAtividade codigoAtividade="A2" item=3 duracao=80
+
+
+#Cadastrando resultados
+
+expect 1 cadastraResultado codigoAtividade="A1" resultado="Analise nao foi possivel."
+expect 2 cadastraResultado codigoAtividade="A1" resultado="Ocorreu sem nenhum problema aparente o monitoramento de chats dos alunos de computacao do primeiro periodo em diversas plataformas."
+expect 3 cadastraResultado codigoAtividade="A1" resultado="Criou-se um bom banco de dados em cima dessa analise, para que diversas pesquisas tenham acesso."
+expect 1 cadastraResultado codigoAtividade="A2" resultado="Verificou-se um interesse no mercado."
+expect 2 cadastraResultado codigoAtividade="A2" resultado="Nos horarios em que ocorreram os itens, verificou-se uma maior procura por cervejas geladas."
+expect 3 cadastraResultado codigoAtividade="A2" resultado="Nao houve situacoes de mal estar de nenhu participante ao ingerir o produto."
+expect 4 cadastraResultado codigoAtividade="A2" resultado="Criacao de mais vagas de projeto e monitoria."
+expect 5 cadastraResultado codigoAtividade="A2" resultado="Nilson sexta."	
+expectError "Campo codigoAtividade nao pode ser nulo ou vazio." cadastraResultado codigoAtividade="" resultado="happy halloween"
+expectError "Resultado nao pode ser nulo ou vazio." cadastraResultado codigoAtividade="FER1" resultado=""
+
+
+#Removendo resultados
+
+expect true removeResultado codigoAtividade="A1" numeroResultado=1
+expect true removeResultado codigoAtividade="A2" numeroResultado=4
+expectError "Campo codigoAtividade nao pode ser nulo ou vazio." removeResultado codigoAtividade="" numeroResultado=1
+expectError "Atividade nao encontrada" removeResultado codigoAtividade="A420" numeroResultado=1
+expectError "numeroResultado nao pode ser nulo ou negativo." removeResultado codigoAtividade="A1" numeroResultado=-1
+expectError "Resultado nao encontrado." removeResultado codigoAtividade="A1" numeroResultado=10
+
+#listando resultados
+
+expect "Ocorreu sem nenhum problema aparente o monitoramento de chats dos alunos de computacao do primeiro periodo em diversas plataformas. | Criou-se um bom banco de dados em cima dessa analise, para que diversas pesquisas tenham acesso." listaResultados codigoAtividade="A1"
+expect "Verificou-se um interesse no mercado. | Nos horarios em que ocorreram os itens, verificou-se uma maior procura por cervejas geladas. | Nao houve situacoes de mal estar de nenhu participante ao ingerir o produto. | Nilson sexta." listaResultados codigoAtividade="A2"
+expectError "Campo codigoAtividade nao pode ser nulo ou vazio." listaResultados codigoAtividade=""
+expectError "Atividade nao encontrada" listaResultados codigoAtividade="cicada3301"
+
+
+#Olhando as duracoes
+
+expect 20 getDuracao codigoAtividade="A1"
+expect 16 getDuracao codigoAtividade="A2"
+expectError "Campo codigoAtividade nao pode ser nulo ou vazio." getDuracao codigoAtividade=""
+expectError "Atividade nao encontrada" getDuracao codigoAtividade="A420"
+
+#################### US8 ####################
+
+#Cadastro de algumas coisas para testar na busca
+cadastraPesquisador nome="Gaara" funcao="estudante" biografia="Interessado na computacao com areia e em lutar com o rock lee ao som de linkin park." email="gaaraxrocklee@12LinkinPark" fotoURL="https://areiaMassa"
+cadastraProblema descricao="O problema causado pela areia na segunda guerra mundial ninja de computacao." viabilidade=4
+cadastraObjetivo tipo="GERAL" descricao="Diminuir a dor no coracao dos estudantes de computacao depois de ver rock lee vs gaara ao som de linkin park." aderencia=4 viabilidade=2
+cadastraAtividade Descricao="Monitoramento por ninjas de computacao na guerra ninja." nivelRisco="BAIXO" descricaoRisco="Por se tratar de apenas um monitoramento, o risco nao e elevado."
+
+#buscando o primeiro resultado de um termo
+
+expect "COM2: computacao, poo | COM1: Homofobia em mensagens online de alunos de computacao do primeiro periodo. | COM1: computacao, homofobia | gaaraxrocklee@12LinkinPark: Interessado na computacao com areia e em lutar com o rock lee ao som de linkin park. | P4: O problema causado pela areia na segunda guerra mundial ninja de computacao. | P1: O problema do discurso homofobico em chats online de alunos de computacao de primeiro periodo | O6: Diminuir a dor no coracao dos estudantes de computacao depois de ver rock lee vs gaara ao som de linkin park. | O1: Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao. | A5: Monitoramento por ninjas de computacao na guerra ninja. | A1: Monitoramento de chats dos alunos de computacao do primeiro periodo." busca termo="computacao"
+expect "ELE1: Aumento da evasao no numero de eleitores paraibanos. | ELE1: eleicao, paraiba" busca termo="parai"
+expect "" busca termo="nao vou chorar, nem me arrepender"
+expectError "Campo termo nao pode ser nulo ou vazio." busca termo=""
+
+
+#buscando um resultado esecifico da procura por um termo
+
+expect "COM1: computacao, homofobia" busca termo="computacao" numeroDoResultado=3
+expect "gaaraxrocklee@12LinkinPark: Interessado na computacao com areia e em lutar com o rock lee ao som de linkin park." busca termo="computacao" numeroDoResultado=4
+expectError "Campo termo nao pode ser nulo ou vazio." busca termo="" numeroDoResultado=1
+expectError "Numero do resultado nao pode ser negativo" busca termo="computacao" numeroDoResultado=-6
+expectError "Entidade nao encontrada." busca termo="computacao" numeroDoResultado=42
+
+
+#contando quantos resultados aparecem quando procura um termo. 
+
+expectError "Campo termo nao pode ser nulo ou vazio." contaResultadosBusca termo=""
+expectError "Nenhum resultado encontrado" contaResultadosBusca termo="Ziggy Stardust"
+expect 10 contaResultadosBusca termo="computacao"
+
+#################### US9 ####################
+
+#Criando atividades 6-14
+
+cadastraAtividade Descricao="Plantio de um grao de feijao em um algodao." nivelRisco="ALTO" descricaoRisco="Por se tratar de uma vida, o risco e extremamente elevado."
+cadastraAtividade Descricao="Analise do comportamento dos alunos de computacao com os alunos de arq/urb." nivelRisco="ALTO" descricaoRisco="Por se tratar de uma analise a partir de denuncias de um comportamento hostil, o risco e extremamente elevado."
+cadastraAtividade Descricao="Testando se a terra e plana" nivelRisco="BAIXO" descricaoRisco="Por se tratar de uma atividade que ja se sabe que seus resultados, sendo assim uma atividade simbolica, seu risco e hiperbólicamente baixo."
+cadastraAtividade Descricao="Analise de quantas maos levantadas sao necessarias para Goku fazer uma Genki Dama que consiga derrotar Saitama" nivelRisco="ALTO" descricaoRisco="Por se tratar de uma vida, o risco e extremamente elevado."
+cadastraAtividade Descricao="Busca e analise de uma razao para a Netflix cancelar BoJack Horseman" nivelRisco="ALTO" descricaoRisco="Nao existe uma razao plausivel, assim o risco e elevado."
+cadastraAtividade Descricao="Demonstracao de amor pela HBO por estar produzindo novos episodios de Adventure Time." nivelRisco="BAIXO" descricaoRisco="Sem risco, so demonstracao de amor"
+cadastraAtividade Descricao="Mudancas nas relacoes do instagram, apos a ocultacao do numero de curtidas das postagens." nivelRisco="ALTO" descricaoRisco="Por envolver uma crise economica brutal, com diversas blogueirinhas perdendo seus empregos, e de uma crise social, com diversas pessoas perdendo o rummo de suas vidas, o risco e extremamente elevado."
+cadastraAtividade Descricao="Analise das relacoes sociais em Cyberpunk 2077" nivelRisco="MEDIO" descricaoRisco="Por se tratar apenas de um possivel futuro, sem confirmacoes concretas de que ele ocorrera, seu risco e medio."
+cadastraAtividade Descricao="Ponderacao do por que Imagine dragons e tao bom." nivelRisco="BAIXO" descricaoRisco="Sem risco, so provar algo obvio."
+
+#Definindo ordem das atividades
+defineProximaAtividade idPrecedente="A2" idSubsquente="A1"
+defineProximaAtividade idPrecedente="A5" idSubsquente="A6"
+defineProximaAtividade idPrecedente="A6" idSubsquente="A8"
+defineProximaAtividade idPrecedente="A8" idSubsquente="A7"
+defineProximaAtividade idPrecedente="A7" idSubsquente="A13"
+defineProximaAtividade idPrecedente="A13" idSubsquente="A9"
+defineProximaAtividade idPrecedente="A9" idSubsquente="A10"
+expectError "Atividade ja possui uma subsequente." defineProximaAtividade idPrecedente="A9" idSubsquente="A12"  
+defineProximaAtividade idPrecedente="A12" idSubsquente="A11"
+defineProximaAtividade idPrecedente="A11" idSubsquente="A10"
+defineProximaAtividade idPrecedente="A1" idSubsquente="A4"
+expectError "Atividade nao pode ser nulo ou vazio." defineProximaAtividade idPrecedente="" idSubsquente="A4"
+expectError "Atividade nao pode ser nulo ou vazio." defineProximaAtividade idPrecedente="A4" idSubsquente=""
+expectError "Atividade nao encontrada." defineProximaAtividade idPrecedente="A4" idSubsquente="A42"
+expectError "Atividade nao encontrada." defineProximaAtividade idPrecedente="A666" idSubsquente="A4"
+expectError "Atividade nao encontrada." defineProximaAtividade idPrecedente="A4" idSubsquente="O1"
+expectError "Criacao de loops negada." defineProximaAtividade idPrecedente="A11" idSubsquente="A5"
+
+
+#Contando quantas atividades tem depois
+expect 2 contaProximos idPrecedente="A2"
+expect 0 contaProximos idPrecedente="A4" 
+expect 6 contaProximos idPrecedente="A5" 
+expect 2 contaProximos idPrecedente="A12" 
+expect 3 contaProximos idPrecedente="A7" 
+expect  contaProximos idPrecedente="" falta fazer
+expectError "Atividade nao pode ser nulo ou vazio." contaProximos idPrecedente=""
+expectError "Atividade nao encontrada." tiraProximaAtividade idPrecedente="A42"
+
+
+#Retirando da ordem de atividades
+tiraProximaAtividade idPrecedente="A1"
+tiraProximaAtividade idPrecedente="A4" 
+tiraProximaAtividade idPrecedente="A5"
+tiraProximaAtividade idPrecedente="A8"
+tiraProximaAtividade idPrecedente="A10"
+defineProximaAtividade idPrecedente="A5" idSubsquente="A14"
+
+expect 1 contaProximos idPrecedente="A5" 
+expect 0 contaProximos idPrecedente="A4"
+expect 1 contaProximos idPrecedente="A6"
+expect 2 contaProximos idPrecedente="A13"
+
+expectError "Atividade nao pode ser nulo ou vazio." tiraProximaAtividade idPrecedente=""
+expectError "Atividade nao encontrada." tiraProximaAtividade idPrecedente="A42"
+
+
+#Retornando o "x" proximo de uma atividade especifica
+expect "A1" pegaProximo idAtividade="A2" enesimaAtividade=1
+expectError "Atividade inexistente." pegaProximo idAtividade="A2" enesimaAtividade=2
+expectError "Atividade inexistente." pegaProximo idAtividade="A5" enesimaAtividade=3
+expect "A10" pegaProximo idAtividade="A7" enesimaAtividade=3
+expect "A1" pegaProximo idAtividade="A2" enesimaAtividade=1
+expectError "Atividade nao pode ser nulo ou vazio." pegaProximo idAtividade="" enesimaAtividade=3
+expectError "Atividade nao pode ser nulo ou vazio." pegaProximo idAtividade="A2" enesimaAtividade=0
+
+
+#Pegando a atividade de maior risco
+expect "A10" pegaMaiorRiscoAtividades idAtividade="A13" 
+expect "Nao existe proxima atividade." pegaMaiorRiscoAtividades idAtividade="A1" 
+expect "A10" pegaMaiorRiscoAtividades idAtividade="A7" 
+expect "A10" pegaMaiorRiscoAtividades idAtividade="A12" 
+expectError "Atividade nao pode ser nulo ou vazio." pegaMaiorRiscoAtividades idAtividade=""
+expectError "Atividade nao encontrada." pegaMaiorRiscoAtividades idAtividade="A420"
+
+#################### US10 ####################
+
+#Cadastrando COM3, deixando-a ativada, e relacionando com A1, A2, A5, A6, A7, A8, A9, A10, A12
+
+cadastraPesquisa descricao="Dificuldade de pensar em bons exemplos para os testes do projeto da disciplina LP2" campoDeInteresse="computacao, bloqueio criativo, insonia"
+expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A1"
+expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A2"
+expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A5"
+expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A7"
+expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A8"
+expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A9"
+expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A10"
+expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A12"
+expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A14"
+cadastraItem codigo="A10" item="Busca por provas que a netflix esta se auto sabotando cancelando seus melhores shows"
+cadastraItem codigo="A14" item="Escutar Night Visions"
+cadastraItem codigo="A14" item="Escutar Smoke + Mirrors"
+cadastraItem codigo="A14" item="Escutar Evolve"
+cadastraItem codigo="A14" item="Escutar Origins"
+cadastraItem codigo="A14" item="Comparacao com outras bandas de rock"
+cadastraItem codigo="A7" item="Alunos de computacao atrapalhando atividades em campo dos alunos de arq/urb."
+cadastraItem codigo="A7" item="Indiretas no twitter."
+executaAtividade codigoAtividade="A7" item=1 duracao=1
+executaAtividade codigoAtividade="A14" item=1 duracao=15
+executaAtividade codigoAtividade="A14" item=2 duracao=15
+executaAtividade codigoAtividade="A14" item=3 duracao=15
+executaAtividade codigoAtividade="A14" item=4 duracao=15
+expect 1 cadastraResultado codigoAtividade="A7" resultado="Analise encontrou um pequeno grupo de alunos panacas o bastatnte para atrapalhar (conscientemente) o aprendizado de outras pessoas, apenas por que o curso era diferente."
+
+
+
+#Configurando estrategias e pegando as proximas atividades
+
+expectError "Pesquisa nao pode ser nula ou vazia." proximaAtividade codigoPesquisa=""
+expectError "Pesquisa sem atividades com pendencias." proximaAtividade codigoPesquisa="COM1"
+expectError "Pesquisa nao encontrada." proximaAtividade codigoPesquisa="ENE1"
+expectError "Pesquisa desativada." proximaAtividade codigoPesquisa="PSI1"
+expectError "Estrategia nao pode ser nula ou vazia." configuraEstrategia estrategia=""
+expectError "Valor invalido da estrategia" configuraEstrategia estrategia="DO_INGLES_STRATEGY"
+expect "A7" proximaAtividade codigoPesquisa="COM3"
+configuraEstrategia estrategia="MENOS_PENDENCIAS"
+expect "A10" proximaAtividade codigoPesquisa="COM3"
+configuraEstrategia estrategia="MAIOR_RISCO"
+expect "A12" proximaAtividade codigoPesquisa="COM3"
+configuraEstrategia estrategia="MAIOR_DURACAO"
+expect "A14" proximaAtividade codigoPesquisa="COM3"
+configuraEstrategia estrategia="MAIS_ANTIGA"
+expect "A7" proximaAtividade codigoPesquisa="COM3"
