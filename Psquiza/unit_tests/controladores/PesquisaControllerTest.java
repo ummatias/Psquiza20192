@@ -13,9 +13,10 @@ class PesquisaControllerTest {
 	private PesquisaController pesquisaController;
 	private ProblemaObjetivoController problemaObjetivoController;
 
+
 	@BeforeEach
 	void instanciarController() {
-		this.pesquisaController = new PesquisaController();
+		this.pesquisaController = new PesquisaController(null, problemaObjetivoController, null);
 		pesquisaController.cadastraPesquisa(
 				"Pesquisa sobre as implicacoes psicologicas da pressao gerada na universidade.",
 				"Universidade, Problema, Psico");
@@ -303,21 +304,21 @@ class PesquisaControllerTest {
 
 	@Test
 	void testAssociaAtividadeComSucesso() {
-		Atividade atv1 = new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		new Atividade("A1", "Questionario", "baixo", "n tem risco");
 
-		assertTrue(pesquisaController.associaAtividade("UNI1", atv1));
+		assertTrue(pesquisaController.associaAtividade("UNI1", "A1"));
 	}
 
 	@Test
 	void testAssociaAtividadeCodVazioNulo() {
-		Atividade atv1 = new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		new Atividade("A1", "Questionario", "baixo", "n tem risco");
 
 		assertThrows(IllegalArgumentException.class, () -> {
-			pesquisaController.associaAtividade("", atv1);
+			pesquisaController.associaAtividade("", "A1");
 		});
 
 		assertThrows(NullPointerException.class, () -> {
-			pesquisaController.associaAtividade(null, atv1);
+			pesquisaController.associaAtividade(null, "");
 		});
 	}
 
@@ -331,29 +332,29 @@ class PesquisaControllerTest {
 
 	@Test
 	void testAssociaAtividadeJaAssociada() {
-		Atividade atv1 = new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		new Atividade("A1", "Questionario", "baixo", "n tem risco");
 
-		pesquisaController.associaAtividade("UNI1", atv1);
+		pesquisaController.associaAtividade("UNI1", "A1");
 
-		assertFalse(pesquisaController.associaAtividade("UNI1", atv1));
+		assertFalse(pesquisaController.associaAtividade("UNI1", "A1"));
 	}
 
 	@Test
 	void testAssociaAtividadePesquisaDesativada() {
-		Atividade atv1 = new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		new Atividade("A1", "Questionario", "baixo", "n tem risco");
 		pesquisaController.encerraPesquisa("UNI1", "to só testando hehe");
 
 		assertThrows(IllegalArgumentException.class, () -> {
-			pesquisaController.associaAtividade("UNI1", atv1);
+			pesquisaController.associaAtividade("UNI1", "A1");
 		});
 	}
 	
 	@Test
 	void testAssociaAtividadePesquisaInexistente() {
-		Atividade atv1 = new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		new Atividade("A1", "Questionario", "baixo", "n tem risco");
 		
 		assertThrows(IllegalArgumentException.class, () -> {
-			pesquisaController.associaAtividade("UNI2", atv1);
+			pesquisaController.associaAtividade("UNI2", "A1");
 		});
 	}	
 
@@ -361,16 +362,16 @@ class PesquisaControllerTest {
 
 	@Test
 	void testDesassociaAtividadeComSucesso() {
-		Atividade atv1 = new Atividade("A1", "Questionario", "baixo", "n tem risco");
-		pesquisaController.associaAtividade("UNI1", atv1);
+		new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		pesquisaController.associaAtividade("UNI1", "A1");
 
 		assertTrue(pesquisaController.desassociaAtividade("UNI1", "A1"));
 	}
 
 	@Test
 	void testDesassociaAtividadeCodVazioNulo() {
-		Atividade atv1 = new Atividade("A1", "Questionario", "baixo", "n tem risco");
-		pesquisaController.associaAtividade("UNI1", atv1);
+		new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		pesquisaController.associaAtividade("UNI1", "A1");
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisaController.desassociaAtividade("", "A1");
@@ -383,9 +384,9 @@ class PesquisaControllerTest {
 
 	@Test
 	void testDesassociaAtividadeJaDesassociada() {
-		Atividade atv1 = new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		new Atividade("A1", "Questionario", "baixo", "n tem risco");
 
-		pesquisaController.associaAtividade("UNI1", atv1);
+		pesquisaController.associaAtividade("UNI1", "A1");
 		pesquisaController.desassociaAtividade("UNI1", "A1");
 
 		assertFalse(pesquisaController.desassociaAtividade("UNI1", "A1"));
@@ -393,8 +394,8 @@ class PesquisaControllerTest {
 	
 	@Test
 	void testDesassociaAtividadePesquisaDesativada() {
-		Atividade atv1 = new Atividade("A1", "Questionario", "baixo", "n tem risco");
-		pesquisaController.associaAtividade("UNI1", atv1);
+		new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		pesquisaController.associaAtividade("UNI1", "A1");
 		pesquisaController.encerraPesquisa("UNI1", "to só testando hehe");
 
 		assertThrows(IllegalArgumentException.class, () -> {

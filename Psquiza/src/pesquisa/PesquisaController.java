@@ -338,7 +338,9 @@ public class PesquisaController {
 	public boolean associaAtividade(String codigoPesquisa,String codigoAtividade) {
 		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validaPesquisaAtiva(pesquisaEhAtiva(codigoPesquisa));
+		atividadeController.validaAtividadeExiste(codigoAtividade);
+		validaPesquisaExiste(codigoPesquisa);
+		validaPesquisaAtiva(codigoPesquisa);
 		
 		Atividade atividade = atividadeController.getAtividade(codigoAtividade);
 		atividadesAssociadas.add(atividade);
@@ -356,7 +358,8 @@ public class PesquisaController {
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
 		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validaPesquisaAtiva(pesquisaEhAtiva(codigoPesquisa));
+		validaPesquisaExiste(codigoPesquisa);
+		validaPesquisaAtiva(codigoPesquisa);
 		atividadeController.validaAtividadeExiste(codigoAtividade);
 		
 		Atividade atividade = atividadeController.getAtividade(codigoAtividade);
@@ -444,12 +447,22 @@ public class PesquisaController {
 	 */
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
 		
-		ValidadorEntradas.validaAtividadeEstaAssociada(getAtividades(), atividadeController.getAtividade(codigoAtividade));
+		validaAtividadeEstaAssociada(getAtividades(), atividadeController.getAtividade(codigoAtividade));
 		
 		atividadeController.executaAtividade(codigoAtividade, item, duracao);
 	}
 	
 	
+	/** Método que valida se uma atividade está associada a alguma pesquisa do sistema
+	 * @param atividades - atividades do sistema associadas a pesquisas.
+	 * @param atividade - atividade a ser validada.
+	 */
+	private void validaAtividadeEstaAssociada(List<Atividade> atividades, Atividade atividade) {
+		if (!atividades.contains(atividade)) {
+			throw new IllegalArgumentException("Atividade sem associacoes com pesquisas.");
+		}
+	}
+
 	/**
 	 * Valida se determinada pesquisa está cadastrada no sistema e
 	 * lança uma exceção caso não esteja
@@ -509,6 +522,9 @@ public class PesquisaController {
 		
 	}
 	
+	/**Método que verifica se a pesquisa não contem nenhuma atividade com item pendente
+	 * @param codigoPesquisa - código da pesquisa a ser validada.
+	 */
 	private void validaPesquisaSemPendencias(String codigoPesquisa) {
 		List<Atividade> atividades = pesquisasCadastradas.get(codigoPesquisa).getAtividades();
 		for (Atividade atividade:atividades) {
