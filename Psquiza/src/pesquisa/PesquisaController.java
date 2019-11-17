@@ -1,5 +1,6 @@
 package pesquisa;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,7 +29,7 @@ import validadores.ValidadorEntradas;
  * @author Mateus Matias Ribeiro - 119111153
  *
  */
-public class PesquisaController {
+public class PesquisaController implements Serializable{
 	/**
 	 * Mapa de pesquisas cadastradas no sistema.
 	 */

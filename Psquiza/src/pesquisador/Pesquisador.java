@@ -1,5 +1,7 @@
 package pesquisador;
 
+import java.io.Serializable;
+
 import validadores.ValidadorEntradas;
 
 /**
@@ -10,7 +12,7 @@ import validadores.ValidadorEntradas;
  * @author Emilly de Albuquerque Oliveira - 119111162
  *
  */
-public class Pesquisador implements Comparable<Pesquisador> {
+public class Pesquisador implements Comparable<Pesquisador> , Serializable{
 
 	/**
 	 * Atributo com o nome do pesquisador

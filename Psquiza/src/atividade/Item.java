@@ -1,5 +1,7 @@
 package atividade;
 
+import java.io.Serializable;
+
 /**
  * Classe que modela um item de uma ativade, podendo ser
  * descrito como "Realizado" ou "Pendente".
@@ -7,7 +9,7 @@ package atividade;
  * @author Mateus Matias Ribeiro - 119111153
  *
  */
-public class Item {
+public class Item implements Serializable{
 	
 	/**
 	 * Valor booleano que representa o status de um item

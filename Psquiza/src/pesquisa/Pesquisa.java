@@ -1,5 +1,6 @@
 package pesquisa;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,7 +21,7 @@ import validadores.ValidadorEntradas;
  * @author Mateus Matias Ribeiro - 119111153
  *
  */
-public class Pesquisa implements Comparable<Pesquisa>{
+public class Pesquisa implements Comparable<Pesquisa>, Serializable{
 	/**
 	 * Descricao da pesquisa
 	 */

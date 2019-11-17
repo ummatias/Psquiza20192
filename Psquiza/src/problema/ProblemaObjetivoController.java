@@ -1,5 +1,6 @@
 package problema;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,7 +17,7 @@ import validadores.ValidadorEntradas;
  * @author José Igor de Farias Gomes - 119110692
  *
  */
-public class ProblemaObjetivoController {
+public class ProblemaObjetivoController implements Serializable{
 
 	/**
 	 * Mapa que relaciona os problemas cadastrados no sistema aos seus códigos.

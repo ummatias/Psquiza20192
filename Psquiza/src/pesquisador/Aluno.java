@@ -1,5 +1,7 @@
 package pesquisador;
 
+import java.io.Serializable;
+
 import validadores.ValidadorEntradas;
 
 /**
@@ -7,7 +9,7 @@ import validadores.ValidadorEntradas;
  * Possui semestre e IEA
  *
  */
-public class Aluno implements Especialidade{
+public class Aluno implements Especialidade, Serializable{
 
 	/**
 	 * Semestre de ingresso do aluno
