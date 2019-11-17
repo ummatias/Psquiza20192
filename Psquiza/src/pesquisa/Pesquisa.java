@@ -401,7 +401,7 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		FileWriter resumo = new FileWriter("./" + this.codigo+ ".txt");
 		PrintWriter grava = new PrintWriter(resumo);
 		
-		grava.println("- Pesquisa: " + this.toString() );"
+		grava.println("- Pesquisa: " + this.toString() );
 		
 		grava.print("   - Pesquisadores:" + System.lineSeparator() + 
 				 listaPesquisadores());
