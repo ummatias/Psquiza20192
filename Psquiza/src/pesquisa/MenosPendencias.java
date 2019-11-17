@@ -26,7 +26,7 @@ public class MenosPendencias implements Estrategia {
 				if(cont == 0) {
 					cont = atividade.contaItensPendentes();
 					codeAtividade = atividade.getCodigo();}
-				if ( atividade.contaItensPendentes() < 0) {
+				if ( atividade.contaItensPendentes() < cont) {
 					cont = atividade.contaItensPendentes();
 					codeAtividade = atividade.getCodigo();
 				}

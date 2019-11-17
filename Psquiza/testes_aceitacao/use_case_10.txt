@@ -17,6 +17,7 @@ cadastraItem codigo="A14" item="Escutar Origins"
 cadastraItem codigo="A14" item="Comparacao com outras bandas de rock"
 cadastraItem codigo="A7" item="Alunos de computacao atrapalhando atividades em campo dos alunos de arq/urb."
 cadastraItem codigo="A7" item="Indiretas no twitter."
+cadastraItem codigo="A7" item="Analisar as redes socias dos individuos ativos nos eventos dessa discurssao"
 executaAtividade codigoAtividade="A7" item=1 duracao=1
 executaAtividade codigoAtividade="A14" item=1 duracao=15
 executaAtividade codigoAtividade="A14" item=2 duracao=15
@@ -38,7 +39,7 @@ expect "A7" proximaAtividade codigoPesquisa="COM3"
 configuraEstrategia estrategia="MENOS_PENDENCIAS"
 expect "A10" proximaAtividade codigoPesquisa="COM3"
 configuraEstrategia estrategia="MAIOR_RISCO"
-expect "A12" proximaAtividade codigoPesquisa="COM3"
+expect "A7" proximaAtividade codigoPesquisa="COM3"
 configuraEstrategia estrategia="MAIOR_DURACAO"
 expect "A14" proximaAtividade codigoPesquisa="COM3"
 configuraEstrategia estrategia="MAIS_ANTIGA"
