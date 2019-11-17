@@ -204,7 +204,7 @@ public class Pesquisa implements Comparable<Pesquisa>{
 	/**
 	 * Método que desassocia a atividade a pesquisa.
 	 * 
-	 * @return
+	 * @return true se conseguir remover com sucesso, false se não conseguir
 	 */
 	public boolean desassociaAtividade(Atividade atividade) {
 
@@ -213,6 +213,10 @@ public class Pesquisa implements Comparable<Pesquisa>{
 			return true;
 		} 	return false;}
 	
+	/** Método que retorna uma atividade especifica da pesquisa
+	 * @param codigo - codigo da pesquisa
+	 * @return a atividade.
+	 */
 	public Atividade getAtividade(String codigo) {
 		for (Atividade atividade: atividades) {
 			if (codigo.equals(atividade.getCodigo())) {
@@ -290,6 +294,9 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		return false;
 	}
 
+	/** Método que retorna o problema da pesquisa
+	 * @return o problema da pesquisa.
+	 */
 	public Problema getProblema() {
 		return this.problema;
 	}
@@ -380,6 +387,9 @@ public class Pesquisa implements Comparable<Pesquisa>{
 
 	}
 
+	/** Método que retorna as atividades associadas a essa pesquisa
+	 * @return as atividades associadas a essa pesquisa.
+	 */
 	public List<Atividade> getAtividades() {
 		return atividades;
 	}
