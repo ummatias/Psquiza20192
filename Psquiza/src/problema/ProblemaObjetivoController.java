@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import pesquisa.Pesquisa;
 import validadores.ValidadorEntradas;
 
 /**
@@ -106,11 +105,21 @@ public class ProblemaObjetivoController {
 	 */
 	public void apagaProblema(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validaProblemaExiste(problemas, codigo);
+		validaProblemaExiste(problemas, codigo);
 
 		problemas.remove(codigo);
 
 
+	}
+
+	/** Método que valida se determinado problema existe no sistema
+	 * @param problemas - todos os problemas do sistema
+	 * @param codigo - codigo do problema a ser verificado.
+	 */
+	private void validaProblemaExiste(Map<String, Problema> problemas, String codigo) {
+		if (!problemas.containsKey(codigo)) {
+			throw new IllegalArgumentException("Problema nao encontrado");
+		}
 	}
 
 	/**
@@ -120,8 +129,18 @@ public class ProblemaObjetivoController {
 	 */
 	public void apagaObjetivo(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validaObjetivoExiste(objetivos, codigo);
+		validaObjetivoExiste(objetivos, codigo);
 		objetivos.remove(codigo);
+	}
+
+	/** Método que valida se determinado objetivo existe no sistema
+	 * @param objetivos - todos os objetivos do sistema
+	 * @param codigo - codigo do objetivo a ser verificado.
+	 */
+	private void validaObjetivoExiste(Map<String, Objetivo> objetivos, String codigo) {
+		if (!objetivos.containsKey(codigo)) {
+			throw new IllegalArgumentException("Objetivo nao encontrado");
+		}
 	}
 
 	/**
@@ -132,7 +151,7 @@ public class ProblemaObjetivoController {
 	 */
 	public String exibeProblema(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validaProblemaExiste(problemas, codigo);
+		validaProblemaExiste(problemas, codigo);
 		return problemas.get(codigo).toString();
 	}
 
@@ -144,7 +163,7 @@ public class ProblemaObjetivoController {
 	 */
 	public String exibeObjetivo(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validaObjetivoExiste(objetivos, codigo);
+		validaObjetivoExiste(objetivos, codigo);
 		
 		return objetivos.get(codigo).toString();
 	}

@@ -192,7 +192,7 @@ public class Atividade implements Comparable<Atividade> {
 	 *            - horas gastas com a atividade
 	 */
 	public void executaAtividade(int item, int horas) {
-		ValidadorEntradas.validaItemExiste(itens, item);
+		validaItemExiste(itens, item);
 
 		if (itens.get(item - 1).getStatus()) {
 			throw new IllegalArgumentException("Item ja executado.");
@@ -200,6 +200,16 @@ public class Atividade implements Comparable<Atividade> {
 
 		this.duracao += horas;
 		itens.get(item - 1).setStatus(true);
+	}
+
+	/** Valida se item existe
+	 * @param itens - todos os itens da atividade
+	 * @param item - item a ser validado
+	 */
+	private void validaItemExiste(List<Item> itens, int item) {
+		if (itens.size() < item) {
+			throw new IllegalArgumentException("Item nao encontrado.");
+		}	
 	}
 
 	/**
@@ -222,7 +232,7 @@ public class Atividade implements Comparable<Atividade> {
 	 * @return true se o resultado foi removido com sucesso.
 	 */
 	public boolean removeResultado(int numeroResultado) {
-		ValidadorEntradas.validaResultadoExiste(resultados, numeroResultado);
+		validaResultadoExiste(resultados, numeroResultado);
 
 		if (resultados.get(numeroResultado) == null) {
 			return false;
@@ -232,6 +242,16 @@ public class Atividade implements Comparable<Atividade> {
 			return true;
 		}
 		return false;
+	}
+
+	/** Método que valida se determinado resultado existe na atividade
+	 * @param resultados - todos os resultados da atividade
+	 * @param numeroResultado - codigo do resultado a ser validado.
+	 */
+	private void validaResultadoExiste(Map<Integer, String> resultados, int numeroResultado) {
+		if (numeroResultado > resultados.size()) {
+			throw new IllegalArgumentException("Resultado nao encontrado.");
+		}
 	}
 
 	/**
