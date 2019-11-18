@@ -1,7 +1,6 @@
-package ordenacao;
+package pesquisa;
 
 import java.util.Comparator;
-import pesquisa.Pesquisa;
 
 public interface OrdenaPesquisa extends Comparator<Pesquisa>{
 	@Override

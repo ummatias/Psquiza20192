@@ -1,0 +1,37 @@
+#Gravando resumo das pesquisas COM1, COM2 e COM3
+#Gravando resumo dos resultados COM1, COM2 e COM3
+#Criando P5 e O7
+#Associando COM3 e eliane@computacao.ufcg.edu.br, borutofathers@1997, livia@computacao.ufcg.edu.br.
+#Associando COM3 e P5 e O7.
+
+
+expect true associaPesquisador idPesquisa="COM1" emailPesquisador="eliane@computacao.ufcg.edu.br"
+expect true associaPesquisador idPesquisa="COM3" emailPesquisador="eliane@computacao.ufcg.edu.br"
+expect true associaPesquisador idPesquisa="COM3" emailPesquisador="borutofathers@1997"
+expect true associaPesquisador idPesquisa="COM3" emailPesquisador="livia@computacao.ufcg.edu.br"
+cadastraProblema descricao="A problematica do aluno de cc encarregado de criar testes para projetos." viabilidade=4
+cadastraObjetivo tipo="ESPECIFICO" descricao="Minimizar a quantidade de testes ruins." aderencia=1 viabilidade=1
+expect true associaProblema idPesquisa="COM3" idProblema="P5"
+expect true associaObjetivo idPesquisa="COM3" idObjetivo="O7"
+
+
+expectError "Pesquisa nao pode ser nula ou vazia." gravarResumo codigoPesquisa=""
+expectError "Pesquisa nao encontrada." gravarResumo codigoPesquisa="ENE1"
+gravarResumo codigoPesquisa="COM1"
+gravarResumo codigoPesquisa="COM2"
+gravarResumo codigoPesquisa="COM3"
+
+
+expectError "Pesquisa nao pode ser nula ou vazia." gravarResultados codigoPesquisa=""
+expectError "Pesquisa nao encontrada." gravarResultados codigoPesquisa="ENE1"
+gravarResultados codigoPesquisa="COM1"
+gravarResultados codigoPesquisa="COM2"
+gravarResultados codigoPesquisa="COM3"
+
+
+equalfiles ./easyaccept/COM1.txt ./COM1.txt 
+equalfiles ./easyaccept/COM2.txt ./COM2.txt 
+equalfiles ./easyaccept/COM3.txt ./COM3.txt 
+equalfiles ./easyaccept/COM1-Resultados.txt ./COM1-Resultados.txt 
+equalfiles ./easyaccept/COM2-Resultados.txt ./COM2-Resultados.txt 
+equalfiles ./easyaccept/COM3-Resultados.txt ./COM3-Resultados.txt

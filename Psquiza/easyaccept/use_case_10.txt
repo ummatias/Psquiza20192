@@ -1,0 +1,47 @@
+#Cadastrando COM3, deixando-a ativada, e relacionando com A1, A5, A7, A8, A9, A10, A12, A14
+
+cadastraPesquisa descricao="Dificuldade de pensar em bons exemplos para os testes do projeto da disciplina LP2" campoDeInteresse="computacao, bloqueio criativo, insonia"
+expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A1"
+expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A5"
+expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A7"
+expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A8"
+expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A9"
+expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A10"
+expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A12"
+expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A14"
+cadastraItem codigo="A10" item="Busca por provas que a netflix esta se auto sabotando cancelando seus melhores shows"
+cadastraItem codigo="A14" item="Escutar Night Visions"
+cadastraItem codigo="A14" item="Escutar Smoke + Mirrors"
+cadastraItem codigo="A14" item="Escutar Evolve"
+cadastraItem codigo="A14" item="Escutar Origins"
+cadastraItem codigo="A14" item="Comparacao com outras bandas de rock"
+cadastraItem codigo="A7" item="Alunos de computacao atrapalhando atividades em campo dos alunos de arq/urb."
+cadastraItem codigo="A7" item="Indiretas no twitter."
+cadastraItem codigo="A7" item="Analisar as redes socias dos individuos ativos nos eventos dessa discurssao"
+executaAtividade codigoAtividade="A7" item=1 duracao=1
+executaAtividade codigoAtividade="A14" item=1 duracao=15
+executaAtividade codigoAtividade="A14" item=2 duracao=15
+executaAtividade codigoAtividade="A14" item=3 duracao=15
+executaAtividade codigoAtividade="A14" item=4 duracao=15
+expect 1 cadastraResultado codigoAtividade="A7" resultado="Analise encontrou um pequeno grupo de alunos panacas o bastatnte para atrapalhar (conscientemente) o aprendizado de outras pessoas, apenas por que o curso era diferente."
+
+
+
+#Configurando estrategias e pegando as proximas atividades
+
+expectError "Pesquisa nao pode ser nula ou vazia." proximaAtividade codigoPesquisa=""
+expectError "Pesquisa sem atividades com pendencias." proximaAtividade codigoPesquisa="COM1"
+expectError "Pesquisa nao encontrada." proximaAtividade codigoPesquisa="ENE1"
+expectError "Pesquisa desativada." proximaAtividade codigoPesquisa="PSI1"
+expectError "Estrategia nao pode ser nula ou vazia." configuraEstrategia estrategia=""
+expectError "Valor invalido da estrategia" configuraEstrategia estrategia="DO_INGLES_STRATEGY"
+expect "A7" proximaAtividade codigoPesquisa="COM3"
+configuraEstrategia estrategia="MENOS_PENDENCIAS"
+expect "A10" proximaAtividade codigoPesquisa="COM3"
+configuraEstrategia estrategia="MAIOR_RISCO"
+expect "A7" proximaAtividade codigoPesquisa="COM3"
+configuraEstrategia estrategia="MAIOR_DURACAO"
+expect "A14" proximaAtividade codigoPesquisa="COM3"
+configuraEstrategia estrategia="MAIS_ANTIGA"
+expect "A7" proximaAtividade codigoPesquisa="COM3"
+

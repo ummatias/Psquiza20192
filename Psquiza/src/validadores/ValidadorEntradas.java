@@ -1,13 +1,5 @@
 package validadores;
 
-import java.util.List;
-import java.util.Map;
-
-import atividade.Atividade;
-import atividade.Item;
-import problema.Objetivo;
-import problema.Problema;
-
 public class ValidadorEntradas {
 
 	/**
@@ -240,32 +232,6 @@ public class ValidadorEntradas {
 	}
 
 	/**
-	 * Valida se uma atividade existe dentro de um map de atividades.
-	 * 
-	 * @param atividades
-	 *            Map de atividades para a validação.
-	 * @param codigo
-	 *            String contendo o código da atividade a ser validada.
-	 */
-	public static void validaAtividadeExiste(Map<String, Atividade> atividades, String codigo) {
-		if (!atividades.containsKey(codigo)) {
-			throw new IllegalArgumentException("Atividade nao encontrada");
-		}
-	}
-
-	public static void validaProblemaExiste(Map<String, Problema> problemas, String codigo) {
-		if (!problemas.containsKey(codigo)) {
-			throw new IllegalArgumentException("Problema nao encontrado");
-		}
-	}
-
-	public static void validaObjetivoExiste(Map<String, Objetivo> objetivos, String codigo) {
-		if (!objetivos.containsKey(codigo)) {
-			throw new IllegalArgumentException("Objetivo nao encontrado");
-		}
-	}
-
-	/**
 	 * Valida se uma string correspondente à uma data tem o formato "dd-mm-aaaa"
 	 * 
 	 * @param data
@@ -321,49 +287,33 @@ public class ValidadorEntradas {
 		}
 	}
 
+	/** Valida se a duração é acima de 0.
+	 * @param duracao - duração a ser validada
+	 */
 	public static void validaDuracao(int duracao) {
 		if (duracao < 1) {
 			throw new IllegalArgumentException("Duracao nao pode ser nula ou negativa.");
 		}
 	}
 
-	public static void validaPesquisaAtiva(boolean pesquisaEhAtiva) {
-		if (!pesquisaEhAtiva) {
-			throw new IllegalArgumentException("Pesquisa desativada.");
-		}
-	}
 
+	/** Valida se item não é nulo, negativo ou zero.
+	 * @param item - item a ser validado.
+	 */
 	public static void validaItem(int item) {
 		if ( item < 1) {
 			throw new IllegalArgumentException("Item nao pode ser nulo ou negativo.");
 		}
 	}
 
+	/**Valida se resultado não é nulo, negativo ou zero.
+	 * @param numeroResultado - codigo do resultado a ser validado
+	 */
 	public static void validaResultado(int numeroResultado) {
 		if (numeroResultado < 1)
 			throw new IllegalArgumentException("numeroResultado nao pode ser nulo ou negativo.");
 	}
 
-	public static void validaItemExiste(List<Item> itens, int item) {
-		if (itens.size() < item) {
-			throw new IllegalArgumentException("Item nao encontrado.");
-		}
-
-	}
-
-
-
-	public static void validaResultadoExiste(Map<Integer, String> resultados, int numeroResultado) {
-		if (numeroResultado > resultados.size()) {
-			throw new IllegalArgumentException("Resultado nao encontrado.");
-		}
-	}
-
-	public static void validaAtividadeEstaAssociada(List<Atividade> atividades, Atividade atividade) {
-		if (!atividades.contains(atividade)) {
-			throw new IllegalArgumentException("Atividade sem associacoes com pesquisas.");
-		}
-	}
 	/**
 	 * Valida uma string verificando se está é igual a uma função válida de pesquisador.
 	 * 
@@ -375,6 +325,21 @@ public class ValidadorEntradas {
 			throw new IllegalArgumentException(msg);
 		}
 		
+	}
+
+	/** Valida uma string verificando se é MAIOR RISCO, MAIOR DURAÇÃO, MAIS ANTIGA ou MENOS PENDENCIAS.
+	 * @param estrategia - estrategia a ser validada.
+	 */
+	public static void validaEntradaEstrategia(String estrategia) {
+		if (!estrategia.equals("MAIOR_RISCO")) {
+			if (!estrategia.equals("MAIOR_DURACAO")) {
+				if (!estrategia.equals("MAIS_ANTIGA")) {
+					if (!estrategia.equals("MENOS_PENDENCIAS")) {
+							throw new IllegalArgumentException("Valor invalido da estrategia");
+					}
+				}
+			}
+		}
 	}
 
 }

@@ -213,21 +213,7 @@ class AtividadeControllerTest {
 
 	// cdu 7 - executa atividade
 
-	@Test
-	void testExecutaAtividadeComSucesso() {
-		atividadeController.cadastraItem("A1", "Comprar as polpas");
-		atividadeController.cadastraItem("A1", "Preparar laboratório");
-		
-		PesquisaController pesquisaControllerTemp = new PesquisaController();
-		pesquisaControllerTemp.cadastraPesquisa("Analises de polpas", "FISICO-QUIMICA");
-		pesquisaControllerTemp.associaAtividade("FIS1", atividadeController.getAtividade("A1"));
 
-		atividadeController.executaAtividade("A1", 1, 100);
-
-		assertThrows(IllegalArgumentException.class, () -> {
-			atividadeController.executaAtividade("A1", 1, 100);
-		});
-	}
 
 	@Test
 	void testExecutaAtividadeCodigoVazioNulo() {

@@ -1,6 +1,8 @@
 package pesquisa;
-
 import java.io.Serializable;
+
+import java.io.IOException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -12,10 +14,6 @@ import problema.Problema;
 import problema.ProblemaObjetivoController;
 import atividade.Atividade;
 import atividade.AtividadeController;
-import ordenacao.OpcaoObjetivo;
-import ordenacao.OpcaoPesquisa;
-import ordenacao.OpcaoProblema;
-import ordenacao.OrdenaPesquisa;
 import pesquisador.Pesquisador;
 import pesquisador.PesquisadorController;
 import validadores.ValidadorEntradas;
@@ -49,6 +47,8 @@ public class PesquisaController implements Serializable{
 	private ProblemaObjetivoController problemaObjetivoController;
 	
 	private PesquisadorController pesquisadorController;
+	
+	private Estrategia estrategia;
 
 	public PesquisaController(AtividadeController atvController, ProblemaObjetivoController poController, PesquisadorController pesquisadorController) {
 		this.pesquisasCadastradas = new HashMap<>();
@@ -57,7 +57,7 @@ public class PesquisaController implements Serializable{
 		this.atividadeController = atvController;
 		this.problemaObjetivoController = poController;
 		this.pesquisadorController = pesquisadorController;
-		
+		this.estrategia = new MaisAntiga();
 	}
 
 	/**
@@ -337,11 +337,11 @@ public class PesquisaController implements Serializable{
 	public boolean associaAtividade(String codigoPesquisa,String codigoAtividade) {
 		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validaPesquisaAtiva(pesquisaEhAtiva(codigoPesquisa));
+		atividadeController.validaAtividadeExiste(codigoAtividade);
+		validaPesquisaExiste(codigoPesquisa);
+		validaPesquisaAtiva(codigoPesquisa);
 		
 		Atividade atividade = atividadeController.getAtividade(codigoAtividade);
-		
-		
 		atividadesAssociadas.add(atividade);
 		return pesquisasCadastradas.get(codigoPesquisa).associaAtividade(atividade);
 	}
@@ -357,13 +357,14 @@ public class PesquisaController implements Serializable{
 	public boolean desassociaAtividade(String codigoPesquisa, String codigoAtividade) {
 		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validaPesquisaAtiva(pesquisaEhAtiva(codigoPesquisa));
-		ValidadorEntradas.validaAtividadeExiste(atividadeController.getMapa(), codigoAtividade);
+		validaPesquisaExiste(codigoPesquisa);
+		validaPesquisaAtiva(codigoPesquisa);
+		atividadeController.validaAtividadeExiste(codigoAtividade);
 		
 		Atividade atividade = atividadeController.getAtividade(codigoAtividade);
 		
 		atividadesAssociadas.remove(atividade);
-		return pesquisasCadastradas.get(codigoPesquisa).desassociaAtividade();
+		return pesquisasCadastradas.get(codigoPesquisa).desassociaAtividade(atividade);
 
 	}
 
@@ -445,12 +446,22 @@ public class PesquisaController implements Serializable{
 	 */
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
 		
-		ValidadorEntradas.validaAtividadeEstaAssociada(getAtividades(), atividadeController.getAtividade(codigoAtividade));
+		validaAtividadeEstaAssociada(getAtividades(), atividadeController.getAtividade(codigoAtividade));
 		
 		atividadeController.executaAtividade(codigoAtividade, item, duracao);
 	}
 	
 	
+	/** Método que valida se uma atividade está associada a alguma pesquisa do sistema
+	 * @param atividades - atividades do sistema associadas a pesquisas.
+	 * @param atividade - atividade a ser validada.
+	 */
+	private void validaAtividadeEstaAssociada(List<Atividade> atividades, Atividade atividade) {
+		if (!atividades.contains(atividade)) {
+			throw new IllegalArgumentException("Atividade sem associacoes com pesquisas.");
+		}
+	}
+
 	/**
 	 * Valida se determinada pesquisa está cadastrada no sistema e
 	 * lança uma exceção caso não esteja
@@ -475,4 +486,80 @@ public class PesquisaController implements Serializable{
 		}
 	}
 
+	/** Método que configura a estrategia para sugerir a proxima
+	 * atividade a ser executada.
+	 * @param estrategia - estrategia que será usada.
+	 */
+	public void configuraEstrategia(String estrategia) {
+		ValidadorEntradas.validarString(estrategia, "Estrategia nao pode ser nula ou vazia.");
+		ValidadorEntradas.validaEntradaEstrategia(estrategia);
+		if("MENOS_PENDENCIAS".equals(estrategia)) {
+			this.estrategia = new MenosPendencias();
+		}
+		if("MAIOR_RISCO".equals(estrategia)) {
+			this.estrategia = new MaiorRisco();
+		}
+		 
+		if ("MAIOR_DURACAO".equals(estrategia)) {
+			this.estrategia = new MaiorDuracao();
+		}
+		if ("MAIS_ANTIGA".equals(estrategia)) {
+			this.estrategia = new MaisAntiga();
+		}
+	}
+	
+	/**Método para indicar qual a proxima atividade a ser executada.
+	 * @param codigoPesquisa - codigo da pesquisa.
+	 * @return a proxima atividade.
+	 */
+	public String proximaAtividade(String codigoPesquisa) {
+		ValidadorEntradas.validarString(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
+		validaPesquisaExiste(codigoPesquisa);
+		validaPesquisaAtiva(codigoPesquisa);
+		validaPesquisaSemPendencias(codigoPesquisa);
+		return this.estrategia.proximaAtividade(pesquisasCadastradas.get(codigoPesquisa).getAtividades());
+		
+	}
+	
+
+	/**
+	 * Grava em um arquivo de texto um resumo da pesquisa
+	 * 
+	 * @param codigoPesquisa Código da pesquisa que devera ser salvo o resumo
+	 * @throws IOException
+	 */
+	public void gravarResumo(String codigoPesquisa) throws IOException {
+		ValidadorEntradas.validarString(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
+		validaPesquisaExiste(codigoPesquisa);
+		validaPesquisaAtiva(codigoPesquisa);
+		pesquisasCadastradas.get(codigoPesquisa).gravarResumo();
+	
+	}
+	
+	/**
+	 * Grava em um arquivo de texto os resultados da pesquisa
+	 * 
+	 * @param codigoPesquisa Código da pesquisa que devera ser salvo os resultados
+	 * @throws IOException
+	 */
+	public void gravarResultados(String codigoPesquisa) throws IOException {
+		ValidadorEntradas.validarString(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
+		validaPesquisaExiste(codigoPesquisa);
+		validaPesquisaAtiva(codigoPesquisa);
+		pesquisasCadastradas.get(codigoPesquisa).gravarResultados();
+	
+	}
+
+	/**Método que verifica se a pesquisa não contem nenhuma atividade com item pendente
+	 * @param codigoPesquisa - código da pesquisa a ser validada.
+	 */
+	private void validaPesquisaSemPendencias(String codigoPesquisa) {
+		List<Atividade> atividades = pesquisasCadastradas.get(codigoPesquisa).getAtividades();
+		for (Atividade atividade:atividades) {
+			if (atividade.contaItensPendentes() != 0) {
+				return;
+			}
+		} throw new IllegalArgumentException("Pesquisa sem atividades com pendencias.");
+	}
+	
 }

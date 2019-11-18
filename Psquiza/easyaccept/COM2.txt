@@ -1,0 +1,13 @@
+"- Pesquisa: COM2 - Autoavaliacao na Disciplina de Programacao Orientada a Objeto. - computacao, poo
+    - Pesquisadores:
+        - Matheus Gaudencio (professor) - Um tchuchucador de respeito - matheusgr@computacao.ufcg.edu.br - https://omeMaisLindoDeComputacao - Doutorado - DSC - 02/01/1975
+    - Problema:
+        - P2 - A problematica do aprendizado dos conceitos de programacao orientada a objeto - 5
+    - Objetivos:
+        - O4 - GERAL - Aumentar a porcentagem de pessoas que entregam os laboratorios na disciplina de LP2. - 8
+    - Atividades:
+        - Monitoramento de chats dos alunos de computacao do primeiro periodo. (BAIXO - Por se tratar de apenas um monitoramento, o risco nao e elevado.)
+            - REALIZADO - ITEM1
+            - REALIZADO - ITEM2
+            - REALIZADO - ITEM3
+            - REALIZADO - ITEM4"

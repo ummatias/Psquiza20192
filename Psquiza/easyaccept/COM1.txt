@@ -1,0 +1,15 @@
+"- Pesquisa: COM1 - Homofobia em mensagens online de alunos de computacao do primeiro periodo. - computacao, homofobia
+    - Pesquisadores:
+        - Eliane Araujo (professor) - A rainha das rainhas - eliane@computacao.ufcg.edu.br - https://penseNumaMulherLinda - Doutorado - DSC - 07/07/2007
+    - Problema:
+        - P1 - O problema do discurso homofobico em chats online de alunos de computacao de primeiro periodo - 3
+    - Objetivos:
+        - O1 - GERAL - Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao. - 6
+	- O2 - ESPECIFICO - Realizar rodas de conversa entre alunos do curso, incluindo especialmente aqueles que emitem mensagens homofobicas e alunos ou pessoas homoafetivas. - 9
+	- O3 - ESPECIFICO - Detectar, atraves de bot eletronico, a presenca de mensagens eletronicas com conteudo homofobico. - 7
+    - Atividades:
+        - Monitoramento de chats dos alunos de computacao do primeiro periodo. (BAIXO - Por se tratar de apenas um monitoramento, o risco nao e elevado.)
+            - REALIZADO - ITEM1
+            - REALIZADO - ITEM2
+            - REALIZADO - ITEM3
+            - REALIZADO - ITEM4"

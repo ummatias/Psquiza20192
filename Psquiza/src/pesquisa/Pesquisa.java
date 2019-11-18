@@ -1,8 +1,16 @@
 package pesquisa;
 
+
 import java.io.Serializable;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import atividade.Atividade;
@@ -42,7 +50,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable{
 	/**
 	 * Atividade associada a pesquisa.
 	 */
-	private Atividade atividade;
+	private List<Atividade> atividades;
 
 	private Problema problema;
 
@@ -65,10 +73,10 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable{
 		this.campoDeInteresse = campoDeInteresse;
 		this.codigo = codigo;
 		this.status = true;
-		this.atividade = null;
+		this.atividades = new ArrayList<>();
 		this.problema = null;
 		this.objetivos = new HashMap<>();
-		this.pesquisadores = new HashMap<>();
+		this.pesquisadores = new LinkedHashMap();
 	}
 
 	/**
@@ -194,8 +202,8 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable{
 	 * @param atividade a ser associdada
 	 */
 	public boolean associaAtividade(Atividade atividade) {
-		if (this.atividade == null) {
-			this.atividade = atividade;
+		if (!this.atividades.contains(atividade)) {
+			this.atividades.add(atividade);
 			return true;
 		}
 		return false;
@@ -204,17 +212,27 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable{
 	/**
 	 * Método que desassocia a atividade a pesquisa.
 	 * 
-	 * @return
+	 * @return true se conseguir remover com sucesso, false se não conseguir
 	 */
-	public boolean desassociaAtividade() {
+	public boolean desassociaAtividade(Atividade atividade) {
 
-		if (atividade != null) {
-			this.atividade = null;
+		if (this.atividades.contains(atividade)) {
+			this.atividades.remove(atividade);
 			return true;
 		} 	return false;}
 	
-	public Atividade getAtividade() {
-		return atividade;
+	/** Método que retorna uma atividade especifica da pesquisa
+	 * @param codigo - codigo da pesquisa
+	 * @return a atividade.
+	 */
+	public Atividade getAtividade(String codigo) {
+		for (Atividade atividade: atividades) {
+			if (codigo.equals(atividade.getCodigo())) {
+				return atividade;
+			}
+		}
+		
+		throw new IllegalArgumentException("Atividade sem associacoes com pesquisas.");
 	}
 
 	
@@ -284,6 +302,9 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable{
 		return false;
 	}
 
+	/** Método que retorna o problema da pesquisa
+	 * @return o problema da pesquisa.
+	 */
 	public Problema getProblema() {
 		return this.problema;
 	}
@@ -373,4 +394,111 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable{
 		return saida;
 
 	}
+
+	/** Método que retorna as atividades associadas a essa pesquisa
+	 * @return as atividades associadas a essa pesquisa.
+	 */
+	public List<Atividade> getAtividades() {
+		return atividades;
+	}
+	
+	/**
+	 * Grava em um arquivo de texto um resumo da pesquisa
+	 * 
+	 * @throws IOException
+	 */
+	public void gravarResumo() throws IOException {
+		FileWriter resumo = new FileWriter("./" + this.codigo+ ".txt");
+		PrintWriter grava = new PrintWriter(resumo);
+		String resumoAtividades = listaAtividades();
+		
+		grava.println("\"" + "- Pesquisa: " + this.toString() );
+		
+		grava.print("    - Pesquisadores:" + System.lineSeparator() + 
+				 listaPesquisadores());
+		
+		grava.print("    - Problema: " + System.lineSeparator() + 
+				"        - " + this.problema.toString() + System.lineSeparator());
+		
+		grava.print("    - Objetivos: " + System.lineSeparator() +
+				listaObjetivos());
+
+		grava.print("    - Atividades: " + System.lineSeparator() +
+				resumoAtividades.substring(0, resumoAtividades.length() - 1) + "\"");
+		
+		resumo.close();
+	}
+	
+	/**
+	 * Grava em um arquivo de texto os resultados da pesquisa
+	 * 
+	 * @throws IOException
+	 */
+	public void	gravarResultados() throws IOException {
+		FileWriter result = new FileWriter("./" + this.codigo+ "-Resultados.txt");
+		PrintWriter grava = new PrintWriter(result);
+		String resultados = listaAtividadeParaResultado();
+		
+		grava.println("\"" + "- Pesquisa: " + this.toString());
+		grava.print("    - Resultados:" + System.lineSeparator() +
+				resultados.substring(0, resultados.length() -1) + "\"" );
+		grava.close();
+	}
+	
+	/**
+	 * Gera um representação em String dos pesquisadores formatada de modo
+	 * a ser salvo no resumo
+	 * 
+	 * @return Representação em String dos pesquisadores
+	 */
+	private String listaPesquisadores() {
+		String saida = "";
+		for(Pesquisador pesq : pesquisadores.values()) {
+			saida += "        - " + pesq.toString() + System.lineSeparator();
+		}
+		return saida;
+	}
+	
+	/**
+	 * Gera um representação em String dos objetivos formatada de modo
+	 * a ser salvo no resumo
+	 * 
+	 * @return Representação em String dos objetivos
+	 */
+	private String listaObjetivos() {
+		String saida = "";
+		for(Objetivo obj : objetivos.values()) {
+			saida += "        - " + obj.toString() + System.lineSeparator();
+		}
+		return saida;
+	}
+	
+	/**
+	 * Gera um representação em String das atividades formatada de modo
+	 * a ser salvo no resumo
+	 * 
+	 * @return Representação em String das atividades
+	 */
+	private String listaAtividades() {
+		String saida = "";
+		for(Atividade atividade : atividades) {
+			saida += atividade.resumeAtividade();
+		}
+		return saida;
+	}
+	
+	/**
+	 * Gera um representação em String das atividades formatada de modo
+	 * a ser salvo nos resultados
+	 * 
+	 * @return Representação em String das atividades
+	 */
+	private String listaAtividadeParaResultado() {
+		String saida = "";
+		for(Atividade atividade : atividades) {
+			saida += atividade.resumeAtividadeParaResultado();
+		}
+		return saida;
+	}
+	
 }

@@ -1,0 +1,80 @@
+#Criando atividades 6-14
+
+cadastraAtividade Descricao="Plantio de um grao de feijao em um algodao." nivelRisco="ALTO" descricaoRisco="Por se tratar de uma vida, o risco e extremamente elevado."
+cadastraAtividade Descricao="Analise do comportamento dos alunos de computacao com os alunos de arq/urb." nivelRisco="ALTO" descricaoRisco="Por se tratar de uma analise a partir de denuncias de um comportamento hostil, o risco e extremamente elevado."
+cadastraAtividade Descricao="Testando se a terra e plana" nivelRisco="BAIXO" descricaoRisco="Por se tratar de uma atividade que ja se sabe que seus resultados, sendo assim uma atividade simbolica, seu risco e hiperbólicamente baixo."
+cadastraAtividade Descricao="Analise de quantas maos levantadas sao necessarias para Goku fazer uma Genki Dama que consiga derrotar Saitama" nivelRisco="ALTO" descricaoRisco="Pela possibilidade de nao existirem pesoas o bastante no universo para levantar a mao, o risco e alto."
+cadastraAtividade Descricao="Busca e analise de uma razao para a Netflix cancelar BoJack Horseman" nivelRisco="ALTO" descricaoRisco="Nao existe uma razao plausivel, assim o risco e elevado."
+cadastraAtividade Descricao="Demonstracao de amor pela HBO por estar produzindo novos episodios de Adventure Time." nivelRisco="BAIXO" descricaoRisco="Sem risco, so demonstracao de amor"
+cadastraAtividade Descricao="Mudancas nas relacoes do instagram, apos a ocultacao do numero de curtidas das postagens." nivelRisco="ALTO" descricaoRisco="Por envolver uma crise economica brutal, com diversas blogueirinhas perdendo seus empregos, e de uma crise social, com diversas pessoas perdendo o rummo de suas vidas, o risco e extremamente elevado."
+cadastraAtividade Descricao="Analise das relacoes sociais em Cyberpunk 2077" nivelRisco="MEDIO" descricaoRisco="Por se tratar apenas de um possivel futuro, sem confirmacoes concretas de que ele ocorrera, seu risco e medio."
+cadastraAtividade Descricao="Ponderacao do por que Imagine dragons e tao bom." nivelRisco="BAIXO" descricaoRisco="Sem risco, so provar algo obvio."
+
+#Definindo ordem das atividades
+defineProximaAtividade idPrecedente="A2" idSubsquente="A1"
+defineProximaAtividade idPrecedente="A5" idSubsquente="A6"
+defineProximaAtividade idPrecedente="A6" idSubsquente="A8"
+defineProximaAtividade idPrecedente="A8" idSubsquente="A7"
+defineProximaAtividade idPrecedente="A7" idSubsquente="A13"
+defineProximaAtividade idPrecedente="A13" idSubsquente="A9"
+defineProximaAtividade idPrecedente="A9" idSubsquente="A10"
+expectError "Atividade ja possui uma subsequente." defineProximaAtividade idPrecedente="A9" idSubsquente="A12"  
+defineProximaAtividade idPrecedente="A12" idSubsquente="A11"
+defineProximaAtividade idPrecedente="A11" idSubsquente="A10"
+defineProximaAtividade idPrecedente="A1" idSubsquente="A4"
+expectError "Atividade nao pode ser nulo ou vazio." defineProximaAtividade idPrecedente="" idSubsquente="A4"
+expectError "Atividade nao pode ser nulo ou vazio." defineProximaAtividade idPrecedente="A4" idSubsquente=""
+expectError "Atividade nao encontrada." defineProximaAtividade idPrecedente="A4" idSubsquente="A42"
+expectError "Atividade nao encontrada." defineProximaAtividade idPrecedente="A666" idSubsquente="A4"
+expectError "Atividade nao encontrada." defineProximaAtividade idPrecedente="A4" idSubsquente="O1"
+expectError "Criacao de loops negada." defineProximaAtividade idPrecedente="A10" idSubsquente="A5"
+
+
+#Contando quantas atividades tem depois
+expect 2 contaProximos idPrecedente="A2"
+expect 0 contaProximos idPrecedente="A4" 
+expect 6 contaProximos idPrecedente="A5" 
+expect 2 contaProximos idPrecedente="A12" 
+expect 3 contaProximos idPrecedente="A7" 
+expectError "Atividade nao pode ser nulo ou vazio." contaProximos idPrecedente=""
+expectError "Atividade nao encontrada." tiraProximaAtividade idPrecedente="A42"
+
+
+#Retirando da ordem de atividades
+tiraProximaAtividade idPrecedente="A1"
+tiraProximaAtividade idPrecedente="A4" 
+tiraProximaAtividade idPrecedente="A5"
+tiraProximaAtividade idPrecedente="A8"
+tiraProximaAtividade idPrecedente="A10"
+defineProximaAtividade idPrecedente="A5" idSubsquente="A14"
+
+expect 1 contaProximos idPrecedente="A5" 
+expect 0 contaProximos idPrecedente="A4"
+expect 1 contaProximos idPrecedente="A6"
+expect 2 contaProximos idPrecedente="A13"
+
+expectError "Atividade nao pode ser nulo ou vazio." tiraProximaAtividade idPrecedente=""
+expectError "Atividade nao encontrada." tiraProximaAtividade idPrecedente="A42"
+
+
+#Retornando o "x" proximo de uma atividade especifica
+expect "A1" pegaProximo idAtividade="A2" enesimaAtividade=1
+expectError "Atividade inexistente." pegaProximo idAtividade="A2" enesimaAtividade=2
+expectError "Atividade inexistente." pegaProximo idAtividade="A5" enesimaAtividade=3
+expect "A10" pegaProximo idAtividade="A7" enesimaAtividade=3
+expect "A1" pegaProximo idAtividade="A2" enesimaAtividade=1
+expectError "Atividade nao pode ser nulo ou vazio." pegaProximo idAtividade="" enesimaAtividade=3
+expectError "EnesimaAtividade nao pode ser negativa ou zero." pegaProximo idAtividade="A2" enesimaAtividade=0
+
+
+#Pegando a atividade de maior risco
+defineProximaAtividade idPrecedente="A10" idSubsquente="A4"
+defineProximaAtividade idPrecedente="A4" idSubsquente="A14"
+expect "A10" pegaMaiorRiscoAtividades idAtividade="A13" 
+expectError "Nao existe proxima atividade." pegaMaiorRiscoAtividades idAtividade="A1" 
+expect "A10" pegaMaiorRiscoAtividades idAtividade="A7" 
+expect "A10" pegaMaiorRiscoAtividades idAtividade="A12" 
+expect "A1" pegaMaiorRiscoAtividades idAtividade="A2" 
+expect "A14" pegaMaiorRiscoAtividades idAtividade="A4" 
+expectError "Atividade nao pode ser nulo ou vazio." pegaMaiorRiscoAtividades idAtividade=""
+expectError "Atividade nao encontrada." pegaMaiorRiscoAtividades idAtividade="A420"
