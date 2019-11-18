@@ -445,6 +445,8 @@ public class Atividade implements Comparable<Atividade>, Serializable{
 		}
 		return saida;
 	}
-		
+	public String getRisco() {
+		return this.nvlRisco;
+	}
 }
 
