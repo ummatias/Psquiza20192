@@ -16,14 +16,25 @@ public class MaiorRisco implements Estrategia{
 	 */
 	@Override
 	public String proximaAtividade(List<Atividade> atividades) {
-		String retorno = "";
-//		for (int i = 0; i < atividades.size(); i++) {
-//			Atividade atividade = atividades.get(i);
-//			Atividade prox = atividades.get(i++);
-//			atividade.defineProximaAtividade(prox);
-//			retorno = atividade.pegaMaiorRiscoAtividades();
-//			atividade.tiraProximaAtividade();
-//		}
-		return retorno;
+		String maiorCode = "";
+		for (Atividade atividade:atividades) {
+			if(maiorCode.equals("")) {
+			 maiorCode = atividade.getRisco();
+			} 
+			
+			
+			if(maiorCode.equals("BAIXO")) {
+				if(atividade.getRisco().equals("MEDIO") || atividade.getRisco().equals("ALTO")) {
+					maiorCode = atividade.getCodigo();
+				}
+			}else if(atividade.getRisco().equals("MEDIO")) {
+				if(atividade.getRisco().equals("ALTO")) {
+					maiorCode = atividade.getRisco();
+				}
+			} else if(maiorCode.equals("ALTO")) {
+				break;
+			}
+		}
+		return maiorCode;
 	}
 }
