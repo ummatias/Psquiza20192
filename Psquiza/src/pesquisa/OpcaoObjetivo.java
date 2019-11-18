@@ -1,6 +1,4 @@
-package ordenacao;
-
-import pesquisa.Pesquisa;
+package pesquisa;
 
 public class OpcaoObjetivo implements OrdenaPesquisa {
 

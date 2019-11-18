@@ -1,0 +1,403 @@
+#################### US1 ####################
+
+# Cadastro de Pesquisa
+
+# - COM1: ativada
+# - ELE1: ativada
+# - COM2: ativada
+# - FER1: desativada
+# - PSI1: desativada
+
+
+cadastraPesquisa descricao="Homofobia em mensagens online de alunos de computacao do primeiro periodo." campoDeInteresse="computacao, homofobia"
+cadastraPesquisa descricao="Avaliacao de modelos preditivos para a extracao de caracteristicas significativas nas eleicoes brasileiras." campoDeInteresse="eleicao"
+cadastraPesquisa descricao="Autoavaliacao na Disciplina de Programacao Orientada a Objeto." campoDeInteresse="computacao, poo"
+cadastraPesquisa descricao="Aspectos da fermentacao do mosto cervejeiro por leveduras nao-Saccharomyces." campoDeInteresse="fermentacao, cerveja"
+cadastraPesquisa descricao="Alienacao Parental e o Sistema de Justica Brasileiro." campoDeInteresse="psicologia, sistema juridico, alienacao parental, brasil"
+encerraPesquisa codigo="FER1" motivo="Cerveja causou intoxicacao alimentar"
+encerraPesquisa codigo="PSI1" motivo="Pesquisa concluida"
+
+
+# descricao ou campoDeInteresse vazios no cadastro de pesquisa
+
+expectError "Descricao nao pode ser nula ou vazia." cadastraPesquisa descricao="" campoDeInteresse="computacao, homofobia"
+expectError "Formato do campo de interesse invalido." cadastraPesquisa descricao="Homofobia em mensagens online de alunos de computacao do primeiro periodo." campoDeInteresse=""
+
+
+# Entrada do campo de interesse invalido
+
+expectError "Formato do campo de interesse invalido." cadastraPesquisa descricao="Sistemas automatizados para acessibilidade de deficientes em postos de trabalho." campoDeInteresse="Lorem ipsum dolor sit amet consectetur adipiscing elit Integer euismod leo in consequat efficitur. Proin commodo nisi eget ligula consequat imperdiet ac quis turpis In non fringilla orci Pellentesque pellentesque ipsum vel ipsum ultrices scelerisque Nulla facilisi Morbi ut tellus ante Suspendisse malesuada quis quam eu efficitur Ut mollis turpis magna sit amet auctor nunc pulvinar ultricies. Nam pharetra scelerisque magna ut feugiat."
+expectError "Formato do campo de interesse invalido." cadastraPesquisa descricao="Sistemas automatizados para acessibilidade de deficientes em postos de trabalho." campoDeInteresse="acessibilidade, , ,automatizacao"
+expectError "Formato do campo de interesse invalido." cadastraPesquisa descricao="Sistemas automatizados para acessibilidade de deficientes em postos de trabalho." campoDeInteresse=" , , ,"
+expectError "Formato do campo de interesse invalido." cadastraPesquisa descricao="Sistemas automatizados para acessibilidade de deficientes em postos de trabalho." campoDeInteresse="acessibilidade, automatizacao, sistema,condicoes de trabalho, mundo melhor"
+expectError "Formato do campo de interesse invalido." cadastraPesquisa descricao="Sistemas automatizados para acessibilidade de deficientes em postos de trabalho." campoDeInteresse="ho"
+
+
+# ativacao e encerramento
+
+expectError "Pesquisa nao encontrada." ativaPesquisa codigo="ENE1"
+expectError "Pesquisa nao encontrada." encerraPesquisa codigo="ENE1" motivo="quero acabar a pesquisa no brasil."
+expectError "Pesquisa ja ativada." ativaPesquisa codigo="COM1"
+expectError "Motivo nao pode ser nulo ou vazio." encerraPesquisa codigo="COM1" motivo=""
+expectError "Pesquisa desativada." encerraPesquisa codigo="PSI1" motivo="quero fechar de novo mesmo"
+encerraPesquisa codigo="COM2" motivo="Pesquisa concluida"
+ativaPesquisa codigo="COM2"
+
+
+# alterar pesquisas
+
+expectError "Pesquisa nao encontrada." alteraPesquisa codigo="ENE1" conteudoASerAlterado="DESCRICAO" novoConteudo="Modelagem do motor de inducao em estudos de estabilidade de tensao"
+expectError "Nao e possivel alterar esse valor de pesquisa." alteraPesquisa codigo="COM1" conteudoASerAlterado="CaMpO" novoConteudo="age of aquarius"
+expectError "Pesquisa desativada." alteraPesquisa codigo="PSI1" conteudoASerAlterado="CAMPO" novoConteudo="age of aquarius"
+expectError "Descricao nao pode ser nula ou vazia." alteraPesquisa codigo="COM1" conteudoASerAlterado="DESCRICAO" novoConteudo=""
+expectError "Formato do campo de interesse invalido." alteraPesquisa codigo="COM1" conteudoASerAlterado="CAMPO" novoConteudo=""
+alteraPesquisa codigo="ELE1" conteudoASerAlterado="DESCRICAO" novoConteudo="Aumento da evasao no numero de eleitores paraibanos."
+alteraPesquisa codigo="ELE1" conteudoASerAlterado="CAMPO" novoConteudo="eleicao, paraiba"
+expect "ELE1 - Aumento da evasao no numero de eleitores paraibanos. - eleicao, paraiba" exibePesquisa codigo="ELE1"
+
+
+# exibir
+expectError "Pesquisa nao encontrada." exibePesquisa codigo="ENE1"
+expect "COM1 - Homofobia em mensagens online de alunos de computacao do primeiro periodo. - computacao, homofobia" exibePesquisa codigo="COM1"
+
+
+# verificando ativacao
+
+expectError "Codigo nao pode ser nulo ou vazio." pesquisaEhAtiva codigo=""
+expectError "Pesquisa nao encontrada." pesquisaEhAtiva codigo="ENE1"
+expect "true" pesquisaEhAtiva codigo="COM1"
+expect "false" pesquisaEhAtiva codigo="FER1"
+
+#################### US2 ####################
+
+# Cadastro de Pesquisadores
+
+# - killua zoldyck: estudante ativo
+# - Uzumaki naruto: estudante ativo
+# - Prairie Johnson: externo desativo
+# - Joel: externo ativo
+# - heisenberg: professor ativo
+# - Matheus Gaudencio: professor ativo
+# - Eliane Araujo: professor ativo
+# - Livia Sampaio: professor ativo
+
+cadastraPesquisador nome="killua zoldyck" funcao="estudante" biografia="Interessado em eletricidade, o terceiro de cinco filhos da famosa familia Zaoldyeck." email="hunterxhunter@1998" fotoURL="https://godspeed"
+cadastraPesquisador nome="Prairie Johnson" funcao="externo" biografia="Interessada no estudo de multiplas dimensoes e no estudo dos sentidos humanos." email="theoa@2016" fotoURL="https://notblind"
+cadastraPesquisador nome="heisenberg" funcao="professor" biografia="Interresado nos efeitos da metafetamina e no estudo sobre o cancer. Pesquisador principal da pesquisa de radigrafia a fotons, peca fundamental na pesquisa que ganhou um premio nobel. " email="breakingbad@2008" fotoURL="https://iamthedanger"
+cadastraPesquisador nome="Uzumaki naruto" funcao="estudante" biografia="Interresado nos efeitos da marginalizacao de individuos pelo sociedade e seus empactos sociais." email="borutofathers@1997" fotoURL="https://dattebayo"
+cadastraPesquisador nome="Joel" funcao="externo" biografia="Interresado em fungos." email="thelastofus@2013" fotoURL="https://Cordyceps"
+
+desativaPesquisador email="theoa@2016"
+
+# Cadastro de pesquisadores com nome, biografia, funcao, email ou foto vazios ou em branco
+expectError "Campo nome nao pode ser nulo ou vazio." cadastraPesquisador nome="" funcao="estudante" biografia="teste" email="teste@teste" fotoURL="https://teste"
+expectError "Campo funcao nao pode ser nulo ou vazio." cadastraPesquisador nome="teste" funcao="" biografia="teste" email="teste@teste" fotoURL="https://teste"
+expectError "Campo biografia nao pode ser nulo ou vazio." cadastraPesquisador nome="teste" funcao="estudante" biografia="" email="teste@teste" fotoURL="https://teste"
+expectError "Campo email nao pode ser nulo ou vazio." cadastraPesquisador nome="teste" funcao="estudante" biografia="teste" email="" fotoURL="https://teste"
+expectError "Campo fotoURL nao pode ser nulo ou vazio." cadastraPesquisador nome="teste" funcao="estudante" biografia="teste" email="teste@teste" fotoURL=""
+
+# Erros no cadastro de pesquisador com email diferente do formato especificado
+expectError "Formato de email invalido." cadastraPesquisador nome="teste" funcao="estudante" biografia="teste" email="@teste" fotoURL="https://teste"
+expectError "Formato de email invalido." cadastraPesquisador nome="teste" funcao="estudante" biografia="teste" email="teste@" fotoURL="https://teste"
+expectError "Formato de email invalido." cadastraPesquisador nome="teste" funcao="estudante" biografia="teste" email="testeteste" fotoURL="https://teste"
+
+# Erros no cadastro de pesquisador com endereco da foto no formato invalido
+expectError "Formato de foto invalido." cadastraPesquisador nome="teste" funcao="estudante" biografia="teste" email="teste@teste" fotoURL="sem o necessario"
+expectError "Formato de foto invalido." cadastraPesquisador nome="teste" funcao="estudante" biografia="teste" email="teste@teste" fotoURL="h t t p semONecesario"
+expectError "Formato de foto invalido." cadastraPesquisador nome="teste" funcao="estudante" biografia="teste" email="teste@teste" fotoURL="https"
+expectError "Formato de foto invalido." cadastraPesquisador nome="teste" funcao="estudante" biografia="teste" email="teste@teste" fotoURL="http"
+
+
+# Alteracao de dados do pesquisador
+
+## Cadastro de um pesquisador mock para testes
+cadastraPesquisador nome="vazio" funcao="estudante" biografia="Pesquisador vazio para testar as alteracoes dos seus atributos." email="vazio@always" fotoURL="https://vazio"
+expect "vazio (estudante) - Pesquisador vazio para testar as alteracoes dos seus atributos. - vazio@always - https://vazio" exibePesquisador email="vazio@always"
+
+## Teste para alterar nome do pesquisador
+alteraPesquisador email="vazio@always" atributo="NOME" novoValor="Thomas A. Anderson"
+expect "Thomas A. Anderson (estudante) - Pesquisador vazio para testar as alteracoes dos seus atributos. - vazio@always - https://vazio" exibePesquisador email="vazio@always"
+
+## Teste para alterar funcao do pesquisador
+alteraPesquisador email="vazio@always" atributo="FUNCAO" novoValor="professor"
+expect "Thomas A. Anderson (professor) - Pesquisador vazio para testar as alteracoes dos seus atributos. - vazio@always - https://vazio" exibePesquisador email="vazio@always"
+
+## Teste de alterar biografia do pesquisador
+alteraPesquisador email="vazio@always" atributo="BIOGRAFIA" novoValor="Profetizado como aquele que libertara a humanidade da matrix em que vive, uma pessoa breathtaking."
+expect "Thomas A. Anderson (professor) - Profetizado como aquele que libertara a humanidade da matrix em que vive, uma pessoa breathtaking. - vazio@always - https://vazio" exibePesquisador email="vazio@always"
+
+## Teste de alteracao a foto do pesquisador
+alteraPesquisador email="vazio@always" atributo="FOTO" novoValor="https://theOne"
+expect "Thomas A. Anderson (professor) - Profetizado como aquele que libertara a humanidade da matrix em que vive, uma pessoa breathtaking. - vazio@always - https://theOne" exibePesquisador email="vazio@always"
+
+## Teste de alteracao de email do pesquisador
+alteraPesquisador email="vazio@always" atributo="EMAIL" novoValor="matrix@1999"
+expect "Thomas A. Anderson (professor) - Profetizado como aquele que libertara a humanidade da matrix em que vive, uma pessoa breathtaking. - matrix@1999 - https://theOne" exibePesquisador email="matrix@1999"
+
+
+# Erros no metodo de alteraPesquisador
+
+## Erros de tentar alterar um pesquisador nao cadastrado no sistema
+expectError "Pesquisador nao encontrado" alteraPesquisador email="gagau@ccc.ufcg.edu.br" atributo="NOME" novoValor="Gauds"
+expectError "Pesquisador nao encontrado" alteraPesquisador email="liliane@ccc.ufcg.edu.br" atributo="NOME" novoValor="Elianinha"
+expectError "Pesquisador nao encontrado" alteraPesquisador email="livinha@ccc.ufcg.edu.br" atributo="NOME" novoValor="Liviazinha"
+
+## Erros de atributo invalido
+expectError "Atributo invalido." alteraPesquisador email="thelastofus@2013" atributo="GPS" novoValor="ble"
+expectError "Atributo invalido." alteraPesquisador email="thelastofus@2013" atributo="Atributo" novoValor="bli"
+expectError "Atributo invalido." alteraPesquisador email="thelastofus@2013" atributo="nome" novoValor="bli"
+expectError "Atributo invalido." alteraPesquisador email="thelastofus@2013" atributo="NoMe" novoValor="bli"
+
+## Erros de atributo vazio ou nulo
+expectError "Atributo nao pode ser vazio ou nulo." alteraPesquisador email="thelastofus@2013" atributo="" novoValor="ble"
+expectError "Atributo nao pode ser vazio ou nulo." alteraPesquisador email="thelastofus@2013" atributo= novoValor="bli"
+
+## Erros de vazio ou nulo
+expectError "Campo nome nao pode ser nulo ou vazio." alteraPesquisador email="matrix@1999" atributo="NOME" novoValor=""
+expectError "Campo funcao nao pode ser nulo ou vazio." alteraPesquisador email="matrix@1999" atributo="FUNCAO" novoValor=""
+expectError "Campo biografia nao pode ser nulo ou vazio." alteraPesquisador email="matrix@1999" atributo="BIOGRAFIA" novoValor=""
+expectError "Campo email nao pode ser nulo ou vazio." alteraPesquisador email="matrix@1999" atributo="EMAIL" novoValor=""
+expectError "Campo fotoURL nao pode ser nulo ou vazio." alteraPesquisador email="matrix@1999" atributo="FOTO" novoValor=""
+
+## Erros de formato invalido
+
+### Email invalido
+expectError "Formato de email invalido." alteraPesquisador email="matrix@1999" atributo="EMAIL" novoValor="@teste"
+expectError "Formato de email invalido." alteraPesquisador email="matrix@1999" atributo="EMAIL" novoValor="teste@"
+expectError "Formato de email invalido." alteraPesquisador email="matrix@1999" atributo="EMAIL" novoValor="testeteste"
+
+### Foto invalida
+expectError "Formato de foto invalido." alteraPesquisador email="matrix@1999" atributo="FOTO" novoValor="sem o necessario"
+expectError "Formato de foto invalido." alteraPesquisador email="matrix@1999" atributo="FOTO" novoValor="h t t p semONecesario"
+expectError "Formato de foto invalido." alteraPesquisador email="matrix@1999" atributo="FOTO" novoValor="https"
+expectError "Formato de foto invalido." alteraPesquisador email="matrix@1999" atributo="FOTO" novoValor="http"
+
+
+#Testes de ativacao e desativacao de pesquisadores
+
+## Cadastro de pesquisadores mock
+cadastraPesquisador nome="Matheus Gaudencio" funcao="professor" biografia="Um tchuchucador de respeito" email="matheusgr@computacao.ufcg.edu.br" fotoURL="https://omeMaisLindoDeComputacao"
+cadastraPesquisador nome="Eliane Araujo" funcao="professor" biografia="A rainha das rainhas" email="eliane@computacao.ufcg.edu.br" fotoURL="https://penseNumaMulherLinda"
+cadastraPesquisador nome="Livia Sampaio" funcao="professor" biografia="Pense numa pesquisadora de respeito" email="livia@computacao.ufcg.edu.br" fotoURL="https://penseNumaMulherMaravilhosa"
+
+## Teste de desativacao de pesquisador
+desativaPesquisador email="matheusgr@computacao.ufcg.edu.br"
+desativaPesquisador email="eliane@computacao.ufcg.edu.br"
+desativaPesquisador email="livia@computacao.ufcg.edu.br"
+
+## Teste de ativacao de pesquisador
+ativaPesquisador email="matheusgr@computacao.ufcg.edu.br"
+ativaPesquisador email="eliane@computacao.ufcg.edu.br"
+ativaPesquisador email="livia@computacao.ufcg.edu.br"
+
+
+## Erros de ativar e desativar pesquisadores nao cadastrados
+expectError "Pesquisador nao encontrado" ativaPesquisador email="gagau@ccc.ufcg.edu.br" 
+expectError "Pesquisador nao encontrado" desativaPesquisador email="gagau@ccc.ufcg.edu.br" 
+expectError "Pesquisador nao encontrado" ativaPesquisador email="liliane@ccc.ufcg.edu.br"
+expectError "Pesquisador nao encontrado" desativaPesquisador email="liliane@ccc.ufcg.edu.br"
+expectError "Pesquisador nao encontrado" ativaPesquisador email="livinha@ccc.ufcg.edu.br"
+expectError "Pesquisador nao encontrado" desativaPesquisador email="livinha@ccc.ufcg.edu.br"
+
+
+## Erros de ativar um pesquisador ja ativado
+expectError "Pesquisador ja ativado." ativaPesquisador email="matheusgr@computacao.ufcg.edu.br"
+expectError "Pesquisador ja ativado." ativaPesquisador email="eliane@computacao.ufcg.edu.br"
+expectError "Pesquisador ja ativado." ativaPesquisador email="livia@computacao.ufcg.edu.br"
+
+
+## Erros de desativar um pesquisador nao desativado
+desativaPesquisador email="matheusgr@computacao.ufcg.edu.br"
+desativaPesquisador email="eliane@computacao.ufcg.edu.br"
+desativaPesquisador email="livia@computacao.ufcg.edu.br"
+
+expectError "Pesquisador inativo." desativaPesquisador email="matheusgr@computacao.ufcg.edu.br"
+expectError "Pesquisador inativo." desativaPesquisador email="eliane@computacao.ufcg.edu.br"
+expectError "Pesquisador inativo." desativaPesquisador email="livia@computacao.ufcg.edu.br"
+
+
+#Ativando pesquisadores
+ativaPesquisador email="matheusgr@computacao.ufcg.edu.br"
+ativaPesquisador email="eliane@computacao.ufcg.edu.br"
+ativaPesquisador email="livia@computacao.ufcg.edu.br"
+
+
+# Teste de exibir
+
+## Erros de exibir pesquisadores nao cadastrados
+expectError "Pesquisador nao encontrado" exibePesquisador email="gagau@ccc.ufcg.edu.br" 
+expectError "Pesquisador nao encontrado" exibePesquisador email="liliane@ccc.ufcg.edu.br" 
+expectError "Pesquisador nao encontrado" exibePesquisador email="livinha@ccc.ufcg.edu.br"
+
+## Exibir pesquisador
+expect "killua zoldyck (estudante) - Interessado em eletricidade, o terceiro de cinco filhos da famosa familia Zaoldyeck. - hunterxhunter@1998 - https://godspeed" exibePesquisador email="hunterxhunter@1998"
+expect "Thomas A. Anderson (professor) - Profetizado como aquele que libertara a humanidade da matrix em que vive, uma pessoa breathtaking. - matrix@1999 - https://theOne" exibePesquisador email="matrix@1999"
+expect "Matheus Gaudencio (professor) - Um tchuchucador de respeito - matheusgr@computacao.ufcg.edu.br - https://omeMaisLindoDeComputacao" exibePesquisador email="matheusgr@computacao.ufcg.edu.br"
+expect "Eliane Araujo (professor) - A rainha das rainhas - eliane@computacao.ufcg.edu.br - https://penseNumaMulherLinda" exibePesquisador email="eliane@computacao.ufcg.edu.br"
+expect "Livia Sampaio (professor) - Pense numa pesquisadora de respeito - livia@computacao.ufcg.edu.br - https://penseNumaMulherMaravilhosa" exibePesquisador email="livia@computacao.ufcg.edu.br"
+
+
+# verificando ativacao
+
+expectError "Email nao pode ser vazio ou nulo." pesquisadorEhAtivo email=""
+expectError "Pesquisador nao encontrado" pesquisadorEhAtivo email="artur@fazendoOsTestes.ccc.ufcg.edu.br"
+expect true pesquisadorEhAtivo email="hunterxhunter@1998"
+expect false pesquisadorEhAtivo email="theoa@2016"
+
+#################### US3 ####################
+
+#P1, P2 E P3 CRIADOS
+#O1, O2, O3, O4 e O5 CRIADOS 
+#P3 APAGADO
+#O5 APAGADO
+
+#CRIANDO PROBLEMAS
+
+cadastraProblema descricao="O problema do discurso homofobico em chats online de alunos de computacao de primeiro periodo" viabilidade=3
+cadastraProblema descricao="A problematica do aprendizado dos conceitos de programacao orientada a objeto" viabilidade=5
+cadastraProblema descricao="A dificuldade da predicao do sistema eleitoral brasileiro" viabilidade=1
+
+
+#ERRO NO CADASTRO DE NOVOS PROBLEMAS
+
+expectError "Campo descricao nao pode ser nulo ou vazio." cadastraProblema descricao="" viabilidade=2
+expectError "Valor invalido de viabilidade." cadastraProblema descricao="A dificuldade de gerar dados precisos em experimentos sobre dinamica em gravidade 0" viabilidade=-3
+expectError "Valor invalido de viabilidade." cadastraProblema descricao="A dificuldade de gerar dados precisos em experimentos sobre dinamica em gravidade 0" viabilidade=0
+expectError "Valor invalido de viabilidade." cadastraProblema descricao="A dificuldade de gerar dados precisos em experimentos sobre dinamica em gravidade 0" viabilidade=111
+
+#CRIANDO NOVOS OBJETIVOS
+
+cadastraObjetivo tipo="GERAL" descricao="Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao." aderencia=4 viabilidade=2
+cadastraObjetivo tipo="ESPECIFICO" descricao="Realizar rodas de conversa entre alunos do curso, incluindo especialmente aqueles que emitem mensagens homofobicas e alunos ou pessoas homoafetivas." aderencia=5 viabilidade=4
+cadastraObjetivo tipo="ESPECIFICO" descricao="Detectar, atraves de bot eletronico, a presenca de mensagens eletronicas com conteudo homofobico." aderencia=2 viabilidade=5
+cadastraObjetivo tipo="GERAL" descricao="Aumentar a porcentagem de pessoas que entregam os laboratorios na disciplina de LP2." aderencia=4 viabilidade=4
+cadastraObjetivo tipo="GERAL" descricao="Objetivo criado para ser deletado" aderencia=1 viabilidade=5
+
+
+#ERRO NO CADASTRO DE NOVOS OBJETIVOS
+
+expectError "Campo tipo nao pode ser nulo ou vazio." cadastraObjetivo tipo="" descricao="Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de todos os periodos de computacao" aderencia=4 viabilidade=2
+expectError "Campo descricao nao pode ser nulo ou vazio." cadastraObjetivo tipo="GERAL" descricao="" aderencia=4 viabilidade=2
+expectError "Valor invalido de tipo." cadastraObjetivo tipo="TREVOSO" descricao="Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de todos os periodos de computacao" aderencia=2 viabilidade=2
+expectError "Valor invalido de tipo." cadastraObjetivo tipo="0" descricao="Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de todos os periodos de computacao" aderencia=2 viabilidade=2
+expectError "Valor invalido de aderencia" cadastraObjetivo tipo="GERAL" descricao="Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de todos os periodos de computacao" aderencia=0 viabilidade=2
+expectError "Valor invalido de aderencia" cadastraObjetivo tipo="GERAL" descricao="Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de todos os periodos de computacao" aderencia=9 viabilidade=2
+expectError "Valor invalido de aderencia" cadastraObjetivo tipo="GERAL" descricao="Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de todos os periodos de computacao" aderencia=-1 viabilidade=2
+expectError "Valor invalido de viabilidade." cadastraObjetivo tipo="GERAL" descricao="Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de todos os periodos de computacao" aderencia=4 viabilidade=0
+expectError "Valor invalido de viabilidade." cadastraObjetivo tipo="GERAL" descricao="Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de todos os periodos de computacao" aderencia=4 viabilidade=22
+expectError "Valor invalido de viabilidade." cadastraObjetivo tipo="GERAL" descricao="Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de todos os periodos de computacao" aderencia=4 viabilidade=-2
+
+
+#APAGANDO PROBLEMAS
+
+apagarProblema codigo="P3"
+
+
+#ERRO NO APAGAMENTO DE PROBLEMAS
+
+expectError "Campo codigo nao pode ser nulo ou vazio." apagarProblema codigo=""
+expectError "Problema nao encontrado" apagarProblema codigo="P666"
+expectError "Problema nao encontrado" apagarProblema codigo="P3"
+
+
+#APAGANDO OBJETIVOS
+
+apagarObjetivo codigo="O5"
+
+
+#ERRO NO APAGAMENTO DE OBJETIVOS
+
+expectError "Campo codigo nao pode ser nulo ou vazio." apagarObjetivo codigo=""
+expectError "Objetivo nao encontrado" apagarObjetivo codigo="O47"
+expectError "Objetivo nao encontrado" apagarObjetivo codigo="O5"
+
+
+#EXIBINDO PROBLEMAS
+
+expect "P1 - O problema do discurso homofobico em chats online de alunos de computacao de primeiro periodo - 3" exibeProblema codigo="P1"
+expect "P2 - A problematica do aprendizado dos conceitos de programacao orientada a objeto - 5" exibeProblema codigo="P2"
+
+
+#ERRO NA EXIBICAO DE PROBLEMAS
+
+expectError "Problema nao encontrado" exibeProblema codigo="P3"
+expectError "Problema nao encontrado" exibeProblema codigo="P666"
+
+
+#EXIBINDO OBJETIVOS
+
+expect "O1 - GERAL - Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao. - 6" exibeObjetivo codigo="O1"
+expect "O2 - ESPECIFICO - Realizar rodas de conversa entre alunos do curso, incluindo especialmente aqueles que emitem mensagens homofobicas e alunos ou pessoas homoafetivas. - 9" exibeObjetivo codigo="O2"
+expect "O3 - ESPECIFICO - Detectar, atraves de bot eletronico, a presenca de mensagens eletronicas com conteudo homofobico. - 7" exibeObjetivo codigo="O3"
+expect "O4 - GERAL - Aumentar a porcentagem de pessoas que entregam os laboratorios na disciplina de LP2. - 8" exibeObjetivo codigo="O4"
+
+
+#ERRO NA EXIBICAO DE OBJETIVOS
+
+expectError "Objetivo nao encontrado" exibeObjetivo codigo="O5"
+expectError "Objetivo nao encontrado" exibeObjetivo codigo="O47"
+
+#################### US4 ####################
+
+#cadastra atividade
+
+# A1 (4 itens, todos pendentes)
+# A2 (3 itens, todos pendentes)
+# A4 (0 itens)
+
+cadastraAtividade Descricao="Monitoramento de chats dos alunos de computacao do primeiro periodo." nivelRisco="BAIXO" descricaoRisco="Por se tratar de apenas um monitoramento, o risco nao e elevado."
+cadastraAtividade Descricao="Degustacao de uma nova remeca de cervejas, criadas a partir de um novo processo de fermentacao." nivelRisco="MEDIO" descricaoRisco="Degustadores podem sofrer com problemas de saude nessa atividade, tal como ser alergico a algum ingrediente da cerveja."
+
+
+#Passando atributos vazios no cadastro de atividades
+
+expectError "Campo Descricao nao pode ser nulo ou vazio." cadastraAtividade Descricao="" nivelRisco="MEDIO" descricaoRisco="Degustadores podem sofrer com problemas de saude nessa atividade, tal como ser alergico a algum ingrediente da cerveja"
+expectError "Campo nivelRisco nao pode ser nulo ou vazio." cadastraAtividade Descricao="Degustacao de uma nova remeca de cervejas, criadas a partir de um novo processo de fermentacao" nivelRisco="" descricaoRisco="Degustadores podem sofrer com problemas de saude nessa atividade, tal como ser alergico a algum ingrediente da cerveja"
+expectError "Campo descricaoRisco nao pode ser nulo ou vazio." cadastraAtividade Descricao="Degustacao de uma nova remeca de cervejas, criadas a partir de um novo processo de fermentacao" nivelRisco="MEDIO" descricaoRisco=""
+expectError "Valor invalido do nivel do risco." cadastraAtividade Descricao="Degustacao de uma nova remeca de cervejas, criadas a partir de um novo processo de fermentacao" nivelRisco="RELATIVAMENTE ALTO" descricaoRisco="Degustadores podem sofrer com problemas de saude nessa atividade, tal como ser alergico a algum ingrediente da cerveja"
+
+
+#apagando atividades
+
+cadastraAtividade Descricao="atividade criada para ser deletada" nivelRisco="ALTO" descricaoRisco="Risco alto por nao ser uma atividade seria"
+expectError "Atividade nao encontrada" apagaAtividade codigo="A16"
+expectError "Campo codigo nao pode ser nulo ou vazio." apagaAtividade codigo=""
+apagaAtividade codigo="A3"
+expectError "Atividade nao encontrada" apagaAtividade codigo="A3"
+
+
+#cadastrando itens
+
+cadastraItem codigo="A1" item="Monitoramento facebook/messenger"
+cadastraItem codigo="A1" item="Monitoramento slack"
+cadastraItem codigo="A1" item="Monitoramento discord"
+cadastraItem codigo="A1" item="Monitoramento whatsapp"
+cadastraItem codigo="A2" item="Degustacao com cerveja a temperatura ambiente"
+cadastraItem codigo="A2" item="Degustacao com cerveja a temperatura acima da ambiente(quente)"
+cadastraItem codigo="A2" item="Degustacao com cerveja a temperatura abaixo da ambiente(frio)"
+expectError "Campo codigo nao pode ser nulo ou vazio." cadastraItem codigo="" item="entrega de panfletos"
+expectError "Atividade nao encontrada" cadastraItem codigo="B514" item="recolhimento dos celulares defeituosos"
+expectError "Item nao pode ser nulo ou vazio." cadastraItem codigo="A1" item=""
+
+
+#exibindo atividades
+
+cadastraAtividade Descricao="Analise das intencoes de votos de diversas pesquisas para comparar com a analise das avaliacao de modelos preditivos nas eleicoes brasileiras." nivelRisco="BAIXO" descricaoRisco="Sem grandes riscos, apenas analise de dados."
+expect "Monitoramento de chats dos alunos de computacao do primeiro periodo. (BAIXO - Por se tratar de apenas um monitoramento, o risco nao e elevado.) | PENDENTE - Monitoramento facebook/messenger | PENDENTE - Monitoramento slack | PENDENTE - Monitoramento discord | PENDENTE - Monitoramento whatsapp" exibeAtividade codigo="A1"
+expect "Degustacao de uma nova remeca de cervejas, criadas a partir de um novo processo de fermentacao. (MEDIO - Degustadores podem sofrer com problemas de saude nessa atividade, tal como ser alergico a algum ingrediente da cerveja.) | PENDENTE - Degustacao com cerveja a temperatura ambiente | PENDENTE - Degustacao com cerveja a temperatura acima da ambiente(quente) | PENDENTE - Degustacao com cerveja a temperatura abaixo da ambiente(frio)" exibeAtividade codigo="A2"
+expect "Analise das intencoes de votos de diversas pesquisas para comparar com a analise das avaliacao de modelos preditivos nas eleicoes brasileiras. (BAIXO - Sem grandes riscos, apenas analise de dados.)" exibeAtividade codigo="A4"
+expectError "Atividade nao encontrada" exibeAtividade codigo="A3"
+
+
+#exibindo quantidades dos itens
+
+expect "4" contaItensPendentes codigo="A1"
+expect "0" contaItensRealizados codigo="A1"
+expect "3" contaItensPendentes codigo="A2"
+expect "0" contaItensRealizados codigo="A2"
+expectError "Campo codigo nao pode ser nulo ou vazio." contaItensPendentes codigo=""
+expectError "Campo codigo nao pode ser nulo ou vazio." contaItensRealizados codigo=""
+expectError "Atividade nao encontrada" contaItensPendentes codigo="BOI14"
+expectError "Atividade nao encontrada" contaItensRealizados codigo="OII9"
+
+salvar

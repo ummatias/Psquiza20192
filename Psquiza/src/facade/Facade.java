@@ -1,5 +1,7 @@
 package facade;
 
+import java.io.IOException;
+
 import atividade.AtividadeController;
 import busca.BuscaController;
 import easyaccept.EasyAccept;
@@ -38,19 +40,21 @@ public class Facade {
 	public static void main(String[] args) {
 		args = new String[] { "facade.Facade",
 
-				"testes_aceitacao/use_case_1.txt",
-				"testes_aceitacao/use_case_2.txt",
-				"testes_aceitacao/use_case_3.txt",
-				"testes_aceitacao/use_case_4.txt",
-				"testes_aceitacao/use_case_5.txt",
-				"testes_aceitacao/use_case_6.txt",
-				"testes_aceitacao/use_case_7.txt",
-				"testes_aceitacao/use_case_8.txt",
-				"testes_aceitacao/use_case_9.txt",
-				"testes_aceitacao/use_case_10.txt"
+				"easyaccept/use_case_1.txt",
+				"easyaccept/use_case_2.txt",
+				"easyaccept/use_case_3.txt",
+				"easyaccept/use_case_4.txt",
+				"easyaccept/use_case_5.txt",
+				"easyaccept/use_case_6.txt",
+				"easyaccept/use_case_7.txt",
+				"easyaccept/use_case_8.txt",
+				"easyaccept/use_case_9.txt",
+				"easyaccept/use_case_10.txt",
+				"easyaccept/use_case_11.txt",
 				};
 
 		EasyAccept.main(args);
+		
 	}
 
 	public String cadastraProblema(String descricao, int viabilidade) {
@@ -266,6 +270,10 @@ public class Facade {
 	public String pegaMaiorRiscoAtividades(String idAtividade) {
 		return atividadeController.pegaMaiorRiscoAtividades(idAtividade);
 
+	}
+	
+	public void gravarResumo(String idPesquisa) throws IOException {
+		pesquisaController.gravarResumo(idPesquisa);
 	}
 
 }

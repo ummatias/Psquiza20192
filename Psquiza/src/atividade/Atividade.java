@@ -58,7 +58,7 @@ public class Atividade implements Comparable<Atividade> {
 	 * Resultados da atividade, identificados pela sua ordem no cadastro.
 	 */
 	private Map<Integer, String> resultados;
-
+	
 	/**
 	 * Constrói uma atividade a partir de seu codigo, descrição nível de risco e
 	 * descrição desse risco, e inicializa seus atributos.
@@ -380,5 +380,18 @@ public class Atividade implements Comparable<Atividade> {
 		
 		return this.proximaAtividade.pegaMaiorRiscoAtividades(nivelMaior, codeMaior);
 
+	}
+	
+	public String listaItens() {
+		String saida = "";
+		String estado = "";
+			for(Item item : itens) {
+				if(item.getStatus()) {
+					estado = "REALIZADO";
+				}else { estado = "PENDENTE"; }
+				
+				saida += "            - " + estado + " - " + "ITEM" + (itens.lastIndexOf(item) + 1) + System.lineSeparator();
+			}
+		return saida;
 	}
 }

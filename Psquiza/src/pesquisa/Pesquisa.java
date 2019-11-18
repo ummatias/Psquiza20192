@@ -1,5 +1,8 @@
 package pesquisa;
 
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -383,4 +386,50 @@ public class Pesquisa implements Comparable<Pesquisa>{
 	public List<Atividade> getAtividades() {
 		return atividades;
 	}
+	
+	public void gravarResumo() throws IOException {
+		FileWriter resumo = new FileWriter("./" + this.codigo+ ".txt");
+		PrintWriter grava = new PrintWriter(resumo);
+		
+		grava.println("- Pesquisa: " + this.toString() );"
+		
+		grava.print("   - Pesquisadores:" + System.lineSeparator() + 
+				 listaPesquisadores());
+		
+		grava.print("    - Problema: " + System.lineSeparator() + 
+				"        - " + this.problema.toString() + System.lineSeparator());
+		
+		grava.print("    - Objetivo: " + System.lineSeparator() +
+				listaObjetivos());
+
+		grava.print("    - Atividades: " + System.lineSeparator() +
+				listaAtividades() + System.lineSeparator());
+		
+		resumo.close();
+	}
+	
+	private String listaPesquisadores() {
+		String saida = "";
+		for(Pesquisador pesq : pesquisadores.values()) {
+			saida += "        - " + pesq.toString() + System.lineSeparator();
+		}
+		return saida;
+	}
+	
+	private String listaObjetivos() {
+		String saida = "";
+		for(Objetivo obj : objetivos.values()) {
+			saida += "        - " + obj.toString() + System.lineSeparator();
+		}
+		return saida;
+	}
+	
+	private String listaAtividades() {
+		String saida = "";
+		for(Atividade atividade : atividades) {
+			saida += "        - " + atividade.toString()
+					+ atividade.listaItens();
+		}
+		return saida;
+	} 
 }
