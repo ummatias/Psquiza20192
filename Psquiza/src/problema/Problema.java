@@ -1,5 +1,7 @@
 package problema;
 
+import java.io.Serializable;
+
 import validadores.ValidadorEntradas;
 
 /**
@@ -10,7 +12,7 @@ import validadores.ValidadorEntradas;
  * @author José Igor de Farias Gomes - 119110692
  *
  */
-public class Problema implements Comparable<Problema>{
+public class Problema implements Comparable<Problema>, Serializable{
 
 	/**
 	 * Código e identificador único de um problema

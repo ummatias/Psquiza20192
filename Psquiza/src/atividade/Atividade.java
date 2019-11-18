@@ -1,5 +1,6 @@
 package atividade;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +18,8 @@ import validadores.ValidadorEntradas;
  * @author José Igor de Farias Gomes -119110692
  * @author Natalia Salvino André - 119110051
  */
-public class Atividade implements Comparable<Atividade> {
+
+public class Atividade implements Comparable<Atividade>, Serializable{
 
 	/**
 	 * String referente a descrição da atividade.

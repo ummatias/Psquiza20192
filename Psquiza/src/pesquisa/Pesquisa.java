@@ -1,8 +1,12 @@
 package pesquisa;
 
+
+import java.io.Serializable;
+
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -25,7 +29,7 @@ import validadores.ValidadorEntradas;
  * @author Mateus Matias Ribeiro - 119111153
  *
  */
-public class Pesquisa implements Comparable<Pesquisa>{
+public class Pesquisa implements Comparable<Pesquisa>, Serializable{
 	/**
 	 * Descricao da pesquisa
 	 */

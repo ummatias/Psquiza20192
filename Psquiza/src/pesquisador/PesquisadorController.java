@@ -1,5 +1,6 @@
 package pesquisador;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,7 +17,7 @@ import validadores.ValidadorEntradas;
  * @author Emilly de Albuquerque Oliveira - 119111162
  *
  */
-public class PesquisadorController {
+public class PesquisadorController implements Serializable{
 	/**
 	 * Atributo mapa, que guarda todos os pesquisadores do sistema pelo email.
 	 */

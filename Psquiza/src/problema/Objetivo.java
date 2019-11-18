@@ -1,5 +1,7 @@
 package problema;
 
+import java.io.Serializable;
+
 import validadores.ValidadorEntradas;
 
 /**
@@ -12,7 +14,7 @@ import validadores.ValidadorEntradas;
  * @author José Igor de Farias Gomes - 119110692
  *
  */
-public class Objetivo implements Comparable<Objetivo>{
+public class Objetivo implements Comparable<Objetivo>, Serializable{
 
 	/**
 	 * O código que identifica unicamente um objetivo.

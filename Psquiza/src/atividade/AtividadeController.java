@@ -1,5 +1,6 @@
 package atividade;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -17,8 +18,9 @@ import validadores.ValidadorEntradas;
  * @author José Igor de Farias Gomes -119110692
  * @author Natalia Salvino André - 119110051
  */
-public class AtividadeController {
 
+public class AtividadeController implements Serializable{
+	
 	/**
 	 * Mapa que contém as atividades e as relaciona com seus devidos codigos.
 	 */
