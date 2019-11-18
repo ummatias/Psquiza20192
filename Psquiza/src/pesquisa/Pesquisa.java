@@ -397,27 +397,53 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		return atividades;
 	}
 	
+	/**
+	 * Grava em um arquivo de texto um resumo da pesquisa
+	 * 
+	 * @throws IOException
+	 */
 	public void gravarResumo() throws IOException {
 		FileWriter resumo = new FileWriter("./" + this.codigo+ ".txt");
 		PrintWriter grava = new PrintWriter(resumo);
 		
-		grava.println("- Pesquisa: " + this.toString() );
+		grava.println('"' + "- Pesquisa: " + this.toString() );
 		
-		grava.print("   - Pesquisadores:" + System.lineSeparator() + 
+		grava.print("    - Pesquisadores:" + System.lineSeparator() + 
 				 listaPesquisadores());
 		
 		grava.print("    - Problema: " + System.lineSeparator() + 
 				"        - " + this.problema.toString() + System.lineSeparator());
 		
-		grava.print("    - Objetivo: " + System.lineSeparator() +
+		grava.print("    - Objetivos: " + System.lineSeparator() +
 				listaObjetivos());
 
 		grava.print("    - Atividades: " + System.lineSeparator() +
-				listaAtividades() + System.lineSeparator());
+				listaAtividades());
 		
 		resumo.close();
 	}
 	
+	/**
+	 * Grava em um arquivo de texto os resultados da pesquisa
+	 * 
+	 * @throws IOException
+	 */
+	public void	gravarResultados() throws IOException {
+		FileWriter result = new FileWriter("./" + this.codigo+ "-Resultados.txt");
+		PrintWriter grava = new PrintWriter(result);
+		
+		grava.println('"' + "- Pesquisa: " + this.toString());
+		grava.print("    - Resultados:" + System.lineSeparator() +
+				listaAtividadeParaResultado());
+		grava.close();
+	}
+	
+	/**
+	 * Gera um representação em String dos pesquisadores formatada de modo
+	 * a ser salvo no resumo
+	 * 
+	 * @return Representação em String dos pesquisadores
+	 */
 	private String listaPesquisadores() {
 		String saida = "";
 		for(Pesquisador pesq : pesquisadores.values()) {
@@ -426,6 +452,12 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		return saida;
 	}
 	
+	/**
+	 * Gera um representação em String dos objetivos formatada de modo
+	 * a ser salvo no resumo
+	 * 
+	 * @return Representação em String dos objetivos
+	 */
 	private String listaObjetivos() {
 		String saida = "";
 		for(Objetivo obj : objetivos.values()) {
@@ -434,12 +466,32 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		return saida;
 	}
 	
+	/**
+	 * Gera um representação em String das atividades formatada de modo
+	 * a ser salvo no resumo
+	 * 
+	 * @return Representação em String das atividades
+	 */
 	private String listaAtividades() {
 		String saida = "";
 		for(Atividade atividade : atividades) {
-			saida += "        - " + atividade.toString()
-					+ atividade.listaItens();
+			saida += atividade.resumeAtividade();
 		}
 		return saida;
-	} 
+	}
+	
+	/**
+	 * Gera um representação em String das atividades formatada de modo
+	 * a ser salvo nos resultados
+	 * 
+	 * @return Representação em String das atividades
+	 */
+	private String listaAtividadeParaResultado() {
+		String saida = "";
+		for(Atividade atividade : atividades) {
+			saida += atividade.resumeAtividadeParaResultado();
+		}
+		return saida;
+	}
+	
 }

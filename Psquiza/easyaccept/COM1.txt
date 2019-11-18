@@ -3,7 +3,7 @@
         - Eliane Araujo (professor) - A rainha das rainhas - eliane@computacao.ufcg.edu.br - https://penseNumaMulherLinda - Doutorado - DSC - 07/07/2007
     - Problema:
         - P1 - O problema do discurso homofobico em chats online de alunos de computacao de primeiro periodo - 3
-    - Objetivo:
+    - Objetivos:
         - O1 - GERAL - Diminuir a frequencia de mensagens homofobicas trocadas em chats online entre alunos de primeiro periodo de computacao. - 6
 	- O2 - ESPECIFICO - Realizar rodas de conversa entre alunos do curso, incluindo especialmente aqueles que emitem mensagens homofobicas e alunos ou pessoas homoafetivas. - 9
 	- O3 - ESPECIFICO - Detectar, atraves de bot eletronico, a presenca de mensagens eletronicas com conteudo homofobico. - 7

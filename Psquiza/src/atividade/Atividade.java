@@ -402,16 +402,48 @@ public class Atividade implements Comparable<Atividade> {
 
 	}
 	
-	public String listaItens() {
+	/**
+	 * Cria uma representação em String de uma atividade de forma resumida
+	 * @return String contendo o resumo da atividade
+	 */
+	public String resumeAtividade() {
 		String saida = "";
 		String estado = "";
-			for(Item item : itens) {
-				if(item.getStatus()) {
-					estado = "REALIZADO";
-				}else { estado = "PENDENTE"; }
-				
-				saida += "            - " + estado + " - " + "ITEM" + (itens.lastIndexOf(item) + 1) + System.lineSeparator();
-			}
+		saida += "        - " + this.desc + " (" + this.nvlRisco + " - " + descRisco + ")" + System.lineSeparator();
+		for (Item it : itens) {
+			if(it.getStatus()) {
+				estado = "REALIZADO";
+			}else { estado = "PENDENTE"; }
+			saida += "            - " + estado + " - " + "ITEM" + (itens.indexOf(it) + 1) + System.lineSeparator();
+		}
+		saida = saida.substring(0, saida.length() - 1) + '"';
 		return saida;
 	}
+	
+	/**
+	 * Cria uma representação em String de uma atividade de forma resumida
+	 * formatada para gravação dos resultados
+	 * @return String contendo o resumo da atividade
+	 */
+	public String resumeAtividadeParaResultado() {
+		String saida = "";
+		int duracao = 1;
+		if(contaItensRealizados() != 0) {
+			 duracao = this.duracao / this.contaItensRealizados();
+		}
+		saida += "        - " + this.desc +  System.lineSeparator();
+		
+		for (Item it : itens) {
+			if(it.getStatus()) {
+				saida += "            - " + "ITEM" + (itens.indexOf(it) + 1) + " - " + duracao + System.lineSeparator();
+			}
+		}
+		for(String result : resultados.values()) {
+			saida += "            - " + result + System.lineSeparator();
+		}
+		saida = saida.substring(0, saida.length() - 1) + '"';
+		return saida;
+	}
+		
 }
+

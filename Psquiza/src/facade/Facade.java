@@ -275,5 +275,9 @@ public class Facade {
 	public void gravarResumo(String idPesquisa) throws IOException {
 		pesquisaController.gravarResumo(idPesquisa);
 	}
+	
+	public void gravarResultados(String codigoPesquisa) throws IOException {
+		pesquisaController.gravarResultados(codigoPesquisa);
+	}
 
 }
