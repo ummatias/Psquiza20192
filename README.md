@@ -1,4 +1,4 @@
-﻿# Psquiza 2019.2
+<span style="color: #88888; font-family: Babas; font-size: 2em;">Psquiza 2019.2 
 
 Projeto desenvolvido para a discplina de LP2 do curso de ciência da computação da UFCG.
 
