@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import atividade.AtividadeController;
-import pesquisa.PesquisaController;
 
 class AtividadeControllerTest {
 

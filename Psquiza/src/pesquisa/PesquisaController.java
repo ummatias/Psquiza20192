@@ -39,16 +39,31 @@ public class PesquisaController {
 	 * Lista com todas as atividades associadas as pesquisas do sistema.
 	 */
 	private List<Atividade> atividadesAssociadas;
-	
+
+	/**
+	 * Controller de Atividade com as atividades a serão associadas às pesquisas.
+	 */
 	private AtividadeController atividadeController;
-	
+
+	/**
+	 * Controller de Problema e Objetivo com o problema e os objetivos a serão
+	 * associados às pesquisas.
+	 */
 	private ProblemaObjetivoController problemaObjetivoController;
-	
+
+	/**
+	 * Controller de Pesquisador com os pesquisadores que serão associados às
+	 * pesquisas.
+	 */
 	private PesquisadorController pesquisadorController;
-	
+
+	/**
+	 * Estrategia utilizada para sugerir a proxima atividade.
+	 */
 	private Estrategia estrategia;
 
-	public PesquisaController(AtividadeController atvController, ProblemaObjetivoController poController, PesquisadorController pesquisadorController) {
+	public PesquisaController(AtividadeController atvController, ProblemaObjetivoController poController,
+			PesquisadorController pesquisadorController) {
 		this.pesquisasCadastradas = new HashMap<>();
 		this.chavesGeradas = new HashMap<>();
 		this.atividadesAssociadas = new ArrayList<>();
@@ -196,16 +211,13 @@ public class PesquisaController {
 		throw new IllegalArgumentException("Pesquisa nao encontrada.");
 	}
 
-	
-	
-	
 	/**
-	 * Associa um problma a uma pesquisa e retorna um valor 
-	 * booleano dizendo se a associação foi bem sucedida (true)
-	 * ou se o problema já estava associado (false)
+	 * Associa um problma a uma pesquisa e retorna um valor booleano dizendo se a
+	 * associação foi bem sucedida (true) ou se o problema já estava associado
+	 * (false)
 	 * 
 	 * @param idPesquisa ID da pesquisa que será associado o problema
-	 * @param problema Problema a ser associado a pesquisa
+	 * @param problema   Problema a ser associado a pesquisa
 	 * @return valor boolean contendo o resultado da operação
 	 */
 	public boolean associaProblema(String idPesquisa, String idProblema) {
@@ -213,11 +225,11 @@ public class PesquisaController {
 		ValidadorEntradas.validarString(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
 		validaPesquisaExiste(idPesquisa);
 		validaPesquisaAtiva(idPesquisa);
-		
+
 		Problema problema = problemaObjetivoController.getProblema(idProblema);
 		return pesquisasCadastradas.get(idPesquisa).associaProblema(problema);
 	}
-	
+
 	/**
 	 * Desassocia o problema que estiver ligado a pesquisa
 	 * 
@@ -230,28 +242,28 @@ public class PesquisaController {
 		validaPesquisaAtiva(idPesquisa);
 		return pesquisasCadastradas.get(idPesquisa).desassociaProblema();
 	}
-	
+
 	/**
-	 * Associa um objetivo a uma pesquisa e retorna um valor 
-	 * booleano dizendo se a associação foi bem sucedida (true)
-	 * ou se o problema já estava associado (false)
+	 * Associa um objetivo a uma pesquisa e retorna um valor booleano dizendo se a
+	 * associação foi bem sucedida (true) ou se o problema já estava associado
+	 * (false)
 	 * 
 	 * @param idPesquisa ID da pesquisa que será associado o objetivo
-	 * @param objetivo objetivo a ser associado a pesquisa
+	 * @param objetivo   objetivo a ser associado a pesquisa
 	 * @return valor boolean contendo o resultado da operação
 	 */
 	public boolean associaObjetivo(String idPesquisa, String idObjetivo) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
-		
+
 		Objetivo objetivo = problemaObjetivoController.getObjetivo(idObjetivo);
 		validaPesquisaExiste(idPesquisa);
 		validaPesquisaAtiva(idPesquisa);
 
 		return pesquisasCadastradas.get(idPesquisa).associaObjetivo(objetivo);
-		
+
 	}
-	
+
 	/**
 	 * Desassocia um objetivo que estiver cadastrado na pesquisa através de seus
 	 * respectivos ID's
@@ -268,48 +280,47 @@ public class PesquisaController {
 
 		return pesquisasCadastradas.get(idPesquisa).desassociaObjetivo(idObjetivo);
 	}
-	
+
 	/**
 	 * Lista as pesquisas baseando-se em um critério passado como parametro
 	 * 
 	 * @param ordem Critério que definira a forma de ordenação
-	 * @return String que representa as pesquisas ordenadas de acordo com o critério especificado
+	 * @return String que representa as pesquisas ordenadas de acordo com o critério
+	 *         especificado
 	 */
 	public String listaPesquisas(String ordem) {
 		ArrayList<Pesquisa> pesquisasOrdenadas = ordenaPesquisas(ordem);
 		String retorno = "";
-		
-		for(Pesquisa pesquisa : pesquisasOrdenadas) {
+
+		for (Pesquisa pesquisa : pesquisasOrdenadas) {
 			retorno += pesquisa.toString() + " | ";
 		}
-		
+
 		return retorno.substring(0, retorno.length() - 3);
-		
-		
-		
+
 	}
-	
+
 	/**
-	 * Cria uma lista de objetivos ordenada de acordo com um critério
-	 * especificado por parametro.
+	 * Cria uma lista de objetivos ordenada de acordo com um critério especificado
+	 * por parametro.
 	 * 
 	 * @param Tipoordem Critério a ser usado na ordenação
 	 * @return Lista ordenada de objetivos
 	 */
 	private ArrayList<Pesquisa> ordenaPesquisas(String Tipoordem) {
 		OrdenaPesquisa ordem;
-		
+
 		switch (Tipoordem) {
 		case "PROBLEMA":
 			ordem = new OpcaoProblema();
-			
+
 			break;
 		case "OBJETIVOS":
 			ordem = new OpcaoObjetivo();
 			break;
 		case "PESQUISA":
 			ordem = new OpcaoPesquisa();
-			
+
 			break;
 
 		default:
@@ -317,13 +328,12 @@ public class PesquisaController {
 		}
 		ArrayList<Pesquisa> pesquisasOrdenadas = new ArrayList<Pesquisa>();
 		pesquisasOrdenadas.addAll(pesquisasCadastradas.values());
-		
+
 		Collections.sort(pesquisasOrdenadas, ordem);
 		return pesquisasOrdenadas;
-		
+
 	}
 
-	
 	/**
 	 * Método que associa uma atividade a pesquisa.
 	 * 
@@ -332,13 +342,13 @@ public class PesquisaController {
 	 * @return true se conseguir associar com sucesso. False se já tiver uma
 	 *         atividade associada.
 	 */
-	public boolean associaAtividade(String codigoPesquisa,String codigoAtividade) {
+	public boolean associaAtividade(String codigoPesquisa, String codigoAtividade) {
 		ValidadorEntradas.validarString(codigoPesquisa, "Campo codigoPesquisa nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
 		atividadeController.validaAtividadeExiste(codigoAtividade);
 		validaPesquisaExiste(codigoPesquisa);
 		validaPesquisaAtiva(codigoPesquisa);
-		
+
 		Atividade atividade = atividadeController.getAtividade(codigoAtividade);
 		atividadesAssociadas.add(atividade);
 		return pesquisasCadastradas.get(codigoPesquisa).associaAtividade(atividade);
@@ -358,9 +368,9 @@ public class PesquisaController {
 		validaPesquisaExiste(codigoPesquisa);
 		validaPesquisaAtiva(codigoPesquisa);
 		atividadeController.validaAtividadeExiste(codigoAtividade);
-		
+
 		Atividade atividade = atividadeController.getAtividade(codigoAtividade);
-		
+
 		atividadesAssociadas.remove(atividade);
 		return pesquisasCadastradas.get(codigoPesquisa).desassociaAtividade(atividade);
 
@@ -407,9 +417,15 @@ public class PesquisaController {
 			throw new IllegalArgumentException("Pesquisa nao encontrada.");
 		}
 	}
-    
-  public String buscaDescricaoCampoDeInteresse(String termo) {
-	
+
+	/**
+	 * Método que busca determinado termo dentro do controller de pesquisa
+	 * 
+	 * @param termo - termo a ser procurado
+	 * @return o codigo da pesquisa e onde o termo está presente
+	 */
+	public String buscaDescricaoCampoDeInteresse(String termo) {
+
 		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
 		List<Pesquisa> listPesquisa = new ArrayList<>(this.pesquisasCadastradas.values());
 		Collections.sort(listPesquisa);
@@ -427,6 +443,7 @@ public class PesquisaController {
 		}
 		return saida;
 	}
+
 	/**
 	 * Método que retorna todas as atividades associadas a pesquisas.
 	 * 
@@ -435,24 +452,27 @@ public class PesquisaController {
 	private List<Atividade> getAtividades() {
 		return atividadesAssociadas;
 	}
-	
-	
-	/** Método que executa uma atividade
+
+	/**
+	 * Método que executa uma atividade
+	 * 
 	 * @param codigoAtividade - código da atividade
-	 * @param item - item usado durante a execução
-	 * @param duracao - duração da execução
+	 * @param item            - item usado durante a execução
+	 * @param duracao         - duração da execução
 	 */
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
-		
+
 		validaAtividadeEstaAssociada(getAtividades(), atividadeController.getAtividade(codigoAtividade));
-		
+
 		atividadeController.executaAtividade(codigoAtividade, item, duracao);
 	}
-	
-	
-	/** Método que valida se uma atividade está associada a alguma pesquisa do sistema
+
+	/**
+	 * Método que valida se uma atividade está associada a alguma pesquisa do
+	 * sistema
+	 * 
 	 * @param atividades - atividades do sistema associadas a pesquisas.
-	 * @param atividade - atividade a ser validada.
+	 * @param atividade  - atividade a ser validada.
 	 */
 	private void validaAtividadeEstaAssociada(List<Atividade> atividades, Atividade atividade) {
 		if (!atividades.contains(atividade)) {
@@ -461,43 +481,45 @@ public class PesquisaController {
 	}
 
 	/**
-	 * Valida se determinada pesquisa está cadastrada no sistema e
-	 * lança uma exceção caso não esteja
+	 * Valida se determinada pesquisa está cadastrada no sistema e lança uma exceção
+	 * caso não esteja
 	 * 
 	 * @param idPesquisa ID da pesquisa a ser validada
 	 */
 	private void validaPesquisaExiste(String idPesquisa) {
-		if(!pesquisasCadastradas.containsKey(idPesquisa)) {
+		if (!pesquisasCadastradas.containsKey(idPesquisa)) {
 			throw new IllegalArgumentException("Pesquisa nao encontrada.");
 		}
 	}
-	
+
 	/**
-	 * Valida se determinada pesquisa está ativa no sistema e
-	 * lança uma exceção caso não esteja
+	 * Valida se determinada pesquisa está ativa no sistema e lança uma exceção caso
+	 * não esteja
 	 * 
 	 * @param idPesquisa ID da pesquisa a ser validada
 	 */
 	private void validaPesquisaAtiva(String idPesquisa) {
-		if(!pesquisasCadastradas.get(idPesquisa).ehAtiva()) {
+		if (!pesquisasCadastradas.get(idPesquisa).ehAtiva()) {
 			throw new IllegalArgumentException("Pesquisa desativada.");
 		}
 	}
 
-	/** Método que configura a estrategia para sugerir a proxima
-	 * atividade a ser executada.
+	/**
+	 * Método que configura a estrategia para sugerir a proxima atividade a ser
+	 * executada.
+	 * 
 	 * @param estrategia - estrategia que será usada.
 	 */
 	public void configuraEstrategia(String estrategia) {
 		ValidadorEntradas.validarString(estrategia, "Estrategia nao pode ser nula ou vazia.");
 		ValidadorEntradas.validaEntradaEstrategia(estrategia);
-		if("MENOS_PENDENCIAS".equals(estrategia)) {
+		if ("MENOS_PENDENCIAS".equals(estrategia)) {
 			this.estrategia = new MenosPendencias();
 		}
-		if("MAIOR_RISCO".equals(estrategia)) {
+		if ("MAIOR_RISCO".equals(estrategia)) {
 			this.estrategia = new MaiorRisco();
 		}
-		 
+
 		if ("MAIOR_DURACAO".equals(estrategia)) {
 			this.estrategia = new MaiorDuracao();
 		}
@@ -505,8 +527,10 @@ public class PesquisaController {
 			this.estrategia = new MaisAntiga();
 		}
 	}
-	
-	/**Método para indicar qual a proxima atividade a ser executada.
+
+	/**
+	 * Método para indicar qual a proxima atividade a ser executada.
+	 * 
 	 * @param codigoPesquisa - codigo da pesquisa.
 	 * @return a proxima atividade.
 	 */
@@ -516,9 +540,8 @@ public class PesquisaController {
 		validaPesquisaAtiva(codigoPesquisa);
 		validaPesquisaSemPendencias(codigoPesquisa);
 		return this.estrategia.proximaAtividade(pesquisasCadastradas.get(codigoPesquisa).getAtividades());
-		
+
 	}
-	
 
 	/**
 	 * Grava em um arquivo de texto um resumo da pesquisa
@@ -531,9 +554,9 @@ public class PesquisaController {
 		validaPesquisaExiste(codigoPesquisa);
 		validaPesquisaAtiva(codigoPesquisa);
 		pesquisasCadastradas.get(codigoPesquisa).gravarResumo();
-	
+
 	}
-	
+
 	/**
 	 * Grava em um arquivo de texto os resultados da pesquisa
 	 * 
@@ -545,19 +568,23 @@ public class PesquisaController {
 		validaPesquisaExiste(codigoPesquisa);
 		validaPesquisaAtiva(codigoPesquisa);
 		pesquisasCadastradas.get(codigoPesquisa).gravarResultados();
-	
+
 	}
 
-	/**Método que verifica se a pesquisa não contem nenhuma atividade com item pendente
+	/**
+	 * Método que verifica se a pesquisa não contem nenhuma atividade com item
+	 * pendente
+	 * 
 	 * @param codigoPesquisa - código da pesquisa a ser validada.
 	 */
 	private void validaPesquisaSemPendencias(String codigoPesquisa) {
 		List<Atividade> atividades = pesquisasCadastradas.get(codigoPesquisa).getAtividades();
-		for (Atividade atividade:atividades) {
+		for (Atividade atividade : atividades) {
 			if (atividade.contaItensPendentes() != 0) {
 				return;
 			}
-		} throw new IllegalArgumentException("Pesquisa sem atividades com pendencias.");
+		}
+		throw new IllegalArgumentException("Pesquisa sem atividades com pendencias.");
 	}
-	
+
 }
