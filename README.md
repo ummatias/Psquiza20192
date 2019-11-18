@@ -1,6 +1,6 @@
-#Psquiza 2019.2 
+# Psquiza 2019.2
 
-Projeto desenvolvido para a discplina de LP2 do curso de ciência da computação da UFCG.
+Projeto desenvolvido para a disciplina de LP2 do curso de ciência da computação da UFCG.
 
 **Desenvolvedores:**
 
