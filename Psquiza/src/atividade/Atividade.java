@@ -369,6 +369,7 @@ public class Atividade implements Comparable<Atividade> {
 		return this.pegaMaiorRiscoAtividades(this.nvlRisco, this.code);
 	}
 
+	
 	private String pegaMaiorRiscoAtividades(String nivelRiscoMaior, String codeMaiorRisco) {
 		String codeMaior = codeMaiorRisco;
 		String nivelMaior = nivelRiscoMaior;
@@ -416,7 +417,6 @@ public class Atividade implements Comparable<Atividade> {
 			}else { estado = "PENDENTE"; }
 			saida += "            - " + estado + " - " + "ITEM" + (itens.indexOf(it) + 1) + System.lineSeparator();
 		}
-		saida = saida.substring(0, saida.length() - 1) + '"';
 		return saida;
 	}
 	
@@ -441,7 +441,6 @@ public class Atividade implements Comparable<Atividade> {
 		for(String result : resultados.values()) {
 			saida += "            - " + result + System.lineSeparator();
 		}
-		saida = saida.substring(0, saida.length() - 1) + '"';
 		return saida;
 	}
 		

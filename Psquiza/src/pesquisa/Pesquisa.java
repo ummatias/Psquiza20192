@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -71,7 +72,7 @@ public class Pesquisa implements Comparable<Pesquisa>{
 		this.atividades = new ArrayList<>();
 		this.problema = null;
 		this.objetivos = new HashMap<>();
-		this.pesquisadores = new HashMap<>();
+		this.pesquisadores = new LinkedHashMap();
 	}
 
 	/**
@@ -405,8 +406,9 @@ public class Pesquisa implements Comparable<Pesquisa>{
 	public void gravarResumo() throws IOException {
 		FileWriter resumo = new FileWriter("./" + this.codigo+ ".txt");
 		PrintWriter grava = new PrintWriter(resumo);
+		String resumoAtividades = listaAtividades();
 		
-		grava.println('"' + "- Pesquisa: " + this.toString() );
+		grava.println("\"" + "- Pesquisa: " + this.toString() );
 		
 		grava.print("    - Pesquisadores:" + System.lineSeparator() + 
 				 listaPesquisadores());
@@ -418,7 +420,7 @@ public class Pesquisa implements Comparable<Pesquisa>{
 				listaObjetivos());
 
 		grava.print("    - Atividades: " + System.lineSeparator() +
-				listaAtividades());
+				resumoAtividades.substring(0, resumoAtividades.length() - 1) + "\"");
 		
 		resumo.close();
 	}
@@ -431,10 +433,11 @@ public class Pesquisa implements Comparable<Pesquisa>{
 	public void	gravarResultados() throws IOException {
 		FileWriter result = new FileWriter("./" + this.codigo+ "-Resultados.txt");
 		PrintWriter grava = new PrintWriter(result);
+		String resultados = listaAtividadeParaResultado();
 		
-		grava.println('"' + "- Pesquisa: " + this.toString());
+		grava.println("\"" + "- Pesquisa: " + this.toString());
 		grava.print("    - Resultados:" + System.lineSeparator() +
-				listaAtividadeParaResultado());
+				resultados.substring(0, resultados.length() -1) + "\"" );
 		grava.close();
 	}
 	
