@@ -68,9 +68,13 @@ expectError "EnesimaAtividade nao pode ser negativa ou zero." pegaProximo idAtiv
 
 
 #Pegando a atividade de maior risco
+defineProximaAtividade idPrecedente="A10" idSubsquente="A4"
+defineProximaAtividade idPrecedente="A4" idSubsquente="A14"
 expect "A10" pegaMaiorRiscoAtividades idAtividade="A13" 
 expectError "Nao existe proxima atividade." pegaMaiorRiscoAtividades idAtividade="A1" 
 expect "A10" pegaMaiorRiscoAtividades idAtividade="A7" 
 expect "A10" pegaMaiorRiscoAtividades idAtividade="A12" 
+expect "A1" pegaMaiorRiscoAtividades idAtividade="A2" 
+expect "A14" pegaMaiorRiscoAtividades idAtividade="A4" 
 expectError "Atividade nao pode ser nulo ou vazio." pegaMaiorRiscoAtividades idAtividade=""
 expectError "Atividade nao encontrada." pegaMaiorRiscoAtividades idAtividade="A420"

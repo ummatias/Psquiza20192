@@ -520,11 +520,31 @@ public class PesquisaController {
 	}
 	
 
+	/**
+	 * Grava em um arquivo de texto um resumo da pesquisa
+	 * 
+	 * @param codigoPesquisa Código da pesquisa que devera ser salvo o resumo
+	 * @throws IOException
+	 */
 	public void gravarResumo(String codigoPesquisa) throws IOException {
 		ValidadorEntradas.validarString(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
 		validaPesquisaExiste(codigoPesquisa);
 		validaPesquisaAtiva(codigoPesquisa);
 		pesquisasCadastradas.get(codigoPesquisa).gravarResumo();
+	
+	}
+	
+	/**
+	 * Grava em um arquivo de texto os resultados da pesquisa
+	 * 
+	 * @param codigoPesquisa Código da pesquisa que devera ser salvo os resultados
+	 * @throws IOException
+	 */
+	public void gravarResultados(String codigoPesquisa) throws IOException {
+		ValidadorEntradas.validarString(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
+		validaPesquisaExiste(codigoPesquisa);
+		validaPesquisaAtiva(codigoPesquisa);
+		pesquisasCadastradas.get(codigoPesquisa).gravarResultados();
 	
 	}
 

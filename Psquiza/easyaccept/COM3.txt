@@ -14,12 +14,18 @@
             - REALIZADO - ITEM3
             - REALIZADO - ITEM4
         - Monitoramento por ninjas de computacao na guerra ninja. (BAIXO - Por se tratar de apenas um monitoramento, o risco nao e elevado.)
-	- Plantio de um grao de feijao em um algodao. (ALTO - Por se tratar de uma vida, o risco e extremamente elevado.)
 	- Analise do comportamento dos alunos de computacao com os alunos de arq/urb. (ALTO - Por se tratar de uma analise a partir de denuncias de um comportamento hostil, o risco e extremamente elevado.)
             - REALIZADO - ITEM1
             - PENDENTE - ITEM2
+            - PENDENTE - ITEM3
 	- Testando se a terra e plana (BAIXO - Por se tratar de uma atividade que ja se sabe que seus resultados, sendo assim uma atividade simbolica, seu risco e hiperbólicamente baixo.)
 	- Analise de quantas maos levantadas sao necessarias para Goku fazer uma Genki Dama que consiga derrotar Saitama (ALTO - Pela possibilidade de nao existirem pesoas o bastante no universo para levantar a mao, o risco e alto.)
 	- Busca e analise de uma razao para a Netflix cancelar BoJack Horseman (ALTO - Nao existe uma razao plausivel, assim o risco e elevado.)
             - PENDENTE - ITEM1
-	- Mudancas nas relacoes do instagram, apos a ocultacao do numero de curtidas das postagens. (ALTO - Por envolver uma crise economica brutal, com diversas blogueirinhas perdendo seus empregos, e de uma crise social, com diversas pessoas perdendo o rummo de suas vidas, o risco e extremamente elevado.)"
+	- Mudancas nas relacoes do instagram, apos a ocultacao do numero de curtidas das postagens. (ALTO - Por envolver uma crise economica brutal, com diversas blogueirinhas perdendo seus empregos, e de uma crise social, com diversas pessoas perdendo o rummo de suas vidas, o risco e extremamente elevado.)
+	- Ponderacao do por que Imagine dragons e tao bom. (BAIXO - Sem risco, so provar algo obvio.)
+            - REALIZADO - ITEM1
+            - REALIZADO - ITEM2
+            - REALIZADO - ITEM3
+            - REALIZADO - ITEM4
+            - PENDENTE - ITEM5"
