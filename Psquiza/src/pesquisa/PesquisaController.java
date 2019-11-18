@@ -1,8 +1,6 @@
 package pesquisa;
 
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -521,7 +519,7 @@ public class PesquisaController {
 		
 	}
 	
-<<<<<<< HEAD
+
 	public void gravarResumo(String codigoPesquisa) throws IOException {
 		ValidadorEntradas.validarString(codigoPesquisa, "Pesquisa nao pode ser nula ou vazia.");
 		validaPesquisaExiste(codigoPesquisa);
@@ -529,7 +527,7 @@ public class PesquisaController {
 		pesquisasCadastradas.get(codigoPesquisa).gravarResumo();
 	
 	}
-=======
+
 	/**Método que verifica se a pesquisa não contem nenhuma atividade com item pendente
 	 * @param codigoPesquisa - código da pesquisa a ser validada.
 	 */
@@ -542,5 +540,4 @@ public class PesquisaController {
 		} throw new IllegalArgumentException("Pesquisa sem atividades com pendencias.");
 	}
 	
->>>>>>> 5bb761697a79fd7f755da0fdaff73fb77e7497b7
 }
