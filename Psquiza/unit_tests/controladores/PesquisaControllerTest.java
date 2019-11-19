@@ -468,7 +468,6 @@ class PesquisaControllerTest {
 		assertFalse(this.pesquisaController.desassociaObjetivo("UNI1", "O1"));
 	}
 	
-	
 	@Test
 	void testAssociaProblemaComSucesso() {
 		pesquisaController.cadastraPesquisa("Erro nos testes da US5", "Erro, Debug");
@@ -477,6 +476,12 @@ class PesquisaControllerTest {
 	}
 	
 	
+
+	@Test
+	void testAssociaProblemaComSucesso() {
+		assertTrue(this.pesquisaController.associaProblema("UNI1", "P1"));
+	}
+  
 	@Test
 	void testAssociaObjetivoComSucesso() {
 		this.pesquisaController.cadastraPesquisa("falta de agua", "agua,geografia");

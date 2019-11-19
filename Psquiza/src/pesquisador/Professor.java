@@ -1,5 +1,7 @@
 package pesquisador;
 
+import java.io.Serializable;
+
 import validadores.ValidadorEntradas;
 
 /**
@@ -7,7 +9,7 @@ import validadores.ValidadorEntradas;
  * Possui formacao, unidade e data de contratação.
  *
  */
-public class Professor implements Especialidade {
+public class Professor implements Especialidade, Serializable{
 
 	/**
 	 * Formação do professor.

@@ -72,13 +72,6 @@ public class BuscaControllerTest {
 	}
 	
 	@Test
-	void testBuscaTermoInexistente() {
-		assertThrows(IllegalArgumentException.class, () -> {
-			facade.busca("azul", 1);
-		});
-	}
-	
-	@Test
 	void testBuscaTermoComNumeroInexistente() {
 		assertThrows(IllegalArgumentException.class, () -> {
 			facade.busca("mas", 4);

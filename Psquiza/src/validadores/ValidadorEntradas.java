@@ -342,4 +342,11 @@ public class ValidadorEntradas {
 		}
 	}
 
+	public static void validarInteiroMaiorQueZero(int enesimaAtividade, String msg) {
+		if(enesimaAtividade <= 0) {
+			throw new IllegalArgumentException(msg);
+		}
+		
+	}
+
 }

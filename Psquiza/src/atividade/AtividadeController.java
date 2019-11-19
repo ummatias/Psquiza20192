@@ -1,5 +1,6 @@
 package atividade;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -17,7 +18,7 @@ import validadores.ValidadorEntradas;
  * @author José Igor de Farias Gomes -119110692
  * @author Natalia Salvino André - 119110051
  */
-public class AtividadeController {
+public class AtividadeController implements Serializable {
 
 	/**
 	 * Mapa que contém as atividades e as relaciona com seus devidos codigos.
@@ -29,7 +30,6 @@ public class AtividadeController {
 	 * atividades.
 	 */
 	int contAtiv;
-
 
 	/**
 	 * Constrói um Controller e inicializa seus atributos.
@@ -232,6 +232,13 @@ public class AtividadeController {
 		return atividades.get(codigoAtividade).listaResultados();
 	}
 
+	/**
+	 * Método que retorna o codigo da atividade que contem determinado termo, além
+	 * da frase na qual ele está contido.
+	 * 
+	 * @param termo - termo sendo pesquisado
+	 * @return codigo da atividade e frase na qual o termo está inserido.
+	 */
 	public String buscaDescricao(String termo) {
 		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
 
@@ -278,7 +285,8 @@ public class AtividadeController {
 	/**
 	 * Remove a próxima atividade de uma determinada atividade
 	 * 
-	 * @param idPrecedente o id da atividade que perderá a referencia para a proxima atividade
+	 * @param idPrecedente o id da atividade que perderá a referencia para a proxima
+	 *                     atividade
 	 */
 	public void tiraProximaAtividade(String idPrecedente) {
 		ValidadorEntradas.validarString(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
@@ -300,7 +308,7 @@ public class AtividadeController {
 	 */
 	public int contaProximos(String idPrecedente) {
 		ValidadorEntradas.validarString(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
-		
+
 		if (atividades.containsKey(idPrecedente)) {
 			Atividade atividade = atividades.get(idPrecedente);
 			return atividade.contaProximos();
@@ -311,11 +319,12 @@ public class AtividadeController {
 
 	public String pegaProximo(String idAtividade, int enesimaAtividade) {
 		ValidadorEntradas.validarString(idAtividade, "Atividade nao pode ser nulo ou vazio.");
-		
+		ValidadorEntradas.validarInteiroMaiorQueZero(enesimaAtividade, "EnesimaAtividade nao pode ser negativa ou zero.");
+
 		if (atividades.containsKey(idAtividade)) {
 			Atividade atividade = atividades.get(idAtividade);
 			return atividade.pegaProximo(enesimaAtividade);
-			
+
 		} else {
 			throw new IllegalArgumentException("Atividade inexistente.");
 		}
@@ -323,25 +332,24 @@ public class AtividadeController {
 
 	public String pegaMaiorRiscoAtividades(String idAtividade) {
 		ValidadorEntradas.validarString(idAtividade, "Atividade nao pode ser nulo ou vazio.");
-		
+
 		if (atividades.containsKey(idAtividade)) {
 			Atividade atividade = atividades.get(idAtividade);
 			return atividade.pegaMaiorRiscoAtividades();
-			
+
 		} else {
 			throw new IllegalArgumentException("Atividade nao encontrada.");
 		}
 	}
+
 	/**
 	 * Valida se uma atividade existe dentro de um map de atividades.
 	 * 
-	 * @param atividades
-	 *            Map de atividades para a validação.
-	 * @param codigo
-	 *            String contendo o código da atividade a ser validada.
+	 * @param atividades Map de atividades para a validação.
+	 * @param codigo     String contendo o código da atividade a ser validada.
 	 */
 	public void validaAtividadeExiste(String idAtividade) {
-		if(!atividades.containsKey(idAtividade)) {
+		if (!atividades.containsKey(idAtividade)) {
 			throw new IllegalArgumentException("Atividade nao encontrada");
 		}
 	}
