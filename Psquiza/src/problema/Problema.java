@@ -14,6 +14,13 @@ import validadores.ValidadorEntradas;
  */
 public class Problema implements Comparable<Problema>, Serializable{
 
+	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3064327509993945570L;
+
 	/**
 	 * Código e identificador único de um problema
 	 */

@@ -20,6 +20,11 @@ public class Objetivo implements Comparable<Objetivo>, Serializable{
 
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1894889608615390697L;
+
+	/**
 	 * O código que identifica unicamente um objetivo.
 	 */
 	private String codigo;

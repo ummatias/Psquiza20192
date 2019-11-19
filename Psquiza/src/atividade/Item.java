@@ -9,7 +9,15 @@ import java.io.Serializable;
  * @author Mateus Matias Ribeiro - 119111153
  *
  */
-public class Item implements Serializable {
+
+public class Item implements Serializable{
+	
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3482417186357857257L;
 
 	/**
 	 * Valor booleano que representa o status de um item
