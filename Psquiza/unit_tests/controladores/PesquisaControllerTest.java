@@ -1,28 +1,45 @@
 package controladores;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runners.MethodSorters;
 
 import atividade.Atividade;
+import atividade.AtividadeController;
 import pesquisa.PesquisaController;
+import pesquisador.PesquisadorController;
 import problema.ProblemaObjetivoController;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class PesquisaControllerTest {
 
 	private PesquisaController pesquisaController;
 	private ProblemaObjetivoController problemaObjetivoController;
+	private AtividadeController atividadeController;
+	private PesquisadorController pesquisadorController;
 
 
 	@BeforeEach
 	void instanciarController() {
-		this.pesquisaController = new PesquisaController(null, problemaObjetivoController, null);
+		this.problemaObjetivoController = new ProblemaObjetivoController();
+		this.atividadeController = new AtividadeController();
+		this.pesquisadorController = new PesquisadorController();
+		this.pesquisaController = new PesquisaController(
+				atividadeController, 
+				problemaObjetivoController, 
+				pesquisadorController
+			);
+		
 		pesquisaController.cadastraPesquisa(
 				"Pesquisa sobre as implicacoes psicologicas da pressao gerada na universidade.",
 				"Universidade, Problema, Psico");
-		this.problemaObjetivoController = new ProblemaObjetivoController();
+		
 		this.problemaObjetivoController.cadastraProblema("Falta de acessibilidade no ambiente academico", 5);
 		this.problemaObjetivoController.cadastraObjetivo("ESPECIFICO", "contruir rampas em todos os predios", 5, 5);
+		this.pesquisadorController.cadastraPesquisador("Flora", "Estudante", "Winx mais perfeita das Winx", "flora@winx.com", "http://fotosdaswinx.com/flora");
 	}
 
 	// Cadastra Pesquisa - testando cadastros e campos vazios ou nulos.
@@ -450,10 +467,21 @@ class PesquisaControllerTest {
 	void testDesassociaObjetivoNaoAssociado() {
 		assertFalse(this.pesquisaController.desassociaObjetivo("UNI1", "O1"));
 	}
+	
+	@Test
+	void testAssociaProblemaComSucesso() {
+		pesquisaController.cadastraPesquisa("Erro nos testes da US5", "Erro, Debug");
+		problemaObjetivoController.cadastraProblema("Programa bugadasso", 3);
+		assertTrue(this.pesquisaController.associaProblema("ERR1", "P2"));
+	}
+	
+	
+
 	@Test
 	void testAssociaProblemaComSucesso() {
 		assertTrue(this.pesquisaController.associaProblema("UNI1", "P1"));
 	}
+  
 	@Test
 	void testAssociaObjetivoComSucesso() {
 		this.pesquisaController.cadastraPesquisa("falta de agua", "agua,geografia");
@@ -517,6 +545,67 @@ class PesquisaControllerTest {
 		});
 	}
 	
-
+	//Testes - US6
+	
+	@Test
+	void testAssociaPesquisadorComSucesso() {
+		assertTrue(pesquisaController.associaPesquisador("UNI1", "flora@winx.com"));
+	}
+	
+	@Test
+	void testAssociaPesquisadorCodigoPesquisaVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.associaPesquisador("", "flora@winx.com");
+		});
+	}
+	
+	@Test
+	void testAssociaPesquisadorCodigoPesquisaNulo() {
+		assertThrows(NullPointerException.class, () -> {
+			pesquisaController.associaPesquisador(null, "flora@winx.com");
+		});
+	}
+	
+	@Test
+	void testAssociaPesquisadorEmailVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.associaPesquisador("UNI1", "");
+		});
+	}
+	
+	@Test
+	void testAssociaPesquisadorEmailPesquisaNulo() {
+		assertThrows(NullPointerException.class, () -> {
+			pesquisaController.associaPesquisador("UNI1", null);
+		});
+	}
+	
+	@Test
+	void testAssociaPesquisadorPesquisaNaoExiste() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.associaPesquisador("LOL666", "flora@winx.com");
+		});
+	}
+	
+	@Test
+	void testAssociaPesquisdorPesquisaDesativada() {
+		pesquisaController.encerraPesquisa("UNI1", "Falta de verba governamental");
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.associaPesquisador("UNI1", "flora@winx.com");
+		});
+	}
+	
+	@Test
+	void testAssociaPesquisadorJaAssociado() {
+		pesquisaController.associaPesquisador("UNI1", "flora@winx.com");
+		assertFalse(pesquisaController.associaPesquisador("UNI1", "flora@winx.com"));
+	}
+	
+	@Test
+	void testAssociaPesquisadorNaoExiste() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.associaPesquisador("UNI1", "bloom@winx.com");
+		});
+	}
 
 }
