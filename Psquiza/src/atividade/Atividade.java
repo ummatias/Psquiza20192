@@ -378,10 +378,10 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	}
 
 	public String pegaMaiorRiscoAtividades() {
-		if (this.proximaAtividade == null) {
-			return "Nao existe proxima atividade.";
+		if(this.proximaAtividade == null) {
+			throw new IllegalArgumentException("Nao existe proxima atividade.");
 		}
-		return this.pegaMaiorRiscoAtividades(this.nvlRisco, this.code);
+		return this.proximaAtividade.pegaMaiorRiscoAtividades(this.proximaAtividade.nvlRisco, this.proximaAtividade.code);
 	}
 
 	private String pegaMaiorRiscoAtividades(String nivelRiscoMaior, String codeMaiorRisco) {
