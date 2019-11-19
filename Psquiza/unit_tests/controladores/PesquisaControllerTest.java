@@ -13,7 +13,7 @@ import pesquisa.PesquisaController;
 import pesquisador.PesquisadorController;
 import problema.ProblemaObjetivoController;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+
 class PesquisaControllerTest {
 
 	private PesquisaController pesquisaController;
@@ -153,8 +153,8 @@ class PesquisaControllerTest {
 
 	@Test
 	void testAlteraPesquisaCampoNovoNula() {
-		assertThrows(NullPointerException.class, () -> {
-			pesquisaController.alteraPesquisa("INT1", "CAMPO", null);
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.alteraPesquisa("UNI1", "CAMPO", null);
 		});
 	}
 
@@ -321,14 +321,14 @@ class PesquisaControllerTest {
 
 	@Test
 	void testAssociaAtividadeComSucesso() {
-		new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		atividadeController.cadastraAtividade("Questionario", "BAIXO", "n tem risco");
 
 		assertTrue(pesquisaController.associaAtividade("UNI1", "A1"));
 	}
 
 	@Test
 	void testAssociaAtividadeCodVazioNulo() {
-		new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		atividadeController.cadastraAtividade("Questionario", "BAIXO", "n tem risco");
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisaController.associaAtividade("", "A1");
@@ -349,8 +349,7 @@ class PesquisaControllerTest {
 
 	@Test
 	void testAssociaAtividadeJaAssociada() {
-		new Atividade("A1", "Questionario", "baixo", "n tem risco");
-
+		atividadeController.cadastraAtividade("Questionario", "BAIXO", "n tem risco");
 		pesquisaController.associaAtividade("UNI1", "A1");
 
 		assertFalse(pesquisaController.associaAtividade("UNI1", "A1"));
@@ -358,7 +357,7 @@ class PesquisaControllerTest {
 
 	@Test
 	void testAssociaAtividadePesquisaDesativada() {
-		new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		atividadeController.cadastraAtividade("Questionario", "BAIXO", "n tem risco");
 		pesquisaController.encerraPesquisa("UNI1", "to só testando hehe");
 
 		assertThrows(IllegalArgumentException.class, () -> {
@@ -368,7 +367,7 @@ class PesquisaControllerTest {
 	
 	@Test
 	void testAssociaAtividadePesquisaInexistente() {
-		new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		atividadeController.cadastraAtividade("Questionario", "BAIXO", "n tem risco");
 		
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisaController.associaAtividade("UNI2", "A1");
@@ -379,7 +378,7 @@ class PesquisaControllerTest {
 
 	@Test
 	void testDesassociaAtividadeComSucesso() {
-		new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		atividadeController.cadastraAtividade("Questionario", "BAIXO", "n tem risco");
 		pesquisaController.associaAtividade("UNI1", "A1");
 
 		assertTrue(pesquisaController.desassociaAtividade("UNI1", "A1"));
@@ -387,7 +386,7 @@ class PesquisaControllerTest {
 
 	@Test
 	void testDesassociaAtividadeCodVazioNulo() {
-		new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		atividadeController.cadastraAtividade("Questionario", "BAIXO", "n tem risco");
 		pesquisaController.associaAtividade("UNI1", "A1");
 
 		assertThrows(IllegalArgumentException.class, () -> {
@@ -401,8 +400,8 @@ class PesquisaControllerTest {
 
 	@Test
 	void testDesassociaAtividadeJaDesassociada() {
-		new Atividade("A1", "Questionario", "baixo", "n tem risco");
-
+		atividadeController.cadastraAtividade("Questionario", "BAIXO", "n tem risco");
+		
 		pesquisaController.associaAtividade("UNI1", "A1");
 		pesquisaController.desassociaAtividade("UNI1", "A1");
 
@@ -411,7 +410,7 @@ class PesquisaControllerTest {
 	
 	@Test
 	void testDesassociaAtividadePesquisaDesativada() {
-		new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		atividadeController.cadastraAtividade("Questionario", "BAIXO", "n tem risco");
 		pesquisaController.associaAtividade("UNI1", "A1");
 		pesquisaController.encerraPesquisa("UNI1", "to só testando hehe");
 
@@ -477,10 +476,10 @@ class PesquisaControllerTest {
 	
 	
 
-	@Test
-	void testAssociaProblemaComSucesso() {
-		assertTrue(this.pesquisaController.associaProblema("UNI1", "P1"));
-	}
+//	@Test
+//	void testAssociaProblemaComSucesso() {
+//		assertTrue(this.pesquisaController.associaProblema("UNI1", "P1"));
+//	}
   
 	@Test
 	void testAssociaObjetivoComSucesso() {
@@ -607,5 +606,205 @@ class PesquisaControllerTest {
 			pesquisaController.associaPesquisador("UNI1", "bloom@winx.com");
 		});
 	}
+	
+	@Test
+	void testConfiguraEstrategiaComSucesso() {
+		pesquisaController.configuraEstrategia("MAIOR_RISCO");
+		pesquisaController.configuraEstrategia("MENOS_PENDENCIAS");
+		pesquisaController.configuraEstrategia("MAIS_ANTIGA");
+		pesquisaController.configuraEstrategia("MAIOR_DURACAO");
+	}
+	
+	@Test
+	void testConfiguraEstrategiaValorNuloVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.configuraEstrategia("");
+		});
+		assertThrows(NullPointerException.class, () -> {
+			pesquisaController.configuraEstrategia(null);
+		});
+	}
+	
+	@Test
+	void testConfiguraEstrategiaInvalida() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.configuraEstrategia("MAIS_ITENS");
+		});
+	}
+	
+	@Test
+	void testProximaAtividadeMaisAntiga() {
+		atividadeController.cadastraAtividade("Fincar piquetes em frente ao LCC3", "ALTO", "Perigo de encontrar estudantes de cc no caminho");
+		atividadeController.cadastraAtividade("Fazer algo com os piquetes", "BAIXO", "Não há risco pq eu n sei pra que serve um piquete");
+		atividadeController.cadastraAtividade("Reclamar dos estudantes de cc", "ALTO", "Tem que ter coragem pq quando um estudante de cc pega ranço de alguem...");
+		
+		atividadeController.cadastraItem("A1", "Teste1");
+		atividadeController.cadastraItem("A2", "Teste1");
+		atividadeController.cadastraItem("A3", "Teste1");
+		
+		pesquisaController.associaAtividade("UNI1", "A1");
+		pesquisaController.associaAtividade("UNI1", "A2");
+		pesquisaController.associaAtividade("UNI1", "A3");
+		
+		assertEquals("A1", pesquisaController.proximaAtividade("UNI1"));
+		
+	}
+	
+	@Test
+	void testProximaAtividadeMaiorRisco() {
+		atividadeController.cadastraAtividade("Fazer algo com os piquetes", "BAIXO", "Não há risco pq eu n sei pra que serve um piquete");
+		atividadeController.cadastraAtividade("Fincar piquetes em frente ao LCC3", "ALTO", "Perigo de encontrar estudantes de cc no caminho");
+		atividadeController.cadastraAtividade("Reclamar dos estudantes de cc", "ALTO", "Tem que ter coragem pq quando um estudante de cc pega ranço de alguem...");
+		
+		atividadeController.cadastraItem("A1", "Teste1");
+		atividadeController.cadastraItem("A2", "Teste1");
+		atividadeController.cadastraItem("A3", "Teste1");
+		
+		pesquisaController.associaAtividade("UNI1", "A1");
+		pesquisaController.associaAtividade("UNI1", "A2");
+		pesquisaController.associaAtividade("UNI1", "A3");
+		
+		pesquisaController.configuraEstrategia("MAIOR_RISCO");
+		
+		assertEquals("A2", pesquisaController.proximaAtividade("UNI1"));
+		
+	}
+	
+	@Test
+	void testProximaAtividadeMenosPendencias() {
+		atividadeController.cadastraAtividade("Fazer algo com os piquetes", "BAIXO", "Não há risco pq eu n sei pra que serve um piquete");
+		atividadeController.cadastraAtividade("Fincar piquetes em frente ao LCC3", "ALTO", "Perigo de encontrar estudantes de cc no caminho");
+		atividadeController.cadastraAtividade("Reclamar dos estudantes de cc", "ALTO", "Tem que ter coragem pq quando um estudante de cc pega ranço de alguem...");
+		
+		atividadeController.cadastraItem("A1", "Teste1");
+		atividadeController.cadastraItem("A1", "Teste1");
+		atividadeController.cadastraItem("A2", "Teste1");
+		atividadeController.cadastraItem("A2", "Teste1");
+		atividadeController.cadastraItem("A2", "Teste1");
+		atividadeController.cadastraItem("A3", "Teste1");
+		
+		pesquisaController.associaAtividade("UNI1", "A1");
+		pesquisaController.associaAtividade("UNI1", "A2");
+		pesquisaController.associaAtividade("UNI1", "A3");
+		
+		pesquisaController.configuraEstrategia("MENOS_PENDENCIAS");
+		
+		assertEquals("A3", pesquisaController.proximaAtividade("UNI1"));
+		
+	}
+	
+	@Test
+	void testProximaAtividadeMaiorDuracao() {
+		atividadeController.cadastraAtividade("Fazer algo com os piquetes", "BAIXO", "Não há risco pq eu n sei pra que serve um piquete");
+		atividadeController.cadastraAtividade("Fincar piquetes em frente ao LCC3", "ALTO", "Perigo de encontrar estudantes de cc no caminho");
+		atividadeController.cadastraAtividade("Reclamar dos estudantes de cc", "ALTO", "Tem que ter coragem pq quando um estudante de cc pega ranço de alguem...");
+		
+		atividadeController.cadastraItem("A1", "Teste1");
+		atividadeController.cadastraItem("A1", "Teste1");
+		atividadeController.executaAtividade("A1", 1, 20);
+		
+		atividadeController.cadastraItem("A2", "Teste1");
+		atividadeController.cadastraItem("A2", "Teste1");
+		atividadeController.cadastraItem("A2", "Teste1");
+		atividadeController.executaAtividade("A2", 1, 20);
+		atividadeController.executaAtividade("A2", 2, 20);
+		
+		atividadeController.cadastraItem("A3", "Teste1");
+		atividadeController.cadastraItem("A3", "Teste1");
+		atividadeController.executaAtividade("A3", 1, 60);
+		
+		
+		pesquisaController.associaAtividade("UNI1", "A1");
+		pesquisaController.associaAtividade("UNI1", "A2");
+		pesquisaController.associaAtividade("UNI1", "A3");
+		
+		pesquisaController.configuraEstrategia("MAIOR_DURACAO");
+		
+		assertEquals("A3", pesquisaController.proximaAtividade("UNI1"));
+		
+	}
+	
+	@Test
+	void testProximaAtividadeCodigoVazioNulo() {
+		atividadeController.cadastraAtividade("Fazer algo com os piquetes", "BAIXO", "Não há risco pq eu n sei pra que serve um piquete");
+		atividadeController.cadastraAtividade("Fincar piquetes em frente ao LCC3", "ALTO", "Perigo de encontrar estudantes de cc no caminho");
+		atividadeController.cadastraAtividade("Reclamar dos estudantes de cc", "ALTO", "Tem que ter coragem pq quando um estudante de cc pega ranço de alguem...");
+		
+		atividadeController.cadastraItem("A1", "Teste1");
+		atividadeController.cadastraItem("A1", "Teste1");
+		atividadeController.executaAtividade("A1", 1, 20);
+		
+		atividadeController.cadastraItem("A2", "Teste1");
+		atividadeController.cadastraItem("A2", "Teste1");
+		atividadeController.cadastraItem("A2", "Teste1");
+		atividadeController.executaAtividade("A2", 1, 20);
+		atividadeController.executaAtividade("A2", 2, 20);
+		
+		atividadeController.cadastraItem("A3", "Teste1");
+		atividadeController.cadastraItem("A3", "Teste1");
+		atividadeController.executaAtividade("A3", 1, 60);
+		
+		
+		pesquisaController.associaAtividade("UNI1", "A1");
+		pesquisaController.associaAtividade("UNI1", "A2");
+		pesquisaController.associaAtividade("UNI1", "A3");
+		
+		pesquisaController.configuraEstrategia("MAIOR_DURACAO");
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.proximaAtividade("");
+		});
+		assertThrows(NullPointerException.class, () -> {
+			pesquisaController.proximaAtividade(null);
+		});
+		
+	}
+	
+	@Test
+	void testProximaAtividadeSemPendencias() {
+		atividadeController.cadastraAtividade("Fincar piquetes em frente ao LCC3", "ALTO", "Perigo de encontrar estudantes de cc no caminho");
+		atividadeController.cadastraAtividade("Fazer algo com os piquetes", "BAIXO", "Não há risco pq eu n sei pra que serve um piquete");
+		atividadeController.cadastraAtividade("Reclamar dos estudantes de cc", "ALTO", "Tem que ter coragem pq quando um estudante de cc pega ranço de alguem...");
+		
+		pesquisaController.associaAtividade("UNI1", "A1");
+		pesquisaController.associaAtividade("UNI1", "A2");
+		pesquisaController.associaAtividade("UNI1", "A3");
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.proximaAtividade("UNI1");
+		});
+		
+	}
+	
+	@Test
+	void testProximaAtividadePesquisaDesativada() {
+		atividadeController.cadastraAtividade("Fincar piquetes em frente ao LCC3", "ALTO", "Perigo de encontrar estudantes de cc no caminho");
+		atividadeController.cadastraAtividade("Fazer algo com os piquetes", "BAIXO", "Não há risco pq eu n sei pra que serve um piquete");
+		atividadeController.cadastraAtividade("Reclamar dos estudantes de cc", "ALTO", "Tem que ter coragem pq quando um estudante de cc pega ranço de alguem...");
+		
+		atividadeController.cadastraItem("A1", "Teste1");
+		atividadeController.cadastraItem("A2", "Teste1");
+		atividadeController.cadastraItem("A3", "Teste1");
+		
+		pesquisaController.associaAtividade("UNI1", "A1");
+		pesquisaController.associaAtividade("UNI1", "A2");
+		pesquisaController.associaAtividade("UNI1", "A3");
+		
+		pesquisaController.encerraPesquisa("UNI1", "porque eu terminei ue");
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.proximaAtividade("UNI1");
+		});
+	}
+	
+	@Test
+	void testProximaAtividadePesquisaInexistente() {
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.proximaAtividade("UNI2");
+		});
+	}
+	
+	
 
 }
