@@ -21,8 +21,6 @@ import validadores.ValidadorEntradas;
 
 public class Atividade implements Comparable<Atividade>, Serializable {
 
-
-
 	/**
 	 * 
 	 */
@@ -72,10 +70,14 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	 * Constrói uma atividade a partir de seu codigo, descrição nível de risco e
 	 * descrição desse risco, e inicializa seus atributos.
 	 * 
-	 * @param code      String contendo o código da atividade.
-	 * @param desc      String contendo a descrição da atividade.
-	 * @param nvlRisco  String contendo o nível de risco da atividade.
-	 * @param descRisco String contendo a descrição do risco da atividade.
+	 * @param code
+	 *            String contendo o código da atividade.
+	 * @param desc
+	 *            String contendo a descrição da atividade.
+	 * @param nvlRisco
+	 *            String contendo o nível de risco da atividade.
+	 * @param descRisco
+	 *            String contendo a descrição do risco da atividade.
 	 */
 	public Atividade(String code, String desc, String nvlRisco, String descRisco) {
 		ValidadorEntradas.validarString(code, "Campo codigo nao pode ser nulo ou vazio.");
@@ -96,7 +98,8 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	/**
 	 * Adiciona um item na atividade.
 	 * 
-	 * @param itemText String referente ao item.
+	 * @param itemText
+	 *            String referente ao item.
 	 */
 	public void addItem(String itemText) {
 		Item item = new Item(itemText);
@@ -189,9 +192,11 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	/**
 	 * Método para executar a atividade.
 	 * 
-	 * @param item  - item usado para realizar a atividade, será alterado o status
-	 *              como executado;
-	 * @param horas - horas gastas com a atividade
+	 * @param item
+	 *            - item usado para realizar a atividade, será alterado o status
+	 *            como executado;
+	 * @param horas
+	 *            - horas gastas com a atividade
 	 */
 	public void executaAtividade(int item, int horas) {
 		validaItemExiste(itens, item);
@@ -207,8 +212,10 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	/**
 	 * Valida se item existe
 	 * 
-	 * @param itens - todos os itens da atividade
-	 * @param item  - item a ser validado
+	 * @param itens
+	 *            - todos os itens da atividade
+	 * @param item
+	 *            - item a ser validado
 	 */
 	private void validaItemExiste(List<Item> itens, int item) {
 		if (itens.size() < item) {
@@ -219,7 +226,8 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	/**
 	 * Método para adicionar resultados a atividade.
 	 * 
-	 * @param resultado - resultado a ser cadastrado
+	 * @param resultado
+	 *            - resultado a ser cadastrado
 	 * @return código do resultado
 	 */
 	public int addResultados(String resultado) {
@@ -230,7 +238,8 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	/**
 	 * Método que remove um resultado da atividade.
 	 * 
-	 * @param numeroResultado - numero do indice do resultado
+	 * @param numeroResultado
+	 *            - numero do indice do resultado
 	 * @return true se o resultado foi removido com sucesso.
 	 */
 	public boolean removeResultado(int numeroResultado) {
@@ -249,8 +258,10 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	/**
 	 * Método que valida se determinado resultado existe na atividade
 	 * 
-	 * @param resultados      - todos os resultados da atividade
-	 * @param numeroResultado - codigo do resultado a ser validado.
+	 * @param resultados
+	 *            - todos os resultados da atividade
+	 * @param numeroResultado
+	 *            - codigo do resultado a ser validado.
 	 */
 	private void validaResultadoExiste(Map<Integer, String> resultados, int numeroResultado) {
 		if (numeroResultado > resultados.size()) {
@@ -291,7 +302,8 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	/**
 	 * Método que procura um termo especifico no objeto atividade
 	 * 
-	 * @param termo - termo sendo pesquisado
+	 * @param termo
+	 *            - termo sendo pesquisado
 	 * @return o codigo da atividade e a frase onde o termo se encontra.
 	 */
 	public String buscaTermo(String termo) {
@@ -313,7 +325,8 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	 * Define a atividade cuja execução sugere-se que seja após a execução desta
 	 * atividade.
 	 * 
-	 * @param atividadeSubsequente a atividade a ser definida como proxima
+	 * @param atividadeSubsequente
+	 *            a atividade a ser definida como proxima
 	 */
 	public void defineProximaAtividade(Atividade atividadeSubsequente) {
 		if (this.proximaAtividade != null) {
@@ -329,8 +342,9 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 	 * Metodo que verifica se uma atividade está ligada a outra direta ou
 	 * indiretamente.
 	 * 
-	 * @param atividade a atividade que deseja-se verificar se está ligada a outra
-	 *                  direta ou indiretamente
+	 * @param atividade
+	 *            a atividade que deseja-se verificar se está ligada a outra direta
+	 *            ou indiretamente
 	 * @return true se estiver ligada, false caso contrário
 	 */
 	private boolean fazLoopCom(Atividade atividade) {
@@ -366,6 +380,13 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 		return 1 + this.proximaAtividade.contaProximos();
 	}
 
+	/**
+	 * De forma recursiva encontra a enesima atividade de uma cadeia
+	 * 
+	 * @param enesimaAtividade
+	 *            a distancia da atividade atual até a atividade desejada
+	 * @return o id da atividade desejada
+	 */
 	public String pegaProximo(int enesimaAtividade) {
 		if (enesimaAtividade == 0) {
 			return this.code;
@@ -377,13 +398,28 @@ public class Atividade implements Comparable<Atividade>, Serializable {
 		return this.proximaAtividade.pegaProximo(enesimaAtividade - 1);
 	}
 
+	/**
+	 * Pega a atividade de maior risco em uma cadeia. O critério de desempate é a
+	 * última a ser adicionada na cadeia.
+	 * 
+	 * @return o id da atividade de maior risco na cadeia.
+	 */
 	public String pegaMaiorRiscoAtividades() {
-		if(this.proximaAtividade == null) {
+		if (this.proximaAtividade == null) {
 			throw new IllegalArgumentException("Nao existe proxima atividade.");
 		}
-		return this.proximaAtividade.pegaMaiorRiscoAtividades(this.proximaAtividade.nvlRisco, this.proximaAtividade.code);
+		return this.proximaAtividade.pegaMaiorRiscoAtividades(this.proximaAtividade.nvlRisco,
+				this.proximaAtividade.code);
 	}
 
+	/**
+	 * Pega a atividade de maior risco em uma cadeia de forma recursiva. O critério
+	 * de desempate é a última a ser adicionada na cadeia.
+	 * 
+	 * @param nivelRiscoMaior o maior risco encontrado até agora.
+	 * @param codeMaiorRisco o codigo da atividade de maior risco até o momento.
+	 * @return o codigo da atividade de maior risco na cadeia.
+	 */
 	private String pegaMaiorRiscoAtividades(String nivelRiscoMaior, String codeMaiorRisco) {
 		String codeMaior = codeMaiorRisco;
 		String nivelMaior = nivelRiscoMaior;

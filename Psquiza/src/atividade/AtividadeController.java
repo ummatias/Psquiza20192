@@ -20,7 +20,6 @@ import validadores.ValidadorEntradas;
  */
 public class AtividadeController implements Serializable {
 
-
 	/**
 	 * Mapa que contém as atividades e as relaciona com seus devidos codigos.
 	 */
@@ -44,9 +43,12 @@ public class AtividadeController implements Serializable {
 	 * Cadastra uma nova atividade no sistema a partir de sua descrição, nivél de
 	 * risco e descrição desse risco.
 	 * 
-	 * @param desc      String referente a descrição da atividade
-	 * @param nvlRisco  String referente ao nível de risco da atividade
-	 * @param descRisco desc String referente a descrição do risco da atividade
+	 * @param desc
+	 *            String referente a descrição da atividade
+	 * @param nvlRisco
+	 *            String referente ao nível de risco da atividade
+	 * @param descRisco
+	 *            desc String referente a descrição do risco da atividade
 	 * @return String contendo o código da atividade
 	 */
 	public String cadastraAtividade(String desc, String nvlRisco, String descRisco) {
@@ -68,7 +70,8 @@ public class AtividadeController implements Serializable {
 	/**
 	 * Apaga uma atividade do sistema a partir de seu código.
 	 * 
-	 * @param codigo código da atividade
+	 * @param codigo
+	 *            código da atividade
 	 */
 	public void apagaAtividade(String codigo) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
@@ -90,8 +93,10 @@ public class AtividadeController implements Serializable {
 	/**
 	 * Cadastra um item a uma atividade.
 	 * 
-	 * @param codigo String contendo o código referente a atividade
-	 * @param item   String que representa o item a ser adicionado
+	 * @param codigo
+	 *            String contendo o código referente a atividade
+	 * @param item
+	 *            String que representa o item a ser adicionado
 	 */
 	public void cadastraItem(String codigo, String item) {
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
@@ -104,7 +109,8 @@ public class AtividadeController implements Serializable {
 	/**
 	 * Conta os itens pendentes de uma ativade através do código da mesma.
 	 * 
-	 * @param codigo String contendo o código referente a atividade
+	 * @param codigo
+	 *            String contendo o código referente a atividade
 	 * @return Inteiro contendo o número de itens pendentes
 	 */
 	public int contaItensPendentes(String codigo) {
@@ -116,7 +122,8 @@ public class AtividadeController implements Serializable {
 	/**
 	 * Conta os itens realizados de uma ativade através do código da mesma.
 	 * 
-	 * @param codigo String contendo o código referente a atividade
+	 * @param codigo
+	 *            String contendo o código referente a atividade
 	 * @return Inteiro contendo o número de itens realizados
 	 */
 	public int contaItensRealizados(String codigo) {
@@ -130,7 +137,8 @@ public class AtividadeController implements Serializable {
 	 * Exibe a representação String de uma atividade no formato "Descrição (Nível de
 	 * Risco - Desc. do Risco) | Items (Se houver)".
 	 * 
-	 * @param codigo String contendo o código referente a atividade
+	 * @param codigo
+	 *            String contendo o código referente a atividade
 	 * @return String referente a representação textual da atividade
 	 */
 	public String exibeAtividade(String codigo) {
@@ -143,7 +151,8 @@ public class AtividadeController implements Serializable {
 	/**
 	 * Método para retornar uma atividade do sistema pelo codigo.
 	 * 
-	 * @param codigo - codigo da atividade
+	 * @param codigo
+	 *            - codigo da atividade
 	 * @return o objeto Atividade
 	 */
 	public Atividade getAtividade(String codigo) {
@@ -164,9 +173,12 @@ public class AtividadeController implements Serializable {
 	/**
 	 * Método para indicar a execução de determinada atividade.
 	 * 
-	 * @param codigoAtividade - codigo da atividade
-	 * @param item            - item que será executado
-	 * @param duracao         - duraçao da execução
+	 * @param codigoAtividade
+	 *            - codigo da atividade
+	 * @param item
+	 *            - item que será executado
+	 * @param duracao
+	 *            - duraçao da execução
 	 */
 	public void executaAtividade(String codigoAtividade, int item, int duracao) {
 		ValidadorEntradas.validarString(codigoAtividade, "Campo codigoAtividade nao pode ser nulo ou vazio.");
@@ -180,7 +192,8 @@ public class AtividadeController implements Serializable {
 	/**
 	 * Método que retorna a duração de determinada atividade.
 	 * 
-	 * @param codigoAtividade - codigo da atividade.
+	 * @param codigoAtividade
+	 *            - codigo da atividade.
 	 * @return a duração total da atividade.
 	 */
 	public int getDuracao(String codigoAtividade) {
@@ -193,8 +206,10 @@ public class AtividadeController implements Serializable {
 	/**
 	 * Método que cadastra resultados a uma determinada atividade.
 	 * 
-	 * @param codigoAtividade - código da atividade que vai cadastrar o resultado
-	 * @param resultado       - resultado que vai ser adicionado
+	 * @param codigoAtividade
+	 *            - código da atividade que vai cadastrar o resultado
+	 * @param resultado
+	 *            - resultado que vai ser adicionado
 	 * @return código do resultado
 	 */
 	public int cadastraResultado(String codigoAtividade, String resultado) {
@@ -208,8 +223,10 @@ public class AtividadeController implements Serializable {
 	/**
 	 * Método para remover determinado resultado.
 	 * 
-	 * @param codigoAtividade - código da atividade que terá o resultado removido
-	 * @param numeroResultado - codigo do resultado
+	 * @param codigoAtividade
+	 *            - código da atividade que terá o resultado removido
+	 * @param numeroResultado
+	 *            - codigo do resultado
 	 * @return true se foi removido com sucesso
 	 */
 	public boolean removeResultado(String codigoAtividade, int numeroResultado) {
@@ -223,7 +240,8 @@ public class AtividadeController implements Serializable {
 	 * Método que retorna a listagem de todos os resultados de determinada
 	 * atividade.
 	 * 
-	 * @param codigoAtividade - código da atividade
+	 * @param codigoAtividade
+	 *            - código da atividade
 	 * @return a lista de resultados
 	 */
 	public String listaResultados(String codigoAtividade) {
@@ -237,7 +255,8 @@ public class AtividadeController implements Serializable {
 	 * Método que retorna o codigo da atividade que contem determinado termo, além
 	 * da frase na qual ele está contido.
 	 * 
-	 * @param termo - termo sendo pesquisado
+	 * @param termo
+	 *            - termo sendo pesquisado
 	 * @return codigo da atividade e frase na qual o termo está inserido.
 	 */
 	public String buscaDescricao(String termo) {
@@ -265,8 +284,10 @@ public class AtividadeController implements Serializable {
 	/**
 	 * Define a atividade subsequente a determinada atividade
 	 * 
-	 * @param idPrecedente  identificador da atividade precedente
-	 * @param idSubsequente identificador da atividade subsequente
+	 * @param idPrecedente
+	 *            identificador da atividade precedente
+	 * @param idSubsequente
+	 *            identificador da atividade subsequente
 	 */
 	public void defineProximaAtividade(String idPrecedente, String idSubsequente) {
 		ValidadorEntradas.validarString(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
@@ -286,8 +307,9 @@ public class AtividadeController implements Serializable {
 	/**
 	 * Remove a próxima atividade de uma determinada atividade
 	 * 
-	 * @param idPrecedente o id da atividade que perderá a referencia para a proxima
-	 *                     atividade
+	 * @param idPrecedente
+	 *            o id da atividade que perderá a referencia para a proxima
+	 *            atividade
 	 */
 	public void tiraProximaAtividade(String idPrecedente) {
 		ValidadorEntradas.validarString(idPrecedente, "Atividade nao pode ser nulo ou vazio.");
@@ -304,7 +326,8 @@ public class AtividadeController implements Serializable {
 	/**
 	 * Conta o numero de atividades encadeadas após uma determinada atividade
 	 * 
-	 * @param idPrecedente o id da atividade inicial
+	 * @param idPrecedente
+	 *            o id da atividade inicial
 	 * @return a quantidade de atividades encadeadas
 	 */
 	public int contaProximos(String idPrecedente) {
@@ -318,9 +341,19 @@ public class AtividadeController implements Serializable {
 			throw new IllegalArgumentException("Atividade nao encontrada.");
 	}
 
+	/**
+	 * Encontra a enesima atividade de uma cadeia
+	 * 
+	 * @param idAtividade
+	 *            o id da primeira atividade
+	 * @param enesimaAtividade
+	 *            a distancia entre a atividade desejada e a atual
+	 * @return o ID da enesima atividade
+	 */
 	public String pegaProximo(String idAtividade, int enesimaAtividade) {
 		ValidadorEntradas.validarString(idAtividade, "Atividade nao pode ser nulo ou vazio.");
-		ValidadorEntradas.validarInteiroMaiorQueZero(enesimaAtividade, "EnesimaAtividade nao pode ser negativa ou zero.");
+		ValidadorEntradas.validarInteiroMaiorQueZero(enesimaAtividade,
+				"EnesimaAtividade nao pode ser negativa ou zero.");
 
 		if (atividades.containsKey(idAtividade)) {
 			Atividade atividade = atividades.get(idAtividade);
@@ -331,6 +364,13 @@ public class AtividadeController implements Serializable {
 		}
 	}
 
+	/**
+	 * Pega a atividade de maior risco em uma cadeia. O critério de desempate é a
+	 * última a ser adicionada na cadeia
+	 * 
+	 * @param idAtividade o id da primeira atividade da cadeia
+	 * @return o id da atividade de maior risco na cadeia
+	 */
 	public String pegaMaiorRiscoAtividades(String idAtividade) {
 		ValidadorEntradas.validarString(idAtividade, "Atividade nao pode ser nulo ou vazio.");
 
@@ -346,8 +386,10 @@ public class AtividadeController implements Serializable {
 	/**
 	 * Valida se uma atividade existe dentro de um map de atividades.
 	 * 
-	 * @param atividades Map de atividades para a validação.
-	 * @param codigo     String contendo o código da atividade a ser validada.
+	 * @param atividades
+	 *            Map de atividades para a validação.
+	 * @param codigo
+	 *            String contendo o código da atividade a ser validada.
 	 */
 	public void validaAtividadeExiste(String idAtividade) {
 		if (!atividades.containsKey(idAtividade)) {
