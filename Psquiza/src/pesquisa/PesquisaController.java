@@ -594,4 +594,5 @@ public class PesquisaController implements Serializable{
 		}
 		throw new IllegalArgumentException("Pesquisa sem atividades com pendencias.");
 	}
+	public void salva () {}
 }

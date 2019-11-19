@@ -5,6 +5,9 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import pesquisa.PesquisaController;
+import pesquisador.PesquisadorController;
+
 public class Gravacao {
 	public static void salvar(Object objeto, String caminho) {
 
@@ -36,8 +39,12 @@ public class Gravacao {
 
 			ObjectInputStream stream = new ObjectInputStream(restFile);
 
-
-			objeto = stream.readObject();
+			if( caminho.equals("pesquisa.txt")) {
+			objeto = (PesquisaController)stream.readObject();
+			}
+			else if(caminho.equals("pesquisador.txt")) {
+				objeto = (PesquisadorController)stream.readObject();
+			}
 
 			stream.close();
 
@@ -47,7 +54,7 @@ public class Gravacao {
 
 		}
 
-		return objeto;
+		return  objeto;
 
 	}
 	

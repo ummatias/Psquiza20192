@@ -5,6 +5,7 @@ import java.io.IOException;
 import atividade.AtividadeController;
 import busca.BuscaController;
 import easyaccept.EasyAccept;
+import gravacaoArquivos.Gravacao;
 import pesquisa.PesquisaController;
 import pesquisador.PesquisadorController;
 import problema.ProblemaObjetivoController;
@@ -25,6 +26,7 @@ public class Facade {
 	private PesquisaController pesquisaController;
 	private PesquisadorController pesquisadorController;
 	private ProblemaObjetivoController problemaObjetivoController;
+	private Gravacao gravacao;
 
 	/**
 	 * Constrói o objeto do tipo Facade inicializando seus atributos.
@@ -35,6 +37,7 @@ public class Facade {
 		this.problemaObjetivoController = new ProblemaObjetivoController();
 		this.pesquisaController = new PesquisaController(atividadeController, problemaObjetivoController, pesquisadorController);
 		this.buscaController = new BuscaController(this.atividadeController,this.pesquisaController, this.pesquisadorController, this.problemaObjetivoController);
+		this.gravacao = new Gravacao();
 	}
 
 	public static void main(String[] args) {
@@ -44,6 +47,7 @@ public class Facade {
 				"easyaccept/use_case_4.txt", "easyaccept/use_case_5.txt", "easyaccept/use_case_6.txt",
 				"easyaccept/use_case_7.txt", "easyaccept/use_case_8.txt", "easyaccept/use_case_9.txt",
 				"easyaccept/use_case_10.txt", "easyaccept/use_case_11.txt",
+				"easyaccept/use_case_12CARREGAR.txt"
 
 		};
 
@@ -272,6 +276,14 @@ public class Facade {
 	
 	public void gravarResultados(String codigoPesquisa) throws IOException {
 		pesquisaController.gravarResultados(codigoPesquisa);
+	}
+	public void salvar() {
+		this.gravacao.salvar(pesquisaController, "pesquisa.txt");
+		this.gravacao.salvar(pesquisadorController, "pesquisador.txt");
+	}
+	public void carregar() {
+		this.pesquisaController = (PesquisaController) this.gravacao.restaurar("pesquisa.txt");
+		this.pesquisadorController = (PesquisadorController) this.gravacao.restaurar("pesquisador.txt");
 	}
 
 

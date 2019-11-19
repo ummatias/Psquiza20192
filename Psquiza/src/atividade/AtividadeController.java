@@ -20,6 +20,7 @@ import validadores.ValidadorEntradas;
  */
 public class AtividadeController implements Serializable {
 
+
 	/**
 	 * Mapa que contém as atividades e as relaciona com seus devidos codigos.
 	 */
