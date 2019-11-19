@@ -1,5 +1,6 @@
 package pesquisa;
 
+import java.io.Serializable;
 import java.util.List;
 
 import atividade.Atividade;
@@ -8,7 +9,13 @@ import atividade.Atividade;
  * @author Emilly de Albuquerque Oliveira - 119111162
  *
  */
-public class MaisAntiga implements Estrategia{
+public class MaisAntiga implements Estrategia, Serializable{
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1366024318295793050L;
 
 	/**
 	 * Método que sugere a proxima atividade mais antiga

@@ -11,6 +11,13 @@ import java.io.Serializable;
  */
 public class Item implements Serializable{
 	
+
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3482417186357857257L;
+
 	/**
 	 * Valor booleano que representa o status de um item
 	 */
