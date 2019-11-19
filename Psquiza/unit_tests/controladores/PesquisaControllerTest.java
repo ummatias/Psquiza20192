@@ -153,8 +153,8 @@ class PesquisaControllerTest {
 
 	@Test
 	void testAlteraPesquisaCampoNovoNula() {
-		assertThrows(NullPointerException.class, () -> {
-			pesquisaController.alteraPesquisa("INT1", "CAMPO", null);
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.alteraPesquisa("UNI1", "CAMPO", null);
 		});
 	}
 
@@ -321,14 +321,14 @@ class PesquisaControllerTest {
 
 	@Test
 	void testAssociaAtividadeComSucesso() {
-		new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		atividadeController.cadastraAtividade("Questionario", "BAIXO", "n tem risco");
 
 		assertTrue(pesquisaController.associaAtividade("UNI1", "A1"));
 	}
 
 	@Test
 	void testAssociaAtividadeCodVazioNulo() {
-		new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		atividadeController.cadastraAtividade("Questionario", "BAIXO", "n tem risco");
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisaController.associaAtividade("", "A1");
@@ -349,8 +349,7 @@ class PesquisaControllerTest {
 
 	@Test
 	void testAssociaAtividadeJaAssociada() {
-		new Atividade("A1", "Questionario", "baixo", "n tem risco");
-
+		atividadeController.cadastraAtividade("Questionario", "BAIXO", "n tem risco");
 		pesquisaController.associaAtividade("UNI1", "A1");
 
 		assertFalse(pesquisaController.associaAtividade("UNI1", "A1"));
@@ -358,7 +357,7 @@ class PesquisaControllerTest {
 
 	@Test
 	void testAssociaAtividadePesquisaDesativada() {
-		new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		atividadeController.cadastraAtividade("Questionario", "BAIXO", "n tem risco");
 		pesquisaController.encerraPesquisa("UNI1", "to só testando hehe");
 
 		assertThrows(IllegalArgumentException.class, () -> {
@@ -368,7 +367,7 @@ class PesquisaControllerTest {
 	
 	@Test
 	void testAssociaAtividadePesquisaInexistente() {
-		new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		atividadeController.cadastraAtividade("Questionario", "BAIXO", "n tem risco");
 		
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisaController.associaAtividade("UNI2", "A1");
@@ -379,7 +378,7 @@ class PesquisaControllerTest {
 
 	@Test
 	void testDesassociaAtividadeComSucesso() {
-		new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		atividadeController.cadastraAtividade("Questionario", "BAIXO", "n tem risco");
 		pesquisaController.associaAtividade("UNI1", "A1");
 
 		assertTrue(pesquisaController.desassociaAtividade("UNI1", "A1"));
@@ -387,7 +386,7 @@ class PesquisaControllerTest {
 
 	@Test
 	void testDesassociaAtividadeCodVazioNulo() {
-		new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		atividadeController.cadastraAtividade("Questionario", "BAIXO", "n tem risco");
 		pesquisaController.associaAtividade("UNI1", "A1");
 
 		assertThrows(IllegalArgumentException.class, () -> {
@@ -401,8 +400,8 @@ class PesquisaControllerTest {
 
 	@Test
 	void testDesassociaAtividadeJaDesassociada() {
-		new Atividade("A1", "Questionario", "baixo", "n tem risco");
-
+		atividadeController.cadastraAtividade("Questionario", "BAIXO", "n tem risco");
+		
 		pesquisaController.associaAtividade("UNI1", "A1");
 		pesquisaController.desassociaAtividade("UNI1", "A1");
 
@@ -411,7 +410,7 @@ class PesquisaControllerTest {
 	
 	@Test
 	void testDesassociaAtividadePesquisaDesativada() {
-		new Atividade("A1", "Questionario", "baixo", "n tem risco");
+		atividadeController.cadastraAtividade("Questionario", "BAIXO", "n tem risco");
 		pesquisaController.associaAtividade("UNI1", "A1");
 		pesquisaController.encerraPesquisa("UNI1", "to só testando hehe");
 
@@ -743,7 +742,7 @@ class PesquisaControllerTest {
 		
 		atividadeController.cadastraItem("A3", "Teste1");
 		atividadeController.cadastraItem("A3", "Teste1");
-		atividadeController.executaAtividade("A2", 1, 60);
+		atividadeController.executaAtividade("A3", 1, 60);
 		
 		
 		pesquisaController.associaAtividade("UNI1", "A1");
