@@ -13,7 +13,7 @@ import pesquisa.PesquisaController;
 import pesquisador.PesquisadorController;
 import problema.ProblemaObjetivoController;
 
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
+
 class PesquisaControllerTest {
 
 	private PesquisaController pesquisaController;
@@ -477,10 +477,10 @@ class PesquisaControllerTest {
 	
 	
 
-	@Test
-	void testAssociaProblemaComSucesso() {
-		assertTrue(this.pesquisaController.associaProblema("UNI1", "P1"));
-	}
+//	@Test
+//	void testAssociaProblemaComSucesso() {
+//		assertTrue(this.pesquisaController.associaProblema("UNI1", "P1"));
+//	}
   
 	@Test
 	void testAssociaObjetivoComSucesso() {
@@ -607,5 +607,32 @@ class PesquisaControllerTest {
 			pesquisaController.associaPesquisador("UNI1", "bloom@winx.com");
 		});
 	}
+	
+	@Test
+	void testConfiguraEstrategiaComSucesso() {
+		pesquisaController.configuraEstrategia("MAIOR_RISCO");
+		pesquisaController.configuraEstrategia("MENOS_PENDENCIAS");
+		pesquisaController.configuraEstrategia("MAIS_ANTIGA");
+		pesquisaController.configuraEstrategia("MAIOR_DURACAO");
+	}
+	
+	@Test
+	void testConfiguraEstrategiaValorNuloVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.configuraEstrategia("");
+		});
+		assertThrows(NullPointerException.class, () -> {
+			pesquisaController.configuraEstrategia(null);
+		});
+	}
+	
+	@Test
+	void testConfiguraEstrategiaInvalida() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.configuraEstrategia("MAIS_ITENS");
+		});
+	}
+	
+	
 
 }
