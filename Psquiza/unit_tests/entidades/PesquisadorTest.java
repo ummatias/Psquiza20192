@@ -41,7 +41,7 @@ class PesquisadorTest {
 	@Test
 	void testNomeVazio() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			Pesquisador pesquisador = new Pesquisador("", "estudante", "pesquisa eficiencia de algoritmos",
+			new Pesquisador("", "estudante", "pesquisa eficiencia de algoritmos",
 					"pedro@gmail.com", "http://www.foto.com");
 		});
 	}
@@ -49,7 +49,7 @@ class PesquisadorTest {
 	@Test
 	void testNomeNulo() {
 		assertThrows(NullPointerException.class, () -> {
-			Pesquisador pesquisador = new Pesquisador(null, "estudante", "pesquisa eficiencia de algoritmos",
+			new Pesquisador(null, "estudante", "pesquisa eficiencia de algoritmos",
 					"pedro@gmail.com", "http://www.foto.com");
 		});
 	}
@@ -57,7 +57,7 @@ class PesquisadorTest {
 	@Test
 	void testFuncaoVazia() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			Pesquisador pesquisador = new Pesquisador("Pedro", "", "pesquisa eficiencia de algoritmos", "pedro@gmail.com",
+			new Pesquisador("Pedro", "", "pesquisa eficiencia de algoritmos", "pedro@gmail.com",
 					"http://www.foto.com");
 		});
 	}
@@ -65,7 +65,7 @@ class PesquisadorTest {
 	@Test
 	void testFuncaoNula() {
 		assertThrows(NullPointerException.class, () -> {
-			Pesquisador pesquisador = new Pesquisador("Pedro", null, "pesquisa eficiencia de algoritmos",
+			new Pesquisador("Pedro", null, "pesquisa eficiencia de algoritmos",
 					"pedro@gmail.com", "http://www.foto.com");
 		});
 	}
@@ -73,14 +73,14 @@ class PesquisadorTest {
 	@Test
 	void testBiografiaVazia() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			Pesquisador pesquisador = new Pesquisador("Pedro", "estudante", "", "pedro@gmail.com", "http://www.foto.com");
+			new Pesquisador("Pedro", "estudante", "", "pedro@gmail.com", "http://www.foto.com");
 		});
 	}
 
 	@Test
 	void testBiografiaNula() {
 		assertThrows(NullPointerException.class, () -> {
-			Pesquisador pesquisador = new Pesquisador("Pedro", "estudante", null, "pedro@gmail.com",
+			new Pesquisador("Pedro", "estudante", null, "pedro@gmail.com",
 					"http://www.foto.com");
 		});
 	}
@@ -88,7 +88,7 @@ class PesquisadorTest {
 	@Test
 	void testEmailVazio() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			Pesquisador pesquisador = new Pesquisador("Pedro", "estudante", "pesquisa eficiencia de algoritmos", "",
+			new Pesquisador("Pedro", "estudante", "pesquisa eficiencia de algoritmos", "",
 					"http://www.foto.com");
 		});
 	}
@@ -96,7 +96,7 @@ class PesquisadorTest {
 	@Test
 	void testEmailNulo() {
 		assertThrows(NullPointerException.class, () -> {
-			Pesquisador pesquisador = new Pesquisador("Pedro", "estudante", "pesquisa eficiencia de algoritmos", null,
+			new Pesquisador("Pedro", "estudante", "pesquisa eficiencia de algoritmos", null,
 					"http://www.foto.com");
 		});
 	}
@@ -104,7 +104,7 @@ class PesquisadorTest {
 	@Test
 	void testFotoVazia() {
 		assertThrows(IllegalArgumentException.class, () -> {
-			Pesquisador pesquisador = new Pesquisador("Pedro", "estudante", "pesquisa eficiencia de algoritmos", "pedro@gmail.com",
+			new Pesquisador("Pedro", "estudante", "pesquisa eficiencia de algoritmos", "pedro@gmail.com",
 					"");
 		});
 	}
@@ -112,7 +112,7 @@ class PesquisadorTest {
 	@Test
 	void testFotoNula() {
 		assertThrows(NullPointerException.class, () -> {
-			Pesquisador pesquisador = new Pesquisador("Pedro", "estudante", "pesquisa eficiencia de algoritmos",
+			new Pesquisador("Pedro", "estudante", "pesquisa eficiencia de algoritmos",
 					"pedro@gmail.com", null);
 		});
 	}

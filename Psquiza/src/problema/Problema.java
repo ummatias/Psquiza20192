@@ -25,12 +25,12 @@ public class Problema implements Comparable<Problema>, Serializable{
 	 * Código e identificador único de um problema
 	 */
 	private String codigo;
-	
+
 	/**
 	 * Descrição do problema
 	 */
 	private String descricao;
-	
+
 	/**
 	 * Inteiro de 1 a 5 que define o quão viável é a solução de um problema.
 	 */
@@ -39,8 +39,8 @@ public class Problema implements Comparable<Problema>, Serializable{
 	/**
 	 * Constrói o objeto do tipo Problema inicializando seus atributos.
 	 * 
-	 * @param codigo o código (identificador único) do problema.
-	 * @param descricao a descrição do problema.
+	 * @param codigo      o código (identificador único) do problema.
+	 * @param descricao   a descrição do problema.
 	 * @param viabilidade o nível de viabilidade da resolução do problema
 	 */
 	public Problema(String codigo, String descricao, int viabilidade) {
@@ -48,14 +48,15 @@ public class Problema implements Comparable<Problema>, Serializable{
 		ValidadorEntradas.validarString(codigo, "Campo codigo nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(descricao, "Campo descricao nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarViabilidade(viabilidade, "Valor invalido de viabilidade.");
-		
+
 		this.codigo = codigo;
 		this.descricao = descricao;
 		this.viabilidade = viabilidade;
 	}
-	
+
 	/**
-	 * Calcula um hashcode único para o Objeto Problema tendo como base o código, que é seu identificador único.
+	 * Calcula um hashcode único para o Objeto Problema tendo como base o código,
+	 * que é seu identificador único.
 	 */
 	@Override
 	public int hashCode() {
@@ -66,7 +67,8 @@ public class Problema implements Comparable<Problema>, Serializable{
 	}
 
 	/**
-	 * Compara um Problema com outro objeto e retorna se os objetos são iguais ou não.
+	 * Compara um Problema com outro objeto e retorna se os objetos são iguais ou
+	 * não.
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -92,26 +94,34 @@ public class Problema implements Comparable<Problema>, Serializable{
 	public String toString() {
 		return this.codigo + " - " + this.descricao + " - " + this.viabilidade;
 	}
+
 	public String getCodigo() {
 		return this.codigo;
 	}
 
+	/**
+	 * Método que indica como o problema será comparado.
+	 */
 	@Override
 	public int compareTo(Problema o) {
 		return (this.getCodigo().compareTo(o.getCodigo())) * -1;
 	}
+
+	/** Método que busca determinado termo dentro do problema
+	 * @param termo - termo sendo pesquisado
+	 * @return o codigo do objetivo e onde ele está localizado.
+	 */
 	public String buscaTermo(String termo) {
 		String saida = "";
-		
-		if(this.descricao.toLowerCase().contains(termo.toLowerCase())) {
+
+		if (this.descricao.toLowerCase().contains(termo.toLowerCase())) {
 			saida += this.codigo + ": " + this.descricao + " | ";
 		}
-	
-		if(saida.length() > 0) {
-			return saida.substring(0,saida.length() - 3);
+
+		if (saida.length() > 0) {
+			return saida.substring(0, saida.length() - 3);
 		}
 		return saida;
 	}
-	
 
 }

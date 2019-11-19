@@ -52,14 +52,23 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable{
 	private boolean status;
 	
 	/**
-	 * Atividade associada a pesquisa.
+	 * Atividades associadas a pesquisa.
 	 */
 	private List<Atividade> atividades;
 
+	/**
+	 * O problema que é abordado na pesquisa.
+	 */
 	private Problema problema;
 
+	/**
+	 * Objetivos da pesquisa.
+	 */
 	private Map<String, Objetivo> objetivos;
 
+	/**
+	 * Pesquisadores desenvolvendo a pesquisa.
+	 */
 	private Map<String, Pesquisador> pesquisadores;
 
 	/**
@@ -80,7 +89,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable{
 		this.atividades = new ArrayList<>();
 		this.problema = null;
 		this.objetivos = new HashMap<>();
-		this.pesquisadores = new LinkedHashMap();
+		this.pesquisadores = new LinkedHashMap<String, Pesquisador>();
 	}
 
 	/**
@@ -377,11 +386,18 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable{
 		}
 	}
 
+	/**
+	 * Método que define como a pesquisa será comparada.
+	 */
 	@Override
 	public int compareTo(Pesquisa o) {
 		return (this.getCodigo().compareTo(o.getCodigo())) * -1;
 	}
 
+	/** Método que busca determinado termo dentro da pesquisa
+	 * @param termo - termo a ser procurado
+	 * @return o codigo da pesquisa e onde o termo está presente
+	 */
 	public String buscaTermo(String termo) {
 		String saida = "";
 				
