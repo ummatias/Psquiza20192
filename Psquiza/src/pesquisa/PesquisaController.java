@@ -1,8 +1,10 @@
 package pesquisa;
 import java.io.Serializable;
-
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -28,6 +30,10 @@ import validadores.ValidadorEntradas;
  *
  */
 public class PesquisaController implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2941401871358861225L;
 	/**
 	 * Mapa de pesquisas cadastradas no sistema.
 	 */
@@ -588,5 +594,4 @@ public class PesquisaController implements Serializable{
 		}
 		throw new IllegalArgumentException("Pesquisa sem atividades com pendencias.");
 	}
-
 }

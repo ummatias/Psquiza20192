@@ -416,6 +416,107 @@ class PesquisaControllerTest {
 			pesquisaController.desassociaAtividade("UNI2", "A1");
 		});
 	}
+//testes cdu 5
+	@Test
+	void testAssociaPesquisaDesativada() {
+		this.pesquisaController.encerraPesquisa("UNI1", "Ja foi realizada");
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.associaObjetivo("UNI1", "O1");
+		});
+	}
+	@Test
+	void testAssociaSegundoProblemaAPesquisa() {
+		this.pesquisaController.associaProblema("UNI1", "P1");
+		this.problemaObjetivoController.cadastraProblema("falta de rampas na universidade", 5);
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.associaProblema("UNI1", "P2");
+		});
+	}
+	@Test
+	void testAssociaProblemaJaAssociado() {
+		this.pesquisaController.associaProblema("UNI1", "P1");
+		assertFalse(this.pesquisaController.associaProblema("UNI1", "P1"));
+	}
+	@Test
+	void testDesassociaProblemaNaoAssociado() {
+		assertFalse(this.pesquisaController.desassociaProblema("UNI1"));
+	}
+	@Test
+	void testAssociaObjetivoJaAssociado() {
+		this.pesquisaController.associaObjetivo("UNI1", "O1");
+		assertFalse(this.pesquisaController.associaObjetivo("UNI1", "O1"));
+	}
+	@Test
+	void testDesassociaObjetivoNaoAssociado() {
+		assertFalse(this.pesquisaController.desassociaObjetivo("UNI1", "O1"));
+	}
+	@Test
+	void testAssociaProblemaComSucesso() {
+		assertTrue(this.pesquisaController.associaProblema("UNI1", "P1"));
+	}
+	@Test
+	void testAssociaObjetivoComSucesso() {
+		this.pesquisaController.cadastraPesquisa("falta de agua", "agua,geografia");
+		
+		assertTrue(this.pesquisaController.associaObjetivo("AGU1", "O1"));
+	}
+	@Test
+	void testAssociaObjetivoAsegundaPesquisa() {
+		this.pesquisaController.associaObjetivo("UNI1", "O1");
+		this.pesquisaController.cadastraPesquisa("falta de palestras sobre saude mental", "saude, universidade");
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.associaObjetivo("SAU1", "O1");
+		});
+	}
+	@Test
+	void testAssociaObjetivoPesquisaVazia() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.associaObjetivo("", "O1");
+		});
+	}
+	@Test
+	void testAssociaObjetivoIdObjetivoVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.associaObjetivo("UNI1", "");
+		});
+	}
+	@Test
+	void testAssociaObjetivoPesquisaNula() {
+		assertThrows(NullPointerException.class, () -> {
+			pesquisaController.associaObjetivo(null, "O1");
+		});
+	}
+	@Test
+	void testAssociaObjetivoIdObjetivoNulo() {
+		assertThrows(NullPointerException.class, () -> {
+			pesquisaController.associaObjetivo("UNI1", null);
+		});
+	}
+	@Test
+	void testAssociaProblemaPesquisaNula() {
+		assertThrows(NullPointerException.class, () -> {
+			pesquisaController.associaProblema(null, "P1");
+		});
+	}
+	@Test
+	void testAssociaProblemaIdProblemaNulo() {
+		assertThrows(NullPointerException.class, () -> {
+			pesquisaController.associaProblema("UNI1", null);
+		});
+	}
+	@Test
+	void testAssociaProblemaPesquisaVazia() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.associaProblema("", "P1");
+		});
+	}
+	@Test
+	void testAssociaProblemaIdProblemaVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.associaProblema("UNI1", "");
+		});
+	}
+	
 
 
 }
