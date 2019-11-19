@@ -313,6 +313,7 @@ public class AtividadeController implements Serializable{
 
 	public String pegaProximo(String idAtividade, int enesimaAtividade) {
 		ValidadorEntradas.validarString(idAtividade, "Atividade nao pode ser nulo ou vazio.");
+		ValidadorEntradas.validarInteiroMaiorQueZero(enesimaAtividade, "EnesimaAtividade nao pode ser negativa ou zero.");
 		
 		if (atividades.containsKey(idAtividade)) {
 			Atividade atividade = atividades.get(idAtividade);
