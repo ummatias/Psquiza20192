@@ -416,10 +416,10 @@ public class PesquisaController implements Serializable{
 	public boolean desassociaPesquisador(String idPesquisa, String emailPesquisador) {
 		ValidadorEntradas.validarString(idPesquisa, "Campo idPesquisa nao pode ser nulo ou vazio.");
 		ValidadorEntradas.validarString(emailPesquisador, "Campo emailPesquisador nao pode ser nulo ou vazio.");
-
+		pesquisadorController.validaPesquisadorExiste(emailPesquisador, "Pesquisadora nao encontrada");
 		if (pesquisasCadastradas.containsKey(idPesquisa)) {
 			Pesquisa pesquisa = pesquisasCadastradas.get(idPesquisa);
-
+			
 			return pesquisa.desassociaPesquisador(emailPesquisador);
 		} else {
 			throw new IllegalArgumentException("Pesquisa nao encontrada.");

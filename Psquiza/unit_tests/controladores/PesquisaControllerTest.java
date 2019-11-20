@@ -1,13 +1,8 @@
 package controladores;
 
 import static org.junit.jupiter.api.Assertions.*;
-
-import org.junit.FixMethodOrder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runners.MethodSorters;
-
-import atividade.Atividade;
 import atividade.AtividadeController;
 import pesquisa.PesquisaController;
 import pesquisador.PesquisadorController;
@@ -40,6 +35,7 @@ class PesquisaControllerTest {
 		this.problemaObjetivoController.cadastraProblema("Falta de acessibilidade no ambiente academico", 5);
 		this.problemaObjetivoController.cadastraObjetivo("ESPECIFICO", "contruir rampas em todos os predios", 5, 5);
 		this.pesquisadorController.cadastraPesquisador("Flora", "Estudante", "Winx mais perfeita das Winx", "flora@winx.com", "http://fotosdaswinx.com/flora");
+		this.pesquisadorController.cadastraPesquisador("Tecna", "Professor", "Winx que conserta impressora", "tecna@winx.com", "http://fotosdaswinx.com/tecna");
 	}
 
 	// Cadastra Pesquisa - testando cadastros e campos vazios ou nulos.
@@ -605,6 +601,254 @@ class PesquisaControllerTest {
 		assertThrows(IllegalArgumentException.class, () -> {
 			pesquisaController.associaPesquisador("UNI1", "bloom@winx.com");
 		});
+	}
+	
+	
+	@Test
+	void testDesassociaPesquisadorComSucesso() {
+		pesquisaController.associaPesquisador("UNI1", "flora@winx.com");
+		assertTrue(pesquisaController.desassociaPesquisador("UNI1", "flora@winx.com"));
+	}
+	
+	@Test
+	void testDesassociaPesquisadorCodigoPesquisaVazio() {
+		pesquisaController.desassociaPesquisador("UNI1", "flora@winx.com");
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.desassociaPesquisador("", "flora@winx.com");
+		});
+	}
+	
+	@Test
+	void testDesassociaPesquisadorCodigoPesquisaNulo() {
+		pesquisaController.desassociaPesquisador("UNI1", "flora@winx.com");
+		assertThrows(NullPointerException.class, () -> {
+			pesquisaController.desassociaPesquisador(null , "flora@winx.com");
+		});
+	}
+	
+	@Test
+	void testDesassociaPesquisadorEmailVazio() {
+		pesquisaController.desassociaPesquisador("UNI1", "flora@winx.com");
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.desassociaPesquisador("UNI1", "");
+		});
+	}
+	
+	@Test
+	void testDesassociaPesquisadorEmailNulo() {
+		pesquisaController.desassociaPesquisador("UNI1", "flora@winx.com");
+		assertThrows(NullPointerException.class, () -> {
+			pesquisaController.desassociaPesquisador("UNI1" , null);
+		});
+	}
+	
+	@Test
+	void testDesassociaPesquisadorPesquisaInexistente() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.desassociaPesquisador("LOL666", "flora@winx.com");
+		});
+	}
+	
+	@Test
+	void testDesassociaPesquisadorPesquisaDesativada() {
+		pesquisaController.encerraPesquisa("UNI1", "Necessidade de Teste");
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.desassociaPesquisador("UNI1", "flora@winx.com");
+		});
+	}
+	
+	@Test
+	void testDesassociaPesquisadorJaDesassociado() {
+		assertFalse(pesquisaController.desassociaPesquisador("UNI1", "flora@winx.com"));
+	}
+	
+	@Test
+	void testDesassociaPesquisadorNaoExiste() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisaController.desassociaPesquisador("UNI1", "musa@winx.com");
+		});
+	}
+	
+	@Test
+	void testCadastraEspecialidadeAlunoComSucesso() {
+		pesquisadorController.cadastraEspecialidadeAluno("flora@winx.com", 9, 10);
+		assertEquals(
+				"Flora (Estudante) - Winx mais perfeita das Winx - flora@winx.com - http://fotosdaswinx.com/flora - 9o SEMESTRE - 10.0",
+				pesquisadorController.exibePesquisador("flora@winx.com")
+		);
+	}
+	
+	@Test
+	void testCadastraEspecialidadeAlunoEmailVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisadorController.cadastraEspecialidadeAluno("", 9, 10);
+		});
+	}
+	
+	@Test
+	void testCadastraEspecialidadeAlunoEmailNulo() {
+		assertThrows(NullPointerException.class, () -> {
+			pesquisadorController.cadastraEspecialidadeAluno(null, 9, 10);
+		});
+	}
+	
+	@Test
+	void testCadastraEspecialidadeAlunoPesquisadorNaoExiste() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisadorController.cadastraEspecialidadeAluno("musa@winx.com", 9, 10);
+		});
+	}
+	
+	@Test
+	void testCadastraEspecialidadeAlunoEmProfessor() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisadorController.cadastraEspecialidadeAluno("tecna@winx.com", 9, 10);
+		});
+	}
+	
+	@Test
+	void testCadastraEspecialidadeAlunoSemestreNegativo() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisadorController.cadastraEspecialidadeAluno("flora@winx.com", -9, 10);
+		});
+	}
+	
+	@Test
+	void testCadastraEspecialidadeAlunoIEANegativo() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisadorController.cadastraEspecialidadeAluno("flora@winx.com", 9, -10);
+		});
+	}
+	
+	
+	@Test
+	void testCadastraEspecialidadeProfessorComSucesso() {
+		pesquisadorController.cadastraEspecialidadeProfessor("tecna@winx.com", "Doutorado", "Alfea", "28/01/2004");
+		assertEquals(
+				"Tecna (Professor) - Winx que conserta impressora - tecna@winx.com - http://fotosdaswinx.com/tecna - Doutorado - Alfea - 28/01/2004",
+				pesquisadorController.exibePesquisador("tecna@winx.com"));
+	}
+	
+	@Test
+	void testCadastraEspecialidadeProfessorEmailVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisadorController.cadastraEspecialidadeProfessor("", "Doutorado", "Alfea", "28/01/2004");
+		});
+	}
+	
+	@Test
+	void testCadastraEspecialidadeProfessorEmailNulo() {
+		assertThrows(NullPointerException.class, () -> {
+			pesquisadorController.cadastraEspecialidadeProfessor(null, "Doutorado", "Alfea", "28/01/2004");
+		});
+	}
+	
+	@Test
+	void testCadastraEspecialidadeProfessorFormacaoVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisadorController.cadastraEspecialidadeProfessor("tecna@winx.com", "", "Alfea", "28/01/2004");
+		});
+	}
+	
+	@Test
+	void testCadastraEspecialidadeProfessorFormacaoNulo() {
+		assertThrows(NullPointerException.class, () -> {
+			pesquisadorController.cadastraEspecialidadeProfessor("tecna@winx.com", null, "Alfea", "28/01/2004");
+		});
+	}
+	
+	@Test
+	void testCadastraEspecialidadeProfessorUnidadeVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisadorController.cadastraEspecialidadeProfessor("tecna@winx.com", "Doutorado", "", "28/01/2004");
+		});
+	}
+	
+	@Test
+	void testCadastraEspecialidadeProfessorUnidadeNula() {
+		assertThrows(NullPointerException.class, () -> {
+			pesquisadorController.cadastraEspecialidadeProfessor("tecna@winx.com", "Doutorado", null, "28/01/2004");
+		});
+	}
+	
+	@Test
+	void testCadastraEspecialidadeProfessorDataVazia() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisadorController.cadastraEspecialidadeProfessor("tecna@winx.com", "Doutorado", "Alfea", "");
+		});
+	}
+	
+	@Test
+	void testCadastraEspecialidadeProfessorPesquisadorNaoExiste() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisadorController.cadastraEspecialidadeProfessor("musa@winx.com", "Doutorado", "Alfea", "28/01/2004");
+		});
+	}
+	
+	@Test
+	void testCadastraEspecialidadeProfessorDataNula() {
+		assertThrows(NullPointerException.class, () -> {
+			pesquisadorController.cadastraEspecialidadeProfessor("tecna@winx.com", "Doutorado", "Alfea", null);
+		});
+	}
+	
+	@Test
+	void testCadastraEspecialidadeProfessorEmEstudante() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisadorController.cadastraEspecialidadeProfessor("flora@winx.com", "Doutorado", "Alfea", "28/01/2004");
+		});
+	}
+	
+	@Test
+	void testlistaPesquisadoresProfessorComSucesso() {
+		pesquisadorController.cadastraPesquisador("Stella", "Professor", "Winx contra protetor solar", "stella@winx.com", "http://fotosdaswinx.com/stella");
+		pesquisadorController.cadastraPesquisador("Musa", "Professor", "Winx artista", "musa@winx.com", "http://fotosdaswinx.com/musa");
+		
+		pesquisadorController.cadastraEspecialidadeProfessor("tecna@winx.com", "Doutorado", "Alfea", "28/01/2004");
+		pesquisadorController.cadastraEspecialidadeProfessor("stella@winx.com", "Mestrado", "Alfea", "28/01/2004");
+		pesquisadorController.cadastraEspecialidadeProfessor("musa@winx.com", "Graduação", "Alfea", "28/01/2004");
+		
+		assertEquals("Tecna (Professor) - Winx que conserta impressora - tecna@winx.com - http://fotosdaswinx.com/tecna - Doutorado - Alfea - 28/01/2004 | "
+				+ "Stella (Professor) - Winx contra protetor solar - stella@winx.com - http://fotosdaswinx.com/stella - Mestrado - Alfea - 28/01/2004 | "
+				+ "Musa (Professor) - Winx artista - musa@winx.com - http://fotosdaswinx.com/musa - Graduação - Alfea - 28/01/2004",
+				pesquisadorController.listaPesquisadores("PROFESSOR"));
+	}
+	
+	@Test
+	void testlistaPesquisadoresProfessorTipoInexistente() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisadorController.listaPesquisadores("EXPULSOS");
+		});
+	}
+	
+	@Test
+	void testlistaPesquisadoresProfessorTipoVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisadorController.listaPesquisadores("");
+		});
+	}
+	
+	@Test
+	void testlistaPesquisadoresProfessorTipoNulo() {
+		assertThrows(NullPointerException.class, () -> {
+			pesquisadorController.listaPesquisadores(null);
+		});
+	}
+	
+	@Test
+	void testlistaPesquisadoresEstudanteComSucesso() {
+		pesquisadorController.cadastraPesquisador("Stella", "Estudante", "Winx contra protetor solar", "stella@winx.com", "http://fotosdaswinx.com/stella");
+		pesquisadorController.cadastraPesquisador("Musa", "Estudante", "Winx artista", "musa@winx.com", "http://fotosdaswinx.com/musa");
+		
+		pesquisadorController.cadastraEspecialidadeAluno("flora@winx.com", 8, 5);
+		pesquisadorController.cadastraEspecialidadeAluno("stella@winx.com", 7, 9);
+		pesquisadorController.cadastraEspecialidadeAluno("musa@winx.com", 6, 10);
+		
+		assertEquals("Flora (Estudante) - Winx mais perfeita das Winx - flora@winx.com - http://fotosdaswinx.com/flora - 8o SEMESTRE - 5.0 | "
+				+ "Stella (Estudante) - Winx contra protetor solar - stella@winx.com - http://fotosdaswinx.com/stella - 7o SEMESTRE - 9.0 | "
+				+ "Musa (Estudante) - Winx artista - musa@winx.com - http://fotosdaswinx.com/musa - 6o SEMESTRE - 10.0",
+				pesquisadorController.listaPesquisadores("ESTUDANTE"));
+		
 	}
 	
 	@Test
