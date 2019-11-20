@@ -5,8 +5,10 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import atividade.AtividadeController;
 import pesquisa.PesquisaController;
 import pesquisador.PesquisadorController;
+import problema.ProblemaObjetivoController;
 
 public class Gravacao {
 	public static void salvar(Object objeto, String caminho) {
@@ -45,7 +47,13 @@ public class Gravacao {
 			else if(caminho.equals("pesquisador.txt")) {
 				objeto = (PesquisadorController)stream.readObject();
 			}
-
+			else if(caminho.equals("problemaObjetivo.txt")){
+				objeto =(ProblemaObjetivoController)stream.readObject();
+			}
+			else if (caminho.equals("atividade.txt")) {
+				objeto =(AtividadeController)stream.readObject();
+			
+			}
 			stream.close();
 
 		} catch (Exception e) {

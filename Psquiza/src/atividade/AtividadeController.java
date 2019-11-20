@@ -21,6 +21,11 @@ import validadores.ValidadorEntradas;
 public class AtividadeController implements Serializable {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2898616903542706377L;
+
+	/**
 	 * Mapa que contém as atividades e as relaciona com seus devidos codigos.
 	 */
 	private Map<String, Atividade> atividades;

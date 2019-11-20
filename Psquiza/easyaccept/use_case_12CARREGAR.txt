@@ -319,13 +319,12 @@ expectError "Nenhum resultado encontrado" contaResultadosBusca termo="Ziggy Star
 expect 10 contaResultadosBusca termo="computacao"
 
 #################### US9 ####################
-
 #Criando atividades 6-14
 
 cadastraAtividade Descricao="Plantio de um grao de feijao em um algodao." nivelRisco="ALTO" descricaoRisco="Por se tratar de uma vida, o risco e extremamente elevado."
 cadastraAtividade Descricao="Analise do comportamento dos alunos de computacao com os alunos de arq/urb." nivelRisco="ALTO" descricaoRisco="Por se tratar de uma analise a partir de denuncias de um comportamento hostil, o risco e extremamente elevado."
 cadastraAtividade Descricao="Testando se a terra e plana" nivelRisco="BAIXO" descricaoRisco="Por se tratar de uma atividade que ja se sabe que seus resultados, sendo assim uma atividade simbolica, seu risco e hiperbólicamente baixo."
-cadastraAtividade Descricao="Analise de quantas maos levantadas sao necessarias para Goku fazer uma Genki Dama que consiga derrotar Saitama" nivelRisco="ALTO" descricaoRisco="Por se tratar de uma vida, o risco e extremamente elevado."
+cadastraAtividade Descricao="Analise de quantas maos levantadas sao necessarias para Goku fazer uma Genki Dama que consiga derrotar Saitama" nivelRisco="ALTO" descricaoRisco="Pela possibilidade de nao existirem pesoas o bastante no universo para levantar a mao, o risco e alto."
 cadastraAtividade Descricao="Busca e analise de uma razao para a Netflix cancelar BoJack Horseman" nivelRisco="ALTO" descricaoRisco="Nao existe uma razao plausivel, assim o risco e elevado."
 cadastraAtividade Descricao="Demonstracao de amor pela HBO por estar produzindo novos episodios de Adventure Time." nivelRisco="BAIXO" descricaoRisco="Sem risco, so demonstracao de amor"
 cadastraAtividade Descricao="Mudancas nas relacoes do instagram, apos a ocultacao do numero de curtidas das postagens." nivelRisco="ALTO" descricaoRisco="Por envolver uma crise economica brutal, com diversas blogueirinhas perdendo seus empregos, e de uma crise social, com diversas pessoas perdendo o rummo de suas vidas, o risco e extremamente elevado."
@@ -349,7 +348,7 @@ expectError "Atividade nao pode ser nulo ou vazio." defineProximaAtividade idPre
 expectError "Atividade nao encontrada." defineProximaAtividade idPrecedente="A4" idSubsquente="A42"
 expectError "Atividade nao encontrada." defineProximaAtividade idPrecedente="A666" idSubsquente="A4"
 expectError "Atividade nao encontrada." defineProximaAtividade idPrecedente="A4" idSubsquente="O1"
-expectError "Criacao de loops negada." defineProximaAtividade idPrecedente="A11" idSubsquente="A5"
+expectError "Criacao de loops negada." defineProximaAtividade idPrecedente="A10" idSubsquente="A5"
 
 
 #Contando quantas atividades tem depois
@@ -358,7 +357,6 @@ expect 0 contaProximos idPrecedente="A4"
 expect 6 contaProximos idPrecedente="A5" 
 expect 2 contaProximos idPrecedente="A12" 
 expect 3 contaProximos idPrecedente="A7" 
-expect  contaProximos idPrecedente="" falta fazer
 expectError "Atividade nao pode ser nulo ou vazio." contaProximos idPrecedente=""
 expectError "Atividade nao encontrada." tiraProximaAtividade idPrecedente="A42"
 
@@ -387,24 +385,27 @@ expectError "Atividade inexistente." pegaProximo idAtividade="A5" enesimaAtivida
 expect "A10" pegaProximo idAtividade="A7" enesimaAtividade=3
 expect "A1" pegaProximo idAtividade="A2" enesimaAtividade=1
 expectError "Atividade nao pode ser nulo ou vazio." pegaProximo idAtividade="" enesimaAtividade=3
-expectError "Atividade nao pode ser nulo ou vazio." pegaProximo idAtividade="A2" enesimaAtividade=0
+expectError "EnesimaAtividade nao pode ser negativa ou zero." pegaProximo idAtividade="A2" enesimaAtividade=0
 
 
 #Pegando a atividade de maior risco
+defineProximaAtividade idPrecedente="A10" idSubsquente="A4"
+defineProximaAtividade idPrecedente="A4" idSubsquente="A14"
 expect "A10" pegaMaiorRiscoAtividades idAtividade="A13" 
-expect "Nao existe proxima atividade." pegaMaiorRiscoAtividades idAtividade="A1" 
+expectError "Nao existe proxima atividade." pegaMaiorRiscoAtividades idAtividade="A1" 
 expect "A10" pegaMaiorRiscoAtividades idAtividade="A7" 
 expect "A10" pegaMaiorRiscoAtividades idAtividade="A12" 
+expect "A1" pegaMaiorRiscoAtividades idAtividade="A2" 
+expect "A14" pegaMaiorRiscoAtividades idAtividade="A4" 
 expectError "Atividade nao pode ser nulo ou vazio." pegaMaiorRiscoAtividades idAtividade=""
 expectError "Atividade nao encontrada." pegaMaiorRiscoAtividades idAtividade="A420"
 
 #################### US10 ####################
 
-#Cadastrando COM3, deixando-a ativada, e relacionando com A1, A2, A5, A6, A7, A8, A9, A10, A12
+#Cadastrando COM3, deixando-a ativada, e relacionando com A1, A5, A7, A8, A9, A10, A12, A14
 
 cadastraPesquisa descricao="Dificuldade de pensar em bons exemplos para os testes do projeto da disciplina LP2" campoDeInteresse="computacao, bloqueio criativo, insonia"
 expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A1"
-expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A2"
 expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A5"
 expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A7"
 expect "true" associaAtividade codigoPesquisa="COM3" codigoAtividade="A8"
@@ -420,6 +421,7 @@ cadastraItem codigo="A14" item="Escutar Origins"
 cadastraItem codigo="A14" item="Comparacao com outras bandas de rock"
 cadastraItem codigo="A7" item="Alunos de computacao atrapalhando atividades em campo dos alunos de arq/urb."
 cadastraItem codigo="A7" item="Indiretas no twitter."
+cadastraItem codigo="A7" item="Analisar as redes socias dos individuos ativos nos eventos dessa discurssao"
 executaAtividade codigoAtividade="A7" item=1 duracao=1
 executaAtividade codigoAtividade="A14" item=1 duracao=15
 executaAtividade codigoAtividade="A14" item=2 duracao=15
@@ -441,8 +443,9 @@ expect "A7" proximaAtividade codigoPesquisa="COM3"
 configuraEstrategia estrategia="MENOS_PENDENCIAS"
 expect "A10" proximaAtividade codigoPesquisa="COM3"
 configuraEstrategia estrategia="MAIOR_RISCO"
-expect "A12" proximaAtividade codigoPesquisa="COM3"
+expect "A7" proximaAtividade codigoPesquisa="COM3"
 configuraEstrategia estrategia="MAIOR_DURACAO"
 expect "A14" proximaAtividade codigoPesquisa="COM3"
 configuraEstrategia estrategia="MAIS_ANTIGA"
 expect "A7" proximaAtividade codigoPesquisa="COM3"
+

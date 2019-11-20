@@ -18,6 +18,10 @@ import validadores.ValidadorEntradas;
  */
 public class PesquisadorController implements Serializable{
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2358028280285631748L;
+	/**
 	 * Atributo mapa, que guarda todos os pesquisadores do sistema pelo email.
 	 */
 	private Map<String, Pesquisador> pesquisadores;

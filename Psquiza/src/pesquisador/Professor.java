@@ -12,6 +12,11 @@ import validadores.ValidadorEntradas;
 public class Professor implements Especialidade, Serializable{
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4132657058200189351L;
+
+	/**
 	 * Formação do professor.
 	 */
 	private String formacao;
