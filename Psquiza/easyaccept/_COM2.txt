@@ -1,4 +1,4 @@
-"- Pesquisa: COM2 - Autoavaliacao na Disciplina de Programacao Orientada a Objeto. - computacao, poo
+- Pesquisa: COM2 - Autoavaliacao na Disciplina de Programacao Orientada a Objeto. - computacao, poo
     - Pesquisadores:
         - Matheus Gaudencio (professor) - Um tchuchucador de respeito - matheusgr@computacao.ufcg.edu.br - https://omeMaisLindoDeComputacao - Doutorado - DSC - 02/01/1975
     - Problema:
@@ -10,4 +10,4 @@
             - REALIZADO - ITEM1
             - REALIZADO - ITEM2
             - REALIZADO - ITEM3
-            - REALIZADO - ITEM4"
+            - REALIZADO - ITEM4

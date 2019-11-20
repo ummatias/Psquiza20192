@@ -1,4 +1,4 @@
-"- Pesquisa: COM3 - Dificuldade de pensar em bons exemplos para os testes do projeto da disciplina LP2 - computacao, bloqueio criativo, insonia
+- Pesquisa: COM3 - Dificuldade de pensar em bons exemplos para os testes do projeto da disciplina LP2 - computacao, bloqueio criativo, insonia
     - Pesquisadores:
         - Eliane Araujo (professor) - A rainha das rainhas - eliane@computacao.ufcg.edu.br - https://penseNumaMulherLinda - Doutorado - DSC - 07/07/2007
         - Uzumaki naruto (estudante) - Interresado nos efeitos da marginalizacao de individuos pelo sociedade e seus empactos sociais. - borutofathers@1997 - https://dattebayo
@@ -28,4 +28,4 @@
             - REALIZADO - ITEM2
             - REALIZADO - ITEM3
             - REALIZADO - ITEM4
-            - PENDENTE - ITEM5"
+            - PENDENTE - ITEM5

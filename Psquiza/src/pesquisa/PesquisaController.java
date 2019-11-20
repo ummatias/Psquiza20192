@@ -594,5 +594,26 @@ public class PesquisaController implements Serializable{
 		}
 		throw new IllegalArgumentException("Pesquisa sem atividades com pendencias.");
 	}
-	public void salva () {}
+	
+	
+
+	public void setAtividadeController(AtividadeController atividadeController) {
+		this.atividadeController = atividadeController;
+	}
+
+	public void setProblemaObjetivoController(ProblemaObjetivoController problemaObjetivoController) {
+		this.problemaObjetivoController = problemaObjetivoController;
+	}
+
+	public void setPesquisadorController(PesquisadorController pesquisadorController) {
+		this.pesquisadorController = pesquisadorController;
+	}
+
+	public void carregar(AtividadeController atividadeController, PesquisadorController pesquisadorController,
+			ProblemaObjetivoController problemaObjetivoController) {
+		this.setAtividadeController(atividadeController);
+		this.setPesquisadorController(pesquisadorController);
+		this.setProblemaObjetivoController(problemaObjetivoController);
+		
+	}
 }

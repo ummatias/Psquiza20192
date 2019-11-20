@@ -1,4 +1,4 @@
-"- Pesquisa: COM3 - Dificuldade de pensar em bons exemplos para os testes do projeto da disciplina LP2 - computacao, bloqueio criativo, insonia
+- Pesquisa: COM3 - Dificuldade de pensar em bons exemplos para os testes do projeto da disciplina LP2 - computacao, bloqueio criativo, insonia
     - Resultados:
         - Monitoramento de chats dos alunos de computacao do primeiro periodo.
             - ITEM1 - 5
@@ -19,4 +19,4 @@
             - ITEM1 - 15
             - ITEM2 - 15
             - ITEM3 - 15
-            - ITEM4 - 15"
+            - ITEM4 - 15

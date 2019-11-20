@@ -428,11 +428,10 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable{
 	 * @throws IOException
 	 */
 	public void gravarResumo() throws IOException {
-		FileWriter resumo = new FileWriter("./" + this.codigo+ ".txt");
+		FileWriter resumo = new FileWriter("./_" + this.codigo+ ".txt");
 		PrintWriter grava = new PrintWriter(resumo);
-		String resumoAtividades = listaAtividades();
 		
-		grava.println("\"" + "- Pesquisa: " + this.toString() );
+		grava.println("- Pesquisa: " + this.toString() );
 		
 		grava.print("    - Pesquisadores:" + System.lineSeparator() + 
 				 listaPesquisadores());
@@ -444,7 +443,7 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable{
 				listaObjetivos());
 
 		grava.print("    - Atividades: " + System.lineSeparator() +
-				resumoAtividades.substring(0, resumoAtividades.length() - 1) + "\"");
+				listaAtividades());
 		
 		resumo.close();
 	}
@@ -457,11 +456,10 @@ public class Pesquisa implements Comparable<Pesquisa>, Serializable{
 	public void	gravarResultados() throws IOException {
 		FileWriter result = new FileWriter("./" + this.codigo+ "-Resultados.txt");
 		PrintWriter grava = new PrintWriter(result);
-		String resultados = listaAtividadeParaResultado();
 		
-		grava.println("\"" + "- Pesquisa: " + this.toString());
+		grava.println("- Pesquisa: " + this.toString());
 		grava.print("    - Resultados:" + System.lineSeparator() +
-				resultados.substring(0, resultados.length() -1) + "\"" );
+				listaAtividadeParaResultado());
 		grava.close();
 	}
 	
