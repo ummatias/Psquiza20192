@@ -12,6 +12,11 @@ import validadores.ValidadorEntradas;
 public class Aluno implements Especialidade, Serializable{
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5510932974610645789L;
+
+	/**
 	 * Semestre de ingresso do aluno
 	 */
 	private int semestre;

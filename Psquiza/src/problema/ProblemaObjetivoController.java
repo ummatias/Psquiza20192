@@ -19,6 +19,11 @@ import validadores.ValidadorEntradas;
 public class ProblemaObjetivoController implements Serializable{
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2313211756888061390L;
+
+	/**
 	 * Mapa que relaciona os problemas cadastrados no sistema aos seus códigos.
 	 */
 	private Map<String, Problema> problemas;
