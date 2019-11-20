@@ -2,8 +2,6 @@ package pesquisador;
 
 /**
  * Interface que generaliza uma especialidade de um pesquisador, pode assumir os tipo de Aluno ou Professor.
- * 
- *
  */
 public interface Especialidade {
 	/**
@@ -14,6 +12,10 @@ public interface Especialidade {
 	 */
 	public void alteraPesquisador(String atributo, String novoValor);
 
+	/**Representação textual do objeto
+	 * @param base
+	 * @return a representação
+	 */
 	public String toString(String base);
 
 }

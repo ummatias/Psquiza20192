@@ -169,17 +169,30 @@ public class ProblemaObjetivoController implements Serializable{
 		return objetivos.get(codigo).toString();
 	}
 	
+	/** Método que retorna determinado problema do sistema
+	 * @param idProblema - id do problema 
+	 * @return o problema
+	 */
 	public Problema getProblema(String idProblema) {
 		ValidadorEntradas.validarString(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
 		
 		return problemas.get(idProblema);
 	}
 	
+	/**Método que retorna determinado objetivo do sistema
+	 * @param idObjetivo - id do objetivo
+	 * @return o objetivo
+	 */
 	public Objetivo getObjetivo(String idObjetivo) {
 		ValidadorEntradas.validarString(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
 		
 		return objetivos.get(idObjetivo);
 	}
+	/**Método que retorna o codigo do problema que contem determinado termo, além
+	 * da frase na qual ele está contido.
+	 * @param termo - termo sendo pesquisado
+	 * @return codigo e descrição
+	 */
 	public String buscaDescricaoProblema(String termo) {
 		List<Problema> listProblema = new ArrayList<>(this.problemas.values());
 		Collections.sort(listProblema);
@@ -197,6 +210,11 @@ public class ProblemaObjetivoController implements Serializable{
 		}
 		return saida;
 	}
+	/**Método que retorna o codigo do objetivo que contem determinado termo, além
+	 * da frase na qual ele está contido.
+	 * @param termo - termo sendo pesquisado
+	 * @return codigo e frase.
+	 */
 	public String buscaDescricaoObjetivo(String termo) {
 		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
 		

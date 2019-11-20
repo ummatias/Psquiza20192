@@ -95,6 +95,9 @@ public class Problema implements Comparable<Problema>, Serializable{
 		return this.codigo + " - " + this.descricao + " - " + this.viabilidade;
 	}
 
+	/** Métod que retorna o código do problema.
+	 * @return o código.
+	 */
 	public String getCodigo() {
 		return this.codigo;
 	}

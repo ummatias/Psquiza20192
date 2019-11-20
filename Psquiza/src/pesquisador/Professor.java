@@ -91,6 +91,8 @@ public class Professor implements Especialidade, Serializable{
 
 	}
 
+	/* Método com a representação textual do objeto professor.
+	 */
 	@Override
 	public String toString(String base) {
 		return base + " - " + this.formacao + " - " + this.unidade + " - " + this.dataContrato;

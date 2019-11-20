@@ -15,7 +15,7 @@ import validadores.ValidadorEntradas;
 public class Pesquisador implements Comparable<Pesquisador> , Serializable{
 
 	/**
-	 * 
+	 * Versão serial padrão de pesquisador
 	 */
 	private static final long serialVersionUID = -9052078534592421023L;
 	/**

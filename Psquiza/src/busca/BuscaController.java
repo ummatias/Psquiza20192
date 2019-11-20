@@ -49,6 +49,10 @@ public class BuscaController {
 		return busca + " | ";
 	}
 
+	/** Método que pesquisa determinado termo dentro de todo o sistema.
+	 * @param termo - termo sendo pesquisado
+	 * @return o resultado com o termo
+	 */
 	public String busca(String termo) {
 		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
 

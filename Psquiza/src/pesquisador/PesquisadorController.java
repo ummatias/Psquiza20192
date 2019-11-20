@@ -144,6 +144,11 @@ public class PesquisadorController implements Serializable{
 		}   return true;
 	}
 
+	/** Método que retorna o email do pesquisador que contem determinado termo, além
+	 * da biografia na qual ele está contido.
+	 * @param termo - termo sendo pesquisado
+	 * @return o email e a biografia
+	 */
 	public String buscaBiografia(String termo) {
 		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
 		

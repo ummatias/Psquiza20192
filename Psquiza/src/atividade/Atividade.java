@@ -22,7 +22,7 @@ import validadores.ValidadorEntradas;
 public class Atividade implements Comparable<Atividade>, Serializable {
 
 	/**
-	 * 
+	 * Versão serial padrão da Atividade
 	 */
 	private static final long serialVersionUID = 5370296329294947316L;
 
