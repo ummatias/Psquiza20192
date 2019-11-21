@@ -31,7 +31,7 @@ import validadores.ValidadorEntradas;
  */
 public class PesquisaController implements Serializable{
 	/**
-	 * 
+	 * numero que identifica que versao da classe foi usada na serializacao
 	 */
 	private static final long serialVersionUID = -2941401871358861225L;
 	/**

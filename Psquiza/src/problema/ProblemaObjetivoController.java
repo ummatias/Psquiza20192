@@ -19,7 +19,7 @@ import validadores.ValidadorEntradas;
 public class ProblemaObjetivoController implements Serializable{
 
 	/**
-	 * 
+	 * numero que identifica que versao da classe foi usada na serializacao
 	 */
 	private static final long serialVersionUID = -2313211756888061390L;
 
@@ -173,18 +173,31 @@ public class ProblemaObjetivoController implements Serializable{
 		
 		return objetivos.get(codigo).toString();
 	}
-	
+/**
+ * retorna o problema atraves do seu id
+ * @param idProblema o id do problema procurado
+ * @return retorna o problema procurado
+ */
 	public Problema getProblema(String idProblema) {
 		ValidadorEntradas.validarString(idProblema, "Campo idProblema nao pode ser nulo ou vazio.");
 		
 		return problemas.get(idProblema);
 	}
-	
+/**
+ * Retorna um objetivo atraves do seu id
+ * @param idObjetivo o id do objetivo buscado
+ * @return Retorna o objetivo buscado
+ */
 	public Objetivo getObjetivo(String idObjetivo) {
 		ValidadorEntradas.validarString(idObjetivo, "Campo idObjetivo nao pode ser nulo ou vazio.");
 		
 		return objetivos.get(idObjetivo);
 	}
+/**
+ * Busca problemas que contenham em sua descricao o termo procurado
+ * @param termo O termo procurado
+ * @return Retorna os problemas que possuem o termo
+ */
 	public String buscaDescricaoProblema(String termo) {
 		List<Problema> listProblema = new ArrayList<>(this.problemas.values());
 		Collections.sort(listProblema);
@@ -202,6 +215,11 @@ public class ProblemaObjetivoController implements Serializable{
 		}
 		return saida;
 	}
+/**
+ * Busca objetivos que contenham em sua descricao o termo procurado
+ * @param termo O termo procurado
+ * @return Retorna os objetivos que possuem o termo
+ */
 	public String buscaDescricaoObjetivo(String termo) {
 		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
 		

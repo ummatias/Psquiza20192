@@ -143,7 +143,11 @@ public class PesquisadorController implements Serializable{
 			return false;
 		}   return true;
 	}
-
+/**
+ * busca os pesquisadores que possuem em sua biografia o termo pesquisado
+ * @param termo o termo pesquisado
+ * @return retorna os pesquisadores que possuem o termo
+ */
 	public String buscaBiografia(String termo) {
 		ValidadorEntradas.validarString(termo, "Campo termo nao pode ser nulo ou vazio.");
 		
