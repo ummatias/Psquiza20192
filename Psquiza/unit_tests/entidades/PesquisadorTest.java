@@ -9,11 +9,14 @@ import pesquisador.Pesquisador;
 
 class PesquisadorTest {
 	private Pesquisador pesquisador1;
+	private Pesquisador pesquisadorAllMight;
 	
 	@BeforeEach
 	public void criaPesquisador() {
 		this.pesquisador1 = new Pesquisador("Maria", "estudante", "tem interesse em inteligencia artificial",
 				"maria@gmail.com", "http://www.minhafoto.com");
+		this.pesquisadorAllMight = new Pesquisador("All Might", "professor", "Salva as pessoas com um sorriso",
+				"allmight@hero.com", "http://bokunohero.com/allmight");
 		
 	}
 
@@ -134,6 +137,34 @@ class PesquisadorTest {
 	@Test
 	void testGetStatus() {
 		assertEquals(this.pesquisador1.getStatus(), true);
+	}
+	
+	@Test
+	void testSetEspecialidadeProfessorSucesso() {
+		pesquisadorAllMight.setEspecialidadeProfessor("Phd", "UA", "19/05/2016");
+		assertEquals("All Might (professor) - Salva as pessoas com um sorriso - allmight@hero.com - http://bokunohero.com/allmight - Phd - UA - 19/05/2016", 
+				pesquisadorAllMight.toString());
+	}
+	
+	@Test
+	void testSetEspecialidadeProfessorEmAluno() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisador1.setEspecialidadeProfessor("Doutorado", "UFA", "19/08/2002");
+		});
+	}
+	
+	@Test
+	void testSetEspecialidadeAlunorSucesso() {
+		pesquisador1.setEspecialidadeAluno(6, 9);
+		assertEquals("Maria (estudante) - tem interesse em inteligencia artificial - maria@gmail.com - http://www.minhafoto.com - 6o SEMESTRE - 9.0",
+				pesquisador1.toString());
+	}
+	
+	@Test
+	void testSetEspecialidadeAlunoEmProfessor() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			pesquisadorAllMight.setEspecialidadeAluno(9, 2);
+		});
 	}
 
 
