@@ -16,11 +16,10 @@ import validadores.ValidadorEntradas;
  * @author José Igor de Farias Gomes - 119110692
  *
  */
-public class Objetivo implements Comparable<Objetivo>, Serializable{
-
+public class Objetivo implements Comparable<Objetivo>, Serializable {
 
 	/**
-	 * 
+	 * numero que identifica que versao da classe foi usada na serializacao
 	 */
 	private static final long serialVersionUID = 1894889608615390697L;
 

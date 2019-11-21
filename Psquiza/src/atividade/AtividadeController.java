@@ -21,7 +21,7 @@ import validadores.ValidadorEntradas;
 public class AtividadeController implements Serializable {
 
 	/**
-	 * 
+	 * numero que identifica que versao da classe foi usada na serializacao
 	 */
 	private static final long serialVersionUID = 2898616903542706377L;
 

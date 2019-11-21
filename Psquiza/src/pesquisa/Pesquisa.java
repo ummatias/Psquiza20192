@@ -31,7 +31,7 @@ import validadores.ValidadorEntradas;
  */
 public class Pesquisa implements Comparable<Pesquisa>, Serializable{
 	/**
-	 * 
+	 * numero que identifica que versao da classe foi usada na serializacao
 	 */
 	private static final long serialVersionUID = 8009147095361493964L;
 	/**

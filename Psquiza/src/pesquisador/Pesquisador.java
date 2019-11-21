@@ -15,7 +15,7 @@ import validadores.ValidadorEntradas;
 public class Pesquisador implements Comparable<Pesquisador> , Serializable{
 
 	/**
-	 * 
+	 * numero que identifica que versao da classe foi usada na serializacao
 	 */
 	private static final long serialVersionUID = -9052078534592421023L;
 	/**
@@ -239,12 +239,18 @@ public class Pesquisador implements Comparable<Pesquisador> , Serializable{
 			}
 		}
 	}
-
+/**
+ * compara pesquisadores pelo seu email
+ */
 	@Override
 	public int compareTo(Pesquisador o) {
 		return (this.getEmail().compareTo(o.getEmail())) * -1;
 	}
-
+/**
+ * busca na descricao do pesuisador o termo pesquisado
+ * @param termo o termo pesquisado
+ * @return retorna o email do pesquisador e sua biografia caso ele contenha o termo
+ */
 	public String buscaTermo(String termo) {
 		String saida = "";
 

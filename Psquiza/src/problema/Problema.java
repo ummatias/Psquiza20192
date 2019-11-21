@@ -12,12 +12,10 @@ import validadores.ValidadorEntradas;
  * @author José Igor de Farias Gomes - 119110692
  *
  */
-public class Problema implements Comparable<Problema>, Serializable{
-
-	
+public class Problema implements Comparable<Problema>, Serializable {
 
 	/**
-	 * 
+	 * numero que identifica que versao da classe foi usada na serializacao
 	 */
 	private static final long serialVersionUID = -3064327509993945570L;
 

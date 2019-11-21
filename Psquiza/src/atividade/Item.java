@@ -15,7 +15,7 @@ public class Item implements Serializable{
 
 
 	/**
-	 * 
+	 * numero que identifica que versao da classe foi usada na serializacao
 	 */
 	private static final long serialVersionUID = 3482417186357857257L;
 

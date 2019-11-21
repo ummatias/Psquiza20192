@@ -16,6 +16,7 @@ class AtividadeControllerTest {
 		this.atividadeController = new AtividadeController();
 		atividadeController.cadastraAtividade("Coletar dados de análises fisico quimicas com polpas de fruta de manga",
 				"MEDIO", "O manuseio incorreto de ferramentas de laboratório pode causar riscos.");
+
 	}
 
 	@Test
@@ -212,34 +213,195 @@ class AtividadeControllerTest {
 
 	// cdu 7 - executa atividade
 
-
-
 	@Test
 	void testExecutaAtividadeCodigoVazioNulo() {
 
 		assertThrows(IllegalArgumentException.class, () -> {
 			atividadeController.executaAtividade("", 1, 100);
 		});
-		
+
 		assertThrows(NullPointerException.class, () -> {
 			atividadeController.executaAtividade(null, 1, 100);
 		});
-		
+
+	}
+
+	// testes cdu 9
+
+	@Test
+	void testDefineProximaAtividadeNula() {
+		assertThrows(NullPointerException.class, () -> {
+			atividadeController.defineProximaAtividade(null, "A1");
+			;
+		});
+
 	}
 
 	@Test
-	void testExecutaAtividadeNaoAssociada() {
-
-		
+	void testDefineProximaAtividadeSegundaAtividadeNula() {
+		assertThrows(NullPointerException.class, () -> {
+			atividadeController.defineProximaAtividade("A1", null);
+			;
+		});
 	}
 
 	@Test
-	void testExecutaAtividadeItemJaExecutado() {
+	void testDefineProximaAtividadeVazia() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			atividadeController.defineProximaAtividade("", "A1");
+			;
+		});
+	}
+
+	@Test
+	void testDefineProximaAtividadeSegundaAtividadeVazia() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			atividadeController.defineProximaAtividade("A1", "");
+			;
+		});
+	}
+
+	@Test
+	void testDefineProximaAtividadeNaoEncontrada() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			atividadeController.defineProximaAtividade("A2", "A1");
+			;
+		});
+	}
+
+	@Test
+	void testDefineProximaAtividadeSegundoSubsequente() {
+		this.atividadeController.cadastraAtividade("aplicacao de provas", "ALTO", "provas sao arriscadas");
+		this.atividadeController.cadastraAtividade("fazer eleicoes", "ALTO", "grande bipolarizacao");
+		this.atividadeController.cadastraAtividade("fazer questionario", "BAIXO", "nao ha risco");
+		this.atividadeController.defineProximaAtividade("A2", "A1");
+		assertThrows(IllegalArgumentException.class, () -> {
+			atividadeController.defineProximaAtividade("A2", "A3");
+			;
+		});
 
 	}
 
 	@Test
-	void testExecutaAtividadeItemInexistente() {
+	void testContaProximosComSucesso() {
+		this.atividadeController.cadastraAtividade("aplicacao de provas", "ALTO", "provas sao arriscadas");
+		this.atividadeController.cadastraAtividade("fazer eleicoes", "ALTO", "grande bipolarizacao");
+		this.atividadeController.defineProximaAtividade("A2", "A1");
+		assertEquals(1, this.atividadeController.contaProximos("A2"));
+	}
+
+	@Test
+	void testContaProximosNUlo() {
+		assertThrows(NullPointerException.class, () -> {
+			atividadeController.contaProximos(null);
+		});
+	}
+
+	@Test
+	void testContaProximosVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			atividadeController.contaProximos("");
+		});
+	}
+
+	@Test
+	void testContaProximosAtividadeNaoEncontrada() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			atividadeController.contaProximos("A5");
+		});
+	}
+
+	@Test
+	void testRetiraProximoComSucesso() {
+		this.atividadeController.cadastraAtividade("aplicacao de provas", "ALTO", "provas sao arriscadas");
+		this.atividadeController.cadastraAtividade("fazer eleicoes", "ALTO", "grande bipolarizacao");
+		this.atividadeController.defineProximaAtividade("A2", "A1");
+		this.atividadeController.tiraProximaAtividade("A2");
+		assertEquals(0, this.atividadeController.contaProximos("A2"));
+	}
+
+	@Test
+	void testRetiraProximoNulo() {
+		assertThrows(NullPointerException.class, () -> {
+			atividadeController.tiraProximaAtividade(null);
+		});
+	}
+
+	@Test
+	void testRetiraProximoVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			atividadeController.tiraProximaAtividade("");
+		});
+	}
+
+	@Test
+	void testPegaProximoVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			atividadeController.pegaProximo("", 1);
+		});
+	}
+
+	@Test
+	void testPegaProximoNulo() {
+		assertThrows(NullPointerException.class, () -> {
+			atividadeController.pegaProximo(null, 1);
+		});
+	}
+
+	@Test
+	void testPegaProximoZero() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			atividadeController.pegaProximo("A2", 0);
+		});
+	}
+
+	@Test
+	void testPegaProxioNegativo() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			atividadeController.pegaProximo("A2", -1);
+		});
+	}
+
+	@Test
+	void testPegaMaiorRiscoNulo() {
+		assertThrows(NullPointerException.class, () -> {
+			atividadeController.pegaMaiorRiscoAtividades(null);
+		});
+	}
+
+	@Test
+	void testPegaMaiorRiscoVazio() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			atividadeController.pegaMaiorRiscoAtividades("");
+		});
+	}
+
+	@Test
+	void testPegaMaiorRiscoAtividadeInexistente() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			atividadeController.pegaMaiorRiscoAtividades("A3");
+		});
+	}
+
+	@Test
+	void testPegaMaiorRiscoComSucesso() {
+		this.atividadeController.cadastraAtividade("aplicacao de provas", "ALTO", "provas sao arriscadas");
+		this.atividadeController.cadastraAtividade("fazer eleicoes", "BAIXO", "grande bipolarizacao");
+		this.atividadeController.cadastraAtividade("vender comida", "BAIXO", "nao ha risoc");
+		this.atividadeController.defineProximaAtividade("A2", "A1");
+		this.atividadeController.defineProximaAtividade("A1", "A3");
+		assertEquals("A1", this.atividadeController.pegaMaiorRiscoAtividades("A2"));
+	}
+
+	@Test
+	void testPegaMaiorRiscoSemProximaAtividade() {
+		this.atividadeController.cadastraAtividade("aplicacao de provas", "ALTO", "provas sao arriscadas");
+		this.atividadeController.cadastraAtividade("fazer eleicoes", "BAIXO", "grande bipolarizacao");
+		this.atividadeController.defineProximaAtividade("A2", "A1");
+		assertThrows(IllegalArgumentException.class, () -> {
+			atividadeController.pegaMaiorRiscoAtividades("A1");
+		});
 
 	}
+
 }
